@@ -1,0 +1,58 @@
+<div class="armour-grid">
+  <div class="stat-name grid-item bold centre" title="{{localize 'PEN.equipped'}}">{{localize 'PEN.eqpd'}}</div>
+  <div class="stat-name grid-item bold">{{localize 'PEN.armour'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.ap'}}</div>
+  <div class="stat-name grid-item bold centre"title="{{localize 'PEN.missPenal'}}">{{localize 'PEN.pen'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.disadvantage'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.notes'}}</div>
+  <div class="grid-item"></div> 
+
+  {{#each armours as |armour key|}}
+    <div class="grid-item centre middle"><a class="item-control item-toggle large-icon" data-itemid ="{{armour._id}}" data-property="equipped" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if armour.system.equipped}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+    <div class="stat-name grid-item">{{armour.name}}</div>
+    {{#if armour.system.type}}
+      <div class="stat-name centre grid-item">{{armour.system.ap}}</div>
+    {{else}}
+     <div class="stat-name-input grid-item centre middle item" data-field="armour" data-itemid ="{{armour._id}}"><input class="inline-edit" name="item.system.armour.{{key}}.ap" type="text" value="{{armour.system.ap}}" data-dtype="Number"/></div>
+    {{/if}}
+    <div class="stat-name centre grid-item">{{armour.system.missPenalty}}</div>
+    {{#if (eq armour.system.disadvantage '')}}
+      <div class="grid-item"></div>
+    {{else}}
+      <div class="stat-name centre grid-item">{{localize 'PEN.view'}}</div>
+    {{/if}}
+    
+    {{#if (eq armour.system.notes '')}}
+      <div class="grid-item"></div>
+    {{else}}
+      <div class="stat-name centre grid-item">{{localize 'PEN.view'}}</div>
+    {{/if}}
+      {{#if ../system.lock}}
+      <div class="centre item grid-item" data-itemid ="{{armour._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
+    {{else}}
+      <div class="centre item grid-item" data-itemid ="{{armour._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
+    {{/if}}
+  {{/each}}
+</div>
+
+<br>
+
+<div class="gear-grid">
+  <div class="stat-name grid-item bold">{{localize 'PEN.name'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.quantityShort'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.description'}}</div>
+  <div class="stat-name bold grid-item centre item-create" data-type="gear">  
+    <a class="large-icon" title="{{localize 'PEN.addEquip'}}"><i class="item-control fas fa-plus"></i></a>
+  </div> 
+
+  {{#each gears as |gear key|}}
+    <div class="stat-name grid-item">{{gear.name}}</div>
+    <div class="stat-name centre grid-item">{{gear.system.quantity}}</div>
+    <div class="stat-name centre grid-item curtail2">{{gear.system.cleanDesc}}</div>
+    {{#if ../system.lock}}
+      <div class="centre item grid-item" data-itemid ="{{gear._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
+    {{else}}
+      <div class="centre item grid-item" data-itemid ="{{gear._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
+    {{/if}}
+  {{/each}}
+</div>

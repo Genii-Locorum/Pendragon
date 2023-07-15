@@ -1,0 +1,27 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="charname">{{localize 'PEN.history'}}</div>
+    </div>
+  </header>
+
+  <section >
+    <div class = "history-item-grid">  
+      <div class="stat-name left bold">{{localize 'PEN.description'}}</div>
+      <div class="history-doc"><input class="darkred" name="system.description" type="text" value="{{item.system.description}}"></div>
+    </div>  
+    <br>
+
+    <div class = "history-small-grid">
+      <div class="stat-name left bold">{{localize 'PEN.year'}}</div>
+      <div class="stat-name-input centre"><input name="system.year" type="text" value="{{item.system.year}}" data-dtype="Number"/></div>
+      <br>
+      <div></div>
+
+      <div class="stat-name left bold">{{localize 'PEN.glory'}}</div>
+      <div class="stat-name-input centre"><input name="system.glory" type="text" value="{{item.system.glory}}" data-dtype="Number"/></div>
+    </div>
+
+  </section>
+</form>

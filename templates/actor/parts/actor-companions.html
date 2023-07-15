@@ -1,0 +1,71 @@
+<div class="stat-name bold">{{localize 'PEN.squires'}}</div>
+<div class="squire-grid">
+  <div class="stat-name grid-item bold ">{{localize 'PEN.name'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.age'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.skill'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.glory'}}</div>
+  <div class="stat-name bold grid-item centre item-create" data-type="squire">  
+    <a class="large-icon" title="{{localize 'PEN.addSquire'}}"><i class="item-control fas fa-plus"></i></a>
+  </div> 
+
+  {{#each squires as |squire key|}}
+    <div class="stat-name grid-item">{{squire.name}}</div>
+    <div class="stat-name grid-item centre">{{squire.system.age}}</div>
+    <div class="stat-name grid-item centre">{{squire.system.skill}}</div>
+    <div class="stat-name grid-item centre">{{squire.system.glory}}</div>
+    {{#if ../system.lock}}
+      <div class="centre grid-item item" data-itemid ="{{squire._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
+    {{else}}
+      <div class="centre grid-item item" data-itemid ="{{squire._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
+    {{/if}}
+  {{/each}}
+</div>
+
+
+
+<br>
+<div class="stat-name bold">{{localize 'PEN.horses'}}</div>
+<div class="companion-grid">
+  <div class="stat-name grid-item bold">{{localize 'PEN.type'}}</div>
+  <div class="stat-name grid-item centre bold">{{localize 'PEN.ap'}}</div>
+  <div class="stat-name grid-item centre bold">{{localize 'PEN.mov'}}</div>
+  <div class="stat-name grid-item centre bold">{{localize 'PEN.dmg'}}</div>
+  <div class="stat-name grid-item centre bold">{{localize 'PEN.hpShort'}}</div>
+  <div class="stat-name grid-item centre bold">{{localize 'PEN.maxHP'}}</div>
+  <div class="stat-name grid-item centre bold">{{localize 'PENDRAGON.StatSizAbbr'}}</div>
+  <div class="stat-name grid-item centre bold">{{localize 'PENDRAGON.StatDexAbbr'}}</div>
+  <div class="stat-name grid-item centre bold">{{localize 'PENDRAGON.StatStrAbbr'}}</div>
+  <div class="stat-name grid-item centre bold">{{localize 'PENDRAGON.StatConAbbr'}}</div>
+  <div class="stat-name bold grid-item centre"></div> 
+
+  {{#each horses as |horse key|}}
+    <div class="stat-name grid-item">{{horse.name}}</div>
+    <div class="stat-name grid-item centre">{{horse.system.armour}}</div>
+    <div class="stat-name grid-item centre">{{horse.system.move}}</div>
+    <div class="stat-name grid-item centre">{{horse.system.damage}}</div>
+    <div class="dam-name-input item grid-item centre dam-value" data-field="horse" data-itemid ="{{horse._id}}"><input class="inline-edit" name="item.system.horse.{{key}}.hp" type="text" value="{{horse.system.hp}}" data-dtype="Number"/></div>
+    <div class="stat-name grid-item centre">{{horse.system.maxHP}}</div>
+    <div class="stat-name grid-item centre dam-value">{{horse.system.siz}}</div>
+    <div class="stat-name grid-item centre dam-value">{{horse.system.dex}}</div>
+    <div class="stat-name grid-item centre dam-value">{{horse.system.str}}</div>
+    <div class="stat-name grid-item centre dam-value">{{horse.system.con}}</div>
+    {{#if ../system.lock}}
+      <div class="centre grid-item item" data-itemid ="{{horse._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
+    {{else}}
+      <div class="centre grid-item item" data-itemid ="{{horse._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
+    {{/if}}
+
+  {{/each}}
+</div>     
+<br>
+<div class="stat-name bold">{{localize 'PEN.equestrian'}}</div>
+<div class="equestrian-input"><input name="system.equestrian" type="text" value="{{actor.system.equestrian}}"/></div>
+
+<br>
+<div class="stat-name bold">{{localize 'PEN.joust'}}</div>
+<div class="joust-grid">
+<div class="stat-name">{{localize 'PEN.wins'}}</div>  
+<div class="dam-name-input"><input name="system.joust.wins" type="text" value="{{actor.system.joust.wins}}" data-dtype="Number"/></div>
+<div class="stat-name">{{localize 'PEN.losses'}}</div>  
+<div class="dam-name-input"><input name="system.joust.losses" type="text" value="{{actor.system.joust.losses}}" data-dtype="Number"/></div>
+</div>

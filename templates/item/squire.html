@@ -1,0 +1,20 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="charname-input"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></div>
+    </div>
+  </header>
+
+  <section class="item-bottom-panel">
+    <div class="item-trait-grid">
+      <div class="stat-name left bold">{{localize 'PEN.age'}}</div>
+      <div class="stat-name-input centre"><input name="system.age" type="text" value="{{item.system.age}}" placeholder=10 data-dype="Number"/></div>
+      <div class="stat-name left bold">{{localize 'PEN.skill'}}</div>
+      <div class="stat-name-input centre"><input name="system.skill" type="text" value="{{item.system.skill}}" placeholder=10 data-dype="Number"/></div>
+      <div class="stat-name left bold">{{localize 'PEN.glory'}}</div>
+      <div class="stat-name-input centre"><input name="system.glory" type="text" value="{{item.system.glory}}" placeholder=10 data-dype="Number"/></div>
+    </div>  
+    <br>
+  </section>
+</form>

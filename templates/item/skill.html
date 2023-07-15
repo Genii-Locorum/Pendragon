@@ -1,0 +1,63 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="charname-input"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></div>
+    </div>
+    <img class="profile-img" src="{{item.img}}" data-edit="img" height="100" width="100"title="{{item.name}}"/>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item tab-name" data-tab="attributes">{{localize 'PEN.attributes'}}</a>
+    <a class="item tab-name" data-tab="description">{{localize 'PEN.description'}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="item-bottom-panel">
+    <section class="sheet-body">
+
+      {{!-- Description Tab --}}
+      <div class="tab" data-group="primary" data-tab="description">
+        {{editor item.system.description class="background-doc" target="system.description" button=true owner=owner editable=editable}}
+      </div>
+
+      {{!-- Attributes Tab --}}
+      <div class="tab attributes" data-group="primary" data-tab="attributes">
+        <div class="item-trait-grid">
+          <div class="stat-name left bold">{{localize 'PEN.combatSkill'}}</div>
+          <div class="centre"><a class="item-control {{#if isGM}}item-toggle{{/if}} large-icon" data-property = "combat" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.combat}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+
+          {{#if item.system.combat}}
+            <br>
+            <div></div>
+            <div class="stat-name left bold">{{localize 'PEN.weaponType'}}</div>          
+            {{#if isGM}}
+              <div class="stat-name right">
+              <select data-handle-change name="system.weaponType">
+                {{selectOptions weaponType selected=item.system.weaponType}}
+              </select>
+              </div>
+            {{else}}
+              <div class="stat-name centre">{{weapon}}</div>
+            {{/if}}
+          {{/if}}
+
+          <br>
+          <div></div>
+
+          <div class="stat-name left bold">{{localize 'PEN.skillValue'}}</div>
+          <div class="stat-name-input  {{#if (eq item.system.value '')}} input-border {{/if}} centre"><input name="system.value" type="text" value="{{item.system.value}}" data-dype="Number"/></div>
+
+
+          <br>
+          <div></div>
+
+          <div class="stat-name left bold">{{localize 'PEN.xpCheck'}}</div>
+          <div class="centre"><a class="item-control item-toggle large-icon" data-property = "XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+        </div>  
+    
+      </div>
+    </section>
+  </section>
+</form>

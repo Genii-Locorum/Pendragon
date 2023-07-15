@@ -1,0 +1,24 @@
+<ol class="items-list">
+  <div class = "trait-grid">
+    {{#each traits as |trait key|}}
+      {{#if ../system.lock}}
+        <div class="stat-name centre">{{trait.system.value}}</div>
+      {{else}}
+      <div class="stat-name-input trait-input centre item" data-field="trait" data-itemid ="{{trait._id}}"><input class="inline-edit" name="item.system.traits.{{key}}.value" type="text" value="{{trait.system.value}}" data-dtype="Number"/></div>
+      {{/if}}
+      <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{trait._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if trait.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+      <div class="stat-name right">{{trait.name}}</div>
+      <div class="stat-name centre">|</div>
+      <div class="stat-name">{{trait.system.oppName}}</div>
+      <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{trait._id}}" data-property="oppXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if trait.system.oppXP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+      <div class="stat-name centre">{{trait.system.oppvalue}}</div>
+
+      {{#if ../system.lock}}
+        <div class="centre item" data-itemid ="{{trait._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
+      {{else}}
+        <div class="centre item" data-itemid ="{{trait._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
+      {{/if}}
+
+    {{/each}}
+  </div>
+</ol>

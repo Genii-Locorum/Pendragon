@@ -1,0 +1,41 @@
+<section>
+  <div class="biog-grid">
+    <div class="stat-name bold">{{localize 'PEN.age'}}</div>
+    <div class="stat-name-input {{#if (eq system.age '')}} input-border {{/if}}"><input name="system.age" type="text" value="{{system.age}}" data-dtype="Number"/></div>
+    <div></div>
+    <div class="stat-name bold">{{localize 'PEN.culture'}}</div>
+    <div class="stat-name-input {{#if (eq system.culture '')}} input-border {{/if}}"><input name="system.culture" type="text" value="{{system.culture}}"/></div>
+    <div class="stat-name bold">{{localize 'PEN.religion'}}</div>
+    <div class="stat-name-input {{#if (eq system.religion '')}} input-border {{/if}}"><input name="system.religion" type="text" value="{{system.religion}}"/></div>
+    <div></div>
+    <div class="stat-name bold">{{localize 'PEN.homeland'}}</div>
+    <div class="stat-name-input {{#if (eq system.homeland '')}} input-border {{/if}}"><input name="system.homeland" type="text" value="{{system.homeland}}"/></div>
+    <div class="stat-name bold">{{localize 'PEN.family'}}</div>
+    <div class="stat-name-input {{#if (eq system.family '')}} input-border {{/if}}"><input name="system.family" type="text" value="{{system.family}}"/></div>
+    <div></div>
+    <div class="stat-name bold">{{localize 'PEN.lord'}}</div>
+    <div class="stat-name-input {{#if (eq system.lord '')}} input-border {{/if}}"><input name="system.lord" type="text" value="{{system.lord}}"/></div>
+    <div class="stat-name bold">{{localize 'PEN.class'}}</div>
+    <div class="stat-name-input {{#if (eq system.class '')}} input-border {{/if}}"><input name="system.class" type="text" value="{{system.class}}"/></div>
+    <div></div>
+   </div>
+  <div class="biog-herald">
+    <div class="stat-name bold">{{localize 'PEN.motto'}}</div>
+    <div class="stat-name-input {{#if (eq system.motto '')}} input-border {{/if}}"><input name="system.motto" type="text" value="{{system.motto}}"/></div>
+    <div class="stat-name bold">{{localize 'PEN.heraldry'}}</div> 
+    <div class="stat-name-input {{#if (eq system.heraldry '')}} input-border {{/if}}"><input name="system.heraldry" type="text" value="{{system.heraldry}}"/></div>
+  </div>
+    <br>
+
+  <div class="stat-name bold">{{localize 'PEN.history'}}:</div>
+  <div>
+    {{editor actor.system.background class="Pendragon background-doc" target="system.background" button=true owner=owner editable=editable}}
+  </div>
+  <br>
+
+  <div class="stat-name bold">{{localize 'PEN.distFeat'}}:</div>
+  <div>
+    {{editor actor.system.features class="Pendragon background-doc features-doc" target="system.features" button=true owner=owner editable=editable}}
+  </div>
+
+</section>

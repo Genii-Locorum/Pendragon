@@ -1,0 +1,35 @@
+<div class="history-grid">  
+  <div class="stat-name bold grid-item">{{ localize "PEN.event" }}</div>
+  <div class="stat-name bold grid-item centre">{{ localize "PEN.year" }}</div>
+  <div class="stat-name bold grid-item centre">{{ localize "PEN.glory" }}</div>
+  <div class="stat-name bold grid-item centre item-create" data-type="history">  
+    <a class="large-icon" title="{{localize 'PEN.addHistory'}}"><i class="item-control fas fa-plus"></i></a>
+  </div> 
+
+  {{#each history as |historical key|}}
+    <div class="grid-item stat-name">{{historical.system.description}}</div>
+    <div class="grid-item stat-name centre">{{historical.system.year}}</div>
+    <div class="grid-item stat-name centre">{{historical.system.glory}}</div>
+    {{#if ../system.lock}}
+      <div class="item grid-item centre middle" data-itemid ="{{historical._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
+    {{else}}
+      <div class="item grid-item centre middle item-delete" data-field ="history" data-itemid="{{historical._id}}"><a class="fade" title="{{localize 'PEN.delete'}}"><i class="item-control fas fa-broom"></i></a></div>
+    {{/if}}
+  {{/each}}
+</div>
+
+<br>
+<div class="passive-grid">
+  <div class="stat-name bold grid-item ">{{ localize "PEN.passive" }}</div>
+  <div class="grid-item"></div>
+  <div class="stat-name grid-item bold">{{localize 'PEN.ideals'}}</div>
+  <div class="stat-name-input event-input grid-item centre"><input name="system.passglory.ideals" type="text" value="{{system.passglory.ideals}}" data-dtype="Number"/></div>   
+  <div class="stat-name grid-item bold">{{localize 'PEN.appeal'}}</div>
+  <div class="stat-name grid-item centre">{{system.appeal}}</div>   
+  <div class="stat-name grid-item bold">{{localize 'PEN.tap'}}</div>
+  <div class="stat-name grid-item centre">{{system.tap}}</div>   
+  <div class="stat-name grid-item bold">{{localize 'PEN.estate'}}</div>
+  <div class="stat-name-input event-input grid-item centre"><input name="system.passglory.estate" type="text" value="{{system.passglory.estate}}" data-dtype="Number"/></div>   
+  <div class="stat-name grid-item bold">{{localize 'PEN.totalG'}}</div>
+  <div class="stat-name grid-item bold centre">{{system.passive}}</div>   
+</div>

@@ -1,0 +1,167 @@
+{
+  "Actor": {
+    "types": ["character", "npc"],
+    "templates": {
+      "base": {
+        "hp": {
+          "value": 10,
+          "min": 0,
+          "max": 10
+        },
+        "stats": {
+          "siz": {
+            "value": 10
+          },
+          "dex": {
+            "value": 10
+          },
+          "str": {
+            "value": 10
+          },
+          "con": {
+            "value": 10
+          },
+          "app": {
+            "value": 10
+          }
+        }
+      }
+    },
+    "character": {
+      "templates": ["base"],
+    "aggravDam": 0,
+    "deterDam": 0,
+    "lord": "",
+    "class": "",
+    "age": 21,
+    "culture": "",
+    "religion": "",
+    "homeland": "",
+    "family": "",
+    "features": "",
+    "background": "",
+    "equestrian": "",
+    "heraldry": "",
+    "motto": "",
+    "lock": false,
+    "money": {
+      "libra": 0,
+      "denarii": 0
+    },
+    "joust": {
+      "wins": 0,
+      "losses": 0
+    },
+    "passglory": {
+      "estate": 0,
+      "ideals": 0
+    },
+    "status": {
+      "debilitated": false,
+      "unconscious": false,
+      "nearDeath": false,
+      "madness": false,
+      "melancholy": false,
+      "misery": false
+    }
+  },
+  "npc": {
+    "templates": ["base"],
+    "gloryAward": 0,
+    "woundTotal": 0,
+    "lock": false,
+    "notes": ""
+  }
+  },
+  "Item": {
+    "types": ["gear", "skill", "trait", "wound", "history", "passion","horse","squire","armour", "weapon"],
+    "templates": {
+      "base": {
+        "libra": 0,
+        "denarii": 0,
+        "description": ""
+      }
+    },
+    "gear": {
+      "templates": ["base"],
+      "quantity": 1
+    },
+    "skill": {
+      "templates": ["base"],
+      "combat": false,
+      "weaponType": "",
+      "value": 0,
+      "XP": false
+    },
+    "trait": {
+      "templates": ["base"],
+      "oppName": "",
+      "value": 10,
+      "oppvalue": 10,
+      "XP": false,
+      "oppXP": false
+    },
+    "wound": {
+      "value": 0,
+      "treated": false,
+      "created": false
+    },
+    "history": {
+      "templates": ["base"],
+      "year": 0,
+      "glory": "0"
+    },
+    "passion": {
+      "templates": ["base"],
+      "value": 0,
+      "XP": false
+    },
+    "horse": {
+      "templates": ["base"],
+      "armour": 0,
+      "move": 0,
+      "damage": "",
+      "hp": 0,
+      "maxHP": 0,
+      "siz": 0,
+      "dex": 0,
+      "str": 0,
+      "con": 0
+    },
+    "squire": {
+      "templates": ["base"],
+      "age": 0,
+      "skill": 0,  
+      "glory": 0
+    },
+    "armour": {
+      "templates": ["base"],
+      "ap": 0,
+      "equipped": true,
+      "type": true,
+      "material": "",
+      "padding": "",
+      "disadvantage": "",
+      "missPenalty": 0,
+      "notes": ""
+    },
+    "weapon": {
+      "templates": ["base"],
+      "mounted": "both",
+      "quamtity": 1,
+      "melee": true,
+      "skill": "",
+      "value": 0,
+      "damageRoll": "",
+      "damageChar": "c",
+      "damageMax": 99,
+      "damageMod": 0,
+      "damageBonus": 0,
+      "dmgForm": "",
+      "advantage": "",
+      "disadvantage": "",
+      "range": "",
+      "rate": 1
+    }
+  }
+}

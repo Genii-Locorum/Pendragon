@@ -1,0 +1,233 @@
+<form class="{{cssClass}} character" autocomplete="off">
+
+  <section class="main-sheet">
+
+    <section class="npc-title-section">
+      {{!-- Characteristics Header --}}
+      <section class="sheet-header">
+          <div class="npcname-input"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></div>
+        
+        <div class="npc-grid">
+          {{#each system.stats as |stat key|}}
+            <div class="npc-name centre bold">{{stat.labelShort}}</div>
+          {{/each}}             
+            
+          {{#each system.stats as |stat key|}}
+            {{#if ../system.lock}}
+              <div class="npc-name centre">{{stat.value}}</div>
+            {{else}}
+              <div class="npc-name-input centre"><input name="system.stats.{{key}}.value" type="text" value="{{stat.value}}" placeholder=10 data-dtype="Number"/></div>
+            {{/if}}
+          {{/each}}
+        </div>
+      </section>
+
+      <section class="bottom sheet-header">      
+        <div class="centre"><a class="actor-toggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i class="{{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i></a></div>
+      </section>
+
+
+      {{!-- Image Section --}}
+      <section class="sheet-header">
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="70" width="70"/>
+      </section>  
+    </section>
+
+    {{!--Derived Stats Block --}}
+    <section class="npc-stats-grid">
+      <div class="npc-name left bold">{{localize 'PEN.hp'}}</div>
+      <div class="npc-name centre">{{system.hp.value}}</div>
+      <div></div>
+      <div class="npc-name left bold">{{localize 'PEN.move'}}</div>
+      <div class="npc-name centre">{{system.move}}</div>
+
+      <div class="npc-name left bold">{{localize 'PEN.knockdown'}}</div>
+      <div class="npc-name centre">{{system.hp.knockdown}}</div>
+      <div></div>
+      <div class="npc-name left bold">{{localize 'PEN.armour'}}</div>
+      <div class="npc-name centre" title = "{{localize 'PEN.armourShield'}}">{{system.armour}} / {{system.shield}}</div>
+      
+      <div class="npc-name left bold">{{localize 'PEN.mjrWnd'}}</div>
+      <div class="npc-name centre">{{system.hp.majorWnd}}</div>
+      <div></div>
+      <div class="npc-name left bold">{{localize 'PEN.gloryAward'}}</div>
+      <div class="npc-name-input centre"><input name="system.gloryAward" type="text" value="{{system.gloryAward}}" data-dype="Number"/></div>
+
+      <div class="npc-name left bold">{{localize 'PEN.unconscious'}}</div>
+      <div class="npc-name centre">{{system.hp.unconscious}}</div>
+      <div></div>
+      <div class="npc-name left bold">{{localize 'PEN.healRate'}}</div>
+      <div class="npc-name centre">{{system.healRate}}</div>
+
+      <div class="npc-name left bold">{{localize 'PEN.damage'}}</div>
+      <div class="npc-name centre">{{system.damage}}</div>
+      <div></div>
+      <div class="npc-name left bold">{{localize 'PEN.wounds'}}</div>
+      <div class="npc-name-input centre"><input name="system.woundTotal" type="text" value="{{system.woundTotal}}" data-dype="Number"/></div>
+    </section>
+    {{!--Weapons Block --}}
+    <section class="npc-weapons-grid">
+      <div class="npc-name bold grey">{{ localize "PEN.weapon" }}</div>  
+      <div class="npc-name bold centre grey">{{ localize "PEN.value" }}</div>    
+      <div class="npc-name bold centre grey">{{ localize "PEN.damage" }}</div>
+      {{#unless system.lock}}     
+        <div class="npc-name bold centre grey item-create" data-type="weapon">  
+          <a title="{{localize 'PEN.add'}}"><i class="item-control fas fa-plus"></i></a>
+        </div>
+      {{else}}
+        <div class="grey"></div>      
+      {{/unless}}  
+      
+
+      {{#each weapons as |weapon key|}}
+        {{#if ../system.lock}}
+        <div class="npc-name">{{weapon.name}}</div> 
+        <div class="npc-name centre">{{weapon.system.value}}</div>   
+        <div class="npc-name centre">{{weapon.system.dmgForm}}</div>
+        <div></div>      
+        {{else}}
+          <div class="npc-name-input item" data-field ="name" data-itemid="{{weapon._id}}"><input class="inline-edit" name="item.weapon.{{key}}.name" type="text" value="{{weapon.name}}"/></div>
+          <div class="npc-name-input centre item" data-field ="score" data-itemid="{{weapon._id}}"><input class="inline-edit" name="item.system.weapon.{{key}}.value" type="text" value="{{weapon.system.value}}" data-dtype="Number"/></div>
+          <div class="npc-name-input centre item" data-field ="damage" data-itemid="{{weapon._id}}"><input class="inline-edit" name="item.system.weapon.{{key}}.dmgForm" type="text" value="{{weapon.system.dmgForm}}"/></div>
+          <div class="npc-name centre item" data-itemid ="{{weapon._id}}">
+            <a class="item-control item-edit fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+            <a class="item-control item-delete fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
+          </div>
+        {{/if}}
+      {{/each}}
+    </section>  
+
+    {{!--Armour Block --}}
+    <section class="npc-weapons-grid">
+      <div class="npc-name bold grey">{{ localize "PEN.armour" }}</div>  
+      <div class="npc-name bold centre grey" title="{{localize 'PEN.armourHint'}}">{{ localize "PEN.arm" }}</div>    
+      <div class="npc-name bold centre grey">{{ localize "PEN.ap" }}</div>    
+      {{#unless system.lock}}     
+        <div class="npc-name bold centre grey item-create" data-type="armour">  
+          <a title="{{localize 'PEN.add'}}"><i class="item-control fas fa-plus"></i></a>
+        </div>
+      {{else}}
+        <div class="grey"></div>      
+      {{/unless}}  
+  
+      {{#each armours as |armour key|}}
+        {{#if ../system.lock}}
+        <div class="npc-name">{{armour.name}}</div> 
+        <div class="npc-name centre"><a class="item-control"><i class="{{#if armour.system.type}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+        <div class="npc-name centre">{{armour.system.ap}}</div>   
+        <div></div>      
+        {{else}}
+          <div class="npc-name-input item" data-field ="name" data-itemid="{{armour._id}}"><input class="inline-edit" name="item.armour.{{key}}.name" type="text" value="{{armour.name}}"/></div>
+          <div class="npc-name centre"><a class="item-control item-toggle" data-itemid ="{{armour._id}}" data-property="armour" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if armour.system.type}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+          <div class="npc-name-input centre item" data-field ="ap" data-itemid="{{armour._id}}"><input class="inline-edit" name="item.system.armour.{{key}}.ap" type="text" value="{{armour.system.ap}}" data-dtype="Number"/></div>
+          <div class="npc-name centre item" data-itemid ="{{armour._id}}">
+            <a class="item-control item-edit fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+            <a class="item-control item-delete fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
+          </div>
+        {{/if}}
+      {{/each}}
+    </section>    
+
+    {{!--Skills Block --}}
+    <section class="npc-trait-grid">
+      <div class="npc-name bold grey">{{ localize "PEN.skill" }}</div>  
+      <div class="npc-name bold centre grey">{{ localize "PEN.valueShort" }}</div>    
+      <div class="grey"></div>
+      <div class="npc-name bold grey">{{ localize "PEN.skill" }}</div>  
+      <div class="npc-name bold centre grey">{{ localize "PEN.valueShort" }}</div>    
+      {{#unless system.lock}}     
+        <div class="npc-name bold centre grey item-create" data-type="skill">  
+          <a title="{{localize 'PEN.add'}}"><i class="item-control fas fa-plus"></i></a>
+        </div>
+      {{else}}
+        <div class="grey"></div>      
+      {{/unless}}  
+    
+      {{#each skills as |skill key|}}
+        {{#if ../system.lock}}
+        <div class="npc-name">{{skill.name}}</div> 
+        <div class="npc-name centre">{{skill.system.value}}</div>   
+        <div></div>      
+        {{else}}
+          <div class="npc-name-input item" data-field ="name" data-itemid="{{skill._id}}"><input class="inline-edit" name="item.skill.{{key}}.name" type="text" value="{{skill.name}}"/></div>
+          <div class="npc-name-input centre item" data-field ="value" data-itemid="{{skill._id}}"><input class="inline-edit" name="item.system.skill.{{key}}.value" type="text" value="{{skill.system.value}}" data-dtype="Number"/></div>
+          <div class="npc-name centre item" data-itemid ="{{skill._id}}">
+            <a class="item-control item-edit fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+            <a class="item-control item-delete fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
+          </div>
+        {{/if}}
+      {{/each}}
+    </section>
+
+    {{!--Traits Block --}}
+    <section class="npc-trait-grid">
+      <div class="npc-name bold grey">{{ localize "PEN.trait" }}</div>  
+      <div class="npc-name bold centre grey">{{ localize "PEN.valueShort" }}</div>    
+      <div class="grey"></div>
+      <div class="npc-name bold grey">{{ localize "PEN.trait" }}</div>  
+      <div class="npc-name bold centre grey">{{ localize "PEN.valueShort" }}</div>    
+      {{#unless system.lock}}     
+        <div class="npc-name bold centre grey item-create" data-type="trait">  
+          <a title="{{localize 'PEN.add'}}"><i class="item-control fas fa-plus"></i></a>
+        </div>
+      {{else}}
+        <div class="grey"></div>      
+      {{/unless}}  
+  
+      {{#each traits as |trait key|}}
+        {{#if ../system.lock}}
+        <div class="npc-name">{{trait.name}}</div> 
+        <div class="npc-name centre">{{trait.system.value}}</div>   
+        <div></div>      
+        {{else}}
+          <div class="npc-name-input item" data-field ="name" data-itemid="{{trait._id}}"><input class="inline-edit" name="item.trait.{{key}}.name" type="text" value="{{trait.name}}"/></div>
+          <div class="npc-name-input centre item" data-field ="value" data-itemid="{{trait._id}}"><input class="inline-edit" name="item.system.trait.{{key}}.value" type="text" value="{{trait.system.value}}" data-dtype="Number"/></div>
+          <div class="npc-name centre item" data-itemid ="{{trait._id}}">
+            <a class="item-control item-edit fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+            <a class="item-control item-delete fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
+          </div>
+        {{/if}}
+      {{/each}}
+    </section>
+
+    {{!--Passions Block --}}
+    <section class="npc-trait-grid">
+      <div class="npc-name bold grey">{{ localize "PEN.passion" }}</div>  
+      <div class="npc-name bold centre grey">{{ localize "PEN.valueShort" }}</div>    
+      <div class="grey"></div>
+      <div class="npc-name bold grey">{{ localize "PEN.passion" }}</div>  
+      <div class="npc-name bold centre grey">{{ localize "PEN.valueShort" }}</div>    
+      {{#unless system.lock}}     
+        <div class="npc-name bold centre grey item-create" data-type="passion">  
+          <a title="{{localize 'PEN.add'}}"><i class="item-control fas fa-plus"></i></a>
+        </div>
+      {{else}}
+        <div class="grey"></div>      
+      {{/unless}}  
+   
+      {{#each passions as |passion key|}}
+        {{#if ../system.lock}}
+        <div class="npc-name">{{passion.name}}</div> 
+        <div class="npc-name centre">{{passion.system.value}}</div>   
+        <div></div>      
+        {{else}}
+          <div class="npc-name-input item" data-field ="name" data-itemid="{{passion._id}}"><input class="inline-edit" name="item.passion.{{key}}.name" type="text" value="{{passion.name}}"/></div>
+          <div class="npc-name-input centre item" data-field ="value" data-itemid="{{passion._id}}"><input class="inline-edit" name="item.system.passion.{{key}}.value" type="text" value="{{passion.system.value}}" data-dtype="Number"/></div>
+          <div class="npc-name centre item" data-itemid ="{{passion._id}}">
+            <a class="item-control item-edit fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+            <a class="item-control item-delete fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
+          </div>
+        {{/if}}
+      {{/each}}
+    </section>       
+
+    {{!--Notes Block --}}
+    <section class="npc-notes-grid">
+      <div class="npc-name bold grey">{{ localize "PEN.notes" }}</div>  
+      <div>
+        {{editor actor.system.description class="Pendragon npc-notes-doc" target="system.description" button=true owner=owner editable=editable}}
+      </div>
+    </section>
+  </section>
+</form>
+

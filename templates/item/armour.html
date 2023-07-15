@@ -1,0 +1,101 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="charname-input"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></div>
+    </div>
+    <img class="profile-img" src="{{item.img}}" data-edit="img" height="100" width="100"title="{{item.name}}"/>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item tab-name" data-tab="attributes">{{localize 'PEN.attributes'}}</a>
+    <a class="item tab-name" data-tab="description">{{localize 'PEN.description'}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="item-bottom-panel">
+    <section class="sheet-body">
+
+  {{!-- Description Tab --}}
+  <div class="tab" data-group="primary" data-tab="description">
+    <div class="money-grid">
+      <div class="stat-name left bold">{{localize 'PEN.price'}}</div>
+      <div class="stat-name-input {{#if (eq item.system.libra '')}} input-border {{/if}} left"><input name="system.libra" type="text" value="{{item.system.libra}}" data-dype="Number"/></div>
+      <div class="stat-name left bold">/</div>
+      <div class="stat-name-input {{#if (eq item.system.denarii '')}} input-border {{/if}} left"><input name="system.denarii" type="text" value="{{item.system.denarii}}" data-dype="Number"/></div>
+    </div>
+  
+    <div class="stat-name bold">{{localize 'PEN.description'}}:</div>
+    <div>
+      {{editor item.system.description class="background-doc" target="system.description" button=true owner=owner editable=editable}}
+    </div>
+  </div> 
+
+  {{!-- Attributes Tab --}}
+  <div class="tab attributes" data-group="primary" data-tab="attributes">
+    <div class="item-armour-grid">
+      {{#if isGM}}
+        <div class="stat-name left bold">{{localize 'PEN.armourPoints'}}</div>
+        <div class="stat-name-input "><input name="system.ap" type="text" value="{{item.system.ap}}" data-dype="Number"/></div>
+      
+        <div class="stat-name left bold">{{localize 'PEN.armour'}}</div>
+        <div class=""><a class="item-control item-toggle large-icon" data-property = "armour" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.type}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+        <div class="stat-name left bold">{{localize 'PEN.shield'}}</div>
+        <div class=""><a class="item-control item-toggle large-icon" data-property = "shield" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.type}}fa-regular fa-square{{else}}fa-regular fa-square-check{{/if}}"></i></a></div>
+
+        {{#if item.system.type}}
+          <div class="stat-name left bold">{{localize 'PEN.material'}}</div>
+          <div class="stat-name-input {{#if (eq item.system.material '')}} input-border {{/if}}"><input name="system.material" type="text" value="{{item.system.material}}"/></div>              
+          <div class="stat-name left bold">{{localize 'PEN.padding'}}</div>
+          <div class="stat-name-input {{#if (eq item.system.padding '')}} input-border {{/if}}"><input name="system.padding" type="text" value="{{item.system.padding}}"/></div>   
+        {{else}}
+          <div class="stat-name left bold">{{localize 'PEN.missPenal'}}</div>
+          <div class="stat-name-input {{#if (eq item.system.missPenalty '')}} input-border {{/if}}"><input name="system.missPenalty" type="text" value="{{item.system.missPenalty}}"/></div>              
+          <div class="stat-name left bold">{{localize 'PEN.disadvantage'}}</div>
+          <div class="stat-name-input {{#if (eq item.system.disadvantage '')}} input-border {{/if}}"><input name="system.disadvantage" type="text" value="{{item.system.disadvantage}}"/></div>  
+        {{/if}}
+
+      {{else}}
+        <div class="stat-name left bold">{{localize 'PEN.armourPoints'}}</div>
+
+        {{#if item.system.type}}
+          <div class="stat-name">{{item.system.ap}}</div>
+        {{else}}
+          <div class="stat-name-input "><input name="system.ap" type="text" value="{{item.system.ap}}" data-dype="Number"/></div>
+        {{/if}}
+        <div class="stat-name left bold">{{localize 'PEN.armour'}}</div>
+        <div class=""><a class="item-control large-icon"><i class="{{#if item.system.type}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+        <div class="stat-name left bold">{{localize 'PEN.shield'}}</div>
+        <div class=""><a class="item-control large-icon"><i class="{{#if item.system.type}}fa-regular fa-square{{else}}fa-regular fa-square-check{{/if}}"></i></a></div>
+
+        {{#if item.system.type}}
+          <div class="stat-name left bold">{{localize 'PEN.material'}}</div>
+          <div class="stat-name">{{item.system.material}}</div>              
+          <div class="stat-name left bold">{{localize 'PEN.padding'}}</div>
+          <div class="stat-name">{{item.system.padding}}</div>   
+        {{else}}
+          <div class="stat-name left bold">{{localize 'PEN.missPenal'}}</div>
+          <div class="stat-name">{{item.system.missPenalty}}</div>              
+          <div class="stat-name left bold">{{localize 'PEN.disadvantage'}}</div>
+          <div class="stat-name">{{item.system.disadvantage}}</div>  
+        {{/if}}
+      
+      
+      {{/if}}
+
+
+
+      <div class="stat-name left bold">{{localize 'PEN.notes'}}</div>
+      <div class="stat-name-input {{#if (eq item.system.notes '')}} input-border {{/if}}"><input name="system.notes" type="text" value="{{item.system.notes}}"/></div>  
+
+      </div>  
+        <br>
+        <div class="item-armour-grid">
+          <div class="stat-name left bold">{{localize 'PEN.equipped'}}</div>
+          <div class=""><a class="item-control item-toggle large-icon" data-property = "equipped" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.equipped}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+        </div>
+      </div>
+    </section>
+  </section>
+</form>

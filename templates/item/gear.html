@@ -1,0 +1,29 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="charname-input"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></div>
+    </div>
+    <img class="profile-img" src="{{item.img}}" data-edit="img" height="100" width="100"title="{{item.name}}"/>
+  </header>
+
+
+
+  <div class="item-trait-grid">
+    <div class="stat-name left bold">{{localize 'PEN.quantity'}}</div>
+    <div class="stat-name-input {{#if (eq item.system.quantity '')}} input-border {{/if}} left"><input name="system.quantity" type="text" value="{{item.system.quantity}}" data-dype="Number"/></div>
+  </div>  
+
+  <div class="money-grid">
+    <div class="stat-name left bold">{{localize 'PEN.price'}}</div>
+    <div class="stat-name-input {{#if (eq item.system.libra '')}} input-border {{/if}} left"><input name="system.libra" type="text" value="{{item.system.libra}}" data-dype="Number"/></div>
+    <div class="stat-name left bold">/</div>
+    <div class="stat-name-input {{#if (eq item.system.denarii '')}} input-border {{/if}} left"><input name="system.denarii" type="text" value="{{item.system.denarii}}" data-dype="Number"/></div>
+  </div>
+
+  <div class="stat-name bold">{{localize 'PEN.description'}}:</div>
+  <div>
+    {{editor item.system.description class="Pendragon background-doc" target="system.description" button=true owner=owner editable=editable}}
+  </div>
+   
+</form>

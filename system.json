@@ -1,0 +1,98 @@
+{
+  "id": "Pendragon",
+  "title": "Pendragon",
+  "description": "Pendragon system for FoundryVTT!",
+  "version": "11.0.1",
+  "compatibility": {
+    "minimum": 11,
+    "verified": "11.305",
+    "maximum": 11
+  },
+  "authors": [{
+    "name": "Dangermouse"
+  }],
+  "esmodules": ["module/pendragon.mjs"],
+  "styles": ["css/pendragon.css"],
+  "scripts": [],
+  "packs": [
+    {
+      "label": "Skills",
+      "type": "Item",
+      "name": "skills",
+      "path": "packs/skills.db",
+      "system": "Pendragon",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Armour",
+      "type": "Item",
+      "name": "armour",
+      "path": "packs/armour.db",
+      "system": "Pendragon",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Horses",
+      "type": "Item",
+      "name": "horses",
+      "path": "packs/horses.db",
+      "system": "Pendragon",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Passions",
+      "type": "Item",
+      "name": "passions",
+      "path": "packs/passions.db",
+      "system": "Pendragon",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Traits",
+      "type": "Item",
+      "name": "traits",
+      "path": "packs/traits.db",
+      "system": "Pendragon",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Weapons",
+      "type": "Item",
+      "name": "weapons",
+      "path": "packs/weapons.db",
+      "system": "Pendragon",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Instructions",
+      "type": "JournalEntry",
+      "name": "instructions",
+      "path": "packs/instructions.db",
+      "system": "brp",
+      "private": false,
+      "flags": {}
+    }
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "gridDistance": 5,
+  "gridUnits": "ft",
+  "primaryTokenAttribute": "hp",
+  "secondaryTokenAttribute": "",
+  "url": "",
+  "manifest": "",
+  "download": "",
+  "license": "LICENSE.txt",
+  "changelog": "CHANGELOG.md"
+}

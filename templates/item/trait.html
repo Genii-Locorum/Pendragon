@@ -1,0 +1,62 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <header class="sheet-header">
+    <div class="header-fields">
+      {{#if isGM}}
+        <div class="charname-input"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></div>
+      {{else}}
+        <div class="charname">{{item.name}}</div>
+      {{/if}}
+    </div>
+    <img class="profile-img" src="{{item.img}}" data-edit="img" height="100" width="100"title="{{item.name}}"/>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item tab-name" data-tab="attributes">{{localize 'PEN.attributes'}}</a>
+    <a class="item tab-name" data-tab="description">{{localize 'PEN.description'}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="item-bottom-panel">
+    <section class="sheet-body">
+
+      {{!-- Description Tab --}}
+      <div class="tab" data-group="primary" data-tab="description">
+        {{editor item.system.description class="background-doc" target="system.description" button=true owner=owner editable=editable}}
+      </div>
+
+      {{!-- Attributes Tab --}}
+      <div class="tab attributes" data-group="primary" data-tab="attributes">
+
+        <div class="item-trait-grid">
+          <div class="stat-name left bold">{{localize 'PEN.traitValue'}}</div>
+          <div class="stat-name-input {{#if (eq item.system.value '')}} input-border {{/if}} centre"><input name="system.value" type="text" value="{{item.system.value}}" data-dype="Number"/></div>
+
+          <br>
+          <div></div>
+
+          <div class="stat-name left bold">{{localize 'PEN.oppName'}}</div>
+
+              {{#if isGM}}  
+                <div class="stat-name-input {{#if (eq item.system.value '')}} input-border {{/if}} centre"><input name="system.oppName" type="text" value="{{item.system.oppName}}"/></div>
+              {{else}}
+                <div class="stat-name centre">{{item.system.oppName}}</div>
+              {{/if}}
+
+        </div>  
+        <br>
+        <div class="stat-name left bold">{{localize 'PEN.xpCheck'}}</div>
+        <div class="item-trait-grid">
+          <div class="stat-name left">{{localize 'PEN.trait'}}</div>
+          <div class="centre"><a class="item-control item-toggle large-icon" data-property = "XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+          <div class="stat-name left">{{localize 'PEN.oppossingTrait'}}</div>
+          <div class="centre"><a class="item-control item-toggle large-icon" data-property = "oppXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.oppXP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+        </div>
+
+
+      
+      </div>
+    </section>
+  </section>
+</form>

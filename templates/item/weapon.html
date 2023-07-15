@@ -1,0 +1,143 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="charname-input"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></div>
+    </div>
+    <img class="profile-img" src="{{item.img}}" data-edit="img" height="100" width="100"title="{{item.name}}"/>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item tab-name" data-tab="attributes">{{localize 'PEN.attributes'}}</a>
+    <a class="item tab-name" data-tab="description">{{localize 'PEN.description'}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="item-bottom-panel">
+    <section class="sheet-body">
+
+      {{!-- Description Tab --}}
+      <div class="tab" data-group="primary" data-tab="description">
+        <div class="money-grid">
+          <div class="stat-name left bold">{{localize 'PEN.price'}}</div>
+          <div class="stat-name-input {{#if (eq item.system.libra '')}} input-border {{/if}} left"><input name="system.libra" type="text" value="{{item.system.libra}}" data-dype="Number"/></div>
+          <div class="stat-name left bold">/</div>
+          <div class="stat-name-input {{#if (eq item.system.denarii '')}} input-border {{/if}} left"><input name="system.denarii" type="text" value="{{item.system.denarii}}" data-dype="Number"/></div>
+        </div>
+        <div class="stat-name bold">{{localize 'PEN.description'}}:</div>
+        <div>  
+          {{editor item.system.description class="background-doc" target="system.description" button=true owner=owner editable=editable}}
+        </div>
+      </div>
+      {{!-- Attributes Tab --}}
+      <div class="tab attributes" data-group="primary" data-tab="attributes">
+        <div class="item-trait-grid">
+          <div class="stat-name left bold">{{localize 'PEN.melee'}}</div>
+          <div class="centre"><a class="item-control {{#if isGM}}item-toggle{{/if}} large-icon" data-property = "melee" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.melee}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+        </div>  
+        <br>
+
+        {{#if isGM}}
+          <div class="item-trait-grid">
+            <div class="stat-name left bold">{{localize 'PEN.skill'}}</div>
+              <div class="stat-name centre">
+                <select data-handle-change name="system.skill">
+                  {{selectOptions skillType selected=item.system.skill}}
+                </select>
+              </div>
+              <br>
+              <div></div>
+
+              <div class="stat-name left bold">{{localize 'PEN.mounted'}}</div>
+              <div class="stat-name centre">
+                <select data-handle-change name="system.mounted">
+                  {{selectOptions usageType selected=item.system.mounted}}
+                </select>
+              </div>
+              <br>
+              <div></div>
+
+              <div class="stat-name left bold">{{localize 'PEN.source'}}</div>
+              <div class="stat-name centre">
+                <select data-handle-change name="system.damageChar">
+                  {{selectOptions damageType selected=item.system.damageChar}}
+                </select>
+              </div> 
+              <br>
+              <div></div>
+              <div class="stat-name left bold">{{localize 'PEN.damageMod'}}</div>
+              <div class="stat-name-input  {{#if (eq item.system.damageMod '')}} input-border {{/if}} centre"><input name="system.damageMod" type="text" value="{{item.system.damageMod}}" data-dype="Number"/></div>
+              <div class="stat-name left bold">{{localize 'PEN.damageBonus'}}</div>
+              <div class="stat-name-input  {{#if (eq item.system.damageBonus '')}} input-border {{/if}} centre"><input name="system.damageBonus" type="text" value="{{item.system.damageBonus}}" data-dype="Number"/></div>
+              <div class="stat-name left bold">{{localize 'PEN.damageMax'}}</div>
+              <div class="stat-name-input  {{#if (eq item.system.damageMax '')}} input-border {{/if}} centre"><input name="system.damageMax" type="text" value="{{item.system.damageMax}}" data-dype="Number"/></div>
+            </div>  
+            <br>
+            {{#if item.system.melee}}
+              <div class="stat-name left bold">{{localize 'PEN.advantage'}}</div>
+              <div class="stat-name-input  {{#if (eq item.system.advantage '')}} input-border {{/if}} centre"><input name="system.advantage" type="text" value="{{item.system.advantage}}"/></div>
+            {{/if}}
+            <div class="stat-name left bold">{{localize 'PEN.disadvantage'}}</div>
+            <div class="stat-name-input  {{#if (eq item.system.disadvantage '')}} input-border {{/if}} centre"><input name="system.disadvantage" type="text" value="{{item.system.disadvantage}}"/></div>
+            {{#unless item.system.melee}}
+            <br>
+            <div class="item-trait-grid">
+                <div class="stat-name left bold">{{localize 'PEN.range'}}</div>
+                <div class="stat-name centre">
+                  <select data-handle-change name="system.range">
+                    {{selectOptions rangeType selected=item.system.range}}
+                  </select>
+                </div>
+                <div></div>
+                <br>
+                <div class="stat-name left bold">{{localize 'PEN.rate'}}</div>
+                <div class="stat-name-input {{#if (eq item.system.rate '')}} input-border {{/if}} centre"><input name="system.rate" type="text" value="{{item.system.rate}}" data-dype="Number"/></div>
+              </div>  
+            {{/unless}}
+
+
+
+            {{else}}
+              <div class="item-trait-grid">
+                <div class="stat-name left bold">{{localize 'PEN.skill'}}</div>
+                <div class="stat-name centre">{{skill}}</div>
+                <br>
+                <div></div>
+                <div class="stat-name left bold">{{localize 'PEN.mounted'}}</div>
+                <div class="stat-name centre">{{mounted}}</div>
+                <br>
+                <div></div>
+                <div class="stat-name left bold">{{localize 'PEN.source'}}</div>
+                <div class="stat-name centre">{{damageChar}}</div>
+                <div class="stat-name left bold">{{localize 'PEN.damageMod'}}</div>
+                <div class="stat-name centre">{{item.system.damageMod}}</div>
+                <div class="stat-name left bold">{{localize 'PEN.damageBonus'}}</div>
+                <div class="stat-name centre">{{item.system.damageBonus}}</div>
+                <div class="stat-name left bold">{{localize 'PEN.damageMax'}}</div>
+                <div class="stat-name centre">{{item.system.damageMax}}</div>
+                {{#if item.system.melee}}
+                  <div class="stat-name left bold">{{localize 'PEN.advantage'}}</div>
+                  <div class="stat-name centre">{{item.system.advantage}}</div>
+                {{/if}}  
+                  <div class="stat-name left bold">{{localize 'PEN.disadvantage'}}</div>
+                  <div class="stat-name centre">{{item.system.disadvantage}}</div>
+                {{#unless item.system.melee}}
+                  <div class="stat-name left bold">{{localize 'PEN.range'}}</div>
+                  <div class="stat-name centre">{{range}}</div>
+                  <div class="stat-name left bold">{{localize 'PEN.rate'}}</div>
+                  <div class="stat-name centre">{{item.system.rate}}</div> 
+                {{/unless}}
+              </div>    
+            {{/if}}
+
+            <br>
+            <div class="item-trait-grid">
+              <div class="stat-name left bold">{{localize 'PEN.quantity'}}</div>
+              <div class="stat-name-input {{#if (eq item.system.quantity '')}} input-border {{/if}} centre"><input name="system.quantity" type="text" value="{{item.system.quantity}}" data-dype="Number"/></div>
+            </div>  
+    
+      </div>
+    </section>
+  </section>
+</form>

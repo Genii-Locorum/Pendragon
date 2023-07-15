@@ -1,0 +1,132 @@
+<form class="{{cssClass}} character" autocomplete="off">
+
+  <section class="main-sheet">
+
+    <section class="title-section">
+      {{!-- Characteristics Header --}}
+      <section class="sheet-header">
+        <div class="charname-input"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></div>
+        <div class="char-grid">
+          <div class="stat-grid">
+            {{#each system.stats as |stat key|}}
+              <div class="stat-name left bold">{{stat.labelShort}}</div>
+              {{#if ../system.lock}}
+                <div class="stat-name centre">{{stat.value}}</div>
+              {{else}}
+                <div class="dam-name-input centre"><input name="system.stats.{{key}}.value" type="text" value="{{stat.value}}" placeholder=10 data-dtype="Number"/></div>
+              {{/if}}
+            {{/each}}
+          </div>
+
+          <div class="status-grid">
+            <div class="stat-name"><a class="item-control actor-toggle large-icon" data-property="debilitated" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if system.status.debilitated}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+            <div class="stat-name">{{localize 'PEN.debilitated'}}</div>
+            <div class="stat-name"><a class="item-control actor-toggle large-icon" data-property="unconscious" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if system.status.unconscious}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+            <div class="stat-name">{{localize 'PEN.unconscious'}}</div>
+            <div class="stat-name"><a class="item-control actor-toggle large-icon" data-property="nearDeath" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if system.status.nearDeath}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+            <div class="stat-name">{{localize 'PEN.nearDeath'}}</div>
+            <div class="stat-name"><a class="item-control actor-toggle large-icon" data-property="madness" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if system.status.madness}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+            <div class="stat-name">{{localize 'PEN.madness'}}</div>
+            <div class="stat-name"><a class="item-control actor-toggle large-icon" data-property="melancholy" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if system.status.melancholy}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+            <div class="stat-name">{{localize 'PEN.melancholy'}}</div>
+            <div class="stat-name"><a class="item-control actor-toggle large-icon" data-property="misery" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if system.status.misery}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+            <div class="stat-name">{{localize 'PEN.misery'}}</div>
+
+
+
+          </div>
+          <div>
+            <div class="hp-grid">
+              <div class="stat-name left bold">{{localize 'PEN.hp'}}</div>
+              <div class="stat-name centre">{{system.hp.value}} / {{system.hp.max}}</div>
+              <div class="stat-name left bold">{{localize 'PEN.move'}}</div>
+              <div class="stat-name centre">{{system.move}}</div>
+              <div class="stat-name left bold">{{localize 'PEN.glory'}}</div>
+              <div class="stat-name centre">{{system.glory}}</div>
+              <div class="stat-name left bold">{{localize 'PEN.damage'}}</div>
+              <div class="stat-name centre">{{system.damage}}</div>
+              <div class="stat-name left bold">{{localize 'PEN.armour'}}</div>
+              <div class="stat-name centre" title = "{{localize 'PEN.armourShield'}}">{{system.armour}} / {{system.shield}}</div>
+            </div>  
+            <div class="cash-grid">
+              <div class="stat-name left bold">{{localize 'PEN.money'}}</div>
+              <div class="stat-name-input right"><input name="system.money.libra" type="text" value="{{system.money.libra}}"/></div>
+              <div class="stat-name-input"> /</div>
+              <div class="stat-name-input left"><input name="system.money.denarii" type="text" value="{{system.money.denarii}}"/></div>
+            </div>
+           </div>    
+        </div>
+      </section>
+
+      {{!-- Image Section --}}
+      <section class="sheet-header">
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="180" width="150"/>
+      </section>  
+    </section>
+
+
+    {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{!-- Default tab is specified in actor-sheet.mjs --}}
+    <a class="item tab-name" data-tab="combat">{{localize 'PEN.combat'}}</a>
+    <a class="item tab-name" data-tab="traits">{{localize 'PEN.traits'}}</a>
+    <a class="item tab-name" data-tab="passions">{{localize 'PEN.passions'}}</a>
+    <a class="item tab-name" data-tab="skills">{{localize 'PEN.skills'}}</a>
+    <a class="item tab-name" data-tab="items">{{localize 'PEN.equipment'}}</a>
+    <a class="item tab-name" data-tab="companions">{{localize 'PEN.companions'}}</a>
+    <a class="item tab-name" data-tab="history">{{localize 'PEN.history'}}</a>
+    <a class="item tab-name" data-tab="biography">{{localize 'PEN.biography'}}</a>
+
+    <a class="large-icon  middle actor-toggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i class="{{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i> </a>
+
+  </nav>
+
+  {{!-- Bottom-Panel --}}
+  <section class="bottom-panel">
+    <section class="sheet-body">
+
+      {{!-- Trait Tab --}}
+      <div class="tab traits" data-group="primary" data-tab="traits">
+        {{> "systems/Pendragon/templates/actor/parts/actor-traits.html"}}
+      </div>
+
+      {{!-- SKills Tab --}}
+      <div class="tab skills" data-group="primary" data-tab="skills">
+        {{> "systems/Pendragon/templates/actor/parts/actor-skills.html"}}
+      </div>
+
+      {{!-- Biography Tab --}}
+        <div class="tab biography flexcol" data-group="primary" data-tab="biography">
+          {{> "systems/Pendragon/templates/actor/parts/actor-biography.html"}}
+      </div>
+
+      {{!-- Owned Items Tab --}}
+      <div class="tab items" data-group="primary" data-tab="items">
+         {{> "systems/Pendragon/templates/actor/parts/actor-items.html"}}
+      </div>
+
+      {{!-- Combat Tab --}}
+      <div class="tab combat" data-group="primary" data-tab="combat">
+        {{> "systems/Pendragon/templates/actor/parts/actor-combat.html"}}
+      </div>
+
+      {{!-- History Tab --}}
+      <div class="tab history" data-group="primary" data-tab="history">
+        {{> "systems/Pendragon/templates/actor/parts/actor-history.html"}}
+      </div>
+
+      {{!-- Passions Tab --}}
+      <div class="tab passions" data-group="primary" data-tab="passions">
+        {{> "systems/Pendragon/templates/actor/parts/actor-passions.html"}}
+      </div>
+
+      {{!-- Companions Tab --}}
+      <div class="tab companions" data-group="primary" data-tab="companions">
+        {{> "systems/Pendragon/templates/actor/parts/actor-companions.html"}}
+      </div>
+
+    </section>
+  </section>
+  </section>
+</form>
+
