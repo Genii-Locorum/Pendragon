@@ -1,0 +1,618 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+/* Global styles */
+.window-app {
+  font-family: "Roboto", sans-serif; 
+}
+
+@font-face {
+  font-family: 'Herb';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/jaf-herb-regular.ttf') format('woff2');
+}
+
+@font-face {
+  font-family: 'Garamond';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/garamond-premier-pro.otf') format('woff2');
+}
+
+.rollable:hover, .rollable:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
+.Pendragon .window-content {
+  background-image:url("../assets/parchment.png");
+  background-size: cover;
+  padding: 8px;
+}
+
+.Pendragon .bold {
+  font-weight: bold;
+}
+
+.Pendragon .left {
+  text-align: left;
+}
+
+.Pendragon .right {
+  text-align: right;
+}
+
+.Pendragon .centre {
+  text-align: center;
+}
+
+.Pendragon .middle {
+  display: grid;
+  align-items: center;
+}
+
+.Pendragon .bottom {
+  display: grid;
+  align-items:end;
+}
+
+.Pendragon .italics {
+  font-style: italic;
+}
+
+.Pendragon .fade {
+  opacity: 0.5;
+}
+
+.Pendragon .grey {
+  background-color: rgba(128, 128, 128, 0.3);
+}
+
+.Pendragon .curtail {
+  overflow: auto;
+  max-height: 25px;
+}
+
+.Pendragon .curtail2 {
+  overflow: auto;
+  max-height: 26px;
+}
+.Pendragon .character {
+  height: 100%;
+}
+
+.Pendragon .main-sheet {
+height: inherit;
+}
+
+.Pendragon .border {
+  border: 1px gray solid;
+}
+
+.Pendragon .darkred {
+  color: darkred !important;
+}
+
+.Pendragon .new-row {
+  grid-column-start: 1;
+}
+
+
+.Pendragon .sheet-tabs {
+  flex: 1;
+  border-top:1px gray solid !important;
+  border-bottom:1px gray solid !important;
+  height: 45px;
+  background-color: rgba(128, 128, 128, 0.3);
+}
+
+.Pendragon .items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.Pendragon .sheet-body,
+.Pendragon .sheet-body .tab,
+.Pendragon .sheet-body .tab .editor {
+  height: 100%;
+  font-family: Garamond;
+  font-size:14px;
+}
+.Pendragon .tox .tox-editor-container {
+  background: #fff;
+  font-family: Garamond;
+  font-size:14px;
+}
+.Pendragon .tox .tox-edit-area {
+  padding: 0 8px;
+}
+
+.Pendragon .charname-input input {
+  font-family:"Herb";
+  font-size: 30px;
+  height:fit-content;
+  color:darkred;
+  border: 0px;
+  border-radius: 0px;
+  background: none;
+}
+
+.Pendragon .charname {
+  font-family:"Herb";
+  font-size: 30px;
+}
+
+.Pendragon .tab-name {
+  font-family:"Herb";
+  font-size: 20px;
+}
+
+.Pendragon .stat-name {
+  font-family: "Garamond";
+  font-size: 20px;
+  color: black;
+}
+
+.Pendragon input .inline-edit {
+  padding: 0px;
+}
+
+.Pendragon .input-border {
+  border-bottom: 1px darkred solid;
+}
+
+.Pendragon .stat-name-input input{
+  font-family: "Garamond";
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0px;
+  color:darkred;
+  height: 20px;
+  border: 0px;
+  border-radius: 0px;
+  background: none;
+}
+
+.Pendragon .event-input input{
+  height: 26px !important;
+}
+
+.Pendragon .dam-name-input input{
+  font-family: "Garamond";
+  font-size: 20px;
+  font-weight: bold;
+  height: 26px;
+  padding: 0px;
+  color:darkred;
+  border: 0px;
+  border-radius: 0px;
+  background: none;
+}
+
+.Pendragon .history-input input{
+  font-family: "Garamond";
+  font-size: 20px;
+  color: black;
+  height:fit-content;
+  width: 395px;
+  border: 1px gray solid;
+  border-radius: 0px;
+  background: none;
+}
+
+.Pendragon .equestrian-input input{
+  font-family: "Garamond";
+  font-size: 20px;
+  color: black;
+  border: 1px gray solid;
+  border-radius: 0px;
+  background: none;
+}
+
+.Pendragon .trait-input {
+  padding-top:3px;
+}
+
+.Pendragon .title-section{
+  display: grid;
+  grid-template-columns: auto 150px ;
+  column-gap: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 200px;
+  max-height: 200px;
+}
+
+.Pendragon .skill-list {
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  padding: 0;
+  margin: 0px;
+  height:100%;
+}
+
+.Pendragon .char-grid {
+  display: grid;
+  grid-template-columns: 100px 200px 250px ;
+  column-gap: 50px;
+  padding-top: 10px;
+}
+
+.Pendragon .combat-grid {
+  display: grid;
+  grid-template-columns: 260px 480px;
+  column-gap: 50px;
+}
+
+.Pendragon .stat-grid{
+  display: grid;
+  grid-template-columns: 50px 50px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .hp-grid{
+  display: grid;
+  grid-template-columns: 180px 70px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .passive-grid{
+  display: grid;
+  width: 251px;
+  grid-template-columns: 180px 70px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+.Pendragon .cash-grid{
+  display: grid;
+  grid-template-columns: 180px 35px 10px 30px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .status-grid{
+  display: grid;
+  grid-template-columns: 30px 170px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .warhorse-grid{
+  display: grid;
+  grid-template-columns: 70px 50px 30px 100px 50px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .weapon-grid{
+  display: grid;
+  width:481px;
+  grid-template-columns: 150px 100px 50px 100px 50px 30px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+.Pendragon .history-grid {
+  display: grid;
+  grid-template-columns: 550px 70px 70px 30px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+.Pendragon .wound-grid{
+  display: grid;
+  width: 251px;
+  grid-template-columns: 30px 130px 60px 30px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+.Pendragon .companion-grid{
+  display: grid;
+  width: 771px;
+  grid-template-columns: 170px 60px 70px 70px 60px 70px 60px 60px 60px 60px 30px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+.Pendragon .squire-grid{
+  display: grid;
+  width: 501px;
+  grid-template-columns: 250px 60px 60px 100px 30px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+.Pendragon .armour-grid{
+  display: grid;
+  width: 761px;
+  grid-template-columns: 30px 200px 50px 50px 200px 200px 30px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+.Pendragon .gear-grid{
+  display: grid;
+  width: 761px;
+  grid-template-columns: 200px 50px 480px  30px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+.Pendragon .grid-item {
+  border-bottom: 1px gray solid;
+  border-right: 1px gray solid;
+  overflow: hidden;
+}
+
+.Pendragon .item-trait-grid{
+  display: grid;
+  grid-template-columns: 180px 190px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .money-grid{
+  display: grid;
+  grid-template-columns: 180px 30px 30px 30px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .item-armour-grid{
+  display: grid;
+  grid-template-columns: 180px 390px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .history-item-grid{
+  display: grid;
+  grid-template-columns: 100px 400px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .history-small-grid{
+  display: grid;
+  grid-template-columns: 100px 50px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .trait-grid{
+  display: grid;
+  grid-template-columns: 50px 30px 150px 30px 150px 30px 50px 30px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .skill-grid{
+  display: grid;
+  grid-template-columns: 30px 150px 50px 30px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .biog-grid{
+  display: grid;
+  grid-template-columns: 200px 200px 10px 130px 250px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .passion-grid{
+  display: grid;
+  grid-template-columns: 30px 250px 50px 30px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .joust-grid{
+  display: grid;
+  grid-template-columns: 100px 50px 100px 50px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .biog-herald {
+  display: grid;
+  grid-template-columns: 200px 590px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .large-icon{
+  font-size: 20px;
+  text-align:center;
+}
+
+.Pendragon .background-doc {
+  background-image: none;
+  font-size:14px;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 200px;
+  border: 1px gray solid;
+}
+
+.Pendragon .history-doc input {
+  font-family: Garamond;
+  background-image: none;
+  font-size:20px;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+  white-space:pre-wrap !important;
+  height:fit-content;
+  border: 1px gray solid;
+  border-radius: 0px;
+}
+
+.Pendragon .features-doc {
+  height: 100px !important;
+}
+
+.Pendragon .background-doc p{
+  font-family: Garamond;
+  font-size:20px !important;
+}
+
+.Pendragon .bottom-panel {
+  display: flex;
+  flex: 1;
+  height: calc(100% - 245px);
+  border-top: 0px;
+  width: 100%;
+  overflow:scroll;
+ }
+
+ .Pendragon .npc-title-section{
+  display: grid;
+  width: 320px;
+  grid-template-columns: 250px 30px 80px;
+  column-gap:5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 75px;
+  max-height: 75px;
+}
+
+.Pendragon .npc-name {
+  font-family: "Garamond";
+  font-size: 16px;
+  color: black;
+}
+
+.Pendragon .npcname-input input {
+  font-family:"Herb";
+  font-size: 20px;
+  height:fit-content;
+  color:darkred;
+  border: 0px;
+  border-radius: 0px;
+  background: none;
+}
+
+.Pendragon .npc-name-input input{
+  font-family: "Garamond";
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0px;
+  color:darkred;
+  height: 16px;
+  border: 0px;
+  border-radius: 0px;
+  background: none;
+}
+
+.Pendragon .npc-grid {
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .npc-stats-grid {
+  display: grid;
+  width: 360px;
+  grid-template-columns: 120px 50px 10px 120px 50px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-bottom: 1px gray solid;
+  border-top: 1px gray solid;
+}
+
+.Pendragon .npc-weapons-grid {
+  display: grid;
+  width: 360px;
+  border-bottom: 1px gray solid;
+  grid-template-columns: 190px 50px 80px 40px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .npc-trait-grid {
+  display: grid;
+  width: 360px;
+  border-bottom: 1px gray solid;
+  grid-template-columns: 110px 30px 40px 110px 30px 40px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .npc-notes-grid {
+  display: grid;
+  width: 360px;
+  grid-template-columns: 360px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .npc-notes-doc {
+  background-image: none;
+  font-size:14px;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 200px;
+  width: 360px;
+  border: 1px gray solid;
+  font-family: Garamond;
+  font-size:16px !important;
+}
