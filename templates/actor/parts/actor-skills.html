@@ -3,7 +3,7 @@
     <li class="item skill-listitem" data-itemid="{{skill._id}}">
       <div class="skill-grid {{#if skill.system.combat}}grey{{/if}}">
         <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{skill._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if skill.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
-        <div class="stat-name {{#if skill.system.combat}}italics{{/if}}">{{skill.name}}</div>
+        <div class="stat-name rollable {{#if skill.system.combat}}italics{{/if}}" data-label="{{skill.name}}" data-target="{{skill.system.value}}" data-type ="skill" data-itemid="{{skill._id}}">{{skill.name}}</div>
         {{#if ../system.lock}}
           <div class="stat-name centre">{{skill.system.value}}</div>
         {{else}}

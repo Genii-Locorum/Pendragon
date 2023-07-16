@@ -9,7 +9,7 @@
         <div class="char-grid">
           <div class="stat-grid">
             {{#each system.stats as |stat key|}}
-              <div class="stat-name left bold">{{stat.labelShort}}</div>
+              <div class="stat-name left bold rollable" data-label="{{stat.label}}" data-target="{{stat.value}}" data-type ="stat">{{stat.labelShort}}</div>
               {{#if ../system.lock}}
                 <div class="stat-name centre">{{stat.value}}</div>
               {{else}}

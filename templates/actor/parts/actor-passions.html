@@ -3,7 +3,7 @@
     <li class="item skill-listitem" data-itemid="{{passion._id}}">
       <div class="passion-grid">
         <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{passion._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if passion.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
-        <div class="stat-name ">{{passion.name}}</div>
+        <div class="stat-name rollable" data-label="{{passion.name}}" data-target="{{passion.system.value}}" data-type ="passion" data-itemid="{{passion._id}}">{{passion.name}}</div>
         {{#if ../system.lock}}
           <div class="stat-name centre">{{passion.system.value}}</div>
         {{else}}
