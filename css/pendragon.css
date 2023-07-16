@@ -24,10 +24,25 @@
   cursor: pointer;
 }
 
+.journal-entry-content{
+  background-image:url("../assets/parchment.png") !important;
+  background-size: cover !important;
+}
+
+.app .window-content{
+  background-image:url("../assets/parchment.png");
+  background-size: cover;
+}
+
 .Pendragon .window-content {
   background-image:url("../assets/parchment.png");
   background-size: cover;
   padding: 8px;
+}
+
+.chat-message {
+  background-image:url("../assets/parchment.png");
+  background-size: cover;
 }
 
 .Pendragon .bold {
@@ -615,4 +630,12 @@ height: inherit;
   border: 1px gray solid;
   font-family: Garamond;
   font-size:16px !important;
+}
+
+.Pendragon .result-success {
+  color: green;
+}
+
+.Pendragon .result-fail {
+  color: darkred;
 }

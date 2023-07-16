@@ -1,4 +1,4 @@
-import {PENSelectLists}  from "../helpers/select-lists.mjs";
+import {PENSelectLists}  from "../apps/select-lists.mjs";
 
 //Extend the base Actor Class
 export class PendragonActor extends Actor {

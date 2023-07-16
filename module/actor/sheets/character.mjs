@@ -1,4 +1,4 @@
-import {onManageActiveEffect, prepareActiveEffectCategories} from "../../helpers/effects.mjs";
+import { PENChecks } from "../../rolls/checks.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -48,9 +48,6 @@ export class PendragonCharacterSheet extends ActorSheet {
 
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
-
-    // Prepare active effects
-    context.effects = prepareActiveEffectCategories(this.actor.effects);
 
     return context;
   }
@@ -229,6 +226,7 @@ export class PendragonCharacterSheet extends ActorSheet {
     html.find(".inline-edit").change(this._onInlineEdit.bind(this));          // Inline Edit
     html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));        // Item Toggle
     html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));      // Actor Toggle
+    html.find(".rollable").click(PENChecks._onRollable.bind(this));           // Dice Roll from stat etc
     
     // Drag events for macros.
     if (this.actor.isOwner) {

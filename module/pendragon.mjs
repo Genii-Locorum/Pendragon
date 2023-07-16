@@ -1,9 +1,10 @@
 import { PendragonActor } from "./actor/actor.mjs";
 import { PendragonItem } from "./item/item.mjs";
-import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
-import { PENDRAGON } from "./helpers/config.mjs";
+import { preloadHandlebarsTemplates } from "./apps/templates.mjs";
+import { PENDRAGON } from "./apps/config.mjs";
 import { handlebarsHelper } from './setup/handlebar-helper.mjs';
 import { PendragonHooks } from './hooks/index.mjs'
+import { registerSettings } from './setup/register-settings.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -22,24 +23,35 @@ Hooks.once('init', async function() {
   // Add custom constants for configuration.
   CONFIG.PENDRAGON = PENDRAGON;
 
-  //Register Handlebar Helpers
+  //Register Handlebar Helpers & settings
   handlebarsHelper();
-
-  //Set an initiative formula for the system
-  CONFIG.Combat.initiative = {
-    formula: "1d20 + @abilities.dex.mod",
-    decimals: 2
-  };
+  registerSettings();
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = PendragonActor;
   CONFIG.Item.documentClass = PendragonItem;
 
+  
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
 });
 
 PendragonHooks.listen()
+
+
+//Add sub-titles in Config Settings for Pendragon Game Settings
+Hooks.on('renderSettingsConfig', (app, html, options) => {
+  const systemTab = $(app.form).find('.tab[data-tab=system]')
+
+  systemTab
+    .find('input[name=Pendragon\\.gameYear]')
+    .closest('div.form-group')
+    .before(
+      '<h3 class="setting-header">' +
+        game.i18n.localize('PEN.Settings.gameSettings') +
+        '</h3>'
+    )
+});
 
 
 /* -------------------------------------------- */
@@ -110,3 +122,4 @@ function rollItemMacro(itemUuid) {
     item.roll();
   });
 }
+

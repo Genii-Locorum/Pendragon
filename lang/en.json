@@ -60,11 +60,14 @@
     "armourPoints": "Armour Points",
     "attributes": "Attributes",
     "biography": "Biography",
+    "bonus": "Bonus",
     "bow": "Bow",
     "both": "Both",
     "brawling": "Brawling",
     "character": "Character",
     "charge": "Charge",
+    "checkBonus": "Bonus to this check",
+    "checkBonusHint": "Enter bonus as a positive, and penalty as a negative",
     "class": "Class",
     "combat": "Combat",
     "combatSkill": "Combat Skill",
@@ -141,12 +144,15 @@
     "passions": "Passions",
     "passive": "Passive Glory",
     "pen":"Pen",
+    "penalty": "Penalty",
     "price": "Price £/d",
     "quantity": "Quantity",
     "quantityShort": "Qty",
     "range": "Range",
     "rate": "Rate of Fire",
     "religion": "Religion",
+    "rollDice": "Roll Dice",
+    "rollWindow": "Dice Roll Options",
     "shield": "Shield",
     "short": "Short",
     "skill": "Skill",
@@ -180,10 +186,21 @@
     "wounds":"Wounds",
     "xpCheck": "XP Check",
     "y": "Y",
-    "year": "Year"
+    "year": "Year",
 
+    "Settings": {
+      "gameSettings": "Game Settings",
+      "gameYear": "Game Year",
+      "gameYearHint": "This can be increased via the Winter Phase"
+    },
+
+    "resultLevel": {
+      "0": "Fumble",
+      "1": "Fail",
+      "2": "Success",
+      "3": "Critical"
+    }
   }
-
 
 
 }
