@@ -66,7 +66,7 @@
     "brawling": "Brawling",
     "character": "Character",
     "charge": "Charge",
-    "checkBonus": "Bonus to this check",
+    "checkBonus": "Bonus to this roll",
     "checkBonusHint": "Enter bonus as a positive, and penalty as a negative",
     "class": "Class",
     "combat": "Combat",
