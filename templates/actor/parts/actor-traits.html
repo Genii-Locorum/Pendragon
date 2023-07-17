@@ -7,9 +7,9 @@
       <div class="stat-name-input trait-input centre item" data-field="trait" data-itemid ="{{trait._id}}"><input class="inline-edit" name="item.system.traits.{{key}}.value" type="text" value="{{trait.system.value}}" data-dtype="Number"/></div>
       {{/if}}
       <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{trait._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if trait.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
-      <div class="stat-name right rollable" data-label="{{trait.name}}" data-target="{{trait.system.value}}" data-type ="trait" data-itemid="{{trait._id}}">{{trait.name}}</div>
+      <div class="stat-name right rollable" data-type ="trait" data-itemid="{{trait._id}}">{{trait.name}}</div>
       <div class="stat-name centre">|</div>
-      <div class="stat-name rollable" data-label="{{trait.system.oppName}}" data-target="{{trait.system.oppvalue}}" data-type ="opptrait" data-itemid="{{trait._id}}">{{trait.system.oppName}}</div>
+      <div class="stat-name rollable" data-type ="opptrait" data-itemid="{{trait._id}}">{{trait.system.oppName}}</div>
       <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{trait._id}}" data-property="oppXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if trait.system.oppXP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
       <div class="stat-name centre">{{trait.system.oppvalue}}</div>
 

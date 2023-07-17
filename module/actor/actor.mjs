@@ -66,12 +66,13 @@ export class PendragonActor extends Actor {
           i.system.rangeName = rangeType[i.system.range].charAt(0);
         }  
 
-        //Add the skill score to the weapon matched on skill/weaponType
+        //Add the skill score to the weapon matched on skill/weaponType and add the skill ID to the weapon
         for (let j of actorData.items) {
           if (j.type === 'skill' && j.system.weaponType === i.system.skill) {
-            i.system.value = j.system.value
+            i.system.value = j.system.value;
+            i.system.sourceID = j._id;
           }
-        }  
+        } 
 
         //Calculate the damage for the weapon for the actor
         let damageDice = 0;
@@ -94,10 +95,11 @@ export class PendragonActor extends Actor {
         }
         i.system.damage = damageFormula;
       } else if (i.type === "trait") {
+        i.system.oppvalue = 20 - i.system.value;
         if (i.system.value > 19) {
-          systemData.trait = systemData.trait + 25 
+          systemData.trait = systemData.trait + 25; 
         } else if (i.system.value > 15) {
-          systemData.trait = systemData.trait + 15 
+          systemData.trait = systemData.trait + 15;
         } 
       } else if (i.type === "passion") {
         if (i.system.value > 19) {

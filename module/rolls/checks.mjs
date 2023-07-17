@@ -10,15 +10,25 @@ export class PENChecks {
     let partic =await PENactorDetails._getParticipantId(this.token,this.actor); 
     let actor = await PENactorDetails._getParticipant(partic.particId, partic.particType);
     let itemId = "";
-    let type = dataset.type
-    let name = dataset.label
-    if (type === "passion" || type === "skill" || type === 'trait' || type === 'opptrait') {
+    let type = dataset.type;
+    let name = "";
+    let targetScore = 0;
+
+
+    //Set the necessary roll variables based on the type of roll
+    if (type === "stat") {
+      name = dataset.label
+      targetScore = dataset.target;
+    } else if (type === "passion" || type === "skill" || type === 'trait' || type === 'opptrait' || type === 'weapon') {
       itemId = event.currentTarget.dataset.itemid;
       let item = actor.items.get(itemId);
+      name = item.name
+      targetScore = item.system.value;
       if (type === 'opptrait') {
         name = item.system.oppName
-      } else {
-      name = item.name
+        targetScore = item.system.oppvalue;
+      } else if (type=== 'weapon' && actor.type === 'character') {  //If this is a weapon and for a character replace itemnID with the underlying skill id.
+        itemId = dataset.sourceID
       }
     }
     PENChecks.startCheck ({
@@ -26,7 +36,7 @@ export class PENChecks {
         partic: partic,
         type: type,
         label: name,
-        targetScore: dataset.target,
+        targetScore: targetScore,
         itemId: itemId
     })
     return
@@ -47,7 +57,6 @@ export class PENChecks {
   //
   static async initiateConfig(options){
     let actor = await PENactorDetails._getParticipant(options.partic.particId, options.partic.particType);
-    //let item = actor.items.get(options.itemId);
     const config = {
       origin: game.user.id,
       originGM: game.user.isGM,
@@ -74,7 +83,7 @@ export class PENChecks {
   static async runCheck (config) {
     let actor = await PENactorDetails._getParticipant(config.partic.particId, config.partic.particType);
   
-    //If Shift key has been held then accept the defaults above otherwise call a Dialog box for Difficulty, Modifier etc
+    //If Shift key has been held then accept the defaults above otherwise call a Dialog box for Bonus/Penalty
     if (config.shiftKey){
     } else{
       let usage = await PENChecks.RollDialog(config);
@@ -90,9 +99,6 @@ export class PENChecks {
       config.critBonus = config.targetScore - 20;
       config.targetScore = 20;
     }
-
-
-
 
     await PENChecks.makeRoll(config) ;  
 
@@ -132,7 +138,7 @@ export class PENChecks {
   }
 
   //
-  //Call Dice Roll, calculate Result and store original results in rollVal
+  //Call Dice Roll, calculate Result and store result in rollVal
   //
   static async makeRoll(config) {
     let roll = new Roll(config.rollFormula);
@@ -157,8 +163,6 @@ export class PENChecks {
   // Calculate Success Level
   //
   static async successLevel (config){
-       
-    //Get the level of success
     let resultLevel = 0;
       if (config.rollVal === config.targetScore) {
         resultLevel = 3;  //3 = Critical
@@ -177,7 +181,6 @@ export class PENChecks {
   //
   static async startChat(config) {
     let actor = await PENactorDetails._getParticipant(config.partic.particId,config.partic.particType)
-
     let messageData = {
       origin: config.origin,
       originGM: config.originGM,

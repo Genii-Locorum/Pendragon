@@ -91,7 +91,6 @@ export class PendragonCharacterSheet extends ActorSheet {
         i.system.cleanDesc =  i.system.description.replace(/<[^>]+>/g, "") //await this.convertToPlain(i.system.description)
         gears.push(i);
       } else if (i.type === 'trait') {
-        i.system.oppvalue = 20 - i.system.value
         traits.push(i);
       } else if (i.type === 'skill'){
         skills.push(i);
