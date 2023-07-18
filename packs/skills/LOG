@@ -1,7 +1,0 @@
-2023/07/17-05:34:37.679 25a8 Recovering log #49
-2023/07/17-05:34:37.794 25a8 Delete type=0 #49
-2023/07/17-05:34:37.795 25a8 Delete type=3 #48
-2023/07/17-05:53:45.653 21dc Level-0 table #53: started
-2023/07/17-05:53:45.653 21dc Level-0 table #53: 0 bytes OK
-2023/07/17-05:53:45.690 21dc Delete type=0 #51
-2023/07/17-05:53:45.741 21dc Manual compaction at level-0 from '!items!08oRJoZA9imahBrw' @ 72057594037927935 : 1 .. '!items!zY8M4WP5d4YqYFMS' @ 0 : 0; will stop at (end)
