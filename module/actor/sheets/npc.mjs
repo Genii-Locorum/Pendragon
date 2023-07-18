@@ -1,4 +1,4 @@
-import { PENChecks } from "../../rolls/checks.mjs";
+import { PENChecks } from "../../apps/checks.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications

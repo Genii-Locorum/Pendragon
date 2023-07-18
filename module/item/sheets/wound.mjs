@@ -53,7 +53,6 @@ export class PendragonWoundSheet extends ItemSheet {
       this.close()
       let status = game.i18n.localize('PEN.minor') 
       let unconscious = false;
-      console.log(this.item.system.value, actor.system.hp.max, actor.system.hp.majorWnd)
 
       if (this.item.system.value >= actor.system.hp.max){
         status = game.i18n.localize('PEN.mortal')

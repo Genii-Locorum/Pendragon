@@ -1,4 +1,5 @@
-import { PENChecks } from "../../rolls/checks.mjs";
+import { PENChecks } from "../../apps/checks.mjs";
+import { PENCombat } from "../../apps/combat.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -94,7 +95,7 @@ export class PendragonCharacterSheet extends ActorSheet {
         traits.push(i);
       } else if (i.type === 'skill'){
         skills.push(i);
-      } else if (i.type === 'wound') {
+      } else if (i.type === 'wound' && i.system.value >0) {
         wounds.push(i);
       } else if (i.type === 'history') {
         history.push(i);
@@ -162,8 +163,8 @@ export class PendragonCharacterSheet extends ActorSheet {
 
     // Sort Horses with Warhorse at top
     horses.sort(function(a, b){
-      let x = a.system.maxHP;
-      let y = b.system.maxHP;
+      let x = a.system.chargeDmg;
+      let y = b.system.chargeDmg;
       if (x < y) {return 1};
       if (x > y) {return -1};
       return 0;
@@ -175,6 +176,15 @@ export class PendragonCharacterSheet extends ActorSheet {
       let y = b.system.age;
       if (x < y) {return 1};
       if (x > y) {return -1};
+    return 0;
+    });
+
+    // Sort Wounds by damage, low first
+    wounds.sort(function(a, b){
+      let x = a.system.value;
+      let y = b.system.value;
+      if (x < y) {return -1};
+      if (x > y) {return 1};
     return 0;
     });
 
@@ -226,6 +236,8 @@ export class PendragonCharacterSheet extends ActorSheet {
     html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));        // Item Toggle
     html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));      // Actor Toggle
     html.find(".rollable").click(PENChecks._onRollable.bind(this));           // Dice Roll from stat etc
+    html.find(".treat-wound").dblclick(PENCombat.treatWound.bind(this));      // Treat a wound
+    html.find(".natural-heal").dblclick(PENCombat.naturalHealing.bind(this));      // Natural Healing
     
     // Drag events for macros.
     if (this.actor.isOwner) {
@@ -271,6 +283,9 @@ export class PendragonCharacterSheet extends ActorSheet {
     // Finally, create the item!
     let item = await Item.create(itemData, {parent: this.actor});
     if (type === "history" || type === "wound" || type === "horse" || type === "squire" || type ==="gear") {
+      if(type === "history"){
+        await item.update({'system.year' : game.settings.get('Pendragon',"gameYear")})
+      }
       item.sheet.render(true);
     }
     return
@@ -327,7 +342,10 @@ async _onInlineEdit(event){
     if (prop === "lock") {
       checkProp = {'system.lock': !this.actor.system.lock}
     } else if (prop === "debilitated") {
-      checkProp = {'system.status.debilitated': !this.actor.system.status.debilitated}
+      checkProp = {'system.status.debilitated': !this.actor.system.status.debilitated,
+                   'system.status.chirurgery': false}
+    } else if (prop === "chirurgery") {
+      checkProp = {'system.status.chirurgery': !this.actor.system.status.chirurgery}
     } else if (prop === "unconscious") {
       checkProp = {'system.status.unconscious': !this.actor.system.status.unconscious}
     } else if (prop === "nearDeath") {
@@ -338,7 +356,7 @@ async _onInlineEdit(event){
       checkProp = {'system.status.melancholy': !this.actor.system.status.melancholy}
     } else if (prop === "misery") {
       checkProp = {'system.status.misery': !this.actor.system.status.misery}
-    }
+    } 
 
   await this.actor.update(checkProp);
   return

@@ -112,6 +112,12 @@ export class PendragonActor extends Actor {
     systemData.tap = Math.min(100,systemData.passion) + Math.min(100,systemData.trait)
     systemData.passive = Number(systemData.tap) + Number(systemData.appeal) + Number(systemData.passglory.ideals) + Number(systemData.passglory.estate)
 
+    //Check debilitated status
+    if (systemData.status.debilitated && systemData.status.chirurgery && systemData.hp.value >= Math.floor(systemData.hp.max/2)) {
+      systemData.status.debilitated = false;
+      systemData.status.chirurgery = false;
+    }
+
   }
 
   // Prepare NPC type specific data.
@@ -153,7 +159,8 @@ export class PendragonActor extends Actor {
     let shield = 0;
     for (let i of actorData.items) {    
        if (i.type === 'wound') {                  
-        totalWounds = totalWounds + i.system.value;
+        //Ignore wounds with a negative value
+        totalWounds = totalWounds + Math.max(i.system.value,0);
        } else if (i.type === "history") {
         glory = glory + i.system.glory
        } else if (i.type === "armour" && i.system.equipped){    //If armour is equipped
@@ -162,11 +169,12 @@ export class PendragonActor extends Actor {
         } else {                                              //Otherwise type = false then add AP to shield
           shield = shield + Number(i.system.ap)
         }
-       } else if (i.type === "horse" && systemData.horseDam === "" && i.system.damage != "") {    //Get horse damage from first horse with a damage bonus
+       } else if (i.type === "horse" && systemData.horseDam === "" && i.system.damage != "") {    //Get horse damage from first horse with a damage bonus,
         systemData.horseDam = i.system.damage
        }
     }
-    systemData.hp.value = systemData.hp.max - totalWounds - (systemData.aggravDam ? systemData.aggravDam : 0) - (systemData.deterDam ? systemData.deterDam : 0) - (systemData.woundTotal ? systemData.woundTotal : 0);  //Calculate current HP then check for Near Death
+    //Calculate current HP then check for Near Death
+    systemData.hp.value = systemData.hp.max - totalWounds - (systemData.aggravDam ? systemData.aggravDam : 0) - (systemData.deterDam ? systemData.deterDam : 0) - (systemData.woundTotal ? systemData.woundTotal : 0);  
     if (systemData.hp.value <=0 && actorData.type === 'character') {
       systemData.status.nearDeath = true;
       systemData.status.unconscious = true;
@@ -175,7 +183,6 @@ export class PendragonActor extends Actor {
     systemData.glory = glory;
     systemData.armour = armour;
     systemData.shield = shield;
-
   }
 
 
