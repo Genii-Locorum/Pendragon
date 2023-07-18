@@ -58,6 +58,7 @@
     },
     "status": {
       "debilitated": false,
+      "chirurgery": false,
       "unconscious": false,
       "nearDeath": false,
       "madness": false,
@@ -121,6 +122,7 @@
       "armour": 0,
       "move": 0,
       "damage": "",
+      "chargeDmg": "",
       "hp": 0,
       "maxHP": 0,
       "siz": 0,

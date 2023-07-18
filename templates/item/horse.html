@@ -56,8 +56,12 @@
         <div class="stat-name left bold">{{localize 'PENDRAGON.StatConAbbr'}}</div>
         <div class="stat-name-input centre {{#if (eq item.system.con null)}} input-border {{/if}} dam-value"><input name="system.con" type="text" value="{{item.system.con}}" data-dtype="Number"/></div>
         <div></div>
+        <div class="stat-name left bold">{{localize 'PEN.chargeDmg'}}</div>
+        <div class="stat-name-input centre {{#if (eq item.system.chargeDmg null)}} input-border {{/if}} dam-value"><input name="system.chargeDmg" type="text" value="{{item.system.chargeDmg}}"/></div>
+
         <div class="stat-name left bold">{{localize 'PEN.maxHP'}}</div>
         <div class="stat-name-input centre {{#if (eq item.system.maxHP null)}} input-border {{/if}} dam-value"><input name="system.maxHP" type="text" value="{{item.system.maxHP}}" data-dtype="Number"/></div>
+        <div></div>
       {{else}}
         <div class="stat-name left bold">{{localize 'PENDRAGON.StatSizAbbr'}}</div>
         <div class="stat-name centre">{{item.system.siz}}</div>
@@ -80,8 +84,12 @@
         <div class="stat-name left bold">{{localize 'PENDRAGON.StatConAbbr'}}</div>
         <div class="stat-name centre">{{item.system.con}}</div>
         <div></div>
+        <div class="stat-name left bold">{{localize 'PEN.chargeDmg'}}</div>
+        <div class="stat-name centre">{{item.system.chargeDmg}}</div>
+
         <div class="stat-name left bold">{{localize 'PEN.maxHP'}}</div>
         <div class="stat-name centre">{{item.system.maxHP}}</div>
+        <div></div>
       {{/if}}
 
       <div class="stat-name left bold">{{localize 'PEN.hpShort'}}</div>
