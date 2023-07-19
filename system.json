@@ -25,24 +25,6 @@
       "flags": {}
     },
     {
-      "label": "Armour",
-      "type": "Item",
-      "name": "armour",
-      "path": "packs/armour.db",
-      "system": "Pendragon",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "label": "Horses",
-      "type": "Item",
-      "name": "horses",
-      "path": "packs/horses.db",
-      "system": "Pendragon",
-      "private": false,
-      "flags": {}
-    },
-    {
       "label": "Passions",
       "type": "Item",
       "name": "passions",
@@ -56,15 +38,6 @@
       "type": "Item",
       "name": "traits",
       "path": "packs/traits.db",
-      "system": "Pendragon",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "label": "Weapons",
-      "type": "Item",
-      "name": "weapons",
-      "path": "packs/weapons.db",
       "system": "Pendragon",
       "private": false,
       "flags": {}
