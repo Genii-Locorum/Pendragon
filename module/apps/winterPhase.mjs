@@ -21,7 +21,7 @@ export class PENWinter {
     let year = game.settings.get('Pendragon',"gameYear") + 1;
     game.settings.set('Pendragon',"gameYear",year);
     
-    ui.notifications.warn(game.i18n.localize('PEN.winterPhaseEnded'))
+    ui.notifications.warn(game.i18n.localize('PEN.winterPhaseEnd'))
     return
     }
 
