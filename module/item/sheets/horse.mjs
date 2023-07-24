@@ -41,6 +41,21 @@ export class PendragonHorseSheet extends ItemSheet {
       // Everything below here is only needed if the sheet is editable
       if (!this.options.editable) return
  
+      html.find('.item-toggle').dblclick(this.onItemToggle.bind(this));
+
     }
+ 
+    
+  //Handle toggle states
+  async onItemToggle(event){
+    event.preventDefault();
+    const prop=event.currentTarget.closest('.item-toggle').dataset.property;
+    let checkProp={};
+    if (prop === 'equipped') {
+      checkProp = {'system.equipped': !this.item.system.equipped}
+    }  
+    await this.item.update(checkProp)
+    return;
+  }
   
 }

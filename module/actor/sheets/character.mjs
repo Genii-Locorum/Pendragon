@@ -1,5 +1,7 @@
 import { PENChecks } from "../../apps/checks.mjs";
 import { PENCombat } from "../../apps/combat.mjs";
+import { PENWinter } from "../../apps/winterPhase.mjs";
+import { PENUtilities } from "../../apps/utilities.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -34,7 +36,9 @@ export class PendragonCharacterSheet extends ActorSheet {
     context.system = actorData.system;
     context.flags = actorData.flags;
     context.isGM = game.user.isGM;
-
+    context.isWinter = game.settings.get('Pendragon' , 'winter')
+    context.isDevelopment = game.settings.get('Pendragon' , 'development')
+    
 
     // Prepare character data and items.
     if (actorData.type == 'character') {
@@ -147,8 +151,12 @@ export class PendragonCharacterSheet extends ActorSheet {
     history.sort(function(a, b){
       let x = a.system.year;
       let y = b.system.year;
+      let p = a._stats.createdTime;
+      let q = b._stats.createdTime;
       if (x < y) {return 1};
       if (x > y) {return -1};
+      if (p < q) {return 1};
+      if (p > q) {return -1};
       return 0;
     });
 
@@ -231,13 +239,17 @@ export class PendragonCharacterSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
 
-    html.find('.item-create').click(this._onItemCreate.bind(this));           // Add Inventory Item
-    html.find(".inline-edit").change(this._onInlineEdit.bind(this));          // Inline Edit
-    html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));        // Item Toggle
-    html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));      // Actor Toggle
-    html.find(".rollable").click(PENChecks._onRollable.bind(this));           // Dice Roll from stat etc
-    html.find(".treat-wound").dblclick(PENCombat.treatWound.bind(this));      // Treat a wound
-    html.find(".natural-heal").dblclick(PENCombat.naturalHealing.bind(this));      // Natural Healing
+    html.find('.item-create').click(this._onItemCreate.bind(this));                     // Add Inventory Item
+    html.find(".inline-edit").change(this._onInlineEdit.bind(this));                    // Inline Edit
+    html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));                  // Item Toggle
+    html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));                // Actor Toggle
+    html.find(".rollable").click(PENChecks._onRollable.bind(this));                     // Dice Roll from stat etc
+    html.find(".treat-wound").dblclick(PENCombat.treatWound.bind(this));                // Treat a wound
+    html.find(".natural-heal").dblclick(PENCombat.naturalHealing.bind(this));           // Natural Healing
+    html.find(".xp-check").click(PENWinter.xpCheck.bind(this));                         // XP Rolls
+    html.find(".prestige-check").click(PENWinter.winterImprov.bind(this,"prestige"));   // Spend prestige
+    html.find(".train-single").click(PENWinter.winterImprov.bind(this,"single"));       // Spend training as a single point
+    html.find(".train-multiple").click(PENWinter.winterImprov.bind(this,"multiple"));   // Spend training spread across multiple skills
     
     // Drag events for macros.
     if (this.actor.isOwner) {
@@ -332,6 +344,16 @@ async _onInlineEdit(event){
       checkProp = {'system.equipped': !item.system.equipped}
     }
     await item.update(checkProp);
+
+    //If toggle was to equip a horse then uneqip all other horses
+    if (item.type === 'horse' && item.system.equipped) {
+      for (let i of this.actor.items){
+        if (i.type === 'horse' && i._id != itemID){
+          await i.update({'system.equipped' : false})
+        }
+      }
+    }
+
   return
 }
 

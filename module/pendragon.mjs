@@ -1,10 +1,14 @@
 import { PendragonActor } from "./actor/actor.mjs";
 import { PendragonItem } from "./item/item.mjs";
-import { preloadHandlebarsTemplates } from "./apps/templates.mjs";
-import { PENDRAGON } from "./apps/config.mjs";
+import { preloadHandlebarsTemplates } from "./setup/templates.mjs";
+import { PENDRAGON } from "./setup/config.mjs";
 import { handlebarsHelper } from './setup/handlebar-helper.mjs';
 import { PendragonHooks } from './hooks/index.mjs'
 import { registerSettings } from './setup/register-settings.mjs';
+import { PENLayer } from "./setup/layers.mjs"
+import { PENWinter } from "./apps/winterPhase.mjs"
+import { PENSystemSocket } from "./apps/socket.mjs"
+
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -36,7 +40,15 @@ Hooks.once('init', async function() {
   return preloadHandlebarsTemplates();
 });
 
-PendragonHooks.listen()
+// Set Up Layers for Toolbar
+const layers = { Pendragongmtools: { layerClass: PENLayer, group: "primary" } };
+CONFIG.Canvas.layers = foundry.utils.mergeObject(Canvas.layers, layers);
+
+Hooks.on('ready', async () => {
+  game.socket.on('system.Pendragon', async data => {
+    PENSystemSocket.callSocket(data)
+  });
+});
 
 
 //Add sub-titles in Config Settings for Pendragon Game Settings
@@ -53,12 +65,55 @@ Hooks.on('renderSettingsConfig', (app, html, options) => {
     )
 });
 
+//Add GM controls to Scene - first bit is adding the GM Tools button
+Hooks.on('getSceneControlButtons', (buttons) => {
+  if(game.user.isGM) {
+    const PendragonGMTool = {
+      activeTool: "select",
+      icon: "fas fa-tools",
+      layer: "Pendragongmtools",
+      name: "Pendragongmtools",
+      title: game.i18n.localize('PEN.GMTools'),
+      tools: [],
+      visible: true
+    };
+    // This adds a sub-button - the Winter Phase
+    PendragonGMTool.tools.push({
+      name: "Session",
+      icon: "fas fa-snowflake",
+      title:  game.i18n.localize('PEN.winterPhase'),
+      active: game.settings.get('Pendragon','winter'),
+      toggle: true,
+      onClick: async toggle => {await PENWinter.winterPhase(toggle)}
+
+    });
+
+    // This adds a sub-button - the Development Phase - same as WinterPhase but without the year and history changes
+    PendragonGMTool.tools.push({
+      name: "Development",
+      icon: "fas fa-helmet-battle",
+      title:  game.i18n.localize('PEN.developmentPhase'),
+      active: game.settings.get('Pendragon','development'),
+      toggle: true,
+      onClick: async toggle => await PENWinter.developmentPhase(toggle)
+    });
+
+       buttons.push(PendragonGMTool);
+    };
+  })
+
+  PendragonHooks.listen()
 
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
 Hooks.once("ready", async function() {
+  // Always reset GM Tool toggles to False
+  if (game.user.isGM) {
+    if (game.settings.get('Pendragon' , 'winter')) {game.settings.set('Pendragon','winter', false)};
+    if (game.settings.get('Pendragon' , 'development')) {game.settings.set('Pendragon','development', false)};
+  }  
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 });

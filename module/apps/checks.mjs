@@ -13,13 +13,14 @@ export class PENChecks {
     let type = dataset.type;
     let name = "";
     let targetScore = 0;
+    let dmgFormula = "";
 
 
     //Set the necessary roll variables based on the type of roll
     if (type === "stat") {
       name = dataset.label
       targetScore = dataset.target;
-    } else if (type === "passion" || type === "skill" || type === 'trait' || type === 'opptrait' || type === 'weapon') {
+    } else if (type === "passion" || type === "skill" || type === 'trait' || type === 'opptrait' || type === 'weapon' ||type === 'damage') {
       itemId = event.currentTarget.dataset.itemid;
       let item = actor.items.get(itemId);
       name = item.name
@@ -27,17 +28,27 @@ export class PENChecks {
       if (type === 'opptrait') {
         name = item.system.oppName
         targetScore = item.system.oppvalue;
-      } else if (type=== 'weapon' && actor.type === 'character') {  //If this is a weapon and for a character replace itemnID with the underlying skill id.
-        itemId = dataset.sourceID
+      } else if (type === 'weapon' && actor.type === 'character') {  //If this is a weapon and for a character replace itemnID with the underlying skill id.
+        itemId = dataset.sourceid
+      } else if (type === 'damage') {
+        name = game.i18n.localize ('PEN.damage') + ": " + name
+          if((actor.type === 'character')) {
+            dmgFormula = item.system.damage;
+          } else {
+            dmgFormula = item.system.dmgForm;  
+          }
+          //If there's no damage formula then stop the roll
+        if (dmgFormula === "") {return}
       }
     }
     PENChecks.startCheck ({
         shiftKey: event.shiftKey,
         partic: partic,
-        type: type,
+        type : type,
         label: name,
-        targetScore: targetScore,
-        itemId: itemId
+        targetScore,
+        itemId: itemId,
+        dmgFormula: dmgFormula,
     })
     return
   }  
@@ -64,9 +75,11 @@ export class PENChecks {
       gmRoll: options.gmRoll,
       label: options.label,
       partic: options.partic,
+      itemId: options.itemId ? options.itemId: "",
       targetScore: options.targetScore ? options.targetScore : 0,
       type: options.type ? options.type : '',               
       rollFormula: options.formula ? options.formula : "1d20",
+      dmgFormula: options.dmgFormula ? options.dmgFormula : "",
       critBonus: 0,
       checkBonus: 0,
       resultLevel: 0,
@@ -83,8 +96,8 @@ export class PENChecks {
   static async runCheck (config) {
     let actor = await PENactorDetails._getParticipant(config.partic.particId, config.partic.particType);
   
-    //If Shift key has been held then accept the defaults above otherwise call a Dialog box for Bonus/Penalty
-    if (config.shiftKey){
+    //If Shift key has been held or this is a Damage Roll then accept the defaults above otherwise call a Dialog box for Bonus/Penalty
+    if (config.shiftKey || config.type === 'damage'){
     } else{
       let usage = await PENChecks.RollDialog(config);
         if (usage) {
@@ -102,8 +115,18 @@ export class PENChecks {
 
     await PENChecks.makeRoll(config) ;  
 
-    //TO DO:  Can we automate XP checks?  Perhaps with a game setting the GM can say automatically grants on anything but a fail?
-  
+    //If Auto XP game setting is on and result level isnt a fail
+    if (game.settings.get('Pendragon',"autoXP") && config.resultLevel != 1) {
+      let checkProp ="";
+      if(config.type === 'skill' || config.type === 'passion' || config.type === 'trait' || config.type === 'weapon' || config.type === 'opptrait') {
+        checkProp = {'system.XP' : true};
+        if (config.type === 'opptrait') {
+          checkProp = {'system.oppXP' : true};
+        } 
+        const item = actor.items.get(config.itemId);
+        await item.update (checkProp);
+        }
+      }    
     return
   }
 
@@ -132,7 +155,7 @@ export class PENChecks {
         },
       default: 'roll',
       close: () => {}
-      })
+      },{classes: ["Pendragon", "sheet"]})
       dlg.render(true);
     })
   }
@@ -141,10 +164,12 @@ export class PENChecks {
   //Call Dice Roll, calculate Result and store result in rollVal
   //
   static async makeRoll(config) {
-    let roll = new Roll(config.rollFormula);
+    let dice = config.rollFormula
+    if (config.type === 'damage') {dice = config.dmgFormula};
+    let roll = new Roll(dice);
     await roll.roll({ async: true});
     config.roll = roll;
-    config.rollResult = Number(config.roll.result);
+    config.rollResult = Number(config.roll.total);
     //Add the critBonus to the dice roll  but cap the roll it at 20
     config.rollVal = Math.min(Number(config.rollResult) + Number(config.critBonus),20)
     
@@ -163,7 +188,11 @@ export class PENChecks {
   // Calculate Success Level
   //
   static async successLevel (config){
-    let resultLevel = 0;
+    let resultLevel = -1;
+      //Bypass result level calc for certain roll types and return -1
+      if (config.type === 'damage') {return resultLevel}
+
+      //Otherwise calculate result level
       if (config.rollVal === config.targetScore) {
         resultLevel = 3;  //3 = Critical
       } else if (config.rollVal <config.targetScore) {
@@ -189,6 +218,7 @@ export class PENChecks {
       label: config.label,
       actorId: actor._id,
       checkBonus: config.checkBonus,
+      dmgFormula: config.dmgFormula,
       partic: config.partic,
       resultLevel : config.resultLevel,
       resultLabel: game.i18n.localize('PEN.resultLevel.'+config.resultLevel),

@@ -78,8 +78,8 @@ export class PendragonActor extends Actor {
         let damageDice = 0;
         let damageFlatMod = 0;
         let damageFormula = "";
-        if(i.system.damageChar === 'h') {                   //If damage source is horse use the horse damage
-          damageFormula = systemData.horseDam
+        if(i.system.damageChar === 'h') {                   //If damage source is horse use the horse's charge damage
+          damageFormula = systemData.horseChgDam
         } else {
 
           if(i.system.damageChar === 'c') {                 //If damage source is character use the character Dam as number of D6
@@ -141,6 +141,7 @@ export class PendragonActor extends Actor {
 
     systemData.damage = Math.round((systemData.stats.str.value + systemData.stats.siz.value)/6);
     systemData.horseDam = "";
+    systemData.horseChgDam = "";
     systemData.healRate = Math.round(systemData.stats.con.value/5);
     systemData.move = Math.round((systemData.stats.str.value + systemData.stats.siz.value)/2)+5;
     systemData.knockdown = systemData.stats.siz;
@@ -169,8 +170,9 @@ export class PendragonActor extends Actor {
         } else {                                              //Otherwise type = false then add AP to shield
           shield = shield + Number(i.system.ap)
         }
-       } else if (i.type === "horse" && systemData.horseDam === "" && i.system.damage != "") {    //Get horse damage from first horse with a damage bonus,
-        systemData.horseDam = i.system.damage
+       } else if (i.type === "horse" && i.system.equipped) {    //Get horse damage from an equipped horse,
+        systemData.horseDam = i.system.damage;
+        systemData.horseChgDam = i.system.chargeDmg;
        }
     }
     //Calculate current HP then check for Near Death
@@ -181,6 +183,7 @@ export class PendragonActor extends Actor {
       systemData.status.debilitated = true;
     }
     systemData.glory = glory;
+    systemData.gloryPrestige = Math.floor(glory/1000) - systemData.prestige
     systemData.armour = armour;
     systemData.shield = shield;
   }
