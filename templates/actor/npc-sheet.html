@@ -83,7 +83,7 @@
         {{#if ../system.lock}}
         <div class="npc-name rollable" data-type ="weapon" data-sourceID = "{{weapon.system.sourceID}}" data-itemid="{{weapon._id}}">{{weapon.name}}</div> 
         <div class="npc-name centre">{{weapon.system.value}}</div>   
-        <div class="npc-name centre">{{weapon.system.dmgForm}}</div>
+        <div class="npc-name centre rollable" data-type = "damage" data-itemid="{{weapon._id}}">{{weapon.system.dmgForm}}</div>
         <div></div>      
         {{else}}
           <div class="npc-name-input item" data-field ="name" data-itemid="{{weapon._id}}"><input class="inline-edit" name="item.weapon.{{key}}.name" type="text" value="{{weapon.name}}"/></div>

@@ -26,6 +26,7 @@
 <br>
 <div class="stat-name bold">{{localize 'PEN.horses'}}</div>
 <div class="companion-grid">
+  <div class="stat-name grid-item bold" title="{{localize 'PEN.rideHint'}}">{{localize 'PEN.ride'}}</div>
   <div class="stat-name grid-item bold">{{localize 'PEN.type'}}</div>
   <div class="stat-name grid-item centre bold">{{localize 'PEN.ap'}}</div>
   <div class="stat-name grid-item centre bold">{{localize 'PEN.mov'}}</div>
@@ -36,6 +37,9 @@
   <div class="stat-name bold grid-item centre"></div> 
 
   {{#each horses as |horse key|}}
+    <div class="grid-item middle centre">
+      <a class="item-control item-toggle large-icon" data-itemid ="{{horse._id}}" data-property="equipped" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if horse.system.equipped}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
+    </div>
     <div class="stat-name grid-item">{{horse.name}}</div>
     <div class="stat-name grid-item centre">{{horse.system.armour}}</div>
     <div class="stat-name grid-item centre">{{horse.system.move}}</div>

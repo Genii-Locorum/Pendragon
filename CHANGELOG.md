@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 11.0.3
+- Added Socket functionality - doesn't do anything yet but added for future development
+- GM Tools added as a scene button at the top left
+- Winter Phase GM Tool added, creates a History Event for each character with passive glory score, increases age by 1 and game year by 1
+- In Winter Phase players can automate the XP Checks and spend Prestige/Training Points
+- Development Phase GM Tool added - allows characters to carry out Winter Phase steps without changing age, Game Year or adding History events
+- Added equipped to horses and only allows one horse to be ridden - this then determines horse damage.
+- Horse damage for equipment changed to use horse charge damage
+- Added game setting for "AutoXP" - when On if skill, trait, passion or weapon roll made and is Fumble/Success/Critical XP box automatically checked
+
+
 ## 11.0.2
 - Added basic rolls for Stats, Skills, Traits, Passions and Equipment skill check (not damage)
 - Expanded horses to include charge damage

@@ -2,10 +2,10 @@
   "id": "Pendragon",
   "title": "Pendragon",
   "description": "Pendragon system for FoundryVTT!",
-  "version": "11.0.2",
+  "version": "11.0.3",
   "compatibility": {
     "minimum": 11,
-    "verified": "11.305",
+    "verified": "11.306",
     "maximum": 11
   },
   "authors": [{
@@ -25,6 +25,24 @@
       "flags": {}
     },
     {
+      "label": "Armour",
+      "type": "Item",
+      "name": "armour",
+      "path": "packs/armour.db",
+      "system": "Pendragon",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Horses",
+      "type": "Item",
+      "name": "horses",
+      "path": "packs/horses.db",
+      "system": "Pendragon",
+      "private": false,
+      "flags": {}
+    },
+    {
       "label": "Passions",
       "type": "Item",
       "name": "passions",
@@ -38,6 +56,15 @@
       "type": "Item",
       "name": "traits",
       "path": "packs/traits.db",
+      "system": "Pendragon",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Weapons",
+      "type": "Item",
+      "name": "weapons",
+      "path": "packs/weapons.db",
       "system": "Pendragon",
       "private": false,
       "flags": {}
@@ -66,6 +93,7 @@
   "url": "",
   "manifest": "",
   "download": "",
+  "socket": true,
   "license": "LICENSE.txt",
   "changelog": "CHANGELOG.md"
 }

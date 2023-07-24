@@ -80,14 +80,14 @@
       <div class="grid-item" title= "{{localize 'PEN.advDisHint'}}"></div>  
 
       {{#each weapons as |weapon key|}}
-        <div class="grid-item stat-name rollable" data-type ="weapon" data-sourceID = "{{weapon.system.sourceID}}" data-itemid="{{weapon._id}}">{{weapon.name}}
+        <div class="grid-item stat-name rollable" title="{{weapon.system.sourceID}}"  data-type ="weapon" data-sourceid = "{{weapon.system.sourceID}}" data-itemid="{{weapon._id}}">{{weapon.name}}
         {{#if (gt weapon.system.quantity 1)}}
            ({{weapon.system.quantity}})
         {{/if}}
         </div>
         <div class="grid-item stat-name centre">{{weapon.system.skillName}}</div>
         <div class="grid-item stat-name centre">{{weapon.system.value}}</div>
-        <div class="grid-item stat-name centre">{{weapon.system.damage}}</div>
+        <div class="grid-item stat-name centre rollable" data-type ="damage" data-itemid="{{weapon._id}}">{{weapon.system.damage}}</div>
         <div class="grid-item stat-name centre">{{weapon.system.rangeName}}</div>
 
         {{#if ../system.lock}}

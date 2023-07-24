@@ -34,6 +34,7 @@
     "lord": "",
     "class": "",
     "age": 21,
+    "prestige": 0,
     "culture": "",
     "religion": "",
     "homeland": "",
@@ -63,7 +64,9 @@
       "nearDeath": false,
       "madness": false,
       "melancholy": false,
-      "misery": false
+      "misery": false,
+      "winter": false,
+      "train": false
     }
   },
   "npc": {
@@ -121,6 +124,7 @@
       "templates": ["base"],
       "armour": 0,
       "move": 0,
+      "equipped": false,
       "damage": "",
       "chargeDmg": "",
       "hp": 0,

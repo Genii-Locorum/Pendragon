@@ -1,0 +1,22 @@
+<form class="Pendragon">
+    <div class="dice-roll">
+      <div style="display: block">  
+        <div class="flavour-result"> {{localize 'PEN.xpRoll'}}</div>
+
+      {{#each success as | line key|}}  
+
+        <div class="flavour-result">
+           {{line.type}}: {{line.name}} ({{line.roll}}) - 
+           
+           {{#if (eq line.result 1)}}
+              Improved 
+           {{else}}
+              No Improvement 
+           {{/if}}      
+        </div>  
+      {{/each}}  
+
+    </div>
+  </div>
+</form>  
+

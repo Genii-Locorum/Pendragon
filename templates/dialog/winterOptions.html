@@ -1,0 +1,26 @@
+<form class="Pendragon winter-selector" id="winter-form">
+    <div class="dice-roll">
+      <div style="display: block">  
+        <div class="flavour-result bold"> 
+          <label>{{localize 'PEN.select'}}: </label>
+          <span class="count">0</span>
+          <span class="sep">/</span>
+          <span>{{amount}}</span>
+        </div>
+        <div class="prestige-result">
+        {{#each options as | line key|}}  
+          <div class="grid-item centre middle winter-choice" data-itemid="{{line.itemID}}" data-type="{{line.type}}" data-index={{key}} data-choice=1>
+            <a title="{{localize 'PEN.improve'}}"><i class="item-control fas fa-up"></i></a>
+          </div>
+          <div class="grid-item centre">{{line.label}}</div>
+          <div class="grid-item centre">{{line.name}}</div>
+          <div class="grid-item centre" data-line={{key}}></div>
+          <div class="grid-item centre middle winter-choice" data-itemid="{{line.itemID}}" data-type="{{line.type}}" data-index={{key}} data-choice=-1>
+            <a title="{{localize 'PEN.reduce'}}"><i class="item-control fas fa-down"></i></a>
+          </div>  
+        {{/each}}  
+      </div>  
+    </div>
+  </div>
+</form>  
+

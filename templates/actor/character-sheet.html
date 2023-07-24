@@ -68,6 +68,9 @@
     {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
+    {{#isOr isWinter isDevelopment}}
+      <a class="item tab-name" data-tab="winter">{{localize 'PEN.winter'}}</a>
+    {{/isOr}}
     <a class="item tab-name" data-tab="combat">{{localize 'PEN.combat'}}</a>
     <a class="item tab-name" data-tab="traits">{{localize 'PEN.traits'}}</a>
     <a class="item tab-name" data-tab="passions">{{localize 'PEN.passions'}}</a>
@@ -123,6 +126,11 @@
       {{!-- Companions Tab --}}
       <div class="tab companions" data-group="primary" data-tab="companions">
         {{> "systems/Pendragon/templates/actor/parts/actor-companions.html"}}
+      </div>
+
+      {{!-- Winter Phase Tab --}}
+      <div class="tab winter" data-group="primary" data-tab="winter">
+        {{> "systems/Pendragon/templates/actor/parts/actor-winter.html"}}
       </div>
 
     </section>

@@ -2,7 +2,12 @@
     <div class="dice-roll">
       <div style="display: block">  
         <div class="flavour-result"> 
-          {{label}} ({{grossTarget}})
+          {{label}} 
+          {{#if (eq rollType 'damage')}}
+            ({{dmgFormula}})
+          {{else}}
+            ({{grossTarget}})
+          {{/if}}
         </div>
   
           <div class="flavour-result">
@@ -12,7 +17,6 @@
           {{#if (gt checkBonus 0)}}
             <span>{{localize 'PEN.bonus'}}: +{{checkBonus}}</span>
           {{/if}}
-
 
         {{#if (eq resultLevel 3)}}
           <div class="roll-icons">{{resultLabel}}: <i class="result-success fas fa-swords"></i><i class="result-success fas fa-swords"></i></div>
