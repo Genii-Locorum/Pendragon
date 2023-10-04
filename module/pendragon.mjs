@@ -8,6 +8,7 @@ import { registerSettings } from './setup/register-settings.mjs';
 import { PENLayer } from "./setup/layers.mjs"
 import { PENWinter } from "./apps/winterPhase.mjs"
 import { PENSystemSocket } from "./apps/socket.mjs"
+import * as Chat from "./chat/chat.mjs";
 
 
 /* -------------------------------------------- */
@@ -50,6 +51,17 @@ Hooks.on('ready', async () => {
   });
 });
 
+
+//Remove certain Items types from the list of options to create under the items menu (can still be created directly from the character sheet)
+Hooks.on("renderDialog", (dialog, html) => {
+  let deprecatedTypes = ["wound", "squire", "history"]; // 
+  Array.from(html.find("#document-create option")).forEach(i => {
+      if (deprecatedTypes.includes(i.value))
+      {
+          i.remove()
+      }
+  })
+})
 
 //Add sub-titles in Config Settings for Pendragon Game Settings
 Hooks.on('renderSettingsConfig', (app, html, options) => {
@@ -97,12 +109,14 @@ Hooks.on('getSceneControlButtons', (buttons) => {
       toggle: true,
       onClick: async toggle => await PENWinter.developmentPhase(toggle)
     });
-
        buttons.push(PendragonGMTool);
     };
   })
 
   PendragonHooks.listen()
+
+  //Add Chat Log Hooks
+  Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
 
 /* -------------------------------------------- */
 /*  Ready Hook                                  */

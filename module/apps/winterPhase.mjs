@@ -26,13 +26,6 @@ export class PENWinter {
     }
 
     //If Winter Phase toggled on
-      //Keep as an example of socket for now, can remove later when actual usage is in place
-      /*game.socket.emit('system.Pendragon', {
-        type: 'increaseAge',
-        value: '1',
-        state: ""
-      }) */
-  
       //Add one year to age and turn winter phase and training on for Characters
       for (const a of game.actors.contents) {
       if(a.type === 'character') {
@@ -219,9 +212,13 @@ export class PENWinter {
             }
           }
 
-          // For traits the range is always 1-19  SUBJECT TO CLARIFICATION THAT IT'S NOT 0-20          
+          // For traits the range is always 0-20, except for Prestige with no max or min          
           if (i.type === 'trait') {
-            option.max = 19;
+            option.min = 0;
+          }
+          if (i.type === 'trait' && route === 'prestige') {
+            option.min = -999;
+            option.max = 999;
           }
 
           // For passions range is 1-20 except for Prestige reward when there is no max

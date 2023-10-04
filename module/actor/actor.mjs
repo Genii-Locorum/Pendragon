@@ -95,7 +95,7 @@ export class PendragonActor extends Actor {
         }
         i.system.damage = damageFormula;
       } else if (i.type === "trait") {
-        i.system.oppvalue = 20 - i.system.value;
+        i.system.oppvalue = Math.max(20 - i.system.value,0);
         if (i.system.value > 19) {
           systemData.trait = systemData.trait + 25; 
         } else if (i.system.value > 15) {

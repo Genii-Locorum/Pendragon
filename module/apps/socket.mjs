@@ -1,9 +1,13 @@
+import { PENChecks } from './checks.mjs';
+
 export class PENSystemSocket {
   
   static async callSocket (data) {
     switch (data.type){
-      case 'increaseAge':
-      console.log("Age Character");
+      case 'chatUpdate':
+        if (game.user.isGM) {
+          PENChecks.handleChatButton(data.value);
+        }  
       break; 
 
 

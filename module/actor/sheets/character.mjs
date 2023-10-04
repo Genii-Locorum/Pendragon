@@ -314,7 +314,6 @@ async _onInlineEdit(event){
     let target = "";
     if (field === 'trait') {
       target = "system.value";
-      newScore=Math.min(newScore,20);
     } else if (field === 'skill' || field === 'wound' || field === 'passion'){
       target = "system.value";
     } else if (field === 'horse'){

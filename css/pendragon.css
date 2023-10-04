@@ -449,7 +449,7 @@ height: inherit;
 
 .Pendragon .trait-grid{
   display: grid;
-  grid-template-columns: 50px 30px 150px 30px 150px 30px 50px 30px;
+  grid-template-columns: 50px 30px 150px 70px 150px 30px 50px 30px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -657,4 +657,8 @@ height: inherit;
   grid-template-columns: 40px 120px 150px 50px 40px;
   border-top: 1px gray solid;
   border-left: 1px gray solid;
+}
+
+.Pendragon .cardbutton {
+  background-color:rgba(105, 105, 105, 0.6);
 }

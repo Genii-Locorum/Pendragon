@@ -6,11 +6,16 @@ export class PendragonItem extends Item {
   /**
    * Augment the basic Item data model with additional dynamic data.
    */
+  
   prepareData() {
     // As with the actor class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).
     super.prepareData();
   }
+
+
+
+
 
   /**
    * Prepare a data object which is passed to any Roll formulas which are created related to this Item
