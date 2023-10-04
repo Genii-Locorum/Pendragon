@@ -8,7 +8,9 @@
       {{/if}}
       <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{trait._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if trait.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
       <div class="stat-name right rollable" data-type ="trait" data-itemid="{{trait._id}}">{{trait.name}}</div>
-      <div class="stat-name centre">|</div>
+      <div class="stat-name centre">
+        <a class="item-control item-toggle large-icon rollable" data-type ="decisionTrait" data-itemid="{{trait._id}}" title="{{localize 'PEN.decisionTrait'}}"><i class="fa-regular fa-scale-balanced"></i></a>
+      </div>
       <div class="stat-name rollable" data-type ="opptrait" data-itemid="{{trait._id}}">{{trait.system.oppName}}</div>
       <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{trait._id}}" data-property="oppXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if trait.system.oppXP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
       <div class="stat-name centre">{{trait.system.oppvalue}}</div>

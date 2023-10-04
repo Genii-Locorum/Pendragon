@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 11.0.4
+- Item types of wound, squire and history no longer available in the Create Item menu - they can still be created on the character sheet
+- Squire skill roll added to Companions tab
+- Horse damage rolls added to Companions tab
+- For skills etc with target score < 0, make the negative amount a CritBonus (i.e added to dice roll and increses fumble range)
+- Added Glory roll to Character
+- Added a second squire skill roll based on Age - 11
+- Removed cap on Trait, but kept minimum as 0 for Opposite trait
+- Deleted packs for horses, armour and weapons
+- Added Trait Decision Rolls
+- Chat Log message now includes Roll Type
+
+
 ## 11.0.3
 - Added Socket functionality - doesn't do anything yet but added for future development
 - GM Tools added as a scene button at the top left

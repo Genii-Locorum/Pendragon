@@ -9,8 +9,8 @@
   </div> 
 
   {{#each squires as |squire key|}}
-    <div class="stat-name grid-item">{{squire.name}}</div>
-    <div class="stat-name grid-item centre">{{squire.system.age}}</div>
+    <div class="stat-name grid-item rollable" data-type ="squire" data-itemid="{{squire._id}}">{{squire.name}}</div>
+    <div class="stat-name grid-item centre rollable" data-type ="squireAge" data-itemid="{{squire._id}}">{{squire.system.age}}</div>
     <div class="stat-name grid-item centre">{{squire.system.skill}}</div>
     <div class="stat-name grid-item centre">{{squire.system.glory}}</div>
     {{#if ../system.lock}}
@@ -43,8 +43,8 @@
     <div class="stat-name grid-item">{{horse.name}}</div>
     <div class="stat-name grid-item centre">{{horse.system.armour}}</div>
     <div class="stat-name grid-item centre">{{horse.system.move}}</div>
-    <div class="stat-name grid-item centre">{{horse.system.damage}}</div>
-    <div class="stat-name grid-item centre">{{horse.system.chargeDmg}}</div>
+    <div class="stat-name grid-item centre rollable" data-type ="damage" data-subtype ="horse" data-itemid="{{horse._id}}">{{horse.system.damage}}</div>
+    <div class="stat-name grid-item centre rollable" data-type ="damage" data-subtype ="horseCharge" data-itemid="{{horse._id}}">{{horse.system.chargeDmg}}</div>
     <div class="dam-name-input item grid-item centre dam-value" data-field="horse" data-itemid ="{{horse._id}}"><input class="inline-edit" name="item.system.horse.{{key}}.hp" type="text" value="{{horse.system.hp}}" data-dtype="Number"/></div>
     <div class="stat-name grid-item centre">{{horse.system.maxHP}}</div>
     {{#if ../system.lock}}
