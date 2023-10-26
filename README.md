@@ -1,7 +1,7 @@
 # Pendragon
 
 Overview
-Very early work in progress for an unofficial implementation of Chaosium's Pendragon for Foundry VTT
+Community implementation of Chaosium's Pendragon for Foundry VTT
 
 Licenses
 All the code on this repository is licensed under the  MIT License (see License.txt)
