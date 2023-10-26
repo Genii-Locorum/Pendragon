@@ -147,7 +147,7 @@ async function createItemMacro(data, slot) {
   // First, determine if this is a valid owned item.
   if (data.type !== "Item") return;
   if (!data.uuid.includes('Actor.') && !data.uuid.includes('Token.')) {
-    return ui.notifications.warn("You can only create macro buttons for owned Items");
+    return ui.notifications.warn(game.i18n.localize('PEN.noMacroItemOwner'));
   }
   // If it is, retrieve it based on the uuid.
   const item = await Item.fromDropData(data);
@@ -184,7 +184,7 @@ function rollItemMacro(itemUuid) {
     // Determine if the item loaded and if it's an owned item.
     if (!item || !item.parent) {
       const itemName = item?.name ?? itemUuid;
-      return ui.notifications.warn(`Could not find item ${itemName}. You may need to delete and recreate this macro.`);
+      return ui.notifications.warn(game.i18n.format('PEN.noMacroItemFound', { itemName }));
     }
 
     // Trigger the item roll
