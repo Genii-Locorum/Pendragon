@@ -366,10 +366,16 @@ static async triggerChatButton(event){
   if (game.user.isGM){
     PENChecks.handleChatButton ({presetType, targetChatId, origin, originGM})
   } else {
-    game.socket.emit('system.Pendragon', {
-      type: 'chatUpdate',
-      value: {presetType, targetChatId, origin, originGM}
-    })
+    const availableGM = game.users.find(d => d.active && d.isGM)?.id
+    if (availableGM) {
+      game.socket.emit('system.Pendragon', {
+        type: 'chatUpdate',
+        to: availableGM,
+        value: {presetType, targetChatId, origin, originGM}
+      })
+    } else {
+      ui.notifications.warn(game.i18n.localize('PEN.noAvailableGM'));
+    }
   }
 }
 
