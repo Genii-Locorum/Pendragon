@@ -34,7 +34,9 @@
   <div class="stat-name grid-item centre bold">{{localize 'PEN.chargeDmg'}}</div>
   <div class="stat-name grid-item centre bold">{{localize 'PEN.hpShort'}}</div>
   <div class="stat-name grid-item centre bold">{{localize 'PEN.maxHP'}}</div>
-  <div class="stat-name bold grid-item centre"></div> 
+  <div class="stat-name bold grid-item centre item-create" data-type="horse">  
+    <a class="large-icon" title="{{localize 'PEN.addHorse'}}"><i class="item-control fas fa-plus"></i></a>
+  </div> 
 
   {{#each horses as |horse key|}}
     <div class="grid-item middle centre">

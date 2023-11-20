@@ -48,7 +48,7 @@
   {{#each gears as |gear key|}}
     <div class="stat-name grid-item">{{gear.name}}</div>
     <div class="stat-name centre grid-item">{{gear.system.quantity}}</div>
-    <div class="stat-name centre grid-item curtail2">{{gear.system.cleanDesc}}</div>
+    <div class="stat-name centre grid-item curtail2">{{{gear.system.cleanDesc}}}</div>
     {{#if ../system.lock}}
       <div class="centre item grid-item" data-itemid ="{{gear._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
     {{else}}

@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 11.0.5
+- Character image changed to a square (150 * 150)
+- Typo in Heraldry fixed
+- Horses can now be created by the "+" icon added to the horse section of the companions tab
+- Fair appeal now grants passive glory
+- Right side traits now add passive glory
+- "Events" section of the Biography tab now renamed to "Background" to avoid confusion with the Events section
+- Hopefully fixed some odd formatting with the "item" description in the Equipment tab
+
 ## 11.0.4
 - Item types of wound, squire and history no longer available in the Create Item menu - they can still be created on the character sheet
 - Squire skill roll added to Companions tab
@@ -11,7 +20,6 @@
 - Deleted packs for horses, armour and weapons
 - Added Trait Decision Rolls
 - Chat Log message now includes Roll Type
-
 
 ## 11.0.3
 - Added Socket functionality - doesn't do anything yet but added for future development

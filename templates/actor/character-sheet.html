@@ -59,8 +59,8 @@
       </section>
 
       {{!-- Image Section --}}
-      <section class="sheet-header">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="180" width="150"/>
+      <section class="sheet-header img-bottom">
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="150" width="150"/>
       </section>  
     </section>
 
@@ -77,7 +77,7 @@
     <a class="item tab-name" data-tab="skills">{{localize 'PEN.skills'}}</a>
     <a class="item tab-name" data-tab="items">{{localize 'PEN.equipment'}}</a>
     <a class="item tab-name" data-tab="companions">{{localize 'PEN.companions'}}</a>
-    <a class="item tab-name" data-tab="history">{{localize 'PEN.history'}}</a>
+    <a class="item tab-name" data-tab="history">{{localize 'PEN.events'}}</a>
     <a class="item tab-name" data-tab="biography">{{localize 'PEN.biography'}}</a>
 
     <a class="large-icon  middle actor-toggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i class="{{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i> </a>
