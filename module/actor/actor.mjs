@@ -51,7 +51,9 @@ export class PendragonActor extends Actor {
       systemData.appeal = 50
     } else if (systemData.stats.app.value >15 ) {
       systemData.appeal = 25
-    } 
+    } else if (systemData.stats.app.value >12 ) {
+      systemData.appeal = 10
+    }
 
 
     //Convert skilltype to the name of the Skill
@@ -96,9 +98,9 @@ export class PendragonActor extends Actor {
         i.system.damage = damageFormula;
       } else if (i.type === "trait") {
         i.system.oppvalue = Math.max(20 - i.system.value,0);
-        if (i.system.value > 19) {
+        if (i.system.value > 19 || i.system.oppvalue > 19) {
           systemData.trait = systemData.trait + 25; 
-        } else if (i.system.value > 15) {
+        } else if (i.system.value > 15 || i.system.oppvalue > 15) {
           systemData.trait = systemData.trait + 15;
         } 
       } else if (i.type === "passion") {

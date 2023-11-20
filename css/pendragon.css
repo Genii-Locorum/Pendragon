@@ -662,3 +662,9 @@ height: inherit;
 .Pendragon .cardbutton {
   background-color:rgba(105, 105, 105, 0.6);
 }
+
+.Pendragon .img-bottom{
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 5px;
+}
