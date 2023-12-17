@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 11.0.7
+- On creating a new character, linking, bars etc are now visible on token by default
+- On creating a new character all traits and skills are added by default (not passions) and doesn't apply to NPCS
+
+
+## 11.0.6
+- Distinctive Features moved to just under Heraldry on the Biograpghy tab, but as a single line.
+- Move corrected to be based on STR & DEX (not STR & SIZ)
+
 ## 11.0.5
 - Character image changed to a square (150 * 150)
 - Typo in Heraldry fixed
