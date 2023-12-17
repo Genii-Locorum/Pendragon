@@ -145,7 +145,7 @@ export class PendragonActor extends Actor {
     systemData.horseDam = "";
     systemData.horseChgDam = "";
     systemData.healRate = Math.round(systemData.stats.con.value/5);
-    systemData.move = Math.round((systemData.stats.str.value + systemData.stats.siz.value)/2)+5;
+    systemData.move = Math.round((systemData.stats.str.value + systemData.stats.dex.value)/2)+5;
     systemData.knockdown = systemData.stats.siz;
 
 
@@ -232,5 +232,44 @@ export class PendragonActor extends Actor {
 
     // Process additional NPC data here.
   }
+
+  /** @override */
+  static async create (data, options = {}) {
+    //When creating an actor set basics including tokenlink, bars, displays sight
+    if (data.type === 'character') {
+      data.prototypeToken = mergeObject( {
+        actorLink: true,
+        disposition: 1,
+        displayName: CONST.TOKEN_DISPLAY_MODES.ALWAYS,
+        displayBars: CONST.TOKEN_DISPLAY_MODES.ALWAYS,
+        sight: {
+          enabled: true
+        },
+        detectionModes: [{
+          id: 'basicSight',
+          range: 30,
+          enabled: true
+        }]
+      },data.prototypeToken || {})
+    } 
+
+    let actor = await super.create(data, options)
+
+    //If an actor now add all skills to the sheet
+    if (data.type === 'character') {
+      let newData = []
+      for (let i of game.items){
+        if (i.type === 'skill' || (i.type === 'trait')) {
+          newData.push(i)
+        }
+      }
+      await actor.createEmbeddedDocuments("Item", newData);
+    } 
+
+     return 
+
+    }
+
+
 
 }
