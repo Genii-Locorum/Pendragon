@@ -1,26 +1,22 @@
 <form class="Pendragon" id="check-roll-form">
-    <div class = "diff-label bold">{{label}}
-      {{#if (eq decision 'choose')}}
-        - {{opplabel}}
-      {{/if}}
-    </div>
+    {{#if (eq cardType 'NO')}}
+      <div class = "diff-label bold">{{ localize 'PEN.card.NO'}}
+    {{else}}
+      <div class = "diff-label bold">{{ localize 'PEN.card.OP'}}
+    {{/if}}
+
+    {{#unless (eq decision 'choose')}}
+      : {{label}}
+    {{/unless}}
+    </div>  
     <br>
 
-    <div class="flexrow">
-      <label class="resource-label-diff">{{ localize 'PEN.checkType' }}</label>
-      <select class="resource-label-diff align-center" name="checkType">
-        <option value="regular">{{ localize 'PEN.regularRoll' }}</option>
-        <option value="opposed" >{{ localize 'PEN.opposedRoll' }}</option>
-      </select>
-    </div>
-    <br>
-  
     {{#if (eq decision 'choose')}}
       <div class="flexrow">
         <label class="resource-label-diff">{{ localize 'PEN.chooseTrait' }}</label>
         <select class="resource-label-diff align-center" name="decisionChoice">
           <option value="main" >{{label}}</option>
-          <option value="opp">{{opplabel}}</option>
+          <option value="opp">{{oppLabel}}</option>
         </select>
       </div>
       <br>
@@ -29,13 +25,16 @@
     {{#if reflex}}
       <div class="flexrow">
         <label title = "{{ localize 'PEN.checkBonusHint' }}" >{{localize "PEN.reflexMod"}}</label>   
-          <input data-handle-change class="centre" type="text" value="{{formData.reflexMod}}" name="reflexMod">
+          <input data-handle-change class="centre" type="number" value="{{formData.reflexMod}}" name="reflexMod">
       </div>
-    {{else}}
+      <br>
+    {{/if}}
+
+    {{#unless (eq rollType 'DC')}}
       <div class="flexrow">
         <label title = "{{ localize 'PEN.checkBonusHint' }}" >{{localize "PEN.checkBonus"}}</label>   
-          <input data-handle-change class="centre" type="text" value="{{formData.checkBonus}}" name="checkBonus">
+          <input data-handle-change class="centre" type="number" value="{{formData.checkBonus}}" name="checkBonus">
       </div>
-    {{/if}}
+    {{/unless}}  
     <br>  
   </form>

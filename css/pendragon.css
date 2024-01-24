@@ -35,10 +35,13 @@
   padding: 8px;
 }
 
-
 .chat-message {
   background-image:url("../assets/parchment.png");
-  background-size: cover;
+  background-size: auto;
+}
+
+.chat-message .message-sender {
+  color: black;
 }
 
 .Pendragon .bold {
@@ -253,6 +256,14 @@ height: inherit;
   height:100%;
 }
 
+.Pendragon .weapon-list {
+  list-style: none;
+  padding: 0;
+  margin: 0px;
+  border-bottom: 1px gray solid;
+}
+
+
 .Pendragon .char-grid {
   display: grid;
   grid-template-columns: 100px 200px 250px ;
@@ -359,8 +370,8 @@ height: inherit;
 
 .Pendragon .companion-grid{
   display: grid;
-  width: 771px;
-  grid-template-columns: 50px 180px 60px 70px 100px 110px 80px 80px 40px;
+  width: 731px;
+  grid-template-columns: 50px 250px 60px 70px 100px 80px 80px 40px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -403,6 +414,11 @@ height: inherit;
 
 .Pendragon .grid-item {
   border-bottom: 1px gray solid;
+  border-right: 1px gray solid;
+  overflow: hidden;
+}
+
+.Pendragon .weapon-item {
   border-right: 1px gray solid;
   overflow: hidden;
 }
@@ -649,6 +665,10 @@ height: inherit;
   color: darkred;
 }
 
+.Pendragon .result-yellow {
+  color:rgb(255, 145, 0);
+}
+
 .Pendragon .prestige-result {
   display: grid;
   width: 401px;
@@ -667,4 +687,80 @@ height: inherit;
   display: flex;
   align-items: flex-end;
   padding-bottom: 5px;
+}
+
+.Pendragon .op-list{
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  background: none;
+  box-shadow: none;
+  border: none;
+}
+
+.Pendragon .actor-roll {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.Pendragon .actor-roll .roll-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Pendragon .actor-roll .roll-details .header {
+  height: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.Pendragon .actor-roll .roll-details .header .name{
+  flex: 1;
+  font-size: 14px;
+  font-weight: bold;
+  padding-left: 2px;
+}
+
+.Pendragon .actor-roll .roll-details .header .a{
+  height: 16px;
+  line-height: 16px;
+}
+
+.Pendragon .actor-roll span.pending {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid #b5b3a4;
+  border-radius: 3px;
+  font-size: 14px;
+  height: 20px;
+  line-height: 20px;
+  margin: 2px 0;
+  display: inline-block;
+  text-align: center;
+}
+
+.Pendragon .bottom-line {
+  border-bottom: 1px solid black;
+}
+
+.Pendragon .rollHidden {
+  margin-left: 40px;
+  font-size: 12px;
+}
+
+.Pendragon .open-actor {
+  aspect-ratio: 1/1;
+}
+
+.Pendragon .W {
+  background-color: rgb(238, 141, 15) !important;
+  font-weight: bold;
 }

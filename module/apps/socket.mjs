@@ -1,4 +1,5 @@
-import { PENChecks } from './checks.mjs';
+import { PENCheck } from './checks.mjs';
+import { OPCard } from './opposed-card.mjs';
 
 export class PENSystemSocket {
   
@@ -6,10 +7,14 @@ export class PENSystemSocket {
     switch (data.type){
       case 'chatUpdate':
         if (data.to === game.user.id) {
-          PENChecks.handleChatButton(data.value);
+          PENCheck.handleChatButton(data.value);
         }  
       break; 
-
+      case 'OPAdd':
+        if (data.to === game.user.id) {
+          OPCard.OPAdd(data.value.config, data.value.msgId);
+        }  
+      break; 
 
     }
   }

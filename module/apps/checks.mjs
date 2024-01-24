@@ -1,176 +1,238 @@
 import { PENactorDetails } from "./actorDetails.mjs";
+import { OPCard } from "./opposed-card.mjs";
+import { COCard } from "./combat-card.mjs";
 
-export class PENChecks {
+export class PENCheck {
 
-  //
-  //Kick off the check/roll process from a Rollable event
-  //
-  static async _onRollable(event){
-    const dataset = event.currentTarget.dataset
-    let partic =await PENactorDetails._getParticipantId(this.token,this.actor); 
-    let actor = await PENactorDetails._getParticipant(partic.particId, partic.particType);
-    let itemId = "";
-    let type = dataset.type;
-    let name = "";
-    let targetScore = 0;
-    let oppTargetScore = 0;
-    let dmgFormula = "";
-    let decision = "main";
-    let oppname = "";
-    let shiftKey = event.shiftKey;
-    let reflex = false;
+  //Roll Types
+  //CH = Characteristic
+  //SK = Skill - this covers passions as well
+  //GL = Glory Roll
+  //SQ = Squire Roll
+  //TR = Trait
+  //DC = Decision (Trait)
+  //DM = Damage
+  //CM = Combat
 
 
-    //Set the necessary roll variables based on the type of roll
-    if (type === "stat") {
-      name = dataset.label
-      targetScore = dataset.target;
-    } else if (type === 'glory') {
-      name = game.i18n.localize('PEN.glory')
-      targetScore = Math.round(actor.system.glory/1000)
-    } else if (type === 'squire' || type === 'squireAge'){
-      itemId = event.currentTarget.dataset.itemid;
-      let item = actor.items.get(itemId);
-      if (type === 'squire') {
-        name = item.name
-        targetScore = item.system.skill
-      } else {
-        name = item.name + "-"+ game.i18n.localize('PEN.age')
-        targetScore = item.system.age - 11
-      }  
-    } else if (type === "passion" || type === "skill" || type === 'trait' || type === 'decisionTrait' || type === 'opptrait' || type === 'weapon' ||type === 'damage' ||type === 'horseDamage' ||type ==='horseChargeDamage') {
-      itemId = event.currentTarget.dataset.itemid;
-      let item = actor.items.get(itemId);
-      name = item.name
-      targetScore = item.system.value;
-      //If this is a decision roll work out if there is a fixed first option for Trait or if the player chooses the trait
-      if (type === 'decisionTrait'){
-        reflex = true;
-        oppTargetScore = item.system.oppvalue;
-        oppname = item.system.oppName;  
-        if (item.system.oppvalue > 15) {
-          decision = "opp";
-        } else if (item.system.value < 16) {
-          decision = "choose";
-          shiftKey = false
-        }
-        //If this is a Opposite Trait roll update the name and targetScore
-      } else if (type === 'opptrait') {
-        name = item.system.oppName
-        targetScore = item.system.oppvalue;
-      } else if (type === 'weapon' && actor.type === 'character') {  //If this is a weapon and for a character replace itemnID with the underlying skill id.
-        itemId = dataset.sourceid
-      } else if (type === 'damage') {
-        let subType = dataset.subtype ? dataset.subtype : "";
-        if (subType === 'horseCharge'){
-          dmgFormula = item.system.chargeDmg;  
-        } else if (subType === 'horse'){
-          dmgFormula = item.system.damage;
-        } else {
-          if((actor.type === 'character')) {
-            dmgFormula = item.system.damage;
-          } else {
-            dmgFormula = item.system.dmgForm;  
-          }
-        }  
-          //If there's no damage formula then stop the roll
-        if (dmgFormula === "") {return}
-      } 
-    }
-    let rollType = game.i18n.localize('PEN.roll.'+type)
-    let msgId = await PENChecks.startCheck ({
-        shiftKey,
-        partic,
-        type,
-        label: name,
-        rollType,
-        reflex,
-        opplabel: oppname,
-        targetScore,
-        oppTargetScore,
-        itemId,
-        dmgFormula,
-        decision,
-    })
+  //Card Types
+  //NO = Normnal Roll
+  //OP = Opposed Roll
+  //CO = Combat Roll
+
+  //Start to prepare the config
+  static async _trigger(options={}){
+    let config = await PENCheck.normaliseRequest(options)
+    if (config === false) {return}  
+    PENCheck.startCheck(config)
     return
-  }  
-
-  //
-  // Start the Roll
-  //
-  static async startCheck (options = {}) {
-    const config = await PENChecks.initiateConfig(options)
-    if (config === false) {return}
-    let msgId = await PENChecks.runCheck (config)
-    return msgId
   } 
 
-  //
-  // Set Roll and Dialog options for the check
-  //
-  static async initiateConfig(options){
-    let actor = await PENactorDetails._getParticipant(options.partic.particId, options.partic.particType);
-    const config = {
-      origin: game.user.id,
-      originGM: game.user.isGM,
-      shiftKey: options.shiftKey,
-      gmRoll: options.gmRoll,
-      label: options.label,
-      checkType: 'regular',
+
+  //Check the request and build out the config 
+  static async normaliseRequest (options){
+     
+    //Set Basic Config
+    let partic =await PENactorDetails._getParticipantId(options.token,options.actor)
+    let particImg = await PENactorDetails.getParticImg(partic.particId,partic.particType)
+    let particActor = await PENactorDetails._getParticipant(partic.particId,partic.particType)
+    let tempItem = ""
+    let config = {
       rollType: options.rollType,
-      opplabel: options.opplabel,
-      reflex: options.reflex ? options.reflex : "",
-      reverseRoll: false,
-      partic: options.partic,
-      itemId: options.itemId ? options.itemId: "",
-      targetScore: options.targetScore ? options.targetScore : 0,
-      oppTargetScore: options.oppTargetScore ? options.oppTargetScore : 0,
-      decision: options.decision ? options.decision : "none",
-      type: options.type ? options.type : '',               
-      rollFormula: options.formula ? options.formula : "1d20",
-      dmgFormula: options.dmgFormula ? options.dmgFormula : "",
-      critBonus: 0,
-      checkBonus: 0,
-      reflexMod: 0,
-      resultLevel: 0,
-      chatTemplate: 'systems/Pendragon/templates/chat/roll-result.html',
+      cardType: options.cardType,
+      subType: options.subType ?? "",
       dialogTemplate: 'systems/Pendragon/templates/dialog/rollOptions.html',
-      winTitle: game.i18n.localize("PEN.rollWindow")
+      chatTemplate: 'systems/Pendragon/templates/chat/roll-result.html',
+      state: options.state ?? "open",
+      reflex: options.reflex ?? false,
+      decision: options.decision ?? "",
+      reverseRoll: options.reverseRoll ?? false,
+      oppLabel: options.oppLabel ?? "",
+      oppRawScore : options.oppRawScore ?? 0,
+      chatType: options.chatType ?? CONST.CHAT_MESSAGE_TYPES.ROLL,
+      particName: partic.particName,
+      particId: partic.particId,
+      particType: partic.particType,
+      particImg,
+      characteristic: options.characteristic ?? false,
+      skillId: options.skillId ??  false,
+      itemId: options.itemId?? false,
+      targetScore: options.targetScore ?? 0,
+      rawScore:options. rawScore ?? 0,
+      rollFormula: options.rollFormula ?? "1D20",
+      flatMod: options.flatMod ?? 0,
+      critBonus: options.critBonus ?? 0,
+      resultLevel: options.resultLevel ?? 0,
+      reflexMod: options.reflexMod ?? 0,
+      shiftKey: options.shiftKey ?? false,
+      label: options.label ?? "",
+      outcome: options.outcome ?? "",
+      outcomeLabel: options.outcomeLabel ?? "",
+      checkMsgId: options.checkMsgId ?? false,
+      damRoll: options.damRoll ?? false,
+      damCrit: options.damCrit ?? false,
+      damShield: options.damShield ??false
     }
-    return config;
-  }
-
-  //
-  // Run Check Routines 
-  //
-  static async runCheck (config) {
-    //let actor = await PENactorDetails._getParticipant(config.partic.particId, config.partic.particType);
-    //If Shift key has been held or this is a Damage Roll then accept the defaults above otherwise call a Dialog box for Bonus/Penalty
-    if (config.shiftKey || config.type === 'damage'){
-    } else{
-      let usage = await PENChecks.RollDialog(config);
-        if (usage) {
-            config.checkBonus = Number(usage.get('checkBonus'));
-            config.reflexMod = Number(usage.get('reflexMod'));
-            config.checkType = usage.get('checkType')
-            let tempDecision = usage.get('decisionChoice')
-            if (tempDecision == "main" || tempDecision === "opp") {
-            config.decision = tempDecision}
+   
+    //Adjust Config based on roll type
+    switch(options.rollType){
+      case 'CH':
+        config.label = particActor.system.stats[config.characteristic].labelShort ?? ""
+        config.rawScore = particActor.system.stats[config.characteristic].value ?? 0
+        break
+      case 'SK':
+        tempItem = particActor.items.get(config.skillId)
+        config.label = tempItem.name ?? ""
+        config.rawScore = tempItem.system.value ?? 0
+        break      
+      case 'GL':
+        config.label = game.i18n.localize('PEN.glory')
+        if (particActor.type === 'character') {
+          config.rawScore = Math.round(particActor.system.glory/1000) ?? 0
+        } else {
+          config.rawScore = Math.round(particActor.system.gloryAward/1000) ?? 0          
+        }  
+        break   
+      case 'SQ':
+        tempItem = particActor.items.get(config.itemId)
+        if (config.subType === 'squire') {
+          config.label = tempItem.name
+          config.rawScore = tempItem.system.skill ?? 0
+        } else {
+          config.label = tempItem.name + "[" + game.i18n.localize('PEN.age') + "]"
+          config.rawScore = tempItem.system.age - 11 ?? 0          
+        }  
+        break    
+      case 'TR':
+        tempItem = particActor.items.get(config.skillId)
+        if (config.subType === "trait") {
+          config.label = tempItem.name ?? ""
+          config.rawScore = tempItem.system.value ?? 0
+        } else {
+          config.label = tempItem.system.oppName ?? ""
+          config.rawScore = tempItem.system.oppvalue ?? 0
         }
-      }
+        break                
+      case 'DC':
+        tempItem = particActor.items.get(config.skillId)
+        config.rawScore = tempItem.system.value ?? 0;
+        config.oppRawScore = tempItem.system.oppvalue ?? 0;
+        config.label = tempItem.name ?? "";
+        config.oppLabel = tempItem.system.oppName ?? "";
+        config.reflex = true
+        config.subType = 'trait'
 
-    // If a Decision Trait roll where the player is using the opposite trait through choice or by default swap the names and targets around  
-    if (config.type === 'decisionTrait' && config.decision === 'opp') {
-      let tempName = config.oppname;
-      let tempScore = config.oppTargetScore
-      config.oppname = config.name;
-      config.name = tempName;
-      config.oppTargetScore = config.targetScore;
-      config.targetScore = tempScore;
-    }  
+        if (tempItem.system.oppvalue > 15) {
+          config.rawScore = tempItem.system.oppvalue ?? 0;
+          config.oppRawScore = tempItem.system.value ?? 0;
+          config.label = tempItem.system.oppName ?? "";
+          config.oppLabel = tempItem.name ?? "";            
+          config.decision = "opp";
+          config.subType = 'opptrait'
+        } else if (tempItem.system.value < 16) {
+          config.decision = "choose";
+          config.shiftKey = false
+        }
+        break     
+      case 'DM':
+        tempItem = particActor.items.get(config.itemId)
+        config.label = tempItem.name ?? ""
+        if (tempItem.type === 'horse') {
+          if (config.shiftKey) {
+            config.rollFormula = tempItem.system.chargeDmg            
+          } else {
+            config.rollFormula = tempItem.system.damage          
+          }  
+        } else {
+          if(particActor.type === 'character') {
+            config.rollFormula = tempItem.system.damage
+          } else {
+            config.rollFormula = tempItem.system.dmgForm
+          }
+        }
+        if (config.damCrit) {
+          config.rollFormula = config.rollFormula + "+4D6"
+        }    
+        config.shiftKey = true
+        break   
+      case 'CM':    
+        tempItem = particActor.items.get(config.itemId)
+        config.label = tempItem.name ?? ""
+        config.skillId = tempItem.system.sourceId
+        config.rawScore = tempItem.system.value ?? 0
+          break                 
+      default: 
+        ui.notifications.error(options.rollType +": " + game.i18n.format('PEN.errorRollInvalid')) 
+        return false
+     }
+       config.targetScore = config.rawScore
+
+    //Check card type - config adjusted later
+    switch(options.cardType){
+      case 'NO':
+        config.state = 'closed'
+        config.chatType = CONST.CHAT_MESSAGE_TYPES.ROLL
+        config.chatTemplate = 'systems/Pendragon/templates/chat/roll-result.html'
+        break
+      case 'OP':
+      case 'CO':  
+        config.checkMsgId = await OPCard.checkNewMsg (config)   
+        if (config.checkMsgId === false) {
+          config.reflex = true
+        } else {
+          let targetMsg = await game.messages.get(config.checkMsgId)
+          config.reflexMod = await -targetMsg.flags.Pendragon.chatCard[0].reflexMod
+        }
+        config.chatType = CONST.CHAT_MESSAGE_TYPES.OTHER
+        if (options.cardType === 'OP') {
+        config.chatTemplate =  'systems/Pendragon/templates/chat/roll-opposed.html'
+        } else {
+          config.chatTemplate = 'systems/Pendragon/templates/chat/roll-combat.html'          
+        }
+        break   
+      default: 
+        ui.notifications.error(options.cardType +": " + game.i18n.format('PEN.errorCardInvalid')) 
+        return false
+    }
+    return config
+
+  }
+  
+  
+    //Start the check now that the config has been prepared
+    static async startCheck(config) {  
+  
+      //If Shift key has been held then accept the defaults above otherwise call a Dialog box for Difficulty, Modifier etc
+      if (config.shiftKey){
+      } else {
+        let usage = await PENCheck.RollDialog(config)
+        if (usage) {
+            config.flatMod = Number(usage.get('checkBonus'))  
+            if (config.reflex) {
+              config.reflexMod = Number(usage.get('reflexMod'));
+            }
+            let tempDecision = usage.get('decisionChoice')
+            if (tempDecision == "main") {
+              config.decision = tempDecision
+              config.subType = 'trait'
+            } else if (tempDecision === "opp") {
+              config.decision = tempDecision
+              config.subType = 'opptrait'
+              let tempRaw = config.rawScore
+              config.rawScore = config.oppRawScore
+              config.oppRawScore = tempRaw
+              let tempLabel = config.label
+              config.label = config.oppLabel
+              config.oppLabel = tempLabel   
+              config.targetScore = config.rawScore
+          }
+        }
+      } 
+   
+
 
     //Adjust target Score for check Bonus, reflexive Modifier and calculate critBonus where target score > 20 or <0
-    config.targetScore = Number(config.targetScore) + Number(config.checkBonus) + Number(config.reflexMod);
+    config.targetScore = Number(config.targetScore) + Number(config.flatMod) + Number(config.reflexMod);
     config.grossTarget = config.targetScore
     if (config.targetScore > 20) {
       config.critBonus = config.targetScore - 20;
@@ -178,23 +240,88 @@ export class PENChecks {
     } else if (config.targetScore <0) {
       config.critBonus = -config.targetScore;
       config.targetScore = 0;
-
     }
 
-    let msgId = await PENChecks.makeRoll(config) ;  
+      await PENCheck.makeRoll(config)
+  
+    //Format the data so it's in the same format as will be held in the Chat Message when saved
+    let chatMsgData = {
+      rollType: config.rollType,
+      cardType: config.cardType,
+      chatType: config.chatType, 
+      chatTemplate: config.chatTemplate,
+      state: config.state,
+      rolls: config.roll,
+      resultLevel: config.resultLevel,
+      rollResult: config.rollResult,
+      chatCard: [{
+        rollType: config.rollType,
+        particId: config.particId,
+        particType: config.particType,
+        particName: config.particName,
+        particImg: config.particImg,
+        characteristic: config.characteristic ?? false,
+        label: config.label,
+        oppLabel: config.oppLabel,
+        oppRawScore: config.oppRawScore,
+        decision: config.decision,
+        reverseRoll: config.reverseRoll,
+        reflex: config.reflex,
+        skillId: config.skillId,
+        itemId: config.itemId,
+        targetScore: config.targetScore,
+        rawScore: config.rawScore,
+        rollFormula: config.rollFormula,
+        flatMod: config.flatMod,
+        reflexMod: config.reflexMod,
+        critBonus: config.critBonus,
+        rollResult: config.rollResult,
+        rollVal: config.rollVal,
+        roll: config.roll,
+        resultLevel: config.resultLevel,
+        resultLabel: game.i18n.localize('PEN.resultLevel.'+config.resultLevel),
+        outcome: config.outcome,
+        outcomeLabel: config.outcomeLabel,
+        damRoll: config.damRoll,
+        damCrit: config.damCrit,
+        damShield: config.damShield,
+        subType: config.subType
 
+      }]
+    }
+  
+    
+    //If there is an Open Chat Card for this role to be added to then go to the Add option
+    if (config.checkMsgId != false) {
+      //Trigger adding check to the card.
+      await OPCard.OPAdd(chatMsgData,config.checkMsgId)
+      return
+    }
+     
+    //Create the ChatMessage and Roll Dice  
+    const html = await PENCheck.startChat(chatMsgData)
+    let msgId =  await PENCheck.showChat(html,chatMsgData)
+  
+    
+    //Check for adding Improvement tick
+    if (game.settings.get('Pendragon','autoXP') && chatMsgData.resultLevel != 1) {
+      if (config.cardType === 'NO')
+      await PENCheck.tickXP (chatMsgData.chatCard[0])
+    }  
+      
     return msgId
   }
-
-  //  
+  
+  
+  
   //Function to call the Modifier Dialog box 
   //
   static async RollDialog (options) {
     const data = {
-      type : options.type,
+      cardType : options.cardType,
       label: options.label,
       rollType: options.rollType,
-      opplabel: options.opplabel,
+      oppLabel: options.oppLabel,
       decision: options.decision,
       reflex: options.reflex,
     }
@@ -218,210 +345,230 @@ export class PENChecks {
       },{classes: ["Pendragon", "sheet"]})
       dlg.render(true);
     })
-  }
+  }  
 
-  //
-  //Call Dice Roll, calculate Result and store result in rollVal
-  //
+  
+  //Call Dice Roll, calculate Result and store original results in rollVal
   static async makeRoll(config) {
-    let actor = await PENactorDetails._getParticipant(config.partic.particId, config.partic.particType);
-    let dice = config.rollFormula
-    if (config.critBonus > 0) {
-      dice = dice + "+" + config.critBonus
-    }  
-    if (config.type === 'damage') {dice = config.dmgFormula};
-    let roll = new Roll(dice);
-    await roll.roll({ async: true});
-    config.roll = roll;
-    config.rollResult = Number(config.roll.total);
-    //Add the critBonus to the dice roll  but cap the roll it at 20
-    config.rollVal = Math.min(Number(config.rollResult),20)
-    
-  //Get the level of Success
-    config.resultLevel = await PENChecks.successLevel(config)
+    let roll = new Roll(config.rollFormula)
+    await roll.roll({ async: true})
+    config.roll = roll
+    config.rollResult = Number(roll.total)
 
-  //If this is a decisionTrait roll and it was failed then consider activating the reverseRoll option  
-    if (config.type === 'decisionTrait' && config.resultLevel === 1 && !config.reverseRoll) {
+    //Cap the roll result at 20
+     config.rollVal = Math.min(Number(config.rollResult+config.critBonus),20)
+
+    //Don't need success levels in some cases
+    if (['DM', 'AR'].includes(config.rollType)) {return}
+    //Get the level of Success
+    config.resultLevel = await PENCheck.successLevel(config)
+
+    //If this is a decisionTrait roll and it was failed then consider activating the reverseRoll option  
+    if (config.rollType === 'DC' && config.resultLevel === 1 && !config.reverseRoll) {
       config.reverseRoll = true;  
     }
 
-  //Create the ChatMessage and Roll Dice
-    const html = await PENChecks.startChat(config);
-    let msgId = await PENChecks.showChat(html,config);
- 
-  //If Auto XP game setting is on, result level isnt a fail and roll type allows XP then tick the box
-    if (game.settings.get('Pendragon',"autoXP") && config.resultLevel != 1) {
-      let checkProp ="";
-      if(config.type === 'skill' || config.type === 'passion' || config.type === 'trait' || config.type === 'weapon' || config.type === 'opptrait') {
-        checkProp = {'system.XP' : true};
-        if ((config.type === 'opptrait' & config.resultLevel != 0) || (config.type === 'trait' & config.resultLevel === 0)) {
-          checkProp = {'system.oppXP' : true};
-        } 
-      } else if (config.type === 'decisionTrait') {
-        if ((config.resultLevel > 1 && config.decision === 'main') || (config.resultLevel === 0 && config.decision === 'opp')) {
-          checkProp = {'system.XP' : true};
-        } else if ((config.resultLevel > 1 && config.decision === 'opp') || (config.resultLevel === 0 && config.decision === 'main')) {
-          checkProp = {'system.oppXP' : true};
-        }
-      }
-      if (checkProp != "") {
-      const item = actor.items.get(config.itemId);
-      await item.update (checkProp);
-      }  
-    }    
-
-    return msgId
-  } 
-
-  //
+    return  
+  }  
+  
+  
   // Calculate Success Level
-  //
   static async successLevel (config){
     let resultLevel = -1;
-      //Bypass result level calc for certain roll types and return -1
-      if (config.type === 'damage') {return resultLevel}
-
-      //Otherwise calculate result level
-      if (config.rollVal === config.targetScore) {
-        resultLevel = 3;  //3 = Critical
-      } else if (config.rollVal <config.targetScore) {
-        resultLevel = 2;  //2 = Success
-      } else if (config.rollVal >= 20) {
-        resultLevel = 0;  //0 = Fumble
-      } else {
-        resultLevel = 1;  //1 = Fail
-      }
-    return resultLevel
-  }
-
-  //
-  // Prep the chat card
-  //
-  static async startChat(config) {
-    let actor = await PENactorDetails._getParticipant(config.partic.particId,config.partic.particType)
-    let messageData = {
-      origin: config.origin,
-      originGM: config.originGM,
-      speaker: ChatMessage.getSpeaker({ actor: actor.name }),
-      type: config.type,
-      rollType: config.rollType,
-      reverseRoll: config.reverseRoll,
-      label: config.label,
-      actorId: actor._id,
-      checkBonus: config.checkBonus,
-      reflexMod: config.reflexMod,
-      dmgFormula: config.dmgFormula,
-      partic: config.partic,
-      resultLevel : config.resultLevel,
-      resultLabel: game.i18n.localize('PEN.resultLevel.'+config.resultLevel),
-      result: config.rollVal,
-      targetScore: config.targetScore,
-      grossTarget: config.grossTarget,
-  }
-  if (config.checkType === 'opposed') {
-    config.chatTemplate = 'systems/Pendragon/templates/chat/opposed-roll-result.html'
-  }
-  const messageTemplate = config.chatTemplate
-  let html = await renderTemplate (messageTemplate, messageData);
-
-  return html;
-}  
-
-//
-// Display the chat card and roll the dice
-//
-static async showChat(html,config) {
-
-  let actor = await PENactorDetails._getParticipant(config.partic.particId,config.partic.particType)
-  let chatData={};
-    chatData = {
-      user: game.user.id,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      rolls: [config.roll],
-      content: html,
-      flags: {config: config},
-      speaker: {
-        actor: actor._id,
-        alias: actor.name,
-      },
-    }
-      
-    let msg = await ChatMessage.create(chatData);
-    return msg._id
-  }
-
-//
-//Function when Chat Message buttons activated to call socket---------------------------------------------------------------------------------------------------
-//
-static async triggerChatButton(event){
-  const targetElement = event.currentTarget;
-  const presetType = targetElement.dataset?.preset;
-  const targetChat = $(targetElement).closest('.message');
-  let targetChatId = targetChat[0].dataset.messageId;
-
-  let origin = game.user.id;
-  let originGM = game.user.isGM;
-
-  //If the user is a GM then run the handle ChatButton otherwise if its a player trigger the socket emit so  GM runs handle ChatButton as they won't have permission themselves
-  if (game.user.isGM){
-    PENChecks.handleChatButton ({presetType, targetChatId, origin, originGM})
-  } else {
-    const availableGM = game.users.find(d => d.active && d.isGM)?.id
-    if (availableGM) {
-      game.socket.emit('system.Pendragon', {
-        type: 'chatUpdate',
-        to: availableGM,
-        value: {presetType, targetChatId, origin, originGM}
-      })
+    //Calculate result level
+    if (config.rollVal === config.targetScore) {
+      resultLevel = 3;  //3 = Critical
+    } else if (config.rollVal <config.targetScore) {
+      resultLevel = 2;  //2 = Success
+    } else if (config.rollVal >= 20) {
+      resultLevel = 0;  //0 = Fumble
     } else {
-      ui.notifications.warn(game.i18n.localize('PEN.noAvailableGM'));
+      resultLevel = 1;  //1 = Fail
+    }
+    return resultLevel
+  }  
+  
+  
+  // Prep the chat card
+  static async startChat(chatMsgData) {
+    let html = await renderTemplate (chatMsgData.chatTemplate, chatMsgData)
+    return html
+  }   
+  
+  // Display the chat card and roll the dice
+  static async showChat(html,chatMsgData) {
+    let alias = game.i18n.localize("PEN.card."+chatMsgData.cardType)
+    if (chatMsgData.rollType === 'DM') {
+      alias = game.i18n.localize("PEN.damage")
+    }
+    let chatData={}
+      chatData = {
+        user: game.user.id,
+        type: chatMsgData.chatType,
+        content: html,
+        flags: { 'Pendragon': { 
+          initiator: chatMsgData.chatCard[0].particId,
+          initiatorType: chatMsgData.chatCard[0].particType,
+          chatTemplate: chatMsgData.chatTemplate,
+          state: chatMsgData.state,
+          cardType: chatMsgData.cardType,
+          rollType: chatMsgData.rollType,
+          successLevel: chatMsgData.successLevel,
+          chatCard: chatMsgData.chatCard,
+        }},
+       
+        speaker: {
+          actor: chatMsgData.chatCard[0].particId,
+          alias: alias,
+        }
+      }
+  
+    if (['NO', 'OP'].includes(chatMsgData.cardType)) {
+      chatData.rolls = [chatMsgData.rolls]
+    }  
+    let msg = await ChatMessage.create(chatData)
+     return msg._id
+  }
+
+    
+  //Check to see if can add XP check.  For characters only
+  static async tickXP(chatCard){
+    let actor = await PENactorDetails._getParticipant(chatCard.particId, chatCard.particType)
+    if (actor.type != 'character') {return}
+    let checkProp = ""
+    switch (chatCard.rollType) {
+      case 'SK':
+      case 'PA':
+        checkProp = {'system.XP' : true};
+        break
+      case 'TR':
+      case 'DC':  
+        if (chatCard.subType === 'trait' && chatCard.resultLevel > 0){
+          checkProp = {'system.XP' : true}
+        } else if (chatCard.subType === 'trait' && chatCard.resultLevel === 0){
+          checkProp = {'system.oppXP' : true}
+        } else if (chatCard.subType != 'trait' && chatCard.resultLevel > 0){
+          checkProp = {'system.oppXP' : true}
+        } else if (chatCard.subType != 'trait' && chatCard.resultLevel === 0){
+          checkProp = {'system.XP' : true}
+        }         
+        break
+      case 'CM':
+        checkProp = {'system.XP' : true};
+        break        
+      default:
+        return
+    }
+    if (checkProp != "") {
+
+      let item = ""
+      if (chatCard.rollType === 'CM'){
+        item = actor.items.get(actor.items.get(chatCard.itemId).system.sourceID)
+      } else {        
+        item = actor.items.get(chatCard.skillId);
+      }
+      await item.update (checkProp);
+      }  
+
+  }
+
+
+  //Function when Chat Message buttons activated to call socket
+  static async triggerChatButton(event){
+    const targetElement = event.currentTarget
+    const presetType = targetElement.dataset?.preset
+    const dataset = targetElement.dataset
+    const targetChat = $(targetElement).closest('.message')
+    let targetChatId = targetChat[0].dataset.messageId
+    let origin = game.user.id
+    let originGM = game.user.isGM
+
+    if (game.user.isGM){
+      PENCheck.handleChatButton ({presetType, targetChatId, origin, originGM,event,dataset})
+    } else {
+      const availableGM = game.users.find(d => d.active && d.isGM)?.id
+      if (availableGM) {
+        game.socket.emit('system.Pendragon', {
+          type: 'chatUpdate',
+          to: availableGM,
+          value: {presetType, targetChatId, origin, originGM,event,dataset}
+        })
+      } else {
+        ui.notifications.warn(game.i18n.localize('PEN.noAvailableGM'))     
+      }
     }
   }
-}
 
-//
-//Use Buttons on Chat Card 
-//
-static async handleChatButton(data) {
-  const presetType = data.presetType;
-  let targetMsg = game.messages.get(data.targetChatId);
-  let actor = await PENactorDetails._getParticipant(targetMsg.flags.config.partic.particId,targetMsg.flags.config.partic.particType);
-  await targetMsg.update({'flags.config.origin' :data.origin, 'flags.config.originGM' : data.originGM})
 
-  //Code to carry out depends on type of button pressed on the chat card
-  switch(presetType){
+  //Handle changes to Cards based on the presetType value - will be carried out by a GM
+  static async handleChatButton(data) {
+    const presetType = data.presetType
+    let targetMsg = await game.messages.get(data.targetChatId)
 
-  //For a reverseRoll - the opposite roll on a failed Decistion Trait roll  
-    case "reverseRoll":
-      //Turn off the revereRoll indicator and update the existing chat message so the button disappears to prevent mutliple rerolls
-      await targetMsg.update({
-        'flags.config.reverseRoll' : false,
-      });
-      const pushhtml = await PENChecks.startChat(targetMsg.flags.config);
-      await targetMsg.update({content: pushhtml});
+    switch(presetType) {
+      case "close-card":
+        await OPCard.OPClose(data)
+        break
+      case "remove-op-roll":
+        await OPCard.OPRemove(data)
+        break  
+      case "resolve-op-card":
+        await OPCard.OPResolve(data)        
+        break
+      case "resolve-co-card":
+        await COCard.COResolve(data)        
+        break
+      case "reverseRoll":
+        await PENCheck.reverseTrait (targetMsg)
+        return
+        break 
+      case "dam-co-card":
+        await COCard.combatDamageRoll(data)
+        return
+        break
 
-      //Now update the config for a new roll, then make the roll normally
-      let newType = "";
-      if(targetMsg.flags.config.decision === 'main') {
-        newType = "opptrait";
-      } else {
-        newType = "trait";
+        
+
+      default:
+        return
       }
-      
-      await targetMsg.update({
-        'flags.config.type' : newType,
-        'flags.config.reflexMod' : -targetMsg.flags.config.reflexMod,
-        'flags.config.label': targetMsg.flags.config.opplabel,
-        'flags.config.grossTarget': targetMsg.flags.config.oppTargetScore,
-        'flags.config.name' : targetMsg.flags.config.oppname,
-        'flags.config.targetScore' : targetMsg.flags.config.oppTargetScore,
-      });
-      await PENChecks.makeRoll(targetMsg.flags.config);
-    break;
-
-  }
-  return  
-
-}  
-
+    const pushhtml = await PENCheck.startChat(targetMsg.flags.Pendragon)
+    await targetMsg.update({content: pushhtml})  
+    return
+  }  
+  
+  
+  //Routine to close existing Decision Trait roll on a "fail" and trigger new Trait roll with the opposite trait  
+  static async reverseTrait (targetMsg) {
+    //Turn off the revereRoll indicator and update the existing chat message so the button disappears to prevent mutliple rerolls
+    let chatCards =targetMsg.flags.Pendragon.chatCard
+    let newChatCards = []
+    for (let cCard of chatCards) {
+      cCard.reverseRoll = false
+      newChatCards.push(cCard)
+    } 
+    await targetMsg.update({
+      'flags.Pendragon.chatCard' : newChatCards,
+    });
+    const pushhtml = await PENCheck.startChat(targetMsg.flags.Pendragon);
+    await targetMsg.update({content: pushhtml});
+    //PREP A HAND IN TO A NEW TRAIT WITH OPPOSITE CHARACTERISTICS
+    let actor = await PENactorDetails._getParticipant(targetMsg.flags.Pendragon.chatCard[0].particId, targetMsg.flags.Pendragon.chatCard[0].particType)
+    let subType = "trait"
+    if (targetMsg.flags.Pendragon.chatCard[0].subType === 'trait') {
+      subType = 'oppTrait'
+    }
+    await PENCheck._trigger({
+      rollType: 'TR',
+      cardType: 'NO',
+      subType,
+      shiftKey: true,
+      reflex: true,
+      skillId: targetMsg.flags.Pendragon.chatCard[0].skillId,
+      reflexMod: -targetMsg.flags.Pendragon.chatCard[0].reflexMod,
+      actor: actor,
+      token: null
+    });    
+  }   
+ 
 } 

@@ -251,7 +251,6 @@ export class PENWinter {
     if (route != 'prestige') {title = game.i18n.localize('PEN.training')}
 
     const selected = await WinterSelectDialog.create (title, options, this.actor.name, amount);
-    console.log(selected)
       if (selected.length <1 || !selected) {
         ui.notifications.warn(game.i18n.localize('PEN.noSelection'));
         return

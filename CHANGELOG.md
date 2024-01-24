@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 11.0.8
+- Added opposed rolls.  Only the first roll added to card enters the Reflex Modifier.
+- Refactored other rolls to adjust for the new opposed rolls
+- Added tooltips for various roll options
+- Added a game setting at user level to determine whether a roll is made with or without a dialogue box
+  Default is a dialogue box appears and SHIFT means no dialogue box.  Turning this on reverses this position.
+- Added combat rolls from weapons, similar to opposed rolls, which in turn allows a follow on damage roll for the succesful parties.
+- AutoXP added - if the GM selects this in game settings then you XP checkboxes will be automatically ticked on a Successful roll or a Fumble. 
+  In the case of traits a Fumble grants a tick to the opposing trat.  For combat rolls the underlying skill is ticked
+- Hotbar macros enabled for Skills, Traits, Passions and Weapons (from the combat tab)  
+
 ## 11.0.7
 - On creating a new character, linking, bars etc are now visible on token by default
 - On creating a new character all traits and skills are added by default (not passions) and doesn't apply to NPCS

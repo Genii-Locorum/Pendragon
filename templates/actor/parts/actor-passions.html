@@ -1,9 +1,8 @@
 <ol class="skill-list">
   {{#each passions as |passion key|}}
-    <li class="item skill-listitem" data-itemid="{{passion._id}}">
-      <div class="passion-grid">
+    <li class="item passion-grid" data-item-id="{{passion._id}}">
         <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{passion._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if passion.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
-        <div class="stat-name rollable" data-type ="passion" data-itemid="{{passion._id}}">{{passion.name}}</div>
+        <div class="stat-name rollable skill-name" title="{{localize 'PEN.rollHint'}}" data-itemid="{{passion._id}}">{{passion.name}}</div>
         {{#if ../system.lock}}
           <div class="stat-name centre">{{passion.system.value}}</div>
         {{else}}
@@ -15,7 +14,6 @@
         {{else}}
           <div class="centre item" data-itemid ="{{passion._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
         {{/if}}
-      </div>
     </li>
   {{/each}}
 </ol>

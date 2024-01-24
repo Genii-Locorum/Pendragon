@@ -50,7 +50,6 @@ export class PendragonArmourSheet extends ItemSheet {
   async onItemToggle(event){
     event.preventDefault();
     const prop=event.currentTarget.closest('.item-toggle').dataset.property;
-    console.log(prop)
     let checkProp="";
     if (prop === 'equipped') {
       checkProp = {'system.equipped': !this.item.system.equipped}

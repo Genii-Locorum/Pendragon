@@ -1,65 +1,96 @@
 <form class="Pendragon">
-    <div class="dice-roll">
-      <div style="display: block">  
-        <div class="flavour-result"> 
-          {{rollType}}: {{label}} 
-          {{#if (eq type 'damage')}}
-            ({{dmgFormula}})
-          {{else}}
-            ({{grossTarget}})
-          {{/if}}
-        </div>
-  
-          <div class="flavour-result">
-          {{#if (lt checkBonus 0)}}
-            <div>{{localize 'PEN.penalty'}}: {{checkBonus}}</div>
-          {{/if}}  
-          {{#if (gt checkBonus 0)}}
-            <div>{{localize 'PEN.bonus'}}: +{{checkBonus}}</div>
-          {{/if}}
-          {{#if (lt reflexMod 0)}}
-            <div>{{localize 'PEN.reflexMod'}}: {{reflexMod}}</div>
-          {{/if}}  
-          {{#if (gt reflexMod 0)}}
-            <div>{{localize 'PEN.reflexMod'}}: +{{reflexMod}}</div>
-          {{/if}}
+  <div class="">
+    <ol class="op-list">
+      {{#each chatCard as |c key|}}
+        <div class="dice-roll">
+          <li class='actor-roll'>
+            <img class="open-actor" src="{{c.particImg}}" height="50" width="50" title="{{c.particName}}"/>
+            <div class="roll-details">
+              <div class="header">
+                <div class='name'>
+                  <span class="tag">{{c.particName}}</span>
+                </div>
+              </div>
+              <div class="header">
+                <div class='name'>
+                  {{#if (eq ../rollType 'DM')}}
+                  <span class="tag">{{c.label}} ({{c.rollFormula}})</span>
+                  {{else}}
+                    <span class="tag">{{c.label}} ({{c.targetScore}})</span>
+                  {{/if}}  
+                </div>
+              </div>
 
-        {{#if (eq resultLevel 3)}}
-          <div class="roll-icons">{{resultLabel}}: <i class="result-success fas fa-swords"></i><i class="result-success fas fa-swords"></i></div>
-        {{/if}}
-  
-        {{#if (eq resultLevel 2)}}
-          <div class="roll-icons">{{resultLabel}}: <i class="result-success fas fa-swords"></i></div>
-        {{/if}}
-  
-        {{#if (eq resultLevel 1)}}
-          <div class="roll-icons">{{resultLabel}}: <i class="result-fail fas fa-skull"></i></div>
-        {{/if}}
-  
-        {{#if (eq resultLevel 0)}}
-          <div class="roll-icons">{{resultLabel}}: <i class=" result-fail fas fa-skull"></i><i class="result-fail fas fa-skull"></i><i class=" result-fail fas fa-skull"></i></div>
-        {{/if}}
-   
-        <div class="dice-result">
-  
-          <div class="dice-tooltip">
-            <div class="owner-only" style="display:block">
-              <div class="card-buttons" style="padding: 2px 0;margin: 0;">
-                <div class="bottomline"> </div>
-            </div>
-            </div>
-          </div>
-  
-          <h3 class="align-center dice-total" >{{result}}</h3>
-
+              {{#if (eq ../rollType 'DM')}}
+                {{#if c.damCrit}}
+                  <span class="pending">{{localize 'PEN.critDamage'}}: {{c.rollVal}}
+                {{else}}
+                  <span class="pending">{{localize 'PEN.damage'}}: {{c.rollVal}}
+                {{/if}}  
+ 
+              {{else}}
+                {{#if (eq c.resultLevel 4)}}
+                  <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-swords"></i><i class="result-success fas fa-swords"></i><i class="result-success fas fa-swords"></i>
+                {{/if}}
+              
+                {{#if (eq c.resultLevel 3)}}
+                  <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-swords"></i><i class="result-success fas fa-swords"></i>
+                {{/if}}
           
-        </div>
-      </div>
-    </div>
-  </div>
+                {{#if (eq c.resultLevel 2)}}
+                  <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-swords"></i>
+                {{/if}}
+              
+                {{#if (eq c.resultLevel 1)}}
+                  <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-fail fas fa-skull"></i>
+                {{/if}}
+              
+                {{#if (eq c.resultLevel 0)}}
+                  <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class=" result-fail fas fa-skull"></i><i class="result-fail fas fa-skull"></i>
+                {{/if}}
+              {{/if}}        
+            </span>
+            </div>
 
-  {{#if reverseRoll}}
-    <button class="cardbutton owner-only align-center" data-preset = "reverseRoll" type = "button" >{{localize 'PEN.reverseRoll'}}</button>
-  {{/if}}
-  
-  </form>  
+
+          </li>
+          <div class="actor-roll dice-tooltip" style="display:none">
+            {{#unless (eq ../rollType 'DM')}}
+            <div class="owner-only" data-partic-id="{{c.particId}}" data-partic-type="{{c.particType}}">
+              <div class="rollHidden">{{localize 'PEN.rawScore'}}: {{c.rawScore}}</div>
+              {{#if c.reflex}}
+                <div class="rollHidden"> {{localize 'PEN.reflexMod'}}:
+                  {{#if (lt c.reflexMod 1)}}
+                    {{c.reflexMod}}
+                  {{else}}
+                    +{{c.reflexMod}}
+                  {{/if}}
+                </div>
+              {{else}}  
+                <div class="rollHidden"> {{localize 'PEN.bonus'}}:
+                  {{#if (lt c.flatMod 1)}}
+                    {{c.flatMod}}
+                  {{else}}
+                    +{{c.flatMod}}
+                  {{/if}}
+                </div>
+              {{/if}}  
+              <div class="rollHidden"> {{localize 'PEN.critBonus'}}:
+                {{#if (lt c.critBonus 1)}}
+                  {{c.critBonus}}
+                {{else}}
+                  +{{c.critBonus}}
+                {{/if}}
+              </div>
+              <div class="rollHidden bottom-line">{{localize 'PEN.diceRoll'}}: {{c.rollResult}}</div>
+            </div>
+            {{/unless}}
+          </div>  
+        </div>  
+        {{#if c.reverseRoll}}
+            <button class='cardbutton owner-only' data-partic-id="{{c.particId}}" data-partic-type="{{c.particType}}" data-preset='reverseRoll' type="button">{{localize 'PEN.reverseRoll'}}</button>
+        {{/if}}
+      {{/each}}
+    </ol>
+  </div>
+</form>  

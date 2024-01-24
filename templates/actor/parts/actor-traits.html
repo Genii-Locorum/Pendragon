@@ -1,17 +1,17 @@
 <ol class="items-list">
-  <div class = "trait-grid">
-    {{#each traits as |trait key|}}
+  {{#each traits as |trait key|}}
+    <li class="item trait-grid" data-item-id="{{trait._id}}">
       {{#if ../system.lock}}
         <div class="stat-name centre">{{trait.system.value}}</div>
       {{else}}
       <div class="stat-name-input trait-input centre item" data-field="trait" data-itemid ="{{trait._id}}"><input class="inline-edit" name="item.system.traits.{{key}}.value" type="text" value="{{trait.system.value}}" data-dtype="Number"/></div>
       {{/if}}
       <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{trait._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if trait.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
-      <div class="stat-name right rollable" data-type ="trait" data-itemid="{{trait._id}}">{{trait.name}}</div>
+      <div class="stat-name right rollable trait" title="{{localize 'PEN.rollHint'}}" data-type ="trait" data-itemid="{{trait._id}}">{{trait.name}}</div>
       <div class="stat-name centre">
-        <a class="item-control item-toggle large-icon rollable" data-type ="decisionTrait" data-itemid="{{trait._id}}" title="{{localize 'PEN.decisionTrait'}}"><i class="fa-regular fa-scale-balanced"></i></a>
+        <a class="item-control item-toggle large-icon rollable decision" data-itemid="{{trait._id}}" title="{{localize 'PEN.decisionTrait'}}"><i class="fa-regular fa-scale-balanced"></i></a>
       </div>
-      <div class="stat-name rollable" data-type ="opptrait" data-itemid="{{trait._id}}">{{trait.system.oppName}}</div>
+      <div class="stat-name rollable trait" title="{{localize 'PEN.rollHint'}}" data-type ="opptrait" data-itemid="{{trait._id}}">{{trait.system.oppName}}</div>
       <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{trait._id}}" data-property="oppXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if trait.system.oppXP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
       <div class="stat-name centre">{{trait.system.oppvalue}}</div>
 
@@ -20,7 +20,6 @@
       {{else}}
         <div class="centre item" data-itemid ="{{trait._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
       {{/if}}
-
+      </li>
     {{/each}}
-  </div>
-</ol>
+  </ol>

@@ -2,7 +2,7 @@
   "id": "Pendragon",
   "title": "Pendragon",
   "description": "Pendragon system for FoundryVTT!",
-  "version": "11.0.7",
+  "version": "11.0.8",
   "compatibility": {
     "minimum": 11,
     "verified": "11.315",
@@ -47,7 +47,7 @@
       "type": "JournalEntry",
       "name": "instructions",
       "path": "packs/instructions.db",
-      "system": "brp",
+      "system": "Pendragon",
       "private": false,
       "flags": {}
     }

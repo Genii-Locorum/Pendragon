@@ -1,4 +1,4 @@
-import { PENChat } from '../chat/chat.mjs'
+import { PENChat } from '../apps/chat.mjs'
 
 export function listen(){
   Hooks.on('renderChatMessage', (app, html, data) => {

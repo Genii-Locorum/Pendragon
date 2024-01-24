@@ -24,6 +24,8 @@
     <div class="stat-name-input {{#if (eq system.motto '')}} input-border {{/if}}"><input name="system.motto" type="text" value="{{system.motto}}"/></div>
     <div class="stat-name bold">{{localize 'PEN.heraldry'}}</div> 
     <div class="stat-name-input {{#if (eq system.heraldry '')}} input-border {{/if}}"><input name="system.heraldry" type="text" value="{{system.heraldry}}"/></div>
+    <div class="stat-name bold">{{localize 'PEN.distFeat'}}</div> 
+    <div class="stat-name-input {{#if (eq system.features '')}} input-border {{/if}}"><input name="system.features" type="text" value="{{system.features}}"/></div>
   </div>
     <br>
 
@@ -32,10 +34,5 @@
     {{editor actor.system.background class="Pendragon background-doc" target="system.background" button=true owner=owner editable=editable}}
   </div>
   <br>
-
-  <div class="stat-name bold">{{localize 'PEN.distFeat'}}:</div>
-  <div>
-    {{editor actor.system.features class="Pendragon background-doc features-doc" target="system.features" button=true owner=owner editable=editable}}
-  </div>
 
 </section>

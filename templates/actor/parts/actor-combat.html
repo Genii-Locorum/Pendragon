@@ -71,31 +71,36 @@
       <br>
     </div>
     <br>
+    <ol class="weapon-list">
     <div class="weapon-grid">  
-      <div class="stat-name bold grid-item">{{ localize "PEN.weapon" }}</div>  
-      <div class="stat-name bold grid-item centre">{{ localize "PEN.skill" }}</div>
-      <div class="stat-name bold grid-item centre">{{ localize "PEN.value" }}</div>    
-      <div class="stat-name bold grid-item centre">{{ localize "PEN.damage" }}</div>    
-      <div class="stat-name bold grid-item centre">{{ localize "PEN.range" }}</div>
-      <div class="grid-item" title= "{{localize 'PEN.advDisHint'}}"></div>  
+      <div class="stat-name bold weapon-item">{{ localize "PEN.weapon" }}</div>  
+      <div class="stat-name bold weapon-item centre">{{ localize "PEN.skill" }}</div>
+      <div class="stat-name bold weapon-item centre">{{ localize "PEN.value" }}</div>    
+      <div class="stat-name bold weapon-item centre">{{ localize "PEN.damage" }}</div>    
+      <div class="stat-name bold weapon-item centre">{{ localize "PEN.range" }}</div>
+      <div class="weapon-item" title= "{{localize 'PEN.advDisHint'}}"></div>  
+    </div> 
 
-      {{#each weapons as |weapon key|}}
-        <div class="grid-item stat-name rollable" title="{{weapon.system.sourceID}}"  data-type ="weapon" data-sourceid = "{{weapon.system.sourceID}}" data-itemid="{{weapon._id}}">{{weapon.name}}
-        {{#if (gt weapon.system.quantity 1)}}
-           ({{weapon.system.quantity}})
-        {{/if}}
-        </div>
-        <div class="grid-item stat-name centre">{{weapon.system.skillName}}</div>
-        <div class="grid-item stat-name centre">{{weapon.system.value}}</div>
-        <div class="grid-item stat-name centre rollable" data-type ="damage" data-itemid="{{weapon._id}}">{{weapon.system.damage}}</div>
-        <div class="grid-item stat-name centre">{{weapon.system.rangeName}}</div>
+        {{#each weapons as |weapon key|}}
+          <li class="item weapon-grid" data-item-id="{{weapon._id}}">
+            <div class="weapon-item stat-name rollable combat" title="{{localize 'PEN.rollCombatHint'}}" data-type ="weapon" data-sourceid = "{{weapon.system.sourceID}}" data-itemid="{{weapon._id}}">{{weapon.name}}
+            {{#if (gt weapon.system.quantity 1)}}
+             ({{weapon.system.quantity}})
+            {{/if}}
+            </div>
+            <div class="weapon-item stat-name centre">{{weapon.system.skillName}}</div>
+            <div class="weapon-item stat-name centre">{{weapon.system.value}}</div>
+            <div class="weapon-item stat-name centre rollable damage" title="{{localize 'PEN.rollDamageHint'}}" data-itemid="{{weapon._id}}">{{weapon.system.damage}}</div>
+            <div class="weapon-item stat-name centre">{{weapon.system.rangeName}}</div>
 
-        {{#if ../system.lock}}
-          <div class="grid-item centre item" data-itemid ="{{weapon._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
-        {{else}}
-          <div class="grid-item centre item" data-itemid ="{{weapon._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
-        {{/if}}
-      {{/each}}
-    </div>     
+            {{#if ../system.lock}}
+              <div class="weapon-item centre item" data-itemid ="{{weapon._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
+            {{else}}
+              <div class="weapon-item centre item" data-itemid ="{{weapon._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
+            {{/if}}
+          </li>  
+        {{/each}}
+    
+    </ol>
   </div>
 </div>

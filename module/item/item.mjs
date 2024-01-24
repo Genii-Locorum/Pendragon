@@ -1,7 +1,5 @@
-/**
- * Extend the basic Item with some very simple modifications.
- * @extends {Item}
- */
+import { PENCheck } from '../apps/checks.mjs';
+
 export class PendragonItem extends Item {
   /**
    * Augment the basic Item data model with additional dynamic data.
@@ -17,57 +15,61 @@ export class PendragonItem extends Item {
 
 
 
-  /**
-   * Prepare a data object which is passed to any Roll formulas which are created related to this Item
-   * @private
-   */
-   getRollData() {
-    // If present, return the actor's roll data.
+  //Prepare a data object which is passed to any Roll formulas which are created related to this Item
+  getRollData() {
     if ( !this.actor ) return null;
     const rollData = this.actor.getRollData();
-    // Grab the item's system data as well.
     rollData.item = foundry.utils.deepClone(this.system);
-
     return rollData;
   }
 
-  /**
-   * Handle clickable rolls.
-   * @param {Event} event   The originating click event
-   * @private
-   */
+  //Handle clickable rolls.
   async roll() {
     const item = this;
-
-    // Initialize chat data.
-    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-    const rollMode = game.settings.get('core', 'rollMode');
-    const label = `[${item.type}] ${item.name}`;
-
-    // If there's no roll data, send a chat message.
-    if (!this.system.formula) {
-      ChatMessage.create({
-        speaker: speaker,
-        rollMode: rollMode,
-        flavor: label,
-        content: item.system.description ?? ''
-      });
+    const actor = this.actor;
+    let altKey = event.altKey;
+    let shiftKey = event.shiftKey;
+    if (game.settings.get('Pendragon','switchShift')) {
+      shiftKey = shiftKey
     }
-    // Otherwise, create a roll and send a chat message from it.
-    else {
-      // Retrieve roll data.
-      const rollData = this.getRollData();
+    let cardType = "NO";
+    let rollType = "";
+    let skillId = "";
+    let itemId = "";
+    let subType = "";
+    switch (item.type) {
+      case 'trait':
+        rollType = 'TR'
+        subType = 'trait'
+        skillId = item._id;
+        if (altKey){cardType='OP'}
+        break
+      case 'passion':
+      case 'skill':     
+        rollType = 'SK';
+        skillId = item._id;
+        if (altKey){cardType='OP'}
+        break
+      case 'weapon':     
+        rollType = 'CM';
+        cardType = 'CO';
+        itemId = item._id
+        break    
+      default:
+        item.sheet.render(true);
+        return
+    }            
 
-      // Invoke the roll and submit it to chat.
-      const roll = new Roll(rollData.item.formula, rollData);
-      // If you need to store the value first, uncomment the next line.
-      // let result = await roll.roll({async: true});
-      roll.toMessage({
-        speaker: speaker,
-        rollMode: rollMode,
-        flavor: label,
-      });
-      return roll;
-    }
+      PENCheck._trigger({
+          rollType,
+          cardType,
+          shiftKey,
+          subType,
+          skillId,
+          itemId,
+          event,
+          actor
+      })
+    return
   }
 }

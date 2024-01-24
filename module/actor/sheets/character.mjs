@@ -1,7 +1,6 @@
-import { PENChecks } from "../../apps/checks.mjs";
+import { PENRollType } from "../../apps/rollType.mjs";
 import { PENCombat } from "../../apps/combat.mjs";
 import { PENWinter } from "../../apps/winterPhase.mjs";
-import { PENUtilities } from "../../apps/utilities.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -243,7 +242,14 @@ export class PendragonCharacterSheet extends ActorSheet {
     html.find(".inline-edit").change(this._onInlineEdit.bind(this));                    // Inline Edit
     html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));                  // Item Toggle
     html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));                // Actor Toggle
-    html.find(".rollable").click(PENChecks._onRollable.bind(this));                     // Dice Roll from stat etc
+    html.find(".rollable.stat").click(PENRollType._onStatCheck.bind(this));                // Stats check
+    html.find(".rollable.skill-name").click(PENRollType._onSkillCheck.bind(this));         // Skill check
+    html.find(".rollable.glory").click(PENRollType._onGloryCheck.bind(this));              // Glory check
+    html.find(".rollable.squire").click(PENRollType._onSquireCheck.bind(this));            // Squire check
+    html.find(".rollable.trait").click(PENRollType._onTraitCheck.bind(this));              // Trait check 
+    html.find(".rollable.decision").click(PENRollType._onDecisionCheck.bind(this));        // Decision Trait check     
+    html.find(".rollable.damage").click(PENRollType._onDamageRoll.bind(this));             // Damage roll      
+    html.find(".rollable.combat").click(PENRollType._onCombatCheck.bind(this));            // Combat roll       
     html.find(".treat-wound").dblclick(PENCombat.treatWound.bind(this));                // Treat a wound
     html.find(".natural-heal").dblclick(PENCombat.naturalHealing.bind(this));           // Natural Healing
     html.find(".xp-check").click(PENWinter.xpCheck.bind(this));                         // XP Rolls

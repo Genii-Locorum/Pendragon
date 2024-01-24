@@ -8,7 +8,7 @@ import { registerSettings } from './setup/register-settings.mjs';
 import { PENLayer } from "./setup/layers.mjs"
 import { PENWinter } from "./apps/winterPhase.mjs"
 import { PENSystemSocket } from "./apps/socket.mjs"
-import * as Chat from "./chat/chat.mjs";
+import * as Chat from "./apps/chat.mjs";
 
 
 /* -------------------------------------------- */
@@ -129,20 +129,15 @@ Hooks.once("ready", async function() {
     if (game.settings.get('Pendragon' , 'development')) {game.settings.set('Pendragon','development', false)};
   }  
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
+  Hooks.on("hotbarDrop", (bar, data, slot) => {
+    if (game.user) {
+      createItemMacro(data, slot);
+      return false;
+    }
+  });
 });
 
-/* -------------------------------------------- */
-/*  Hotbar Macros                               */
-/* -------------------------------------------- */
-
-/**
- * Create a Macro from an Item drop.
- * Get an existing item macro if one exists, otherwise create a new one.
- * @param {Object} data     The dropped data
- * @param {number} slot     The hotbar slot to use
- * @returns {Promise}
- */
+//  Hotbar Macros                             
 async function createItemMacro(data, slot) {
   // First, determine if this is a valid owned item.
   if (data.type !== "Item") return;
@@ -153,7 +148,7 @@ async function createItemMacro(data, slot) {
   const item = await Item.fromDropData(data);
 
   // Create the macro command using the uuid.
-  const command = `game.pendragon.rollItemMacro("${data.uuid}");`;
+  const command = `game.Pendragon.rollItemMacro("${data.uuid}");`;
   let macro = game.macros.find(m => (m.name === item.name) && (m.command === command));
   if (!macro) {
     macro = await Macro.create({
@@ -161,18 +156,14 @@ async function createItemMacro(data, slot) {
       type: "script",
       img: item.img,
       command: command,
-      flags: { "pendragon.itemMacro": true }
+      flags: { "Pendragon.itemMacro": true }
     });
   }
   game.user.assignHotbarMacro(macro, slot);
   return false;
 }
 
-/**
- * Create a Macro from an Item drop.
- * Get an existing item macro if one exists, otherwise create a new one.
- * @param {string} itemUuid
- */
+//Create a Macro from an Item drop.
 function rollItemMacro(itemUuid) {
   // Reconstruct the drop data so that we can load the item.
   const dropData = {

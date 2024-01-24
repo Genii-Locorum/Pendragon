@@ -1,4 +1,4 @@
-import { PENChecks } from "../../apps/checks.mjs";
+import { PENRollType } from "../../apps/rollType.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -79,6 +79,7 @@ export class PendragonNPCSheet extends ActorSheet {
     const traits =[];
     const skills = [];
     const passions = [];
+    const horses = [];
  
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -96,6 +97,8 @@ export class PendragonNPCSheet extends ActorSheet {
         skills.push(i);
       } else if (i.type === 'passion') {
         passions.push(i);
+      } else if (i.type === 'horse') {
+        horses.push(i);
       }
     }
     // Sort Gears
@@ -152,6 +155,7 @@ export class PendragonNPCSheet extends ActorSheet {
     context.traits = traits;
     context.skills = skills;
     context.passions = passions;
+    context.horses = horses;
   }
 
   /* -------------------------------------------- */
@@ -171,11 +175,16 @@ export class PendragonNPCSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
 
-    html.find('.item-create').click(this._onItemCreate.bind(this));           // Add Inventory Item
-    html.find(".inline-edit").change(this._onInlineEdit.bind(this));          // Inline Edit
-    html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));      // Actor Toggle
-    html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));        // Item Toggle
-    html.find(".rollable").click(PENChecks._onRollable.bind(this));           // Dice Roll from stat etc
+    html.find('.item-create').click(this._onItemCreate.bind(this));                  // Add Inventory Item
+    html.find(".inline-edit").change(this._onInlineEdit.bind(this));                 // Inline Edit
+    html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));             // Actor Toggle
+    html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));               // Item Toggle
+    html.find(".rollable.stat").click(PENRollType._onStatCheck.bind(this));             // Stat Check
+    html.find(".rollable.skill-name").click(PENRollType._onSkillCheck.bind(this));      // Stat Check
+    html.find(".rollable.glory").click(PENRollType._onGloryCheck.bind(this));           // Glory check
+    html.find(".rollable.trait").click(PENRollType._onTraitCheck.bind(this));           // Trait check    
+    html.find(".rollable.damage").click(PENRollType._onDamageRoll.bind(this));          // Damage roll  
+    html.find(".rollable.combat").click(PENRollType._onCombatCheck.bind(this));         // Combat roll            
     
     // Drag events for macros.
     if (this.actor.isOwner) {
