@@ -58,7 +58,7 @@ export class PENCheck {
       skillId: options.skillId ??  false,
       itemId: options.itemId?? false,
       targetScore: options.targetScore ?? 0,
-      rawScore:options. rawScore ?? 0,
+      rawScore:options.rawScore ?? 0,
       rollFormula: options.rollFormula ?? "1D20",
       flatMod: options.flatMod ?? 0,
       critBonus: options.critBonus ?? 0,
@@ -356,8 +356,11 @@ export class PENCheck {
     config.rollResult = Number(roll.total)
 
     //Cap the roll result at 20
-     config.rollVal = Math.min(Number(config.rollResult+config.critBonus),20)
-
+    if (config.rollType === 'DM') {
+      config.rollVal = config.rollResult
+    } else {
+      config.rollVal = Math.min(Number(config.rollResult+config.critBonus),20)
+    }  
     //Don't need success levels in some cases
     if (['DM', 'AR'].includes(config.rollType)) {return}
     //Get the level of Success

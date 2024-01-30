@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 11.0.9
+- Fixed a bug with damage maxing out at 20
+- Added URL in system.json to github
+
+
 ## 11.0.8
 - Added opposed rolls.  Only the first roll added to card enters the Reflex Modifier.
 - Refactored other rolls to adjust for the new opposed rolls

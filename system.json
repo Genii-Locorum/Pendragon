@@ -2,7 +2,7 @@
   "id": "Pendragon",
   "title": "Pendragon",
   "description": "Pendragon system for FoundryVTT!",
-  "version": "11.0.8",
+  "version": "11.0.9",
   "compatibility": {
     "minimum": 11,
     "verified": "11.315",
@@ -63,7 +63,7 @@
   "gridUnits": "ft",
   "primaryTokenAttribute": "hp",
   "secondaryTokenAttribute": "",
-  "url": "",
+  "url": "https://github.com/Genii-Locorum/Pendragon",
   "manifest": "https://github.com/Genii-Locorum/Pendragon/releases/latest/download/system.json",
   "download": "https://github.com/Genii-Locorum/Pendragon/releases/latest/download/system.zip",
   "socket": true,
