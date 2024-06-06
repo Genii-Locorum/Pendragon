@@ -1,6 +1,7 @@
 # CHANGELOG
 
-## 11.1.1
+## 12.1.10
+- Game mechanics updated to Core Rulebook for 6th Edition - PLEASE NOTE THIS IS A MAJOR CHANGE AND MAY BREAK YOUR PRE-EXISTING WORLDS TO MAKE BACKUPS BEFORE MIGRATING
 - Add Pendragon ID (PID) - a wholesale lift and shift of the Call of Cthulhu ID implementation
 - Added Fixed Opposed Roll (resistance roll), Inquiry (GM Rolls) and Friendly Opposed Rolls
 - Expanded Opposed Rolls to allow up to 5 participants (but removed dice colours)
