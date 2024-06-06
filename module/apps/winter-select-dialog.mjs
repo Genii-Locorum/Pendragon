@@ -59,7 +59,7 @@ export class WinterSelectDialog extends Dialog {
           const selected = data.options.filter(option => (option.choice != 0))
           return resolve(selected)  
         }
-        },{classes: ["Pendragon", "sheet"], width: 430})
+        },{classes: ["Pendragon", "sheet"], width: 530})
         dlg.render(true);
       })
     }

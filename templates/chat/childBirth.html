@@ -1,0 +1,49 @@
+<form class="Pendragon">
+    <div class="dice-roll">
+      <div style="display: block">  
+        <div class="flavour-result bold"> {{localize 'PEN.childBirth'}} - {{birthLabel}}</div>
+        {{#each newborn as | baby key|}}  
+          <div class="flavour-result">
+             {{baby.genderLabel}}
+             {{#if (eq baby.status "dies")}} - {{localize 'PEN.died'}}{{/if}}
+          </div>  
+        {{/each}} 
+        {{#if motherDies}}
+          <div>{{localize 'PEN.motherDies'}}</div>
+        {{/if}}
+        {{#if motherBarren}}
+          <div>{{localize 'PEN.motherBarren'}}</div>
+        {{/if}}
+        {{#if statLoss}}
+          <div>{{localize 'PEN.nearlyDied'}}</div>
+          <div>{{localize 'PEN.statLost'}}: {{conLoss}}/{{strLoss}}/{{sizLoss}}</div>
+        {{/if}}
+      </div>
+
+      <div class="actor-roll dice-tooltip" style="display:none">
+        <div class="owner-only" data-partic-id="{{actorID}}" data-partic-type="actor">
+        <div class="rollHidden">{{localize 'PEN.conception'}}: {{result}}</div>
+        {{#if (gt critRes 0)}}
+          <div class="rollHidden"> {{localize 'PEN.criticalResult'}}: {{critRes}}</div>
+        {{/if}}
+        {{#if (gt multiRes 0)}}
+          <div class="rollHidden"> {{localize 'PEN.multipleResult'}}: {{multiRes}}</div>
+        {{/if}}
+        {{#if (gt trip 0)}}
+          <div class="rollHidden"> {{localize 'PEN.tripletResult'}}: {{trip}}</div>
+        {{/if}}      
+        {{#if (gt tragedyRes 0)}}
+          <div class="rollHidden"> {{localize 'PEN.tragedyResult'}}: {{tragedyRes}}</div>
+        {{/if}}
+        {{#if (gt tragedyGen 0)}}
+          <div class="rollHidden"> {{localize 'PEN.genderResult'}}: {{tragedyGen}}</div>
+        {{/if}}      
+        {{#if (gt midResult 0)}}
+          <div class="rollHidden"> {{localize 'PEN.midwifeResult'}}: {{midResult}}</div>
+        {{/if}}
+        <div class="rollHidden bottom-line"></div>
+      </div>
+    </div>  
+  </div>
+</form>  
+

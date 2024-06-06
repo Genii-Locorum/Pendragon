@@ -1,0 +1,84 @@
+<ol class="stats-list">
+  <div class="stats-tab-grid">
+    <div class="stat-name bold centre grid-item-left grid-item-top">{{ localize 'PEN.stat'}}</div>
+    <div class="stat-name bold centre grid-item-top">{{ localize 'PEN.base'}}</div>
+    <div class="stat-name bold centre grid-item-top">{{ localize 'PEN.culture'}}</div>  
+    <div class="stat-name bold centre grid-item-top">{{ localize 'PEN.trainingShort'}}</div>
+    <div class="stat-name bold centre grid-item-top" >{{ localize 'PEN.poison'}}</div>
+    <div class="stat-name bold centre grid-item-top">{{ localize 'PEN.disease'}}</div>
+    <div class="stat-name bold centre grid-item-top" title="{{ localize 'PEN.sol'}}">{{ localize 'PEN.solShort'}}</div>
+    <div class="stat-name bold centre grid-item-top" title="{{ localize 'PEN.mjrWnd'}}">{{ localize 'PEN.major'}}</div>
+    <div class="stat-name bold centre grid-item-top">{{ localize 'PEN.aging'}}</div>
+    <div class="stat-name bold centre grid-item-top">{{ localize 'PEN.winter'}}</div>
+    <div class="stat-name bold centre grid-item-top">{{ localize 'PEN.total'}}</div>
+    <div class="stat-name bold centre grid-item-top">{{ localize 'PEN.max'}}</div>
+    {{#if isCreation}}
+      <div class="centre"><a class="stat-roll large-icon {{#if actor.system.create.stats}}result-fail{{else}}fade{{/if}}"><i title="{{localize 'PEN.roll'}}" class="fas fa-dice"></i></a></div>
+    {{/if}}
+
+    {{#each system.stats as |stat key|}}
+      <div class="stat-name centre grid-item-left new-row">{{stat.labelShort}}</div>    
+      {{#isOr ../isGM ../isCreation}}
+        <div class="stat-item centre grid-item"><input name="system.stats.{{key}}.value" type="text" value="{{stat.value}}" data-dtype="Number"/></div>
+        <div class="stat-item centre grid-item"><input name="system.stats.{{key}}.culture" type="text" value="{{stat.culture}}" data-dtype="Number"/></div>
+        <div class="stat-item centre grid-item"><input name="system.stats.{{key}}.create" type="text" value="{{stat.create}}" data-dtype="Number"/></div>
+        {{#if (eq key 'con')}}
+          <div class="stat-item centre grid-item"><input name="system.stats.{{key}}.poison" type="text" value="{{stat.poison}}" data-dtype="Number"/></div>
+        {{else}}
+          <div class="stat-item centre grid-item grey"></div>
+        {{/if}}
+        <div class="stat-item centre grid-item"><input name="system.stats.{{key}}.disease" type="text" value="{{stat.disease}}" data-dtype="Number"/></div>
+        <div class="stat-item centre grid-item"><input name="system.stats.{{key}}.sol" type="text" value="{{stat.sol}}" data-dtype="Number"/></div>
+        <div class="stat-item centre grid-item"><input name="system.stats.{{key}}.major" type="text" value="{{stat.major}}" data-dtype="Number"/></div>
+        <div class="stat-item centre grid-item"><input name="system.stats.{{key}}.age" type="text" value="{{stat.age}}" data-dtype="Number"/></div>
+        <div class="stat-item centre grid-item"><input name="system.stats.{{key}}.winter" type="text" value="{{stat.winter}}" data-dtype="Number"/></div>
+      {{else}}
+        <div class="stat-item centre grid-item">{{stat.value}}</div>
+        <div class="stat-item centre grid-item">{{stat.culture}}</div>
+        <div class="stat-item centre grid-item">{{stat.create}}</div>
+        {{#if (eq key 'con')}}
+          <div class="stat-item centre grid-item"><input name="system.stats.{{key}}.poison" type="text" value="{{stat.poison}}" data-dtype="Number"/></div>
+        {{else}}
+          <div class="stat-item centre grid-item grey"></div>
+        {{/if}}
+        <div class="stat-item centre grid-item"><input name="system.stats.{{key}}.disease" type="text" value="{{stat.disease}}" data-dtype="Number"/></div>
+        <div class="stat-item centre grid-item">{{stat.sol}}</div>   
+        <div class="stat-item centre grid-item">{{stat.major}}</div>   
+        <div class="stat-item centre grid-item">{{stat.age}}</div>        
+        <div class="stat-item centre grid-item">{{stat.winter}}</div>
+      {{/isOr}}
+      <div class ="stat-item centre bold grid-item" title="{{stat.labelShort}}">{{stat.total}}</div>
+      <div class ="stat-item centre grid-item">{{stat.max}}</div>
+    {{/each}}
+    <div class="stat-name bold centre grid-item-left new-row" grid-item>{{ localize 'PEN.total'}}</div>
+    <div class="stat-name bold centre grid-item">{{statTotal}}</div>
+  </div>
+  <br>
+
+  <div class="hp-grid">
+    {{#if isGM}}
+      <div class="stat-item">{{localize 'PEN.hpAdj'}}</div>
+      <div class="stat-item centre {{#if (eq actor.system.hp.adj null)}} input-border {{/if}}"><input name="system.hp.adj" type="text" value="{{system.hp.adj}}" data-dtype="Number"/></div>
+      <div class="stat-item">{{localize 'PEN.damAdj'}}</div>
+      <div class="stat-item centre {{#if (eq actor.system.damAdj null)}} input-border {{/if}}"><input name="system.damAdj" type="text" value="{{system.damAdj}}" data-dtype="Number"/></div>
+      <div class="stat-item">{{localize 'PEN.moveAdj'}}</div>
+      <div class="stat-item centre {{#if (eq actor.system.moveAdj null)}} input-border {{/if}}"><input name="system.moveAdj" type="text" value="{{system.moveAdj}}" data-dtype="Number"/></div>
+      <div class="stat-item">{{localize 'PEN.armourAdj'}}</div>
+      <div class="stat-item centre {{#if (eq actor.system.armourAdj null)}} input-border {{/if}}"><input name="system.armourAdj" type="text" value="{{system.armourAdj}}" data-dtype="Number"/></div>
+      <div class="stat-item">{{localize 'PEN.sizIncLabel'}}</div>
+      <div class="stat-item centre {{#if (eq actor.system.armourAdj null)}} input-border {{/if}}"><input name="system.stats.siz.growth" type="text" value="{{system.stats.siz.growth}}" data-dtype="Number"/></div>
+    {{else}}
+      <div class="stat-item">{{localize 'PEN.hpAdj'}}</div>
+      <div class="stat-item">{{system.hp.adj}}</div>
+      <div class="stat-item">{{localize 'PEN.damAdj'}}</div>
+      <div class="stat-item">{{system.damAdj}}</div>
+      <div class="stat-item">{{localize 'PEN.moveAdj'}}</div>
+      <div class="stat-item">{{system.moveAdj}}</div>
+      <div class="stat-item">{{localize 'PEN.armourAdj'}}</div>
+      <div class="stat-item">{{system.armourAdj}}</div>
+      <div class="stat-item">{{localize 'PEN.sizIncLabel'}}</div>
+      <div class="stat-item">{{system.stats.siz.growth}}</div>
+    {{/if}}
+  </div>
+  
+</ol>

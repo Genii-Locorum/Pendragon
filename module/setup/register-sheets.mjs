@@ -10,6 +10,15 @@ import { PendragonSquireSheet } from '../item/sheets/squire.mjs';
 import { PendragonArmourSheet } from '../item/sheets/armour.mjs';
 import { PendragonWeaponSheet } from '../item/sheets/weapon.mjs';
 import { PendragonGearSheet } from '../item/sheets/gear.mjs';
+import { PendragonFamilySheet } from '../item/sheets/family.mjs';
+import { PendragonCultureSheet } from '../item/sheets/culture.mjs';
+import { PendragonReligionSheet } from '../item/sheets/religion.mjs';
+import { PendragonClassSheet } from '../item/sheets/class.mjs';
+import { PendragonHomelandSheet } from '../item/sheets/homeland.mjs';
+import { PendragonIdealSheet } from '../item/sheets/ideal.mjs';
+import { PENRollTableConfig } from '../sheets/pen-roll-table-config.mjs'
+import { PENJournalSheet } from '../sheets/pen-journal-sheet.mjs'
+
 
 export function registerSheets () {
   Actors.unregisterSheet("core", ActorSheet);
@@ -73,5 +82,47 @@ export function registerSheets () {
       types: ['gear'],
       makeDefault: true
     }) 
+    
+    Items.registerSheet('Pendragon', PendragonFamilySheet, {
+      types: ['family'],
+      makeDefault: true
+    }) 
+
+    Items.registerSheet('Pendragon', PendragonCultureSheet, {
+      types: ['culture'],
+      makeDefault: true
+    }) 
+
+    Items.registerSheet('Pendragon', PendragonReligionSheet, {
+      types: ['religion'],
+      makeDefault: true
+    }) 
+
+    Items.registerSheet('Pendragon', PendragonClassSheet, {
+      types: ['class'],
+      makeDefault: true
+    }) 
+
+    Items.registerSheet('Pendragon', PendragonHomelandSheet, {
+      types: ['homeland'],
+      makeDefault: true
+    }) 
+    
+    Items.registerSheet('Pendragon', PendragonIdealSheet, {
+      types: ['ideal'],
+      makeDefault: true
+    }) 
+
+    RollTables.unregisterSheet('core', RollTableConfig)
+    RollTables.registerSheet('Pendragon', PENRollTableConfig, {
+      makeDefault: true
+    })
+
+    Journal.unregisterSheet('core', JournalSheet)
+    Journal.registerSheet('Pendragon', PENJournalSheet, {
+      makeDefault: true
+    })
+
+
 
   }

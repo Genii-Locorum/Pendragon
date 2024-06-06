@@ -1,0 +1,13 @@
+<form class="Pendragon">
+    <div class="dice-roll">
+      <div style="display: block">  
+      <div class="flavour-result bold"> {{localize 'PEN.childSurvival'}}</div>
+      {{#each children as | child key|}}  
+        <div class="flavour-result">
+          {{child.name}} {{localize 'PEN.diceRoll'}} : {{child.result}} ({{child.adj}}) {{child.label}}
+        </div>  
+      {{/each}}  
+    </div>
+  </div>
+</form>  
+

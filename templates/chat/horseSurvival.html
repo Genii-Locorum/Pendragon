@@ -1,0 +1,13 @@
+<form class="Pendragon">
+    <div class="dice-roll">
+      <div style="display: block">  
+      <div class="flavour-result bold"> {{localize 'PEN.horseSurvival'}}</div>
+      {{#each horses as | horse key|}}  
+        <div class="flavour-result">
+          {{horse.name}} {{localize 'PEN.diceRoll'}} : {{horse.result}} ({{horse.adj}}) {{horse.label}}
+        </div>  
+      {{/each}}  
+    </div>
+  </div>
+</form>  
+

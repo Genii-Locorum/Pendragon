@@ -38,8 +38,8 @@
       <div class="npc-name left bold">{{localize 'PEN.hp'}}</div>
       <div class="npc-name centre">{{system.hp.value}}</div>
       <div></div>
-      <div class="npc-name left bold">{{localize 'PEN.move'}}</div>
-      <div class="npc-name centre">{{system.move}}</div>
+      <div class="npc-name left bold">{{localize 'PEN.wounds'}}</div>
+      <div class="npc-name-input centre"><input name="system.woundTotal" type="number" min="0" oninput="validity.valid||(value='');" value="{{system.woundTotal}}" data-dtype="Number"/></div>
 
       <div class="npc-name left bold">{{localize 'PEN.knockdown'}}</div>
       <div class="npc-name centre">{{system.hp.knockdown}}</div>
@@ -51,7 +51,7 @@
       <div class="npc-name centre">{{system.hp.majorWnd}}</div>
       <div></div>
       <div class="npc-name left bold rollable glory">{{localize 'PEN.gloryAward'}}</div>
-      <div class="npc-name-input centre"><input name="system.gloryAward" type="text" value="{{system.gloryAward}}" data-dype="Number"/></div>
+      <div class="npc-name-input centre"><input name="system.gloryAward" type="text" value="{{system.gloryAward}}" data-dtype="Number"/></div>
 
       <div class="npc-name left bold">{{localize 'PEN.unconscious'}}</div>
       <div class="npc-name centre">{{system.hp.unconscious}}</div>
@@ -62,8 +62,9 @@
       <div class="npc-name left bold">{{localize 'PEN.damage'}}</div>
       <div class="npc-name centre">{{system.damage}}</div>
       <div></div>
-      <div class="npc-name left bold">{{localize 'PEN.wounds'}}</div>
-      <div class="npc-name-input centre"><input name="system.woundTotal" type="text" value="{{system.woundTotal}}" data-dype="Number"/></div>
+      <div class="npc-name left bold rollable move">{{localize 'PEN.move'}}</div>
+      <div class="npc-name centre">{{system.move}}</div>
+
     </section>
     {{!--Weapons Block --}}
     <section class="npc-weapons-grid">
@@ -207,7 +208,7 @@
    
       {{#each passions as |passion key|}}
         {{#if ../system.lock}}
-        <div class="npc-name rollable skill-name" data-itemid="{{passion._id}}">{{passion.name}}</div> 
+        <div class="npc-name rollable passion-name" data-itemid="{{passion._id}}">{{passion.name}}</div> 
         <div class="npc-name centre">{{passion.system.value}}</div>   
         <div></div>      
         {{else}}
@@ -257,7 +258,7 @@
     <section class="npc-notes-grid">
       <div class="npc-name bold grey">{{ localize "PEN.notes" }}</div>  
       <div>
-        {{editor actor.system.description class="Pendragon npc-notes-doc" target="system.description" button=true owner=owner editable=editable}}
+        {{editor actor.system.description class="npc-notes-doc" target="system.description" button=true owner=owner editable=editable}}
       </div>
     </section>
   </section>

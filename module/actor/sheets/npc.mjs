@@ -1,4 +1,5 @@
-import { PENRollType } from "../../apps/rollType.mjs";
+import { PENRollType } from "../../cards/rollType.mjs";
+import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -6,9 +7,16 @@ import { PENRollType } from "../../apps/rollType.mjs";
  */
 export class PendragonNPCSheet extends ActorSheet {
 
+  //Add PID buttons to sheet
+  _getHeaderButtons () {
+    const headerButtons = super._getHeaderButtons()
+    addPIDSheetHeaderButton(headerButtons, this)
+    return headerButtons
+  }
+
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["Pendragon", "sheet", "actor","npc"],
       template: "systems/Pendragon/templates/actor/npc-sheet.html",
       width: 380,
@@ -180,8 +188,10 @@ export class PendragonNPCSheet extends ActorSheet {
     html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));             // Actor Toggle
     html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));               // Item Toggle
     html.find(".rollable.stat").click(PENRollType._onStatCheck.bind(this));             // Stat Check
-    html.find(".rollable.skill-name").click(PENRollType._onSkillCheck.bind(this));      // Stat Check
+    html.find(".rollable.skill-name").click(PENRollType._onSkillCheck.bind(this));      // Skill Check
+    html.find(".rollable.passion-name").click(PENRollType._onPassionCheck.bind(this));  // Passion check
     html.find(".rollable.glory").click(PENRollType._onGloryCheck.bind(this));           // Glory check
+    html.find(".rollable.move").click(PENRollType._onMoveCheck.bind(this));             // Move check
     html.find(".rollable.trait").click(PENRollType._onTraitCheck.bind(this));           // Trait check    
     html.find(".rollable.damage").click(PENRollType._onDamageRoll.bind(this));          // Damage roll  
     html.find(".rollable.combat").click(PENRollType._onCombatCheck.bind(this));         // Combat roll            
@@ -216,7 +226,7 @@ export class PendragonNPCSheet extends ActorSheet {
     event.preventDefault();
     const header = event.currentTarget;
     const type = header.dataset.type;
-    const data = duplicate(header.dataset);
+    const data = foundry.utils.duplicate(header.dataset);
     const name = `${type.capitalize()}`;
     const itemData = {
       name: name,

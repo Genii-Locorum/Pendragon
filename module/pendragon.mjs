@@ -5,10 +5,11 @@ import { PENDRAGON } from "./setup/config.mjs";
 import { handlebarsHelper } from './setup/handlebar-helper.mjs';
 import { PendragonHooks } from './hooks/index.mjs'
 import { registerSettings } from './setup/register-settings.mjs';
-import { PENLayer } from "./setup/layers.mjs"
-import { PENWinter } from "./apps/winterPhase.mjs"
+import { PENMenu } from "./setup/layers.mjs"
 import { PENSystemSocket } from "./apps/socket.mjs"
 import * as Chat from "./apps/chat.mjs";
+import { PENTooltips } from './apps/tooltips.mjs'
+import { PENUtilities } from "./apps/utilities.mjs";
 
 
 /* -------------------------------------------- */
@@ -22,7 +23,8 @@ Hooks.once('init', async function() {
   game.Pendragon = {
     PendragonActor,
     PendragonItem,
-    rollItemMacro
+    rollItemMacro,
+    GMtest
   };
 
   // Add custom constants for configuration.
@@ -41,10 +43,6 @@ Hooks.once('init', async function() {
   return preloadHandlebarsTemplates();
 });
 
-// Set Up Layers for Toolbar
-const layers = { Pendragongmtools: { layerClass: PENLayer, group: "primary" } };
-CONFIG.Canvas.layers = foundry.utils.mergeObject(Canvas.layers, layers);
-
 Hooks.on('ready', async () => {
   game.socket.on('system.Pendragon', async data => {
     PENSystemSocket.callSocket(data)
@@ -54,7 +52,7 @@ Hooks.on('ready', async () => {
 
 //Remove certain Items types from the list of options to create under the items menu (can still be created directly from the character sheet)
 Hooks.on("renderDialog", (dialog, html) => {
-  let deprecatedTypes = ["wound", "squire", "history"]; // 
+  let deprecatedTypes = ["wound", "squire", "family"]; // 
   Array.from(html.find("#document-create option")).forEach(i => {
       if (deprecatedTypes.includes(i.value))
       {
@@ -68,66 +66,61 @@ Hooks.on('renderSettingsConfig', (app, html, options) => {
   const systemTab = $(app.form).find('.tab[data-tab=system]')
 
   systemTab
-    .find('input[name=Pendragon\\.gameYear]')
+    .find('input[name=Pendragon\\.autoXP]')
     .closest('div.form-group')
     .before(
       '<h3 class="setting-header">' +
-        game.i18n.localize('PEN.Settings.gameSettings') +
+        game.i18n.localize('PEN.Settings.xpCheck') +
         '</h3>'
-    )
+    )  
+
+  systemTab
+    .find('input[name=Pendragon\\.switchShift]')
+    .closest('div.form-group')
+    .before(
+      '<h3 class="setting-header">' +
+        game.i18n.localize('PEN.Settings.diceRolls') +
+        '</h3>'
+    )      
+
+    systemTab
+    .find('input[name=Pendragon\\.tokenVision]')
+    .closest('div.form-group')
+    .before(
+      '<h3 class="setting-header">' +
+        game.i18n.localize('PEN.Settings.other') +
+        '</h3>'
+    ) 
+
 });
 
-//Add GM controls to Scene - first bit is adding the GM Tools button
-Hooks.on('getSceneControlButtons', (buttons) => {
-  if(game.user.isGM) {
-    const PendragonGMTool = {
-      activeTool: "select",
-      icon: "fas fa-tools",
-      layer: "Pendragongmtools",
-      name: "Pendragongmtools",
-      title: game.i18n.localize('PEN.GMTools'),
-      tools: [],
-      visible: true
-    };
-    // This adds a sub-button - the Winter Phase
-    PendragonGMTool.tools.push({
-      name: "Session",
-      icon: "fas fa-snowflake",
-      title:  game.i18n.localize('PEN.winterPhase'),
-      active: game.settings.get('Pendragon','winter'),
-      toggle: true,
-      onClick: async toggle => {await PENWinter.winterPhase(toggle)}
+PendragonHooks.listen()
 
-    });
+//Add Chat Log Hooks
+Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
 
-    // This adds a sub-button - the Development Phase - same as WinterPhase but without the year and history changes
-    PendragonGMTool.tools.push({
-      name: "Development",
-      icon: "fas fa-helmet-battle",
-      title:  game.i18n.localize('PEN.developmentPhase'),
-      active: game.settings.get('Pendragon','development'),
-      toggle: true,
-      onClick: async toggle => await PENWinter.developmentPhase(toggle)
-    });
-       buttons.push(PendragonGMTool);
-    };
-  })
-
-  PendragonHooks.listen()
-
-  //Add Chat Log Hooks
-  Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
+//Add GM Tool Layer
+Hooks.on('getSceneControlButtons', PENMenu.getButtons)
+Hooks.on('renderSceneControls', PENMenu.renderControls)
 
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
 Hooks.once("ready", async function() {
-  // Always reset GM Tool toggles to False
+  // Always reset GM Tool toggles to False and ensyre actors training is false
   if (game.user.isGM) {
     if (game.settings.get('Pendragon' , 'winter')) {game.settings.set('Pendragon','winter', false)};
     if (game.settings.get('Pendragon' , 'development')) {game.settings.set('Pendragon','development', false)};
-  }  
+    if (game.settings.get('Pendragon' , 'creation')) {game.settings.set('Pendragon','creation', false)};
+    for (const a of game.actors.contents) {
+      if(a.type === 'character') {
+        await a.update({'system.status.train': false});
+      }
+    } 
+  } 
+  game.PENTooltips = new PENTooltips()
+
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => {
     if (game.user) {
@@ -183,3 +176,7 @@ function rollItemMacro(itemUuid) {
   });
 }
 
+//Allow GM test functionality
+function GMtest() {
+  PENUtilities.gmTestRoutine()
+}

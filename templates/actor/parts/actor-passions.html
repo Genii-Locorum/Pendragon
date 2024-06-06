@@ -1,19 +1,62 @@
-<ol class="skill-list">
-  {{#each passions as |passion key|}}
-    <li class="item passion-grid" data-item-id="{{passion._id}}">
-        <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{passion._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if passion.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
-        <div class="stat-name rollable skill-name" title="{{localize 'PEN.rollHint'}}" data-itemid="{{passion._id}}">{{passion.name}}</div>
-        {{#if ../system.lock}}
-          <div class="stat-name centre">{{passion.system.value}}</div>
-        {{else}}
-          <div class="stat-name-input trait-input centre item" data-field="passion" data-itemid ="{{passion._id}}"><input class="inline-edit" name="item.system.passion.{{key}}.value" type="text" value="{{passion.system.value}}" data-dtype="Number"/></div>
+{{#unless isCreation}}
+  <ol class="skill-list">
+    {{#each passions as |passion key|}}
+      <li class="item passion-grid" data-item-id="{{passion._id}}">
+          <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{passion._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if passion.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+          <div class="stat-name rollable passion-name" title="{{localize 'PEN.rollHint'}}" data-itemid="{{passion._id}}">{{passion.name}}
+            {{#if passion.system.isHonour}}
+              [{{passion.system.dishonour}}]
+            {{/if}}
+          </div>
+          <div class="stat-name centre" title="{{passion.system.flavour}}">{{passion.system.total}}</div>
+          {{#if ../system.lock}}
+            <div class="centre item" data-itemid ="{{passion._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
+          {{else}}
+            <div class="centre item" data-itemid ="{{passion._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
+          {{/if}}
+      </li>
+    {{/each}}
+    <br>
+    <div class ="passion-grid">
+      <div class="new-row">&nbsp</div>
+      <div class="stat-name italics {{#if (gt system.adoration 40)}}result-success bold{{/if}}">{{localize 'PEN.adoratio'}}</div>
+      <div class="stat-name centre {{#if (gt system.adoration 40)}}result-success bold{{/if}}">{{system.adoratio}}</div>
+      <div class="new-row">&nbsp</div>
+      <div class="stat-name italics {{#if (gt system.civilitas 40)}}result-success bold{{/if}}">{{localize 'PEN.civilitas'}}</div>
+      <div class="stat-name centre {{#if (gt system.civilitas 40)}}result-success bold{{/if}}">{{system.civilitas}}</div>
+      <div class="new-row">&nbsp</div>
+      <div class="stat-name italics {{#if (gt system.fervor 40)}}result-success bold{{/if}}">{{localize 'PEN.fervor'}}</div>
+      <div class="stat-name centre {{#if (gt system.fervor 40)}}result-success bold{{/if}}">{{system.fervor}}</div>
+      <div class="new-row">&nbsp</div>
+      <div class="stat-name italics {{#if (gt system.fidelitas 40)}}result-success bold{{/if}}">{{localize 'PEN.fidelitas'}}</div>
+      <div class="stat-name centre {{#if (gt system.fidelitas 40)}}result-success bold{{/if}}">{{system.fidelitas}}</div>
+    </div>  
+
+  </ol>
+{{else}}
+  <ol class="skill-dev-list">
+    <div class="skill-dev-listitem">
+      <div class="stat-name bold grid-item-top grid-item-left">{{localize 'PEN.passion'}}</div>
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.base'}}</div>
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.parent'}}</div>  
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.homeland'}}</div>
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.winter'}}</div>   
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.total'}}</div>
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.dishonour'}}</div>
+    </div>  
+
+    {{#each passions as |passion key|}}
+      <li class="item skill-dev-listitem" data-item-id="{{passion._id}}">
+        <div class="stat-name truncate new-row grid-item-left" title="{{passion.name}}">{{passion.name}}</div>
+        <div class="stat-name-input item centre grid-item" data-field="passion" data-att="value" data-itemid ="{{passion._id}}"><input class="inline-edit" name="passion.system.value" type="text" value="{{passion.system.value}}" data-dtype="Number"/></div>
+        <div class="stat-name-input item centre grid-item" data-field="passion" data-att="inherit" data-itemid ="{{passion._id}}"><input class="inline-edit" name="passion.system.inherit" type="text" value="{{passion.system.inherit}}" data-dtype="Number"/></div>
+        <div class="stat-name-input item centre grid-item" data-field="passion" data-att="homeland" data-itemid ="{{passion._id}}"><input class="inline-edit" name="passion.system.homeland" type="text" value="{{passion.system.homeland}}" data-dtype="Number"/></div>
+        <div class="stat-name-input item centre grid-item" data-field="passion" data-att="winter" data-itemid ="{{passion._id}}"><input class="inline-edit" name="passion.system.winter" type="text" value="{{passion.system.winter}}" data-dtype="Number"/></div>
+        <div class="stat-name centre grid-item">{{passion.system.total}}</div>
+        {{#if passion.system.isHonour}}
+          <div class="stat-name-input item centre grid-item-top" data-field="passion" data-att="dishonour" data-itemid ="{{passion._id}}"><input class="inline-edit" name="passion.system.dishonour" type="text" value="{{passion.system.dishonour}}" data-dtype="Number"/></div>
         {{/if}}
-        
-        {{#if ../system.lock}}
-          <div class="centre item" data-itemid ="{{passion._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
-        {{else}}
-          <div class="centre item" data-itemid ="{{passion._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
-        {{/if}}
-    </li>
-  {{/each}}
-</ol>
+      </li>
+    {{/each}}
+  </ol>
+{{/unless}}

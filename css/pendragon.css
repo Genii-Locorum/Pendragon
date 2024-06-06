@@ -18,6 +18,34 @@
   src: url('../assets/garamond-premier-pro.otf') format('woff2');
 }
 
+.app .header-button.edit-pid-warning {
+  color: red;
+}
+
+.Pendragon.pid-editor {
+  a.copy-to-clipboard {
+    flex: 0 0 20px;
+    align-self: center;
+    text-align: right;
+  }
+
+  fieldset.item-sheet-properties {
+    label {
+      height: auto;
+      white-space: break-spaces;
+    }
+
+    span.warning {
+      outline: 2px dashed rgba(255, 100, 0, 0.3);
+      background-color: rgba(255, 100, 0, 0.3);
+    }
+
+    td.shorttext {
+      text-align: center;
+    }
+  }
+}
+
 .rollable:hover, .rollable:focus, .clickable:hover, .clickable:focus {
   color: #000;
   text-shadow: 0 0 10px red;
@@ -25,20 +53,22 @@
 }
 
 .journal-entry-content{
-  background-image:url("../assets/parchment.png") !important;
+  background-image:url("../assets/parchment.jpg") !important;
   background-size: cover !important;
 }
 
 .Pendragon .window-content {
-  background-image:url("../assets/parchment.png");
+  background-image:url("../assets/parchment.jpg");
   background-size: cover;
   padding: 8px;
 }
 
 .chat-message {
-  background-image:url("../assets/parchment.png");
+  background-image:url("../assets/parchment.jpg") !important;
   background-size: auto;
 }
+
+
 
 .chat-message .message-sender {
   color: black;
@@ -118,6 +148,7 @@ height: inherit;
   border-bottom:1px gray solid !important;
   height: 45px;
   background-color: rgba(128, 128, 128, 0.3);
+  
 }
 
 .Pendragon .items-list {
@@ -167,6 +198,7 @@ height: inherit;
 .Pendragon .tab-name {
   font-family:"Herb";
   font-size: 20px;
+  padding: 8px 0px !important;
 }
 
 .Pendragon .stat-name {
@@ -187,6 +219,7 @@ height: inherit;
   font-family: "Garamond";
   font-size: 20px;
   font-weight: bold;
+  margin-top: 3px;
   padding: 0px;
   color:darkred;
   height: 20px;
@@ -273,8 +306,8 @@ height: inherit;
 
 .Pendragon .combat-grid {
   display: grid;
-  grid-template-columns: 260px 480px;
-  column-gap: 50px;
+  grid-template-columns: 290px 480px;
+  column-gap: 20px;
 }
 
 .Pendragon .stat-grid{
@@ -351,6 +384,18 @@ height: inherit;
   display: grid;
   grid-template-columns: 550px 70px 70px 30px ;
   gap: 0px;
+  width: 721px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+.Pendragon .ideal-grid {
+  display: grid;
+  width: 651px;
+  grid-template-columns: 550px 70px 30px ;
+  gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
   border-top: 1px gray solid;
@@ -359,8 +404,8 @@ height: inherit;
 
 .Pendragon .wound-grid{
   display: grid;
-  width: 251px;
-  grid-template-columns: 30px 130px 60px 30px;
+  width: 281px;
+  grid-template-columns: 30px 130px 60px 30px 30px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -370,8 +415,8 @@ height: inherit;
 
 .Pendragon .companion-grid{
   display: grid;
-  width: 731px;
-  grid-template-columns: 50px 250px 60px 70px 100px 80px 80px 40px;
+  width: 781px;
+  grid-template-columns: 50px 180px 60px 60px 80px 80px 80px 75px 75px 40px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -381,8 +426,19 @@ height: inherit;
 
 .Pendragon .squire-grid{
   display: grid;
-  width: 501px;
-  grid-template-columns: 250px 60px 60px 100px 30px;
+  width: 661px;
+  grid-template-columns: 250px 100px 60px 60px 60px 100px 30px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+.Pendragon .retainer-grid{
+  display: grid;
+  width: 441px;
+  grid-template-columns: 250px 100px 60px 30px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -404,7 +460,30 @@ height: inherit;
 .Pendragon .gear-grid{
   display: grid;
   width: 761px;
-  grid-template-columns: 200px 50px 480px  30px;
+  grid-template-columns: 200px 50px 480px 30px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+.Pendragon .GMItem-grid{
+  display: grid;
+  width: 661px;
+  grid-template-columns: 250px 150px 230px 30px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+
+.Pendragon .family-grid{
+  display: grid;
+  width: 611px;
+  grid-template-columns: 150px 100px 70px 80px 90px 90px 30px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -418,6 +497,20 @@ height: inherit;
   overflow: hidden;
 }
 
+.Pendragon .grid-item-top {
+  border-top: 1px gray solid;
+  border-bottom: 1px gray solid;
+  border-right: 1px gray solid;
+  overflow: hidden;
+}
+
+.Pendragon .grid-item-left {
+  border-left: 1px gray solid;
+  border-bottom: 1px gray solid;
+  border-right: 1px gray solid;
+  overflow: hidden;
+}
+
 .Pendragon .weapon-item {
   border-right: 1px gray solid;
   overflow: hidden;
@@ -426,6 +519,14 @@ height: inherit;
 .Pendragon .item-trait-grid{
   display: grid;
   grid-template-columns: 180px 190px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .item-culture-grid{
+  display: grid;
+  grid-template-columns: 150px 100px 75px 75px ;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -457,7 +558,7 @@ height: inherit;
 
 .Pendragon .history-small-grid{
   display: grid;
-  grid-template-columns: 100px 50px ;
+  grid-template-columns: 150px 50px ;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -465,7 +566,7 @@ height: inherit;
 
 .Pendragon .trait-grid{
   display: grid;
-  grid-template-columns: 50px 30px 150px 70px 150px 30px 50px 30px;
+  grid-template-columns: 50px 30px 150px 70px 150px 30px 50px 50px 230px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -516,13 +617,19 @@ height: inherit;
   text-align:center;
 }
 
-.Pendragon .background-doc {
+.Pendragon .xlarge-icon{
+  font-size: 40px;
+  text-align:center;
+}
+
+.Pendragon .background-doc{
   background-image: none;
-  font-size:14px;
+  font-size:16px;
   font-weight: bold;
   padding-left: 10px;
   padding-right: 10px;
-  height: 200px;
+  min-height: 200px;
+  height: fit-content;
   border: 1px gray solid;
 }
 
@@ -554,7 +661,8 @@ height: inherit;
   height: calc(100% - 245px);
   border-top: 0px;
   width: 100%;
-  overflow:scroll;
+  overflow-y:auto;
+  scrollbar-width: none;
  }
 
  .Pendragon .npc-title-section{
@@ -674,9 +782,7 @@ height: inherit;
   width: 401px;
   margin-left: 10px;
   margin-right: 10px;
-  grid-template-columns: 40px 120px 150px 50px 40px;
-  border-top: 1px gray solid;
-  border-left: 1px gray solid;
+  grid-template-columns: 40px 120px 250px 50px 40px;
 }
 
 .Pendragon .cardbutton {
@@ -763,4 +869,321 @@ height: inherit;
 .Pendragon .W {
   background-color: rgb(238, 141, 15) !important;
   font-weight: bold;
+}
+
+.Pendragon .truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+
+.Pendragon .familyCreate {
+  display: grid;
+  width: 380px;
+  margin-left: 5px;
+  grid-template-columns: 100px 130px 5px 130px ;
+}
+
+.Pendragon .statsCreate {
+  display: grid;
+  width: 305px;
+  margin-left: 5px;
+  grid-template-columns: 150px 50px 50px 50px ;
+}
+
+
+#help-tooltip {
+  z-index: 509;
+  position: absolute;
+  left: -999px;
+  top: -999px;
+  background-color: #fff;
+  padding: 10px;
+  border: 2px solid #670b0b;
+  background: url("../assets/parchment.jpg");
+
+  label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    margin: 0.5rem;
+  }
+
+  ol {
+    padding: 0;
+    margin: 0 0.5rem 0.5rem;
+    list-style: none;
+
+    li {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+.Pendragon .horizontalboxed {
+  border-top: 2px rgba(68, 7, 4, 1) solid;
+  border-bottom: 2px rgba(68, 7, 4, 1) solid;
+}
+
+.Pendragon .rollWrite-grid {
+  display: grid;
+  margin-left: 5px;
+  grid-template-columns: 150px 150px; 
+}
+
+.Pendragon .stats-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  height: calc(100% - 20px);
+}
+
+.Pendragon .stats-tab-grid {
+  display: grid;
+  margin: 0px;
+  padding: 2px 2px 2px 2px;
+  row-gap: 0px;
+  column-gap: 0px;
+  font-size: 14px;
+  grid-template-columns: 60px 60px 65px 65px 65px 65px 65px 65px 65px 65px 60px 50px 50px;
+}
+
+.Pendragon .stat-item {
+  font-family: "Garamond";
+  font-size: 20px;
+  color: black;
+}
+
+.Pendragon .stat-item input{
+  font-family: "Garamond";
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 1px;
+  padding: 0px;
+  color:darkred;
+  height: 20px;
+  border: 0px;
+  border-radius: 0px;
+  background: none;
+}
+
+.Pendragon .lock-result  {
+  color: black !important; 
+}
+
+.Pendragon  .pm-dropdown{
+  background-color: #af8c62c2 !important;
+  color: black !important; 
+}
+
+.Pendragon  .prosemirror .fa-chevron-down{
+  color: black !important; 
+}
+
+.Pendragon .item-list {
+  margin: 0px;
+}
+
+.Pendragon .indent {
+  padding-left: 10px;
+}
+
+.Pendragon .proceed {
+  background-color: rgba(15, 15, 15, 0.7);
+  color: cornsilk;
+}
+
+.Pendragon .check-lower{
+  padding-top:2px;
+}
+
+.Pendragon .darkredreset {
+  float:right;
+  font-size: 14px;
+  padding-top:5px;
+  color:darkred;
+}
+
+.Pendragon .skill-dev-list {
+  list-style: none;
+}
+
+.Pendragon .skill-dev-listitem {
+  display: grid;
+  margin: 0px;
+  row-gap: 0px;
+  column-gap: 0px;
+  font-size: 14px;
+  grid-template-columns: 150px 90px 90px 90px 90px 90px 90px 90px;
+}
+
+.Pendragon .groupTitle {
+  display: grid;
+  margin: 0px;
+  row-gap: 0px;
+  column-gap: 0px;
+  grid-template-columns: 300px 150px 50px;
+}
+
+.Pendragon .group-control {
+  max-width: 35px;
+  text-align: right;
+}
+
+.Pendragon .group-label {
+  min-width: 265px;
+  max-width: 265px;
+}
+
+
+.Pendragon .stat-name .item-controls {
+  display: flex;
+  flex: 0 0 50px;
+  justify-content: space-between;
+}
+
+.Pendragon .description {
+  height: 300px !important;
+}
+
+.Pendragon .descriptionPlus {
+  height: 400px !important;
+}
+
+.Pendragon .GMdescription {
+  height: 300px !important;
+}
+
+.tjg {
+  width:160px;
+  padding-right: 5px;
+  background: rgb(50, 25, 0);
+  color: cornsilk;
+}
+
+.Pendragon .tablecol {
+  display: grid;
+  margin: 0px;
+  row-gap: 0px;
+  column-gap: 0px;
+  font-family: "Garamond";
+  font-size: 18px;
+  border-bottom: 3px solid rgb(50, 25, 0);
+}
+
+.Pendragon .tableHeader {
+  background: rgb(50, 25, 0);
+  color: cornsilk;
+  font-family: Garamond;
+  font-size: 18px;
+  padding: 0px 2px 0px 2px;
+}
+
+.Pendragon .tableOffRow {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.Pendragon ul.p6e {
+  margin: 0.5em 0 0 0;
+}
+
+.Pendragon ul.p6e li::marker {
+  content: '✠ ';
+  font-size:15px;
+  color:darkred
+}
+
+.Pendragon ul.norm li::marker {
+  content: '• ';
+  font-size:15px;
+  color:darkred
+}
+
+.Pendragon .jnl-text {
+  font-family: "Garamond";
+  font-size: 18px;
+  color: black;
+  margin: 0px !important;
+}
+
+.Pendragon .jnl-text li p {
+  margin: 0px;
+  text-indent: 0px;
+}
+
+.Pendragon .jnl-text p {
+  margin: 0px;
+  text-indent: 20px;
+}
+
+.Pendragon .jnl-hdr {
+  font-family: "Garamond";
+  font-size: 20px;
+  color: #034694;
+  text-indent: 0px !important;
+}
+.Pendragon .noIndent {
+  text-indent: 0px !important;
+}
+
+.Pendragon .jnl-text h2{
+  font-family: "Garamond";
+  font-size: 20px;
+  text-transform:uppercase;
+  color: #034694;
+  text-indent: 0px !important;
+  border: none;
+  margin:0px !important;
+}
+
+.Pendragon .jnl-text h3{
+  font-family: "Garamond";
+  font-size: 20px;
+  color: #034694;
+  text-indent: 0px !important;
+  border: none;
+  margin:0px !important;
+}
+.Pendragon .jnl-text h4{
+  font-family: "Garamond";
+  font-size: 18px;
+  font-style:italic;
+  font-weight: bold;
+  text-indent: 0px !important;
+  margin:0px !important;
+  border-bottom: 1px black solid;
+}
+
+.Pendragon .jnl-text h5, .Pendragon .jnl-text h1{
+  font-family:"Herb";
+  font-size: 30px;
+  text-indent: 0px !important;
+  font-weight:normal;
+  color:darkred;
+  border: none;
+  margin:0px !important;
+}
+
+.Pendragon .jnl-text h6{
+  font-family: "Garamond";
+  font-size: 18px;
+  text-indent: 0px !important;
+  border-bottom: none;
+  margin: 0px;
+  font-weight: normal;
+  margin:0px !important;
+}
+
+.Pendragon .jnl-text a.content-link {
+  background: none;
+  border: none;
+  white-space: pre-wrap;
+  word-break: normal;
+  color: rgb(156, 7, 156);
+  font-weight: bold;
+}
+
+.Pendragon .jnl-text a.content-link i{
+  display: none;
 }

@@ -8,7 +8,7 @@
           <div class="roll-details">
             <div class="header">
               <div class='name'>
-                <span class="tag">{{c.particName}}</span>
+                <span class="tag">{{c.particName}} - {{c.actionLabel}}</span>
               </div>
               {{#unless (eq ../state 'closed')}}
                 <a class="gm-visible-only cardbutton" data-rank='{{key}}' data-preset="remove-op-roll" title="{{localize 'PEN.remove'}}"><i class="far fa-times-circle"></i></a>

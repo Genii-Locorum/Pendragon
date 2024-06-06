@@ -1,46 +1,65 @@
-export class PendragonGearSheet extends ItemSheet {
-    constructor (...args) {
-      super(...args)
-      this._sheetTab = 'items'
-    }
-  
-    static get defaultOptions () {
-      return mergeObject(super.defaultOptions, {
-        classes: ['Pendragon', 'sheet', 'item'],
-        width: 550,
-        height: 400,
-        scrollY: ['.item-bottom-panel'],
-        tabs: [{navSelector: '.sheet-tabs',contentSelector: '.sheet-body',initial: 'attributes'}]
-      })
-    }
-  
-    /** @override */
-    get template () {
-      return `systems/Pendragon/templates/item/${this.item.type}.html`
-    }
-  
-    getData () {
-      const sheetData = super.getData()
-      const itemData = sheetData.item
-      sheetData.hasOwner = this.item.isEmbedded === true
-      sheetData.isGM = game.user.isGM
-      
+import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
 
-      
-      return sheetData
-    }
+export class PendragonGearSheet extends ItemSheet {
+  constructor (...args) {
+    super(...args)
+    this._sheetTab = 'items'
+  }
+
+  //Add PID buttons to sheet
+  _getHeaderButtons () {
+    const headerButtons = super._getHeaderButtons()
+    addPIDSheetHeaderButton(headerButtons, this)
+    return headerButtons
+  }     
+
+  static get defaultOptions () {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ['Pendragon', 'sheet', 'item'],
+      width: 550,
+      height: 480,
+      scrollY: ['.item-bottom-panel'],
+      tabs: [{navSelector: '.sheet-tabs',contentSelector: '.sheet-body',initial: 'attributes'}]
+    })
+  }
   
-    /* -------------------------------------------- */
-  
-    /**
-     * Activate event listeners using the prepared sheet HTML
-     * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
-     */
-    activateListeners (html) {
-      super.activateListeners(html)
-      // Everything below here is only needed if the sheet is editable
-      if (!this.options.editable) return
+  /** @override */
+  get template () {
+    return `systems/Pendragon/templates/item/${this.item.type}.html`
+  }
  
-    }
+   async getData () {
+    const sheetData = super.getData()
+    const itemData = sheetData.item
+    sheetData.hasOwner = this.item.isEmbedded === true
+    sheetData.isGM = game.user.isGM
+    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
+      sheetData.data.system.description,
+      {
+        async: true,
+        secrets: sheetData.editable
+      }
+    )
+    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
+      sheetData.data.system.GMdescription,
+      {
+        async: true,
+        secrets: sheetData.editable
+      }
+    )
+    return sheetData
+  }
   
+  /* -------------------------------------------- */
+  
+  /**
+  * Activate event listeners using the prepared sheet HTML
+  * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
+  */
+  activateListeners (html) {
+    super.activateListeners(html)
+    // Everything below here is only needed if the sheet is editable
+    if (!this.options.editable) return
+  }
+   
 }

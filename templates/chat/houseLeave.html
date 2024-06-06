@@ -1,0 +1,13 @@
+<form class="Pendragon">
+    <div class="dice-roll">
+      <div style="display: block">  
+      <div class="flavour-result bold"> {{localize 'PEN.houseLeave'}}</div>
+      {{#each leavers as | leaver key|}}  
+        <div class="flavour-result">
+          {{leaver.name}} {{localize 'PEN.diceRoll'}} : {{leaver.result}} - {{leaver.label}}
+        </div>  
+      {{/each}}  
+    </div>
+  </div>
+</form>  
+

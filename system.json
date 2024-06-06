@@ -2,11 +2,11 @@
   "id": "Pendragon",
   "title": "Pendragon",
   "description": "Pendragon system for FoundryVTT!",
-  "version": "11.0.9",
+  "version": "12.1.10",
   "compatibility": {
-    "minimum": 11,
-    "verified": "11.315",
-    "maximum": 11
+    "minimum": 12,
+    "verified": "12.325",
+    "maximum": 12
   },
   "authors": [{
     "name": "Dangermouse"
@@ -15,34 +15,7 @@
   "styles": ["css/pendragon.css"],
   "scripts": [],
   "packs": [
-    {
-      "label": "Skills",
-      "type": "Item",
-      "name": "skills",
-      "path": "packs/skills.db",
-      "system": "Pendragon",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "label": "Passions",
-      "type": "Item",
-      "name": "passions",
-      "path": "packs/passions.db",
-      "system": "Pendragon",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "label": "Traits",
-      "type": "Item",
-      "name": "traits",
-      "path": "packs/traits.db",
-      "system": "Pendragon",
-      "private": false,
-      "flags": {}
-    },
-    {
+      {
       "label": "Instructions",
       "type": "JournalEntry",
       "name": "instructions",
@@ -59,13 +32,15 @@
       "path": "lang/en.json"
     }
   ],
-  "gridDistance": 5,
-  "gridUnits": "ft",
+  "grid":{
+    "distance": 5,
+    "units": "ft"
+  }, 
   "primaryTokenAttribute": "hp",
   "secondaryTokenAttribute": "",
   "url": "https://github.com/Genii-Locorum/Pendragon",
-  "manifest": "https://github.com/Genii-Locorum/Pendragon/releases/latest/download/system.json",
-  "download": "https://github.com/Genii-Locorum/Pendragon/releases/latest/download/system.zip",
+  "manifest": "https://github.com/Genii-Locorum/Pendragon/releases/download/Beta-10/system.json",
+  "download": "https://github.com/Genii-Locorum/Pendragon/releases/download/Beta-10/system.zip",
   "socket": true,
   "license": "LICENSE.txt",
   "changelog": "CHANGELOG.md"

@@ -1,37 +1,95 @@
 <section>
   <div class="biog-grid">
     <div class="stat-name bold">{{localize 'PEN.age'}}</div>
-    <div class="stat-name-input {{#if (eq system.age '')}} input-border {{/if}}"><input name="system.age" type="text" value="{{system.age}}" data-dtype="Number"/></div>
+    <div class="stat-name">{{system.age}}</div>
     <div></div>
+
     <div class="stat-name bold">{{localize 'PEN.culture'}}</div>
-    <div class="stat-name-input {{#if (eq system.culture '')}} input-border {{/if}}"><input name="system.culture" type="text" value="{{system.culture}}"/></div>
+    {{#if hasCulture}}
+      <div class="stat-name clickable viewItem" data-item-id = "{{system.cultureID}}">{{system.cultureName}}
+      {{#unless isLocked}}
+        <a class="reset-culture darkredreset" title="{{ localize 'PEN.resetClass'}}"><i class="far fa-times-circle"></i></a>      
+      {{/unless}}
+      </div>
+    {{else}}
+      <div class="stat-name-input {{#if (eq system.culture '')}} input-border {{/if}}"><input name="system.culture" type="text" value="{{system.culture}}"/></div>
+    {{/if}}
+    
     <div class="stat-name bold">{{localize 'PEN.religion'}}</div>
-    <div class="stat-name-input {{#if (eq system.religion '')}} input-border {{/if}}"><input name="system.religion" type="text" value="{{system.religion}}"/></div>
+    {{#if hasReligion}}
+      <div class="stat-name clickable viewItem" data-item-id = "{{system.religionID}}">{{system.religionName}}
+        {{#unless isLocked}}
+          <a class="reset-religion darkredreset" title="{{ localize 'PEN.resetReligion'}}"><i class="far fa-times-circle"></i></a>      
+        {{/unless}}    
+      </div>
+    {{else}}
+      <div class="stat-name-input {{#if (eq system.religion '')}} input-border {{/if}}"><input name="system.religion" type="text" value="{{system.religion}}"/></div>
+    {{/if}}
     <div></div>
-    <div class="stat-name bold">{{localize 'PEN.homeland'}}</div>
-    <div class="stat-name-input {{#if (eq system.homeland '')}} input-border {{/if}}"><input name="system.homeland" type="text" value="{{system.homeland}}"/></div>
-    <div class="stat-name bold">{{localize 'PEN.family'}}</div>
-    <div class="stat-name-input {{#if (eq system.family '')}} input-border {{/if}}"><input name="system.family" type="text" value="{{system.family}}"/></div>
+
+    <div class="stat-name bold item">{{localize 'PEN.homeland'}}</div>
+    {{#if hasHomeland}}
+      <div class="stat-name clickable viewItem" data-item-id = "{{system.homelandID}}">{{system.homelandName}}
+        {{#unless isLocked}}
+        <a class="reset-homeland darkredreset" title="{{ localize 'PEN.resetHomeland'}}"><i class="far fa-times-circle"></i></a>      
+      {{/unless}}        
+      </div>
+    {{else}}
+      <div class="stat-name-input {{#if (eq system.homeland '')}} input-border {{/if}}"><input name="system.homeland" type="text" value="{{system.homeland}}"/></div>
+    {{/if}}
+
+
+    <div class="stat-name bold">{{localize 'PEN.class'}}</div>
+    {{#if hasClass}}
+      <div class="stat-name clickable viewItem" data-item-id = "{{system.classID}}">{{system.className}}
+        {{#unless isLocked}}
+          <a class="reset-class darkredreset" title="{{ localize 'PEN.resetClass'}}"><i class="far fa-times-circle"></i></a>      
+        {{/unless}}                
+      </div>
+    {{else}}    
+      <div class="stat-name-input {{#if (eq system.class '')}} input-border {{/if}}"><input name="system.class" type="text" value="{{system.class}}"/></div>
+    {{/if}}  
+
     <div></div>
     <div class="stat-name bold">{{localize 'PEN.lord'}}</div>
     <div class="stat-name-input {{#if (eq system.lord '')}} input-border {{/if}}"><input name="system.lord" type="text" value="{{system.lord}}"/></div>
-    <div class="stat-name bold">{{localize 'PEN.class'}}</div>
-    <div class="stat-name-input {{#if (eq system.class '')}} input-border {{/if}}"><input name="system.class" type="text" value="{{system.class}}"/></div>
+    <div class="stat-name bold">{{localize 'PEN.heir'}}</div>
+    <div class="check-lower"><a class="item-control actor-toggle large-icon" data-property = "heir" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if system.heir}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
     <div></div>
-   </div>
+    <div class="stat-name bold">{{localize 'PEN.born'}}</div>
+    {{#if isLocked}}
+      <div class="stat-name">{{system.born}}</div>
+    {{else}}
+      <div class="stat-name-input {{#if (eq system.born '')}} input-border {{/if}}"><input name="system.born" type="text" value="{{system.born}}" data-dtype="Number"/></div>
+    {{/if}}
+    <div class="stat-name bold">{{localize 'PEN.sol'}}</div>
+    <div class="stat-name">{{solLabel}}</div>  
+    <div></div>
+    <div class="stat-name bold">{{localize 'PEN.barren'}}</div>
+    <div class="check-lower"><a class="item-control actor-toggle large-icon" data-property = "barren" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if system.status.barren}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+
+
+  </div>
   <div class="biog-herald">
+    <div class="stat-name bold">{{localize 'PEN.familyChar'}}</div>
+    {{#if hasFamily}}
+      <div class="stat-name">{{system.family}}</div>    
+    {{else}}
+      <div class="stat-name-input {{#if (eq system.family '')}} input-border {{/if}}"><input name="system.family" type="text" value="{{system.family}}"/></div>
+    {{/if}}
     <div class="stat-name bold">{{localize 'PEN.motto'}}</div>
     <div class="stat-name-input {{#if (eq system.motto '')}} input-border {{/if}}"><input name="system.motto" type="text" value="{{system.motto}}"/></div>
     <div class="stat-name bold">{{localize 'PEN.heraldry'}}</div> 
     <div class="stat-name-input {{#if (eq system.heraldry '')}} input-border {{/if}}"><input name="system.heraldry" type="text" value="{{system.heraldry}}"/></div>
     <div class="stat-name bold">{{localize 'PEN.distFeat'}}</div> 
     <div class="stat-name-input {{#if (eq system.features '')}} input-border {{/if}}"><input name="system.features" type="text" value="{{system.features}}"/></div>
+    <div class="stat-name bold"></div> 
+    <div class="stat-name">{{sizLabel}}</div>
   </div>
-    <br>
 
   <div class="stat-name bold">{{localize 'PEN.history'}}:</div>
   <div>
-    {{editor actor.system.background class="Pendragon background-doc" target="system.background" button=true owner=owner editable=editable}}
+    {{editor actor.system.background class="background-doc" target="system.background" button=true owner=owner editable=editable}}
   </div>
   <br>
 

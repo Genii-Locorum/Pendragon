@@ -2,7 +2,11 @@
     {{#if (eq cardType 'NO')}}
       <div class = "diff-label bold">{{ localize 'PEN.card.NO'}}
     {{else}}
-      <div class = "diff-label bold">{{ localize 'PEN.card.OP'}}
+      {{#if (eq cardType 'RE')}}
+        <div class = "diff-label bold">{{ localize 'PEN.card.RE'}}
+      {{else}}
+        <div class = "diff-label bold">{{ localize 'PEN.card.OP'}}
+      {{/if}}    
     {{/if}}
 
     {{#unless (eq decision 'choose')}}
@@ -10,6 +14,21 @@
     {{/unless}}
     </div>  
     <br>
+
+    {{#if (eq rollType 'CM')}}  
+      <div class="flexrow">
+        <label title = "{{ localize 'PEN.inquiryHint' }}" >{{localize "PEN.combatAction"}}</label>   
+        <select class="resource-label-diff centre" name="action" >
+          <option selected value="attack" >{{localize 'PEN.attack'}}</option>
+          <option value="mounted">{{localize 'PEN.mounted'}}</option>
+          <option value="charge">{{localize 'PEN.charge'}}</option>
+          <option value="dodge">{{localize 'PEN.dodge'}}</option>
+          <option value="evade">{{localize 'PEN.evade'}}</option>
+          <option value="unoppAtt">{{localize 'PEN.unoppAtt'}}</option>
+        </select>
+      </div>
+      <br>
+    {{/if}}
 
     {{#if (eq decision 'choose')}}
       <div class="flexrow">
@@ -30,11 +49,31 @@
       <br>
     {{/if}}
 
+    {{#isAnd (eq rollType 'SK') (eq cardType 'NO')}}
+      <div class="flexrow">
+        <label title = "{{ localize 'PEN.inquiryHint' }}" >{{localize "PEN.inquiry"}}</label>   
+        <select class="resource-label-diff align-center" name="inquiry" >
+          <option value="yes" >{{localize 'PEN.yes'}}</option>
+          <option selected value="no">{{localize 'PEN.no'}}</option>
+        </select>
+      </div>
+      <br>
+    {{/isAnd}}    
+
     {{#unless (eq rollType 'DC')}}
       <div class="flexrow">
         <label title = "{{ localize 'PEN.checkBonusHint' }}" >{{localize "PEN.checkBonus"}}</label>   
-          <input data-handle-change class="centre" type="number" value="{{formData.checkBonus}}" name="checkBonus">
+          <input data-handle-change class="centre" type="number" value="{{flatMod}}" name="checkBonus">
       </div>
-    {{/unless}}  
+      <br>
+    {{/unless}}
+    
+    {{#if (eq cardType 'RE')}}
+      <div class="flexrow">
+        <label title = "{{ localize 'PEN.resistHint' }}" >{{localize "PEN.resist"}}</label>   
+          <input data-handle-change class="centre" type="number" value="{{formData.fixedOpp}}" name="fixedOpp">
+      </div>
+      <br>      
+    {{/if}}
     <br>  
   </form>

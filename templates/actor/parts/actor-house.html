@@ -1,0 +1,50 @@
+<div class="family-grid">
+  <div class="stat-name grid-item bold">{{localize 'PEN.family'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.gender'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.type'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.glory'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.born'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.died'}}</div>
+  <div class="stat-name bold grid-item centre item-create" data-type="family">  
+    <a class="large-icon" title="{{localize 'PEN.addFamily'}}"><i class="item-control fas fa-plus"></i></a>
+  </div> 
+  
+  {{#each families as |family key|}}
+    <div class="stat-name grid-item">{{family.name}}</div>
+    <div class="stat-name centre grid-item">{{family.system.gender}}</div>
+    <div class="stat-name centre grid-item">{{family.system.typeName}}</div>
+    <div class="stat-name centre grid-item">{{family.system.glory}}</div>
+    <div class="stat-name centre grid-item">{{family.system.born}}</div>
+    {{#if (gt family.system.died 0)}}
+      <div class="stat-name centre grid-item">{{family.system.died}}</div>
+    {{else}}
+    <div class="stat-name centre grid-item"></div>
+    {{/if}}
+    {{#if ../system.lock}}
+      <div class="centre item grid-item" data-itemid ="{{family._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
+    {{else}}
+      <div class="centre item grid-item" data-itemid ="{{family._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
+    {{/if}}
+  {{/each}}
+</div>
+<br>
+
+<div class="retainer-grid">
+  <div class="stat-name grid-item bold">{{localize 'PEN.retainers'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.position'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.age'}}</div>
+  <div class="stat-name bold grid-item centre item-create" data-type="squire">  
+    <a class="large-icon" title="{{localize 'PEN.addRetainer'}}"><i class="item-control fas fa-plus"></i></a>
+  </div> 
+  
+  {{#each household as |retainer key|}}
+    <div class="stat-name grid-item">{{retainer.name}}</div>
+    <div class="stat-name centre grid-item">{{retainer.system.squireType}}</div>
+    <div class="stat-name centre grid-item">{{retainer.system.age}}</div>
+    {{#if ../system.lock}}
+      <div class="centre item grid-item" data-itemid ="{{retainer._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
+    {{else}}
+      <div class="centre item grid-item" data-itemid ="{{retainer._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
+    {{/if}}
+  {{/each}}
+</div>

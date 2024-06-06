@@ -1,31 +1,34 @@
 import { PENactorDetails } from "./actorDetails.mjs";
-import { OPCard } from "./opposed-card.mjs";
-import { COCard } from "./combat-card.mjs";
+import { OPCard } from "../cards/opposed-card.mjs";
+import { COCard } from "../cards/combat-card.mjs";
 
 export class PENCheck {
 
   //Roll Types
   //CH = Characteristic
-  //SK = Skill - this covers passions as well
+  //SK = Skill
+  //PA = Passion
   //GL = Glory Roll
   //SQ = Squire Roll
   //TR = Trait
   //DC = Decision (Trait)
   //DM = Damage
   //CM = Combat
+  //MV = Move
 
 
   //Card Types
   //NO = Normnal Roll
   //OP = Opposed Roll
   //CO = Combat Roll
+  //RE = Resistance (Fixed Opposed Roll)
 
   //Start to prepare the config
   static async _trigger(options={}){
     let config = await PENCheck.normaliseRequest(options)
     if (config === false) {return}  
-    PENCheck.startCheck(config)
-    return
+    let msgID = await PENCheck.startCheck(config)
+    return msgID
   } 
 
 
@@ -49,10 +52,11 @@ export class PENCheck {
       reverseRoll: options.reverseRoll ?? false,
       oppLabel: options.oppLabel ?? "",
       oppRawScore : options.oppRawScore ?? 0,
-      chatType: options.chatType ?? CONST.CHAT_MESSAGE_TYPES.ROLL,
+      //chatType: options.chatType ?? CONST.CHAT_MESSAGE_TYPES.ROLL,
       particName: partic.particName,
       particId: partic.particId,
       particType: partic.particType,
+      actorType: particActor.type,
       particImg,
       characteristic: options.characteristic ?? false,
       skillId: options.skillId ??  false,
@@ -71,19 +75,28 @@ export class PENCheck {
       checkMsgId: options.checkMsgId ?? false,
       damRoll: options.damRoll ?? false,
       damCrit: options.damCrit ?? false,
-      damShield: options.damShield ??false
+      damShield: options.damShield ??false,
+      fixedOpp: options.fixedOpp ?? 0,
+      inquiry: options.inquiry ?? 'no',
+      action: 'attack',
+      userID: game.user._id
     }
    
     //Adjust Config based on roll type
     switch(options.rollType){
       case 'CH':
         config.label = particActor.system.stats[config.characteristic].labelShort ?? ""
-        config.rawScore = particActor.system.stats[config.characteristic].value ?? 0
+        config.rawScore = particActor.system.stats[config.characteristic].total ?? 0
         break
       case 'SK':
         tempItem = particActor.items.get(config.skillId)
         config.label = tempItem.name ?? ""
-        config.rawScore = tempItem.system.value ?? 0
+        config.rawScore = tempItem.system.total ?? 0
+        break
+      case 'PA':
+        tempItem = particActor.items.get(config.skillId)
+        config.label = tempItem.name ?? ""
+        config.rawScore = tempItem.system.total ?? 0
         break      
       case 'GL':
         config.label = game.i18n.localize('PEN.glory')
@@ -107,7 +120,7 @@ export class PENCheck {
         tempItem = particActor.items.get(config.skillId)
         if (config.subType === "trait") {
           config.label = tempItem.name ?? ""
-          config.rawScore = tempItem.system.value ?? 0
+          config.rawScore = tempItem.system.total ?? 0
         } else {
           config.label = tempItem.system.oppName ?? ""
           config.rawScore = tempItem.system.oppvalue ?? 0
@@ -115,7 +128,7 @@ export class PENCheck {
         break                
       case 'DC':
         tempItem = particActor.items.get(config.skillId)
-        config.rawScore = tempItem.system.value ?? 0;
+        config.rawScore = tempItem.system.total ?? 0;
         config.oppRawScore = tempItem.system.oppvalue ?? 0;
         config.label = tempItem.name ?? "";
         config.oppLabel = tempItem.system.oppName ?? "";
@@ -124,12 +137,12 @@ export class PENCheck {
 
         if (tempItem.system.oppvalue > 15) {
           config.rawScore = tempItem.system.oppvalue ?? 0;
-          config.oppRawScore = tempItem.system.value ?? 0;
+          config.oppRawScore = tempItem.system.total ?? 0;
           config.label = tempItem.system.oppName ?? "";
           config.oppLabel = tempItem.name ?? "";            
           config.decision = "opp";
           config.subType = 'opptrait'
-        } else if (tempItem.system.value < 16) {
+        } else if (tempItem.system.total < 16) {
           config.decision = "choose";
           config.shiftKey = false
         }
@@ -151,16 +164,26 @@ export class PENCheck {
           }
         }
         if (config.damCrit) {
-          config.rollFormula = config.rollFormula + "+4D6"
+          if (tempItem.system.damageChar = 'b') {
+            config.rollFormula = config.rollFormula + "+2D6"
+          } else {          
+            config.rollFormula = config.rollFormula + "+4D6"
+          }
         }    
         config.shiftKey = true
         break   
-      case 'CM':    
+      case 'CM':   
         tempItem = particActor.items.get(config.itemId)
         config.label = tempItem.name ?? ""
         config.skillId = tempItem.system.sourceId
-        config.rawScore = tempItem.system.value ?? 0
-          break                 
+        config.rawScore = tempItem.system.total ?? 0
+        if (particActor.type != 'character') {config.rawScore = tempItem.system.value}
+        if(tempItem.system.improv) {config.flatMod = -5}
+        break
+      case 'MV':
+        config.label = game.i18n.localize('PEN.move')
+        config.rawScore = particActor.system.move ?? 0        
+        break
       default: 
         ui.notifications.error(options.rollType +": " + game.i18n.format('PEN.errorRollInvalid')) 
         return false
@@ -171,8 +194,13 @@ export class PENCheck {
     switch(options.cardType){
       case 'NO':
         config.state = 'closed'
-        config.chatType = CONST.CHAT_MESSAGE_TYPES.ROLL
+        //config.chatType = CONST.CHAT_MESSAGE_TYPES.ROLL
         config.chatTemplate = 'systems/Pendragon/templates/chat/roll-result.html'
+        break
+      case 'RE':
+        config.state = 'closed'
+        //config.chatType = CONST.CHAT_MESSAGE_TYPES.ROLL
+        config.chatTemplate = 'systems/Pendragon/templates/chat/roll-fixed-result.html'
         break
       case 'OP':
       case 'CO':  
@@ -183,7 +211,7 @@ export class PENCheck {
           let targetMsg = await game.messages.get(config.checkMsgId)
           config.reflexMod = await -targetMsg.flags.Pendragon.chatCard[0].reflexMod
         }
-        config.chatType = CONST.CHAT_MESSAGE_TYPES.OTHER
+        config.chatType = CONST.CHAT_MESSAGE_STYLES.OTHER
         if (options.cardType === 'OP') {
         config.chatTemplate =  'systems/Pendragon/templates/chat/roll-opposed.html'
         } else {
@@ -201,35 +229,72 @@ export class PENCheck {
   
     //Start the check now that the config has been prepared
     static async startCheck(config) {  
-  
+      let particActor = await PENactorDetails._getParticipant(config.particId,config.particType)
       //If Shift key has been held then accept the defaults above otherwise call a Dialog box for Difficulty, Modifier etc
       if (config.shiftKey){
       } else {
         let usage = await PENCheck.RollDialog(config)
         if (usage) {
-            config.flatMod = Number(usage.get('checkBonus'))  
-            if (config.reflex) {
-              config.reflexMod = Number(usage.get('reflexMod'));
-            }
-            let tempDecision = usage.get('decisionChoice')
-            if (tempDecision == "main") {
-              config.decision = tempDecision
-              config.subType = 'trait'
-            } else if (tempDecision === "opp") {
-              config.decision = tempDecision
-              config.subType = 'opptrait'
-              let tempRaw = config.rawScore
-              config.rawScore = config.oppRawScore
-              config.oppRawScore = tempRaw
-              let tempLabel = config.label
-              config.label = config.oppLabel
-              config.oppLabel = tempLabel   
-              config.targetScore = config.rawScore
+          config.flatMod = Number(usage.get('checkBonus'))  
+          if (config.reflex) {
+            config.reflexMod = Number(usage.get('reflexMod'));
           }
+          if (config.cardType === 'RE') {
+            config.fixedOpp = Number(usage.get('fixedOpp'));
+          }
+          config.inquiry = usage.get('inquiry')
+          let tempDecision = usage.get('decisionChoice')
+          if (tempDecision == "main") {
+            config.decision = tempDecision
+            config.subType = 'trait'
+          } else if (tempDecision === "opp") {
+            config.decision = tempDecision
+            config.subType = 'opptrait'
+            let tempRaw = config.rawScore
+            config.rawScore = config.oppRawScore
+            config.oppRawScore = tempRaw
+            let tempLabel = config.label
+            config.label = config.oppLabel
+            config.oppLabel = tempLabel   
+            config.targetScore = config.rawScore
+          }
+          config.action = usage.get('action')
         }
       } 
    
-
+    //Adjust scores etc based on combat action
+    switch (config.action) {
+      case 'mounted':
+        let horsemanship = (await particActor.items.filter(itm=>itm.flags.Pendragon.pidFlag.id === 'i.skill.horsemanship'))[0]
+        if( !horsemanship) {
+          config.targetScore = 0
+        } else if (particActor.type === 'character') {
+          config.targetScore = Math.min(config.targetScore, horsemanship.system.total)
+        } else {
+          config.targetScore = Math.min(config.targetScore, horsemanship.system.value)
+        } 
+        break
+      case 'charge':
+        let charge = (await particActor.items.filter(itm=>itm.flags.Pendragon.pidFlag.id === 'i.skill.charge'))[0]
+        if( !charge) {
+          config.targetScore = 0
+        } else if (particActor.type === 'character') {
+          config.targetScore = Math.min(config.targetScore, charge.system.total)
+        } else {
+          config.targetScore = Math.min(config.targetScore, charge.system.value)
+        }  
+        break         
+      case 'evade':
+      case 'dodge':
+        config.targetScore = particActor.system.move   
+        break 
+      case 'unoppAtt':
+        config.checkMsgId = false
+        config.reflexMod = 0  
+        config.state = 'closed'
+        config.cardType='NO'
+        //config.chatType = CONST.CHAT_MESSAGE_TYPES.ROLL
+    }
 
     //Adjust target Score for check Bonus, reflexive Modifier and calculate critBonus where target score > 20 or <0
     config.targetScore = Number(config.targetScore) + Number(config.flatMod) + Number(config.reflexMod);
@@ -243,6 +308,22 @@ export class PENCheck {
     }
 
       await PENCheck.makeRoll(config)
+
+
+    //If this is an unopposed Combat Roll then set outcomes
+    if (config.cardType==='NO' && config.rollType==='CM') {
+      if (config.resultLevel === 3) {
+        config.damCrit=true
+      }
+      if (config.resultLevel >1) {
+        config.damRoll=true
+        config.outcome="W"
+        config.outcomeLabel =game.i18n.localize('PEN.comRollW')
+      } else {
+        config.outcome="L"
+        config.outcomeLabel =game.i18n.localize('PEN.comRollL')
+      }
+    }  
   
     //Format the data so it's in the same format as will be held in the Chat Message when saved
     let chatMsgData = {
@@ -254,12 +335,14 @@ export class PENCheck {
       rolls: config.roll,
       resultLevel: config.resultLevel,
       rollResult: config.rollResult,
+      inquiry: config.inquiry,
       chatCard: [{
         rollType: config.rollType,
         particId: config.particId,
         particType: config.particType,
         particName: config.particName,
         particImg: config.particImg,
+        actorType: config.actorType,
         characteristic: config.characteristic ?? false,
         label: config.label,
         oppLabel: config.oppLabel,
@@ -270,6 +353,7 @@ export class PENCheck {
         skillId: config.skillId,
         itemId: config.itemId,
         targetScore: config.targetScore,
+        grossTarget: config.grossTarget,
         rawScore: config.rawScore,
         rollFormula: config.rollFormula,
         flatMod: config.flatMod,
@@ -285,8 +369,11 @@ export class PENCheck {
         damRoll: config.damRoll,
         damCrit: config.damCrit,
         damShield: config.damShield,
-        subType: config.subType
-
+        subType: config.subType,
+        fixedOpp: config.fixedOpp,
+        action: config.action,
+        actionLabel: game.i18n.localize('PEN.'+config.action),
+        userID: config.userID
       }]
     }
   
@@ -300,16 +387,22 @@ export class PENCheck {
      
     //Create the ChatMessage and Roll Dice  
     const html = await PENCheck.startChat(chatMsgData)
-    let msgId =  await PENCheck.showChat(html,chatMsgData)
+    let msgID =  await PENCheck.showChat(html,chatMsgData)
   
     
     //Check for adding Improvement tick
     if (game.settings.get('Pendragon','autoXP') && chatMsgData.resultLevel != 1) {
-      if (config.cardType === 'NO')
+      if (config.cardType === 'NO' && config.inquiry != 'yes')
       await PENCheck.tickXP (chatMsgData.chatCard[0])
     }  
       
-    return msgId
+    //If this is an Unopposed Combat Roll then trigger resolution
+    if (config.cardType ==='CO' && config.action ==='unoppAtt') {
+      console.log("Trigger Closure")
+    }
+
+
+    return msgID
   }
   
   
@@ -324,6 +417,7 @@ export class PENCheck {
       oppLabel: options.oppLabel,
       decision: options.decision,
       reflex: options.reflex,
+      flatMod: options.flatMod,
     }
     const html = await renderTemplate(options.dialogTemplate,data);
     return new Promise(resolve => {
@@ -351,7 +445,7 @@ export class PENCheck {
   //Call Dice Roll, calculate Result and store original results in rollVal
   static async makeRoll(config) {
     let roll = new Roll(config.rollFormula)
-    await roll.roll({ async: true})
+    await roll.evaluate()
     config.roll = roll
     config.rollResult = Number(roll.total)
 
@@ -388,6 +482,11 @@ export class PENCheck {
     } else {
       resultLevel = 1;  //1 = Fail
     }
+
+    //If this is a resistance roll and the dice roll is less than the Opposition Value then set result level to 1 Max
+    if (config.cardType === 'RE' && config.rollVal <= config.fixedOpp) {
+        resultLevel = Math.min(resultLevel,1)
+      }
     return resultLevel
   }  
   
@@ -403,7 +502,10 @@ export class PENCheck {
     let alias = game.i18n.localize("PEN.card."+chatMsgData.cardType)
     if (chatMsgData.rollType === 'DM') {
       alias = game.i18n.localize("PEN.damage")
+    } else if (chatMsgData.inquiry === 'yes') {
+      alias = game.i18n.localize("PEN.card.IN")
     }
+
     let chatData={}
       chatData = {
         user: game.user.id,
@@ -417,16 +519,24 @@ export class PENCheck {
           cardType: chatMsgData.cardType,
           rollType: chatMsgData.rollType,
           successLevel: chatMsgData.successLevel,
+          inquiry: chatMsgData.inquiry,
           chatCard: chatMsgData.chatCard,
         }},
        
         speaker: {
           actor: chatMsgData.chatCard[0].particId,
           alias: alias,
-        }
+        },
+
       }
-  
-    if (['NO', 'OP'].includes(chatMsgData.cardType)) {
+
+      if (chatMsgData.inquiry === 'yes') {
+        chatData.whisper = ChatMessage.getWhisperRecipients('GM')
+        //chatData.type = CONST.CHAT_MESSAGE_TYPES.ROLL
+        chatData.blind = true
+        chatData.rollMode = 'blindroll'
+      }  
+    if (['NO', 'OP', 'RE'].includes(chatMsgData.cardType)) {
       chatData.rolls = [chatMsgData.rolls]
     }  
     let msg = await ChatMessage.create(chatData)
@@ -436,6 +546,11 @@ export class PENCheck {
     
   //Check to see if can add XP check.  For characters only
   static async tickXP(chatCard){
+    //If Fumble and FumbleXP game setting is false don't make roll
+    if (chatCard.resultLevel ===0 && !game.settings.get('Pendragon','fumbleXP')) {return}
+    //If an evade or dodge action then no tick.
+    if (['dodge','evade'].includes(chatCard.action)) {return}
+    
     let actor = await PENactorDetails._getParticipant(chatCard.particId, chatCard.particType)
     if (actor.type != 'character') {return}
     let checkProp = ""

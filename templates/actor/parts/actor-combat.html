@@ -14,30 +14,27 @@
       <div class="stat-name bold grid-item centre" title="{{localize 'PEN.treated'}}">{{ localize "PEN.td" }}</div>  
       <div class="stat-name bold grid-item centre">{{ localize "PEN.wounds" }}</div>
       <div class="stat-name bold grid-item centre">{{ localize "PEN.dmg" }}</div>    
-      <div class="stat-name bold grid-item centre item-create" data-type="wound">  
-        <a class="large-icon" title="{{localize 'PEN.addHistory'}}"><i class="item-control fas fa-plus"></i></a>
+      <div class="stat-name bold grid-item centre" title = "{{ localize 'PEN.firstAid' }}">{{ localize "PEN.firstAidShort" }}</div>
+      <div class="stat-name bold grid-item centre addWound">  
+        <a class="large-icon" title="{{localize 'PEN.addWound'}}"><i class="item-control fas fa-plus"></i></a>
       </div> 
+      
 
       {{#each wounds as |wound key|}}
         <div class="grid-item stat-name centre"><a class="item-control item-toggle large-icon" data-itemid ="{{wound._id}}" data-property="wound" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if wound.system.treated}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
         <div class="grid-item stat-name centre">{{wound.system.description}}</div>
+        <div class="grid-item stat-name centre">{{wound.system.value}}</div>
+        {{#if wound.system.treated}}
+          <div class="grid-item"></div>
+        {{else}}  
+          <div class="item grid-item centre middle treat-wound" data-itemid="{{wound._id}}">
+            <a class="large-icon" title="{{localize 'PEN.treatWound'}}"><i class="item-control fas fa-hand-holding-medical"></i></a>
+          </div>
+        {{/if}} 
         {{#if ../system.lock}}
-          <div class="grid-item stat-name centre">{{wound.system.value}}</div>
+          <div class="item grid-item centre middle" data-itemid ="{{wound._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
         {{else}}
-          <div class="grid-item dam-name-input centre item" data-field ="wound" data-itemid="{{wound._id}}"><input class="inline-edit" name="item.system.wound.{{key}}.value" type="text" value="{{wound.system.value}}" data-dtype="Number"/></div>
-        {{/if}}
-        {{#if ../system.lock}}
-          {{#if wound.system.treated}}
-            <div class="grid-item"></div>
-          {{else}}  
-            <div class="item grid-item centre middle treat-wound" data-itemid="{{wound._id}}">
-              <a class="large-icon" title="{{localize 'PEN.treatWound'}}"><i class="item-control fas fa-hand-holding-medical"></i></a>
-            </div>
-          {{/if}}  
-        {{else}}
-        <div class="item grid-item centre middle item-delete" data-field ="wound" data-itemid="{{wound._id}}">
-          <a class="fade large-icon" title="{{localize 'PEN.delete'}}"><i class="item-control fas fa-broom-wide"></i></a>
-        </div>
+          <div class="item grid-item centre middle item-delete" data-itemid="{{wound._id}}"><a class="fade large-icon" title="{{localize 'PEN.delete'}}"><i class="item-control fas fa-broom-wide"></i></a></div>
         {{/if}}
 
       {{/each}}
@@ -55,20 +52,17 @@
       </div>
       <div class="stat-name left bold">{{localize 'PEN.agro'}}</div>
       <div class="stat-name stat-name-input centre"><input name="system.aggravDam" type="text" value="{{actor.system.aggravDam}}" data-dtype="Number"/></div>
-      {{#if system.status.debilitated}}
-        <div class="stat-name left bold">{{localize 'PEN.chirurgery'}}</div>
-        <div class="stat-name centre">
-          <a class="item-control actor-toggle large-icon" data-property="chirurgery" title="{{localize 'PEN.chirurgeryHint'}}"><i class="{{#if system.status.chirurgery}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
-        </div>
-
-      {{else}}
-        <div></div>
-        <br>
-      {{/if}}
       <div class="stat-name left bold">{{localize 'PEN.deterior'}}</div>
       <div class="stat-name stat-name-input centre"><input name="system.deterDam" type="text" value="{{actor.system.deterDam}}" data-dtype="Number"/></div>
       <div></div>
-      <br>
+      {{#if system.status.debilitated}}
+        <div class="stat-name left bold new-row">{{localize 'PEN.chirurgery'}}</div>
+        <div class="stat-name centre">
+          <a class="item-control actor-toggle large-icon" data-property="chirurgery" title="{{localize 'PEN.chirurgeryHint'}}"><i class="{{#if system.status.chirurgery}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
+        </div>
+      {{else}}
+        <div></div>
+      {{/if}}
     </div>
     <br>
     <ol class="weapon-list">
@@ -77,7 +71,7 @@
       <div class="stat-name bold weapon-item centre">{{ localize "PEN.skill" }}</div>
       <div class="stat-name bold weapon-item centre">{{ localize "PEN.value" }}</div>    
       <div class="stat-name bold weapon-item centre">{{ localize "PEN.damage" }}</div>    
-      <div class="stat-name bold weapon-item centre">{{ localize "PEN.range" }}</div>
+      <div class="stat-name bold weapon-item centre" title = "{{ localize 'PEN.rngPryHint' }}">{{ localize "PEN.rngPry" }}</div>
       <div class="weapon-item" title= "{{localize 'PEN.advDisHint'}}"></div>  
     </div> 
 
@@ -88,11 +82,14 @@
              ({{weapon.system.quantity}})
             {{/if}}
             </div>
-            <div class="weapon-item stat-name centre">{{weapon.system.skillName}}</div>
-            <div class="weapon-item stat-name centre">{{weapon.system.value}}</div>
+            <div class="weapon-item stat-name centre truncate" title="{{weapon.system.skillName}}">{{weapon.system.skillName}}</div>
+            <div class="weapon-item stat-name centre">{{weapon.system.total}}</div>
             <div class="weapon-item stat-name centre rollable damage" title="{{localize 'PEN.rollDamageHint'}}" data-itemid="{{weapon._id}}">{{weapon.system.damage}}</div>
-            <div class="weapon-item stat-name centre">{{weapon.system.rangeName}}</div>
-
+            {{#if weapon.system.melee}}
+              <div class="weapon-item stat-name centre">{{weapon.system.parry}}</div>
+            {{else}}
+              <div class="weapon-item stat-name centre">{{weapon.system.rangeName}}</div>
+            {{/if}}
             {{#if ../system.lock}}
               <div class="weapon-item centre item" data-itemid ="{{weapon._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
             {{else}}

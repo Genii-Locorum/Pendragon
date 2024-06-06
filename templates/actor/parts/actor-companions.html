@@ -1,8 +1,10 @@
 <div class="stat-name bold">{{localize 'PEN.squires'}}</div>
 <div class="squire-grid">
   <div class="stat-name grid-item bold ">{{localize 'PEN.name'}}</div>
+  <div class="stat-name grid-item bold ">{{localize 'PEN.type'}}</div>
   <div class="stat-name grid-item bold centre">{{localize 'PEN.age'}}</div>
   <div class="stat-name grid-item bold centre">{{localize 'PEN.skill'}}</div>
+  <div class="stat-name grid-item bold centre" title="{{localize 'PEN.knightlyMod'}}">{{localize 'PEN.mod'}}</div>
   <div class="stat-name grid-item bold centre">{{localize 'PEN.glory'}}</div>
   <div class="stat-name bold grid-item centre item-create" data-type="squire">  
     <a class="large-icon" title="{{localize 'PEN.addSquire'}}"><i class="item-control fas fa-plus"></i></a>
@@ -10,8 +12,10 @@
 
   {{#each squires as |squire key|}}
     <div class="stat-name grid-item rollable squire" data-type ="squire" data-itemid="{{squire._id}}">{{squire.name}}</div>
+    <div class="stat-name grid-item centre">{{squire.system.squireType}}</div>
     <div class="stat-name grid-item centre rollable squire" data-type ="squireAge" data-itemid="{{squire._id}}">{{squire.system.age}}</div>
     <div class="stat-name grid-item centre">{{squire.system.skill}}</div>
+    <div class="stat-name grid-item centre">{{squire.system.knightMod}}</div>
     <div class="stat-name grid-item centre">{{squire.system.glory}}</div>
     {{#if ../system.lock}}
       <div class="centre grid-item item" data-itemid ="{{squire._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
@@ -33,6 +37,8 @@
   <div class="stat-name grid-item centre bold">{{localize 'PEN.damage'}}</div>
   <div class="stat-name grid-item centre bold">{{localize 'PEN.hpShort'}}</div>
   <div class="stat-name grid-item centre bold">{{localize 'PEN.maxHP'}}</div>
+  <div class="stat-name grid-item centre bold">{{localize 'PEN.health'}}</div>
+  <div class="stat-name grid-item centre bold">{{localize 'PEN.care'}}</div>
   <div class="stat-name bold grid-item centre item-create" data-type="horse">  
     <a class="large-icon" title="{{localize 'PEN.addHorse'}}"><i class="item-control fas fa-plus"></i></a>
   </div> 
@@ -42,11 +48,13 @@
       <a class="item-control item-toggle large-icon" data-itemid ="{{horse._id}}" data-property="equipped" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if horse.system.equipped}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
     </div>
     <div class="stat-name grid-item">{{horse.name}}</div>
-    <div class="stat-name grid-item centre">{{horse.system.armour}}</div>
+    <div class="stat-name grid-item centre">{{horse.system.totalAR}}</div>
     <div class="stat-name grid-item centre">{{horse.system.move}}</div>
     <div class="stat-name grid-item centre rollable damage" title="{{localize 'PEN.chargeDmgHint'}}: {{horse.system.chargeDmg}}" data-itemid="{{horse._id}}">{{horse.system.damage}}</div>
     <div class="dam-name-input item grid-item centre dam-value" data-field="horse" data-itemid ="{{horse._id}}"><input class="inline-edit" name="item.system.horse.{{key}}.hp" type="text" value="{{horse.system.hp}}" data-dtype="Number"/></div>
     <div class="stat-name grid-item centre">{{horse.system.maxHP}}</div>
+    <div class="stat-name grid-item centre">{{horse.system.healthName}}</div>
+    <div class="stat-name grid-item centre">{{horse.system.careName}}</div>
     {{#if ../system.lock}}
       <div class="centre grid-item item" data-itemid ="{{horse._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
     {{else}}
@@ -67,3 +75,4 @@
 <div class="stat-name">{{localize 'PEN.losses'}}</div>  
 <div class="dam-name-input"><input name="system.joust.losses" type="text" value="{{actor.system.joust.losses}}" data-dtype="Number"/></div>
 </div>
+<br>

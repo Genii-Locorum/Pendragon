@@ -1,0 +1,36 @@
+<form class="Pendragon" id="family-input-form">
+  <br>
+  <div class="familyCreate">
+    <label title="{{localize 'PEN.addParentsHint'}}">{{localize "PEN.name"}}</label>   
+    <input data-handle-change class="centre" type="text" value="" name="familyName1">
+    <div></div>
+    <input data-handle-change class="centre" type="text" value="" name="familyName2">
+    <br> 
+  
+    <label class="new-row">{{localize "PEN.gender"}}</label>   
+    <input data-handle-change class="centre" type="text" value="" name="gender1">
+    <div></div>
+    <input data-handle-change class="centre" type="text" value="" name="gender2">
+    <br> 
+
+    <label class="new-row">{{localize "PEN.born"}}</label>   
+    <input data-handle-change class="centre" type="number" value=462 name="born1">
+    <div></div>
+    <input data-handle-change class="centre" type="number" value=462 name="born2">
+    <br>
+
+    <label class="new-row">{{localize "PEN.died"}}</label>   
+    <input data-handle-change class="centre" type="number" value="" name="died1">
+    <div></div>
+    <input data-handle-change class="centre" type="number" value="" name="died2">
+    <br> 
+
+    <label class="new-row">{{localize "PEN.knight"}}</label>   
+    <input data-handle-change class="centre" type="checkbox" {{checked formData.knight1}} name="knight1">
+    <div></div>
+    <input data-handle-change class="centre" type="checkbox" {{checked formData.knight2}} name="knight2">
+    <br>
+  </div>
+
+
+</form>

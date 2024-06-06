@@ -1,0 +1,23 @@
+<form class="{{cssClass}}" id="add-wound-form">
+
+  <div class="hp-grid">  
+    <div class="stat-name left bold">{{localize 'PEN.damType'}}</div>
+      <div class="stat-name">
+      <select data-handle-change name="damType">
+        {{selectOptions damType selected='wound'}}
+      </select>
+    </div>
+    <br>
+    <div class="stat-name left bold new-row">{{localize 'PEN.damage'}}</div>
+    <div class="stat-name-input centre"><input class="darkred" name="amount" type="text" value=1 data-dtype="Number"/></div>
+    <br>
+    <div class="stat-name left bold new-row" title = "{{localize 'PEN.diseaseImpactHint'}}">{{localize 'PEN.diseaseImpact'}}</div>
+    <div class="stat-name">
+      <select data-handle-change name="stat">
+        {{selectOptions attType selected='hp'}}
+      </select>
+    </div>  
+  </div>
+  <br>
+
+</form>

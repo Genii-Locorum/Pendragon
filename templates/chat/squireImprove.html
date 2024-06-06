@@ -1,0 +1,18 @@
+<form class="Pendragon">
+    <div class="dice-roll">
+      <div style="display: block">  
+      <div class="flavour-result bold"> {{localize 'PEN.squireImprove'}}</div>
+      {{#each squires as | squire key|}}  
+        <div class="flavour-result">
+          {{squire.name}}:  {{localize 'PEN.diceRoll'}} {{squire.result}} 
+          {{#if (eq squire.improve 1)}}
+            {{localize 'PEN.improved'}}
+          {{else}}
+            {{localize 'PEN.noImprove'}}
+          {{/if}}    
+        </div>  
+      {{/each}}  
+    </div>
+  </div>
+</form>  
+

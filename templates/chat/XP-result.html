@@ -6,13 +6,13 @@
       {{#each success as | line key|}}  
 
         <div class="flavour-result">
-           {{line.type}}: {{line.name}} ({{line.roll}}) - 
+          {{line.type}}: {{line.name}} ({{line.roll}} v {{line.total}}) - 
            
-           {{#if (eq line.result 1)}}
-              Improved 
-           {{else}}
-              No Improvement 
-           {{/if}}      
+          {{#if (eq line.result 1)}}
+            {{ localize 'PEN.improved' }} 
+          {{else}}
+            {{ localize 'PEN.noImprove' }}
+          {{/if}}      
         </div>  
       {{/each}}  
 

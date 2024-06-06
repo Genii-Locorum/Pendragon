@@ -1,9 +1,39 @@
 import { PENCheck } from '../apps/checks.mjs';
+import {isCtrlKey} from '../apps/helper.mjs'
 
 export class PendragonItem extends Item {
-  /**
-   * Augment the basic Item data model with additional dynamic data.
-   */
+  constructor (data, context) {
+    if (typeof data.img === 'undefined') {
+      if (data.type === 'skill') {
+        data.img = 'icons/svg/book.svg'
+      } else if (data.type === 'trait') {
+        data.img = 'systems/Pendragon/assets/Icons/knight-banner.svg'
+      } else if (data.type === 'passion') {
+        data.img = 'systems/Pendragon/assets/Icons/hearts.svg'
+      } else if (data.type === 'horse') {
+        data.img = 'systems/Pendragon/assets/Icons/horse-head.svg'
+      } else if (data.type === 'armour') {
+        data.img = 'systems/Pendragon/assets/Icons/shoulder-armor.svg'
+      } else if (data.type === 'weapon') {
+        data.img = 'systems/Pendragon/assets/Icons/axe-sword.svg'
+      } else if (data.type === 'family') {
+        data.img = 'systems/Pendragon/assets/Icons/griffin-shield.svg'
+      } else if (data.type === 'gear') {
+        data.img = 'icons/svg/item-bag.svg'
+      } else if (data.type === 'culture') {
+        data.img = 'systems/Pendragon/assets/Icons/trumpet-flag.svg'
+      } else if (data.type === 'religion') {
+        data.img = 'systems/Pendragon/assets/Icons/church.svg'
+      } else if (data.type === 'class') {
+        data.img = 'systems/Pendragon/assets/Icons/mounted-knight.svg'
+      } else if (data.type === 'homeland') {
+        data.img = 'systems/Pendragon/assets/Icons/scroll-unfurled.svg'
+      } else if (data.type === 'ideal') {
+        data.img = 'systems/Pendragon/assets/Icons/holy-grail.svg'
+      }
+    }
+    super(data, context)
+  }
   
   prepareData() {
     // As with the actor class, items are documents that can have their data
@@ -27,6 +57,7 @@ export class PendragonItem extends Item {
   async roll() {
     const item = this;
     const actor = this.actor;
+    let ctrlKey = isCtrlKey(event ?? false);
     let altKey = event.altKey;
     let shiftKey = event.shiftKey;
     if (game.settings.get('Pendragon','switchShift')) {
@@ -42,13 +73,21 @@ export class PendragonItem extends Item {
         rollType = 'TR'
         subType = 'trait'
         skillId = item._id;
-        if (altKey){cardType='OP'}
+        if (altKey){
+          cardType='OP'
+        } else if(ctrlKey){ 
+          cardType='RE'
+        }
         break
       case 'passion':
       case 'skill':     
         rollType = 'SK';
         skillId = item._id;
-        if (altKey){cardType='OP'}
+        if (altKey){
+          cardType='OP'
+        } else if(ctrlKey){ 
+          cardType='RE'
+        }
         break
       case 'weapon':     
         rollType = 'CM';

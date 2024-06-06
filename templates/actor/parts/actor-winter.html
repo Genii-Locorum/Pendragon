@@ -1,26 +1,79 @@
 <section>
-
   <div class="stat-name left bold">{{localize 'PEN.winterPhaseSteps'}}</div>
-  <br>
 
-  <div class="stat-name left bold xp-check clickable">{{localize 'PEN.xpRoll'}}</div>
-  <br>
+  <ul>
+    <li><div class="stat-name left">{{localize 'PEN.soloScenarios'}} {{localize 'PEN.manual'}}</div></li>
 
-  <div class="stat-name left">{{localize 'PEN.training'}}</div>
-  <div class="stat-name centre bold train-single clickable">{{localize 'PEN.singleTrain'}}</div>
-  <div class="stat-name centre bold train-multiple clickable">{{localize 'PEN.spreadTrain'}}</div>
-  <br>
-
-  <div class="stat-name left bold prestige-check clickable">{{localize 'PEN.prestigeAward'}} ({{system.gloryPrestige}})</div>
-
-  {{#if isGM}}
-    {{#unless system.lock}}
-      <div class="hp-grid">
-        <div class="stat-name"> {{localize 'PEN.prestigeSpent'}}</div>
-        <div class="dam-name-input centre"><input name="system.prestige" type="text" value="{{system.prestige}}" placeholder=10 data-dtype="Number"/></div>
+    <li><div class="stat-name left">{{localize 'PEN.personalEvents'}} {{localize 'PEN.manual'}}</div></li>
+    <li><div class="stat-name left bold xp-check clickable">{{localize 'PEN.xpRoll'}}
+      {{#unless system.status.xp}}
+        <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
+      {{/unless}}
+    </div></li>
+    <li>
+      <div class="stat-name left bold economic clickable">{{localize 'PEN.economicCirc'}}
+        {{#unless system.status.economic}}
+          <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
+        {{/unless}}
       </div>
-    {{/unless}}
-  {{/if}}
-  <br>
+    </li>
+    <li>
+      <div class="stat-name left bold aging clickable">{{localize 'PEN.aging'}}
+        {{#unless system.status.aging}}
+          <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
+        {{/unless}}
+      </div>
+    </li>  
+    <li>
+      <div class="stat-name left bold squireAge clickable">{{localize 'PEN.squireMaidenRoll'}} 
+        {{#unless system.status.squireAge}}
+          <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
+        {{/unless}}
+      </div>
+    </li>
+    <li>
+      <div class="stat-name left bold horseSurvival clickable">{{localize 'PEN.horseSurvival'}}
+        {{#unless system.status.horseSurv}}
+          <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
+        {{/unless}}
+      </div>
+    </li>
+    <li>
+      <div class="stat-name left">{{localize 'PEN.training'}}</div>
+      <div class="stat-name centre bold train-single clickable">{{localize 'PEN.singleTrain'}}
+        {{#unless system.status.train}}
+          <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
+        {{/unless}}
+      </div>
+      <div class="stat-name centre bold train-multiple clickable">{{localize 'PEN.spreadTrain'}}
+        {{#unless system.status.train}}
+          <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
+        {{/unless}}
+      </div>
+    </li>  
+    <li><div class="stat-name left">{{localize 'PEN.tallyGlory'}} <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a></div></li>
+    <li>
+      <div class="stat-name left bold prestige-check clickable">{{localize 'PEN.prestigeAward'}} ({{system.gloryPrestige}})
+        {{#if (eq system.gloryPrestige 0)}}
+          <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
+        {{/if}}
+      </div>
+    </li> 
 
+    {{#if isGM}}
+      {{#unless system.lock}}
+        <div class="hp-grid">
+          <div class="stat-name"> {{localize 'PEN.prestigeSpent'}}</div>
+          <div class="dam-name-input centre"><input name="system.prestige" type="text" value="{{system.prestige}}" placeholder=10 data-dtype="Number"/></div>
+        </div>
+      {{/unless}}
+    {{/if}}
+    <li>
+      <div class="stat-name left bold familyRoll clickable">{{localize 'PEN.familyRolls'}}
+        {{#unless system.status.familyRoll}}
+          <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
+        {{/unless}}
+      </div>
+    </li>
+  </ul>
 </section>

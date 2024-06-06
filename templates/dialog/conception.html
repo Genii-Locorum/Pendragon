@@ -1,0 +1,41 @@
+<form class="Pendragon" id="conception-input-form">
+  <br>
+  <div class="item-trait-grid">
+
+    <label>{{localize "PEN.firstConception"}}</label>   
+    <select class="resource-label-diff centre" name="firstConception">
+      <option value="yes">{{localize 'PEN.yes'}}</option>
+      <option value="no" selected>{{localize 'PEN.no'}}</option>
+    </select>
+    <br> 
+
+    <label class="new-row">{{localize "PEN.childLastYear"}}</label>   
+    <select class="resource-label-diff centre" name="childLastYear">
+      <option value="yes">{{localize 'PEN.yes'}}</option>
+      <option value="no" selected>{{localize 'PEN.no'}}</option>
+    </select>
+    <br> 
+  
+    {{#unless (eq decision 'self')}}
+      <label class="new-row">{{localize "PEN.age"}}</label>   
+      <input data-handle-change class="centre" type="number" value="21" name="age">
+      <br> 
+
+      <label class="new-row">{{localize "PEN.sol"}}</label>   
+      <select class="resource-label-diff centre" name="sol">
+        {{selectOptions solType selected='ordinary'}}
+      </select>
+      <br> 
+
+      <label class="new-row">{{localize "PEN.impoverishedYears"}}</label>   
+      <input data-handle-change class="centre" type="number" value="0" name="impoverishedYears">
+      <br>
+
+      <label class="new-row">{{localize "PENDRAGON.StatConAbbr"}}</label>   
+      <input data-handle-change class="centre" type="number" value="13" name="conStat">
+      <br>
+    {{/unless}}
+  </div>
+
+
+</form>

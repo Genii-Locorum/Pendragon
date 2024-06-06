@@ -1,0 +1,17 @@
+<form class="Pendragon" id="selectItem">
+    <div class="stat-name">{{headTitle}}</div>
+    <div class="radioList">
+      {{#each newList as |type id|}}
+        <div class="stat-name">  
+          <input type="radio" id="{{type.name}}" name="selectItem" value={{type.pid}} {{#if (eq @index 0)}}checked{{/if}}></input>
+
+          {{#if (eq type.type 'trait')}}
+            <label for="resource-label-diff orderList">{{type.name}}  {{#if (ne type.system.religious 0)}}(R){{/if}}</label>
+          {{else}}
+            <label for="resource-label-diff orderList">{{type.name}}</label>  
+          {{/if}}  
+        </div>  
+      {{/each}}    
+    </div>
+    <br>
+  </form>

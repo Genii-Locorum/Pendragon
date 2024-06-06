@@ -1,4 +1,5 @@
 import { PENUtilities } from "../apps/utilities.mjs";
+import { PENSelectLists } from "./select-lists.mjs";
 
 export class PENCombat {
 
@@ -44,6 +45,12 @@ export class PENCombat {
     let healing = this.actor.system.healRate
     let deterHeal = 0
     let aggravHeal = 0
+  //If there is CON damage from poisoning then recover that.  This doesnt cost healing
+    let conDamage = this.actor.system.stats.con.poison
+    if (conDamage <0){
+       conDamage = Math.min(conDamage+healing, 0)
+    }
+
   //If there is deterioration damage then heal that first
     if (this.actor.system.deterDam > 0) {
       deterHeal = Math.min(healing, this.actor.system.deterDam)
@@ -55,7 +62,8 @@ export class PENCombat {
     }  
 
     await this.actor.update({'system.deterDam': this.actor.system.deterDam - deterHeal,
-                             'system.aggravDam': this.actor.system.aggravDam - aggravHeal})
+                             'system.aggravDam': this.actor.system.aggravDam - aggravHeal,
+                             'system.stats.con.poison': conDamage})
 
     //Put wounds in array and sort lowest to highest damage
     let wounds=[];
@@ -129,4 +137,152 @@ export class PENCombat {
       dlg.render(true)
     })
   }
+
+
+  //Add a Wound/Damage
+  //
+  static async addWound (event) {
+    let usage = await PENCombat.woundForm()
+    let damType = usage.get('damType')
+    let damAmount = Number(usage.get('amount'))
+    let statImpact = usage.get('stat')
+    if (damAmount < 1) {return}
+    let createNew=false
+    let created = false
+    let treated = false
+
+    //Depending on damage type
+    switch (damType) {
+      case "wound":
+      case "fall":
+        createNew=true
+        break
+      case "cold":
+        let coldItem = this.actor.items.filter(itm=>itm.type === 'wound' && itm.system.source === "cold")[0]
+        if (!coldItem) {
+          createNew = true
+          created = true
+          treated = true
+        } else {
+          await coldItem.update ({'system.value': coldItem.system.value + damAmount})
+        }
+
+        break
+      case "disease":
+        if (statImpact === 'hp') {
+          createNew=true
+        } else {
+          let target = 'system.stats.'+statImpact+'.disease'
+          await this.actor.update ({[target]: this.actor.system.stats[statImpact].disease - damAmount,
+                                    'system.status.debilitated': true})
+        }
+        break
+      case "fire":
+      case "suffocate":
+        let wound = this.actor.items.filter(itm=>itm.type === 'wound' && itm.system.source === damType)[0]
+        if (!wound) {
+          createNew = true
+          created = true
+          treated = false
+        } else {
+          await wound.update ({'system.value': wound.system.value + damAmount,
+                               'system.treated': false})
+        }        
+        break
+      case "poison":
+        await this.actor.update ({'system.stats.con.poison': this.actor.system.stats.con.poison - damAmount,
+                                  'system.status.debilitated': true})
+        break
+      default:
+        ui.notifications.warn(damType + ": " + game.i18n.localize('PEN.noDamType'))    
+        return
+    }
+
+    if (createNew) {
+      const itemData = {
+        name: game.i18n.localize('PEN.wound'),
+        type: 'wound',
+        system: {
+          value: damAmount,
+          treated,
+          created,
+          source: damType,
+          description: game.i18n.localize('PEN.'+damType)
+        }  
+      };
+      let item = await Item.create(itemData, {parent: this.actor});
+      let key = await game.system.api.pid.guessId(item)
+      await item.update({'flags.Pendragon.pidFlag.id': key,
+                         'flags.Pendragon.pidFlag.lang': game.i18n.lang,
+                         'flags.Pendragon.pidFlag.priority': 0})
+      await PENCombat.woundDesc(item,this.actor)
+    }
+    return
+  }  
+
+  //Add Wound Form
+  static async woundForm () {
+    const data = {
+      damType : await PENSelectLists.getDamageType(),
+      attType : await PENSelectLists.getDiseaseImpact()
+    }
+    let title = game.i18n.localize('PEN.addWound');
+    const html = await renderTemplate('systems/Pendragon/templates/dialog/addWound.html',data)
+    let usage = await new Promise(resolve => {
+      let formData = null
+      const dlg = new Dialog({
+        title: title,
+        content: html,
+        buttons: {
+          validate: {
+            label: game.i18n.localize('PEN.confirm'),
+            callback: html => {
+              formData = new FormData(
+                html[0].querySelector('#add-wound-form')
+              )
+              return resolve(formData)
+            }
+          }
+        },
+        default: 'validate',
+        close: () => {
+          return resolve(false)
+        }
+      }, {classes: ["Pendragon", "sheet"]})
+      dlg.render(true)
+    })
+    return usage
+  }
+
+  //Update Wound Description
+  static async woundDesc(item,actor){
+    if (item.system.created) {return}
+    let status = game.i18n.localize('PEN.minor') 
+    let unconscious = false;
+
+    if (item.system.value >= actor.system.hp.max){
+      status = game.i18n.localize('PEN.mortal')
+      unconscious = true;
+    } else if (item.system.value >= actor.system.hp.majorWnd){
+      status = game.i18n.localize('PEN.major')
+      unconscious = true;
+    }
+
+    //Check to see if damage >= current HP
+    if (actor.system.hp.value < actor.system.hp.unconscious) {
+      unconscious = true;
+    }
+    let checkProp = {'system.created': true,
+                     'system.description': status}
+    await item.update(checkProp)
+
+    if (unconscious){
+      checkProp = {'system.status.unconscious': true,
+                   'system.status.debilitated': true}
+      await actor.update(checkProp)
+    }
+    return
+  }
+
+
 }

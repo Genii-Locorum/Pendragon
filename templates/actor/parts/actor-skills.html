@@ -1,21 +1,43 @@
-<ol class="skill-list">
-  {{#each skills as |skill key|}}
-    <li class="item skill-listitem" data-item-id="{{skill._id}}">
-      <div class="skill-grid {{#if skill.system.combat}}grey{{/if}}">
-        <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{skill._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if skill.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
-        <div class="stat-name rollable skill-name {{#if skill.system.combat}}italics{{/if}}" title="{{localize 'PEN.rollHint'}}" data-itemid="{{skill._id}}">{{skill.name}}</div>
-        {{#if ../system.lock}}
-          <div class="stat-name centre">{{skill.system.value}}</div>
-        {{else}}
-          <div class="stat-name-input trait-input centre item" data-field="skill" data-itemid ="{{skill._id}}"><input class="inline-edit" name="item.system.skill.{{key}}.value" type="text" value="{{skill.system.value}}" data-dtype="Number"/></div>
-        {{/if}}
-        
-        {{#if ../system.lock}}
-          <div class="centre item" data-itemid ="{{skill._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
-        {{else}}
-          <div class="centre item" data-itemid ="{{skill._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
-        {{/if}}
-      </div>
-    </li>
-  {{/each}}
-</ol>
+{{#unless isCreation}}
+  <ol class="skill-list">
+    {{#each skills as |skill key|}}
+      <li class="item skill-listitem" data-item-id="{{skill._id}}">
+        <div class="skill-grid {{#if skill.system.combat}}grey{{/if}}">
+          <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{skill._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if skill.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+          <div class="stat-name rollable skill-name {{#if skill.system.combat}}italics{{/if}} truncate" title="{{localize 'PEN.rollHint'}}" data-itemid="{{skill._id}}">{{skill.name}}</div>
+            <div class="stat-name centre">{{skill.system.total}}</div>
+          {{#if ../system.lock}}
+            <div class="centre item" data-itemid ="{{skill._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
+          {{else}}
+            <div class="centre item" data-itemid ="{{skill._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
+          {{/if}}
+        </div>
+      </li>
+    {{/each}}
+  </ol>
+{{else}} 
+  <ol class="skill-dev-list">
+    <div class="skill-dev-listitem">
+      <div class="stat-name bold grid-item-top grid-item-left">{{localize 'PEN.skill'}}</div>
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.base'}}</div>
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.culture'}}</div>  
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.family'}}</div>
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.training'}}</div>
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.winter'}}</div>   
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.total'}}</div>
+      <div class="centre"><a class="genSkills large-icon result-fail"><i title="{{localize 'PEN.genSkills'}}" class="fa-solid fa-rotate"></i></a></div>
+    </div>  
+
+    {{#each skills as |skill key|}}
+      <li class="item skill-dev-listitem" data-item-id="{{skill._id}}">
+        <div class="stat-name truncate new-row grid-item-left" title="{{skill.name}}">{{skill.name}}</div>
+        <div class="stat-name-input item centre grid-item" data-field="skill" data-att="value" data-itemid ="{{skill._id}}"><input class="inline-edit" name="skill.system.value" type="text" value="{{skill.system.value}}" data-dtype="Number"/></div>
+        <div class="stat-name-input item centre grid-item" data-field="skill" data-att="culture" data-itemid ="{{skill._id}}"><input class="inline-edit" name="skill.system.culture" type="text" value="{{skill.system.culture}}" data-dtype="Number"/></div>
+        <div class="stat-name-input item centre grid-item" data-field="skill" data-att="family" data-itemid ="{{skill._id}}"><input class="inline-edit" name="skill.system.family" type="text" value="{{skill.system.family}}" data-dtype="Number"/></div>
+        <div class="stat-name-input item centre grid-item" data-field="skill" data-att="create" data-itemid ="{{skill._id}}"><input class="inline-edit" name="skill.system.create" type="text" value="{{skill.system.create}}" data-dtype="Number"/></div>
+        <div class="stat-name-input item centre grid-item" data-field="skill" data-att="winter" data-itemid ="{{skill._id}}"><input class="inline-edit" name="skill.system.winter" type="text" value="{{skill.system.winter}}" data-dtype="Number"/></div>
+        <div class="stat-name centre grid-item">{{skill.system.total}}</div>
+      </li>
+    {{/each}}
+  </ol>
+{{/unless}}

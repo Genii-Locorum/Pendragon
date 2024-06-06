@@ -1,0 +1,13 @@
+<form class="Pendragon">
+    <div class="dice-roll">
+      <div style="display: block">  
+      <div class="flavour-result bold"> {{type}}</div>
+      {{#each list as | line key|}}  
+        <div class="flavour-result">
+         {{line.name}}: {{line.rollVal}} ({{line.form}}) - [{{line.dice}}]
+        </div>  
+      {{/each}}  
+    </div>
+  </div>
+</form>  
+

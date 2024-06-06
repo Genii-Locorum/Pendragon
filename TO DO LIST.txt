@@ -1,0 +1,3 @@
+WEAPONS, HORSES, ARMOUR, SQUIRE, GEAR, HISTORY, WOUNDS - let PCs modify all?   Add a "create new item" option in all places
+Reformat tables
+Rebuild Roll Tables

@@ -1,4 +1,4 @@
-<form class="{{cssClass}} character" autocomplete="off">
+<form class="Pendragon {{cssClass}} character" autocomplete="off">
 
   <section class="main-sheet">
 
@@ -10,11 +10,7 @@
           <div class="stat-grid">
             {{#each system.stats as |stat key|}}
               <div class="stat-name left bold rollable stat" title="{{localize 'PEN.rollHint'}}" data-stat="{{key}}">{{stat.labelShort}}</div>
-              {{#if ../system.lock}}
-                <div class="stat-name centre">{{stat.value}}</div>
-              {{else}}
-                <div class="dam-name-input centre"><input name="system.stats.{{key}}.value" type="text" value="{{stat.value}}" placeholder=10 data-dtype="Number"/></div>
-              {{/if}}
+              <div class="stat-name centre {{#isOr (lt stat.poison 0) (lt stat.disease 0)}}result-success bold italics{{/isOr}}">{{stat.total}}</div>
             {{/each}}
           </div>
 
@@ -39,9 +35,9 @@
             <div class="hp-grid">
               <div class="stat-name left bold">{{localize 'PEN.hp'}}</div>
               <div class="stat-name centre">{{system.hp.value}} / {{system.hp.max}}</div>
-              <div class="stat-name left bold">{{localize 'PEN.move'}}</div>
+              <div class="stat-name left bold rollable move" title="{{localize 'PEN.rollHint'}}">{{localize 'PEN.move'}}</div>
               <div class="stat-name centre">{{system.move}}</div>
-              <div class="stat-name left bold rollable glory" title="{{localize 'PEN.rollHint'}}">{{localize 'PEN.glory'}}</div>
+              <div class="stat-name left bold rollable glory" title="{{localize 'PEN.rollHint'}}">{{localize 'PEN.glory'}}  ({{system.reputation}})</div>
               <div class="stat-name centre">{{system.glory}}</div>
               <div class="stat-name left bold">{{localize 'PEN.damage'}}</div>
               <div class="stat-name centre">{{system.damage}}</div>
@@ -59,8 +55,13 @@
       </section>
 
       {{!-- Image Section --}}
-      <section class="sheet-header img-bottom">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="150" width="150"/>
+      <section class="sheet-header">
+        <div class="right">
+            <a class="xlarge-icon charcreate {{#if system.create.complete}}fade{{else}}darkred{{/if}} rollable"> <i class="{{#if isCreation}}fas fa-shield-quartered{{else}}fas fa-none{{/if}}"></i> </a>
+        </div>
+        <div class="img-bottom">
+          <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="150" width="150"/>
+        </div>
       </section>  
     </section>
 
@@ -78,9 +79,10 @@
     <a class="item tab-name" data-tab="items">{{localize 'PEN.equipment'}}</a>
     <a class="item tab-name" data-tab="companions">{{localize 'PEN.companions'}}</a>
     <a class="item tab-name" data-tab="history">{{localize 'PEN.events'}}</a>
+    <a class="item tab-name" data-tab="house">{{localize 'PEN.house'}}</a>
     <a class="item tab-name" data-tab="biography">{{localize 'PEN.biography'}}</a>
-
-    <a class="large-icon  middle actor-toggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i class="{{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i> </a>
+    <a class="item tab-name" data-tab="stats">{{localize 'PEN.stats'}}</a>
+    <a class="large-icon  middle actor-toggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i style=width:25px class="{{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i> </a>
 
   </nav>
 
@@ -126,6 +128,16 @@
       {{!-- Companions Tab --}}
       <div class="tab companions" data-group="primary" data-tab="companions">
         {{> "systems/Pendragon/templates/actor/parts/actor-companions.html"}}
+      </div>
+
+      {{!-- Glory Tab --}}
+      <div class="tab house" data-group="primary" data-tab="house">
+        {{> "systems/Pendragon/templates/actor/parts/actor-house.html"}}
+      </div>
+
+      {{!-- Stats Tab --}}
+      <div class="tab stats" data-group="primary" data-tab="stats">
+        {{> "systems/Pendragon/templates/actor/parts/actor-stats.html"}}
       </div>
 
       {{!-- Winter Phase Tab --}}

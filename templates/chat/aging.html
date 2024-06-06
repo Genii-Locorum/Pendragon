@@ -1,0 +1,17 @@
+<form class="Pendragon">
+    <div class="dice-roll">
+      <div style="display: block">  
+      <div class="flavour-result bold"> {{localize 'PEN.diceRoll'}} : {{mainRoll}} - {{mainLabel}}</div>
+      {{#each results as | result key|}}  
+        <div class="flavour-result">
+          {{localize 'PEN.diceRoll'}} : {{result.number}} - {{result.label}}
+        </div>  
+      {{/each}}  
+      {{#if (gt decRes 0)}}
+        <br>
+        <div class="flavour-result bold"> {{localize 'PEN.decrepitude'}} :  {{decRes}} - {{decLabel}}</div>
+      {{/if}}
+  </div>
+  </div>
+</form>  
+

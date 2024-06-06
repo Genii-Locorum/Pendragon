@@ -1,6 +1,10 @@
-import { PENRollType } from "../../apps/rollType.mjs";
+import { PENRollType } from "../../cards/rollType.mjs";
 import { PENCombat } from "../../apps/combat.mjs";
 import { PENWinter } from "../../apps/winterPhase.mjs";
+import { PENCharCreate } from "../../apps/charCreate.mjs"
+import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
+import { PENactorItemDrop } from '../actor-itemDrop.mjs';
+
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -8,13 +12,20 @@ import { PENWinter } from "../../apps/winterPhase.mjs";
  */
 export class PendragonCharacterSheet extends ActorSheet {
 
+  //Add PID buttons to sheet
+  _getHeaderButtons () {
+    const headerButtons = super._getHeaderButtons()
+    addPIDSheetHeaderButton(headerButtons, this)
+    return headerButtons
+  }
+
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["Pendragon", "sheet", "actor","character"],
       template: "systems/Pendragon/templates/actor/character-sheet.html",
-      width: 825,
-      height: 640,
+      width: 840,
+      height: 655,
       scrollY: ['.bottom-panel'],
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "combat" }]
     });
@@ -35,9 +46,24 @@ export class PendragonCharacterSheet extends ActorSheet {
     context.system = actorData.system;
     context.flags = actorData.flags;
     context.isGM = game.user.isGM;
+    context.isLocked = actorData.system.lock
+    context.hasCulture = false
+    context.hasHomeland = false
+    context.hasClass = false
+    context.hasReligion = false
+    if (actorData.system.cultureID != "") {context.hasCulture = true}  
+    if (actorData.system.homelandID != "") {context.hasHomeland = true} 
+    if (actorData.system.classID != "") {context.hasClass = true}
+    if (actorData.system.religionID != "") {context.hasReligion = true}
+    context.hasFamily = false
+    if (actorData.items.filter(itm =>itm.type==='skill' && itm.system.family > 0).length >0) {context.hasFamily = true}
+    if (actorData.system.beauty > 0) {context.hasFamily = true}
     context.isWinter = game.settings.get('Pendragon' , 'winter')
     context.isDevelopment = game.settings.get('Pendragon' , 'development')
-    
+    context.isCreation = game.settings.get('Pendragon' , 'creation')
+    context.statTotal = actorData.system.statTotal    
+    context.solLabel = game.i18n.localize('PEN.'+actorData.system.sol)
+    context.sizLabel = game.i18n.localize('PEN.sizInc.'+actorData.system.stats.siz.growth)
 
     // Prepare character data and items.
     if (actorData.type == 'character') {
@@ -87,6 +113,9 @@ export class PendragonCharacterSheet extends ActorSheet {
     const squires = [];
     const armours = [];
     const weapons = [];
+    const families = [];
+    const ideals = [];
+    const household = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -101,17 +130,41 @@ export class PendragonCharacterSheet extends ActorSheet {
       } else if (i.type === 'wound' && i.system.value >0) {
         wounds.push(i);
       } else if (i.type === 'history') {
+        if (i.system.favour) {
+          i.system.label = game.i18n.localize("PEN.favourShort")+ i.system.favourLevel + " " + i.system.description
+        } else {
+          i.system.label = i.system.description
+        }
+        i.system.label = (i.system.label).replace(/(<([^>]+)>)/gi, '')
         history.push(i);
       } else if (i.type === 'passion') {
+        if (i.flags.Pendragon.pidFlag.id === 'i.passion.honour') {
+          i.system.isHonour = true
+        } else {
+          i.system.isHonour = false
+        }
         passions.push(i);
       } else if (i.type === 'horse') {
+        i.system.careName = game.i18n.localize('PEN.horseHealth.'+i.system.horseCare)
+        i.system.healthName = game.i18n.localize('PEN.horseHealth.'+i.system.horseHealth)
+        i.system.totalAR = i.system.armour + i.system.horseArmour
         horses.push(i);
       } else if (i.type === 'squire') {
-        squires.push(i);
+        i.system.squireType = game.i18n.localize('PEN.'+i.system.category)
+        if (i.system.category === 'squire') {
+          squires.push(i);
+        } else {
+          household.push(i);
+        }
       } else if (i.type === 'armour') {
         armours.push(i);
       } else if (i.type === 'weapon') {
         weapons.push(i);
+      } else if (i.type === 'family') {
+        i.system.typeName = game.i18n.localize('PEN.'+i.system.relation)
+        families.push(i);
+      } else if (i.type === 'ideal') {
+        ideals.push(i);
       }
     }
 
@@ -208,6 +261,15 @@ export class PendragonCharacterSheet extends ActorSheet {
     return 0;
     });
 
+    // Sort Ideals
+    ideals.sort(function(a, b){
+      let x = a.name;
+      let y = b.name;
+      if (x < y) {return -1};
+      if (x > y) {return 1};
+    return 0;
+    });
+
     // Assign and return
     context.gears = gears;
     context.traits = traits;
@@ -219,6 +281,9 @@ export class PendragonCharacterSheet extends ActorSheet {
     context.squires = squires;
     context.armours = armours;
     context.weapons = weapons;
+    context.families = families;
+    context.ideals = ideals;
+    context.household = household;
   }
 
   /* -------------------------------------------- */
@@ -238,25 +303,48 @@ export class PendragonCharacterSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
 
-    html.find('.item-create').click(this._onItemCreate.bind(this));                     // Add Inventory Item
-    html.find(".inline-edit").change(this._onInlineEdit.bind(this));                    // Inline Edit
-    html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));                  // Item Toggle
-    html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));                // Actor Toggle
-    html.find(".rollable.stat").click(PENRollType._onStatCheck.bind(this));                // Stats check
-    html.find(".rollable.skill-name").click(PENRollType._onSkillCheck.bind(this));         // Skill check
-    html.find(".rollable.glory").click(PENRollType._onGloryCheck.bind(this));              // Glory check
-    html.find(".rollable.squire").click(PENRollType._onSquireCheck.bind(this));            // Squire check
-    html.find(".rollable.trait").click(PENRollType._onTraitCheck.bind(this));              // Trait check 
-    html.find(".rollable.decision").click(PENRollType._onDecisionCheck.bind(this));        // Decision Trait check     
-    html.find(".rollable.damage").click(PENRollType._onDamageRoll.bind(this));             // Damage roll      
-    html.find(".rollable.combat").click(PENRollType._onCombatCheck.bind(this));            // Combat roll       
-    html.find(".treat-wound").dblclick(PENCombat.treatWound.bind(this));                // Treat a wound
-    html.find(".natural-heal").dblclick(PENCombat.naturalHealing.bind(this));           // Natural Healing
-    html.find(".xp-check").click(PENWinter.xpCheck.bind(this));                         // XP Rolls
-    html.find(".prestige-check").click(PENWinter.winterImprov.bind(this,"prestige"));   // Spend prestige
-    html.find(".train-single").click(PENWinter.winterImprov.bind(this,"single"));       // Spend training as a single point
-    html.find(".train-multiple").click(PENWinter.winterImprov.bind(this,"multiple"));   // Spend training spread across multiple skills
+
+    //Clickable and hoverable events
+    html.find('.item-create').click(this._onItemCreate.bind(this));                         // Add Inventory Item
+    html.find(".inline-edit").change(this._onInlineEdit.bind(this));                        // Inline Edit
+    html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));                      // Item Toggle
+    html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));                    // Actor Toggle
+    html.find(".clickable.viewItem").click(this._viewItem.bind(this));                   // View Item
+    html.find(".rollable.stat").click(PENRollType._onStatCheck.bind(this));                 // Stats check
+    html.find(".rollable.skill-name").click(PENRollType._onSkillCheck.bind(this));          // Skill check
+    html.find(".rollable.passion-name").click(PENRollType._onPassionCheck.bind(this));      // Passion check
+    html.find(".rollable.glory").click(PENRollType._onGloryCheck.bind(this));               // Glory check
+    html.find(".rollable.move").click(PENRollType._onMoveCheck.bind(this));                // Glory check
+    html.find(".rollable.squire").click(PENRollType._onSquireCheck.bind(this));             // Squire check
+    html.find(".rollable.trait").click(PENRollType._onTraitCheck.bind(this));               // Trait check 
+    html.find(".rollable.decision").click(PENRollType._onDecisionCheck.bind(this));         // Decision Trait check     
+    html.find(".rollable.damage").click(PENRollType._onDamageRoll.bind(this));              // Damage roll      
+    html.find(".rollable.combat").click(PENRollType._onCombatCheck.bind(this));             // Combat roll       
+    html.find(".treat-wound").dblclick(PENCombat.treatWound.bind(this));                    // Treat a wound
+    html.find(".natural-heal").dblclick(PENCombat.naturalHealing.bind(this));               // Natural Healing
+    html.find(".xp-check").click(PENWinter.xpCheck.bind(this));                             // XP Rolls
+    html.find(".economic").click(PENWinter.economic.bind(this));                            // Set economic circumstances
+    html.find(".aging").click(PENWinter.aging.bind(this));                                  // Check aging
+    html.find(".squireAge").click(PENWinter.squireWinter.bind(this));                       // Squire and Maiden Winter checks
+    html.find(".horseSurvival").click(PENWinter.horseSurvival.bind(this,"single"));         // Check Horse Survival
+    html.find(".prestige-check").click(PENWinter.winterImprov.bind(this,"prestige"));       // Spend prestige
+    html.find(".train-single").click(PENWinter.winterImprov.bind(this,"single"));           // Spend training as a single point
+    html.find(".train-multiple").click(PENWinter.winterImprov.bind(this,"multiple"));       // Spend training spread across multiple skills
+    html.find(".familyRoll").click(PENWinter.familyRoll.bind(this,"single"));               // Family Rolls
+    html.find(".charcreate").click(PENCharCreate.startCreate.bind(this));                   // Start Character Creation
+    html.find(".addWound").click(PENCombat.addWound.bind(this));                            // Add a Wound/Damage
+    html.find(".reset-culture").click(this._onUndoCulture.bind(this));                      // Delete Culture
+    html.find(".reset-homeland").click(this._onUndoHomeland.bind(this));                    // Delete Homeland
+    html.find(".reset-class").click(this._onUndoClass.bind(this));                          // Delete Class
+    html.find(".reset-religion").click(this._onUndoReligion.bind(this));                    // Delete Religion
+    html.find(".stat-roll").click(this._statRoll.bind(this));                               // Roll Stats
+    html.find(".genSkills").click(this._genSkills.bind(this));                              // Reset Base Score
+    html.find(".trait-roll").click(this._traitRoll.bind(this));                             // Roll Traits
+    html.find('.charcreate.rollable')                                                       //Character Create Tooltip
+      .mouseenter(this.toolTipCharCreateEnter.bind(this))
+      .mouseleave(game.PENTooltips.toolTipLeave.bind(this))
     
+
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = ev => this._onDragStart(ev);
@@ -287,7 +375,7 @@ export class PendragonCharacterSheet extends ActorSheet {
     event.preventDefault();
     const header = event.currentTarget;
     const type = header.dataset.type;
-    const data = duplicate(header.dataset);
+    const data = foundry.utils.duplicate(header.dataset);
     const name = `${type.capitalize()}`;
     const itemData = {
       name: name,
@@ -300,9 +388,14 @@ export class PendragonCharacterSheet extends ActorSheet {
 
     // Finally, create the item!
     let item = await Item.create(itemData, {parent: this.actor});
-    if (type === "history" || type === "wound" || type === "horse" || type === "squire" || type ==="gear") {
+    let key = await game.system.api.pid.guessId(item)
+    await item.update({'flags.Pendragon.pidFlag.id': key,
+                         'flags.Pendragon.pidFlag.lang': game.i18n.lang,
+                         'flags.Pendragon.pidFlag.priority': 0})
+    if (type === "history" || type === "wound" || type === "horse" || type === "squire" || type ==="gear" || type ==="family") {
       if(type === "history"){
-        await item.update({'system.year' : game.settings.get('Pendragon',"gameYear")})
+        await item.update({'system.year' : game.settings.get('Pendragon',"gameYear"),
+                           'system.source': "manual" })
       }
       item.sheet.render(true);
     }
@@ -318,9 +411,10 @@ async _onInlineEdit(event){
     const field = li.data("field");
     let newScore = Number(element.value);
     let target = "";
-    if (field === 'trait') {
-      target = "system.value";
-    } else if (field === 'skill' || field === 'wound' || field === 'passion'){
+    if (['skill','passion','trait'].includes(field)) {
+      const att = li.data("att");
+      target = "system."+att;
+    } else if (field === 'wound'){
       target = "system.value";
     } else if (field === 'horse'){
       target = "system.hp";
@@ -347,6 +441,8 @@ async _onInlineEdit(event){
       checkProp = {'system.treated': !item.system.treated}
     } else if (prop === "equipped") {
       checkProp = {'system.equipped': !item.system.equipped}
+    } else {
+      return
     }
     await item.update(checkProp);
 
@@ -366,30 +462,114 @@ async _onInlineEdit(event){
   async _onActorToggle(event){
     const prop= event.currentTarget.dataset.property;
     let checkProp={};
-    if (prop === "lock") {
-      checkProp = {'system.lock': !this.actor.system.lock}
+
+    if(['lock','heir'].includes(prop)){
+      checkProp = {[`system.${prop}`]: !this.actor.system[prop]}
+    } else if(['chirurgery','unconscious','nearDeath','madness','melancholy','misery','barren'].includes(prop)){
+      checkProp = {[`system.status.${prop}`]: !this.actor.system.status[prop]}
     } else if (prop === "debilitated") {
       checkProp = {'system.status.debilitated': !this.actor.system.status.debilitated,
                    'system.status.chirurgery': false}
-    } else if (prop === "chirurgery") {
-      checkProp = {'system.status.chirurgery': !this.actor.system.status.chirurgery}
-    } else if (prop === "unconscious") {
-      checkProp = {'system.status.unconscious': !this.actor.system.status.unconscious}
-    } else if (prop === "nearDeath") {
-      checkProp = {'system.status.nearDeath': !this.actor.system.status.nearDeath}
-    } else if (prop === "madness") {
-      checkProp = {'system.status.madness': !this.actor.system.status.madness}
-    } else if (prop === "melancholy") {
-      checkProp = {'system.status.melancholy': !this.actor.system.status.melancholy}
-    } else if (prop === "misery") {
-      checkProp = {'system.status.misery': !this.actor.system.status.misery}
-    } 
-
-  await this.actor.update(checkProp);
-  return
-}
+    } else {
+      return
+    }
+    await this.actor.update(checkProp);
+    return
+  }
 
 
+  // Change default on Drop Item Create routine for requirements (single items and folder drop)-----------------------------------------------------------------
+  async _onDropItemCreate(itemData) {
+    const newItemData = await PENactorItemDrop._PENonDropItemCreate(this.actor,itemData);
+    return this.actor.createEmbeddedDocuments("Item", newItemData);
+  }  
 
+
+  // Tooltip for Character Creation
+  async toolTipCharCreateEnter (event) {
+    let actor = this.actor
+    let steps = 15   //Number of character creation steps
+    const delay = parseInt(game.settings.get('Pendragon', 'toolTipDelay'))
+    if (delay > 0) {
+      game.PENTooltips.ToolTipHover = event.currentTarget
+      game.PENTooltips.toolTipTimer = setTimeout(function () {
+        if (
+          typeof game.PENTooltips.ToolTipHover !== 'undefined' &&
+          game.PENTooltips.ToolTipHover !== null
+        ) {
+          let status =""
+          let check = ""
+          let toolTip = "<strong>" + game.i18n.localize('PEN.creation') + "</strong>"
+          for (let sCount = 1; sCount <=steps; sCount++) {
+            if (sCount === 1 && actor.system.create.step>1) {
+              if(actor.system.create.random) {
+                status = "<strong>" + game.i18n.localize('PEN.roll') + "</strong>"
+              }else {
+                status = "<strong>" + game.i18n.localize('PEN.construct') + "</strong>"
+              }
+            } else {
+            status = game.i18n.localize('PEN.incomplete')
+            check = "step" + sCount
+            if (actor.system.create.step> sCount) {status = "<strong>"+game.i18n.localize('PEN.complete')+"</strong>"}
+            }    
+            toolTip = toolTip + "<div>" + game.i18n.localize('PEN.step.'+sCount)+ " - " + status + "</div>"
+          }
+          game.PENTooltips.displayToolTip(toolTip)
+        }
+      }, delay)
+    }
+  }
+
+  //Trigger Culture Deletion
+  async _onUndoCulture(event){
+    await PENCharCreate.undoCulture(this.actor)
+  }
+
+  //Trigger Homeland Deletion
+  async _onUndoHomeland(event){
+    await PENCharCreate.undoHomeland(this.actor)
+  }
+
+  //Trigger Class Deletion
+  async _onUndoClass(event){
+    await PENCharCreate.undoClass(this.actor)
+  }
+
+  //Trigger Religion Deletion
+  async _onUndoReligion(event){
+    await PENCharCreate.undoReligion(this.actor)
+  }
+
+  //Trigger a Stat Creation Roll
+  async _statRoll(event) {
+    if (this.actor.system.create.stats) {
+      await PENCharCreate.rollStats(this.actor)
+      await this.actor.update({'system.create.stats': false})
+    } else if(game.user.isGM) {
+      await this.actor.update({'system.create.stats': true})
+    }
+  }
+
+  //Trigger Skills Base Score Calculation 
+  async _genSkills(event){
+    await PENCharCreate.baseSkillScore(this.actor)
+  }
+
+  //Trigger Trait Rolls 
+  async _traitRoll(event){
+    if (this.actor.system.create.traits) {
+      await PENCharCreate.rollTraits(this.actor)
+      await this.actor.update({'system.create.traits': false})
+    } else if(game.user.isGM) {
+      await this.actor.update({'system.create.traits': true})
+    }
+  }
+
+  //View Homeland etc
+  async _viewItem(event) {
+    const li = event.currentTarget.dataset.itemId
+    const item = this.actor.items.get(li);
+    item.sheet.render(true);
+  }
 
 }

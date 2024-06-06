@@ -13,5 +13,7 @@
     "systems/Pendragon/templates/actor/parts/actor-passions.html",
     "systems/Pendragon/templates/actor/parts/actor-companions.html",
     "systems/Pendragon/templates/actor/parts/actor-winter.html",
+    "systems/Pendragon/templates/actor/parts/actor-stats.html",
+    "systems/Pendragon/templates/actor/parts/actor-house.html",
   ]);
 };

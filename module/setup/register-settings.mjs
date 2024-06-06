@@ -9,7 +9,7 @@ export function registerSettings () {
     requiresReload: true,
     config: true,
     type: Number,
-    default: 509
+    default: 508
   });
 
   game.settings.register('Pendragon', "autoXP", {
@@ -22,24 +22,14 @@ export function registerSettings () {
     default: false
   });
 
-  game.settings.register('Pendragon', "oppDice1", {
-    name: "PEN.Settings.oppDice1",
-    hint: "PEN.Settings.oppDice1Hint",
+  game.settings.register('Pendragon', "fumbleXP", {
+    name: "PEN.Settings.fumbleXP",
+    hint: "PEN.Settings.fumbleXPHint",
     scope: "world",
     requiresReload: true,
     config: true,
-    type: String,
-    default: "bronze"
-  });
-
-  game.settings.register('Pendragon', "oppDice2", {
-    name: "PEN.Settings.oppDice2",
-    hint: "PEN.Settings.oppDice2Hint",
-    scope: "world",
-    requiresReload: true,
-    config: true,
-    type: String,
-    default: "air"
+    type: Boolean,
+    default: false
   });
 
   game.settings.register('Pendragon', "switchShift", {
@@ -51,6 +41,32 @@ export function registerSettings () {
     default: false
   });
 
+  game.settings.register('Pendragon', "critAdj", {
+    name: "PEN.Settings.critAdj",
+    hint: "PEN.Settings.critAdjHint",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
+  game.settings.register('Pendragon', "toolTipDelay", {
+    name: "PEN.Settings.toolTipDelay",
+    hint: "PEN.Settings.toolTipDelayHint",
+    scope: "world",
+    config: true,
+    type: Number,
+    default: 2000
+  });
+
+  game.settings.register('Pendragon', "tokenVision", {
+    name: "PEN.Settings.tokenVision",
+    hint: "PEN.Settings.tokenVisionHint",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true
+  });
 
   //Invisible Game Settings 
 
@@ -65,6 +81,16 @@ export function registerSettings () {
   });
 
   game.settings.register('Pendragon', "development", {
+    name: "",
+    hint: "",
+    scope: "world",
+    requiresReload:false,
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
+  game.settings.register('Pendragon', "creation", {
     name: "",
     hint: "",
     scope: "world",

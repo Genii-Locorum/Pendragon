@@ -6,15 +6,52 @@
     </div>
   </header>
 
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item tab-name" data-tab="attributes">{{localize 'PEN.attributes'}}</a>
+    <a class="item tab-name" data-tab="description">{{localize 'PEN.description'}}</a>
+    {{#if isGM}}<a class="item tab-name" data-tab="gmTab">{{localize 'PEN.gmTab'}}</a>{{/if}}
+  </nav>
+
+  {{!-- Sheet Body --}}
   <section class="item-bottom-panel">
-    <div class="item-trait-grid">
-      <div class="stat-name left bold">{{localize 'PEN.age'}}</div>
-      <div class="stat-name-input centre"><input name="system.age" type="text" value="{{item.system.age}}" placeholder=10 data-dype="Number"/></div>
-      <div class="stat-name left bold">{{localize 'PEN.skill'}}</div>
-      <div class="stat-name-input centre"><input name="system.skill" type="text" value="{{item.system.skill}}" placeholder=10 data-dype="Number"/></div>
-      <div class="stat-name left bold">{{localize 'PEN.glory'}}</div>
-      <div class="stat-name-input centre"><input name="system.glory" type="text" value="{{item.system.glory}}" placeholder=10 data-dype="Number"/></div>
-    </div>  
-    <br>
+    <section class="sheet-body">
+
+      {{!-- Attributes Tab --}}
+      <div class="tab attributes" data-group="primary" data-tab="attributes">
+        <div class="item-trait-grid">
+          <div class="stat-name left bold">{{localize 'PEN.age'}}</div>
+          <div class="stat-name-input centre"><input name="system.age" type="text" value="{{item.system.age}}" placeholder=10 data-dtype="Number"/></div>
+          <div class="stat-name left bold">{{localize 'PEN.type'}}</div>
+          <div class="stat-name centre">
+            <select data-handle-change name="system.category">
+              {{selectOptions squireType selected=item.system.category}}
+            </select>
+          </div>
+          {{#if (eq item.system.category 'squire')}}
+            <div class="stat-name left bold">{{localize 'PEN.skill'}}</div>
+            <div class="stat-name-input centre"><input name="system.skill" type="text" value="{{item.system.skill}}" placeholder=15 data-dtype="Number"/></div>
+            <div class="stat-name left bold">{{localize 'PEN.knightlyMod'}}</div>
+            <div class="stat-name-input centre"><input name="system.knightMod" type="text" value="{{item.system.knightMod}}" placeholder=0 data-dtype="Number"/></div>
+            <div class="stat-name left bold">{{localize 'PEN.glory'}}</div>
+            <div class="stat-name-input centre"><input name="system.glory" type="text" value="{{item.system.glory}}" placeholder=0 data-dtype="Number"/></div>
+          {{/if}}          
+        </div>  
+      </div>
+      <br>
+
+      {{!-- Description Tab --}}
+      <div class="tab description" data-group="primary" data-tab="description">
+        {{editor enrichedDescriptionValue engine="prosemirror" class="background-doc" target="system.description" button=true owner=owner editable=editable}}
+      </div>
+
+      {{!-- GM Tab --}}
+      <div class="tab description" data-group="primary" data-tab="gmTab">
+        <div class="stat-name bold">{{localize 'PEN.gmNotes'}}:</div>
+          {{editor enrichedGMDescriptionValue engine="prosemirror" class="background-doc" target="system.GMdescription" button=true owner=owner editable=editable}}
+      </div>
+
+
+    </section>
   </section>
 </form>
