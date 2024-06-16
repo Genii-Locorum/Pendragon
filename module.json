@@ -1,0 +1,163 @@
+{
+  "id": "p6ebase",
+  "title": "Pendragon Base Content",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "11",
+    "maximum": "12",
+    "verified": "12.325"
+  },
+  "description": "Basic content for the 6th Edition on Pendragon",
+  "authors": [
+    {
+      "name": "Dangermouse",
+      "flags": {}
+    }
+  ],
+  "packs": [
+    {
+      "name": "base-skills",
+      "label": "Base Skills",
+      "path": "packs/base-skills",
+      "type": "Item",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "base-passions",
+      "label": "Base Passions",
+      "path": "packs/base-passions",
+      "type": "Item",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "base-traits",
+      "label": "Base Traits",
+      "path": "packs/base-traits",
+      "type": "Item",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "base-equipment",
+      "label": "Base Equipment",
+      "path": "packs/base-equipment",
+      "type": "Item",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "base-horses",
+      "label": "Base Horses",
+      "path": "packs/base-horses",
+      "type": "Item",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "base-armour",
+      "label": "Base Armour",
+      "path": "packs/base-armour",
+      "type": "Item",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "base-weapons",
+      "label": "Base Weapons",
+      "path": "packs/base-weapons",
+      "type": "Item",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "base-cultures",
+      "label": "Base Cultures",
+      "path": "packs/base-cultures",
+      "type": "Item",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "base-religions",
+      "label": "Base Religions",
+      "path": "packs/base-religions",
+      "type": "Item",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "base-classes",
+      "label": "Base Classes",
+      "path": "packs/base-classes",
+      "type": "Item",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "base-homelands",
+      "label": "Base Homelands",
+      "path": "packs/base-homelands",
+      "type": "Item",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "base-ideals",
+      "label": "Base Ideals",
+      "path": "packs/base-ideals",
+      "type": "Item",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "base-tables",
+      "label": "Base Tables",
+      "path": "packs/base-tables",
+      "type": "RollTable",
+      "system": "Pendragon",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    }
+  ],
+  "url": "https://github.com/Genii-Locorum/p6ebase"
+}
