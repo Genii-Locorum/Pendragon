@@ -51,6 +51,7 @@ export class PendragonActor extends Actor {
     systemData.fervor = 0
     systemData.adoratio = 0
     systemData.civilitas = 0
+    systemData.honor = 0
     systemData.age = game.settings.get('Pendragon' , 'gameYear') - systemData.born
 
 
@@ -80,8 +81,10 @@ export class PendragonActor extends Actor {
 
     //Set Religion ID
     let religion = actorData.items.filter(itm =>itm.type==='religion')[0]  
-    if (religion) {systemData.religionID = religion._id
+    if (religion) {
+      systemData.religionID = religion._id
       systemData.religionName = religion.name
+
     }
 
     //Actor only Adjustments

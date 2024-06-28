@@ -30,7 +30,7 @@ export class PendragonNPCSheet extends ActorSheet {
   // -------------------------------------------- 
 
   //@override
-  getData() {
+  async getData() {
 
     const context = super.getData();
 
@@ -41,7 +41,13 @@ export class PendragonNPCSheet extends ActorSheet {
     context.system = actorData.system;
     context.flags = actorData.flags;
     context.isGM = game.user.isGM;
-
+    context.enrichedDescriptionValue = await TextEditor.enrichHTML(
+      context.system.description,
+      {
+        async: true,
+        secrets: context.editable
+      }
+    )
 
     // Prepare character data and items.
     if (actorData.type == 'character') {

@@ -444,7 +444,6 @@ export class PID {
         SceneNavigation.displayProgressBar({ label: game.i18n.localize('SETUP.PackagesLoading'), pct: Math.floor(count * 100 / progressBar) })
         count++
       }
-      console.log(pack.documentName, documentType)
       if (pack.documentName === documentType) {
         if (!pack.indexed) {
           await pack.getIndex()

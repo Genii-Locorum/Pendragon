@@ -211,6 +211,12 @@ export class PENCheck {
           let targetMsg = await game.messages.get(config.checkMsgId)
           config.reflexMod = await -targetMsg.flags.Pendragon.chatCard[0].reflexMod
         }
+        if (!foundry.utils.isNewerVersion(game.version,'11')) {
+          config.chatType = CONST.CHAT_MESSAGE_STYLES.OTHER
+        } else {
+          config.chatType = CONST.CHAT_MESSAGE_OTHER
+        }
+        
         config.chatType = CONST.CHAT_MESSAGE_STYLES.OTHER
         if (options.cardType === 'OP') {
         config.chatTemplate =  'systems/Pendragon/templates/chat/roll-opposed.html'

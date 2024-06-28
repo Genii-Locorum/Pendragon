@@ -28,9 +28,9 @@
         <div class="item-trait-grid">
           <div class="stat-name left bold">{{localize 'PEN.oppName'}}</div>
           {{#if isGM}}  
-            <div class="stat-name-input {{#if (eq item.system.value '')}} input-border {{/if}} centre"><input name="system.oppName" type="text" value="{{item.system.oppName}}"/></div>
+            <div class="stat-name-input {{#if (eq item.system.oppName '')}} input-border {{/if}} centre"><input name="system.oppName" type="text" value="{{item.system.oppName}}"/></div>
           {{else}}
-            <div class="stat-name centre">{{item.system.oppName}}</div>
+            <div class="stat-name centre {{#if (eq item.system.oppName '')}} input-border {{/if}}">{{item.system.oppName}}</div>
           {{/if}}
           <br>
         </div>  

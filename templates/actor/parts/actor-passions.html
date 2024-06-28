@@ -2,7 +2,15 @@
   <ol class="skill-list">
     {{#each passions as |passion key|}}
       <li class="item passion-grid" data-item-id="{{passion._id}}">
-          <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{passion._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if passion.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+        {{#if (eq passion.system.level 0)}}
+          {{#unless (eq passion.system.court 'adoratio')}}
+            <br>
+          {{/unless}}  
+          <div class="stat-name new-row bold passion-name {{#if (gt passion.system.total 40)}} result-success{{/if}}">{{passion.name}}</div>
+          <div></div>  
+          <div class="stat-name centre {{#if (gt passion.system.total 40)}} result-success{{/if}}">{{passion.system.total}}</div>            
+        {{else}}
+          <div class="centre new-row"><a class="item-control item-toggle large-icon" data-itemid ="{{passion._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if passion.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
           <div class="stat-name rollable passion-name" title="{{localize 'PEN.rollHint'}}" data-itemid="{{passion._id}}">{{passion.name}}
             {{#if passion.system.isHonour}}
               [{{passion.system.dishonour}}]
@@ -14,24 +22,9 @@
           {{else}}
             <div class="centre item" data-itemid ="{{passion._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
           {{/if}}
+        {{/if}}  
       </li>
     {{/each}}
-    <br>
-    <div class ="passion-grid">
-      <div class="new-row">&nbsp</div>
-      <div class="stat-name italics {{#if (gt system.adoration 40)}}result-success bold{{/if}}">{{localize 'PEN.adoratio'}}</div>
-      <div class="stat-name centre {{#if (gt system.adoration 40)}}result-success bold{{/if}}">{{system.adoratio}}</div>
-      <div class="new-row">&nbsp</div>
-      <div class="stat-name italics {{#if (gt system.civilitas 40)}}result-success bold{{/if}}">{{localize 'PEN.civilitas'}}</div>
-      <div class="stat-name centre {{#if (gt system.civilitas 40)}}result-success bold{{/if}}">{{system.civilitas}}</div>
-      <div class="new-row">&nbsp</div>
-      <div class="stat-name italics {{#if (gt system.fervor 40)}}result-success bold{{/if}}">{{localize 'PEN.fervor'}}</div>
-      <div class="stat-name centre {{#if (gt system.fervor 40)}}result-success bold{{/if}}">{{system.fervor}}</div>
-      <div class="new-row">&nbsp</div>
-      <div class="stat-name italics {{#if (gt system.fidelitas 40)}}result-success bold{{/if}}">{{localize 'PEN.fidelitas'}}</div>
-      <div class="stat-name centre {{#if (gt system.fidelitas 40)}}result-success bold{{/if}}">{{system.fidelitas}}</div>
-    </div>  
-
   </ol>
 {{else}}
   <ol class="skill-dev-list">
@@ -46,6 +39,7 @@
     </div>  
 
     {{#each passions as |passion key|}}
+      {{#unless (eq passion.system.level 0)}}
       <li class="item skill-dev-listitem" data-item-id="{{passion._id}}">
         <div class="stat-name truncate new-row grid-item-left" title="{{passion.name}}">{{passion.name}}</div>
         <div class="stat-name-input item centre grid-item" data-field="passion" data-att="value" data-itemid ="{{passion._id}}"><input class="inline-edit" name="passion.system.value" type="text" value="{{passion.system.value}}" data-dtype="Number"/></div>
@@ -57,6 +51,7 @@
           <div class="stat-name-input item centre grid-item-top" data-field="passion" data-att="dishonour" data-itemid ="{{passion._id}}"><input class="inline-edit" name="passion.system.dishonour" type="text" value="{{passion.system.dishonour}}" data-dtype="Number"/></div>
         {{/if}}
       </li>
+      {{/unless}}
     {{/each}}
   </ol>
 {{/unless}}

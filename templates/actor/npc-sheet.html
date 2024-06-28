@@ -258,7 +258,7 @@
     <section class="npc-notes-grid">
       <div class="npc-name bold grey">{{ localize "PEN.notes" }}</div>  
       <div>
-        {{editor actor.system.description class="npc-notes-doc" target="system.description" button=true owner=owner editable=editable}}
+        {{editor enrichedDescriptionValue engine="prosemirror" class="npc-notes-doc" target="system.description" button=true owner=owner editable=editable}}
       </div>
     </section>
   </section>

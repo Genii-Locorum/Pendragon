@@ -35,7 +35,7 @@ export class PendragonCharacterSheet extends ActorSheet {
   // -------------------------------------------- 
 
   //@override
-  getData() {
+  async getData() {
 
     const context = super.getData();
 
@@ -64,6 +64,13 @@ export class PendragonCharacterSheet extends ActorSheet {
     context.statTotal = actorData.system.statTotal    
     context.solLabel = game.i18n.localize('PEN.'+actorData.system.sol)
     context.sizLabel = game.i18n.localize('PEN.sizInc.'+actorData.system.stats.siz.growth)
+    context.enrichedBackgroundValue = await TextEditor.enrichHTML(
+      context.system.background,
+      {
+        async: true,
+        secrets: context.editable
+      }
+    )
 
     // Prepare character data and items.
     if (actorData.type == 'character') {
@@ -121,7 +128,7 @@ export class PendragonCharacterSheet extends ActorSheet {
     for (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
       if (i.type === 'gear') {
-        i.system.cleanDesc =  i.system.description.replace(/<[^>]+>/g, "") //await this.convertToPlain(i.system.description)
+        i.system.cleanDesc =  i.system.description.replace(/<[^>]+>/g, "") 
         gears.push(i);
       } else if (i.type === 'trait') {
         traits.push(i);
@@ -143,6 +150,7 @@ export class PendragonCharacterSheet extends ActorSheet {
         } else {
           i.system.isHonour = false
         }
+          i.system.level = 1
         passions.push(i);
       } else if (i.type === 'horse') {
         i.system.careName = game.i18n.localize('PEN.horseHealth.'+i.system.horseCare)
@@ -167,6 +175,39 @@ export class PendragonCharacterSheet extends ActorSheet {
         ideals.push(i);
       }
     }
+
+    passions.push(
+      {
+        'name': game.i18n.localize('PEN.adoratio'),
+        'system': {'total': this.actor.system.adoratio,
+                   'court':'adoratio',
+                   'level':0}
+      },
+      {
+        'name': game.i18n.localize('PEN.civilitas'),
+        'system': {'total': this.actor.system.civilitas,
+                   'court':'civilitas',
+                   'level':0}    
+      },
+      {
+        'name': game.i18n.localize('PEN.fervor'),
+        'system': {'total': this.actor.system.fervor,
+                    'court':'fervor',
+                    'level':0}
+      },
+      {
+        'name': game.i18n.localize('PEN.fidelitas'),
+        'system': {'total': this.actor.system.fidelitas,
+                   'court':'fidelitas',
+                   'level':0}
+      },
+      {
+        'name': game.i18n.localize('PEN.honor'),
+        'system': {'total': this.actor.system.honor,
+                   'court': 'honor',
+                   'level':0}
+      }      
+  )
 
     // Sort Gears
     gears.sort(function(a, b){
@@ -212,10 +253,18 @@ export class PendragonCharacterSheet extends ActorSheet {
       return 0;
     });
 
-    // Sort Passions
+    // Sort Passions by Court, level and name
     passions.sort(function(a, b){
       let x = a.name;
       let y = b.name;
+      let p = a.system.court
+      let q = b.system.court
+      let r = a.system.level
+      let s = b.system.level      
+      if (p < q) {return -1};
+      if (p > q) {return 1};
+      if (r < s) {return -1};
+      if (r > s) {return 1};
       if (x < y) {return -1};
       if (x > y) {return 1};
     return 0;

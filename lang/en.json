@@ -649,7 +649,7 @@
       "tokenVisionHint": "Do characters start with token vision set to on or off",
       "switchShift": "Toggle SHIFT click",
       "switchShiftHint": "When on this causes check rolls to default to no dialogue box.",
-      "toolTipDelay": "Tooltip dealy",
+      "toolTipDelay": "Tooltip delay",
       "toolTipDelayHint": "Delay in milliseconds before tooltip should show.  Set to 0 for never",
       "xpCheck": "Experience Checks"
     },

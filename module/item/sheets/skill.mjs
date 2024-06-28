@@ -38,15 +38,8 @@ export class PendragonSkillSheet extends ItemSheet {
     sheetData.weapon = sheetData.weaponType[this.item.system.weaponType]
     sheetData.statType = await PENSelectLists.getSkillAtt();
     sheetData.stat = sheetData.statType[this.item.system.base.stat]
-    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
-      sheetData.data.system.description,
-      {
-        async: true,
-        secrets: sheetData.editable
-      }
-    )
-    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
-      sheetData.data.system.GMdescription,
+    sheetData.enrichedBackgroundValue = await TextEditor.enrichHTML(
+      sheetData.data.system.background,
       {
         async: true,
         secrets: sheetData.editable

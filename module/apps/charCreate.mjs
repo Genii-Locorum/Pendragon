@@ -1102,7 +1102,6 @@ export class PENCharCreate {
   static async validate(){
     //Check that Cultures Exist
     let list = await game.system.api.pid.fromPIDRegexBest({ pidRegExp: new RegExp('^i.' + PENUtilities.quoteRegExp('culture') + '.+$'), type: 'i' })
-    console.log(list)
     if (list.length < 1) {
       ui.notifications.error(game.i18n.localize('PEN.noCultures'))
       return false
