@@ -15,11 +15,20 @@
   "styles": ["css/pendragon.css"],
   "scripts": [],
   "packs": [
-      {
+    {
       "label": "Instructions",
       "type": "JournalEntry",
       "name": "instructions",
       "path": "packs/instructions.db",
+      "system": "Pendragon",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Macros",
+      "type": "Macro",
+      "name": "macro",
+      "path": "packs/macro.db",
       "system": "Pendragon",
       "private": false,
       "flags": {}
