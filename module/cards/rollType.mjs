@@ -15,11 +15,13 @@ export class PENRollType {
     //DM = Damage
     //CM = Combat
     //MV = Move
+    //AM = Alternative Move
   
     //Card Types
     //NO = Normnal Roll
     //OP = Opposed Roll
     //CO = Combat Roll
+    //RE = Resistance (Fixed Opposed Roll)
   
   
   
@@ -46,6 +48,45 @@ export class PENRollType {
       })
     }
   
+    //Start a GM Roll
+    static async _onGMRoll() {
+      let shiftKey = event.shiftKey
+      if (!game.user.isGM) {
+        ui.notifications.error(game.i18n.format('PEN.notGM')) 
+        return
+      }
+      let cardType="OP"
+      let gmRollName = "GM"
+      let gmRollScore = 10
+      let rollType = "SK"
+
+      let usage = await PENRollType.GMRollDialog()
+      if (usage) {
+        cardType = usage.get('rollType')
+        gmRollName = usage.get('particName')
+        gmRollScore = usage.get('score')
+      } else {
+        return
+      }
+      if (game.settings.get('Pendragon','switchShift')) {
+        shiftKey = !shiftKey
+      }
+
+      if (cardType === "CO") {
+        rollType = "CM"
+      }
+
+      PENCheck._trigger({
+          rollType,
+          cardType,
+          gmRollName,
+          gmRollScore,
+          shiftKey: shiftKey,
+          neutralRoll: true
+      }) 
+    }
+
+
     //Start a Skill Check
     static async _onSkillCheck(event) {
       let ctrlKey = isCtrlKey(event ?? false);
@@ -124,6 +165,10 @@ export class PENRollType {
     static async _onMoveCheck(event) {
       let ctrlKey = isCtrlKey(event ?? false);
       let cardType = 'NO';
+      let rollType = 'MV';
+      if (event.currentTarget.dataset.property === 'altmove') {
+        rollType="AM"
+      }
       if (event.altKey){ 
         cardType='OP';
       } else if(ctrlKey){ 
@@ -133,7 +178,7 @@ export class PENRollType {
         event.shiftKey = !event.shiftKey
       }
       PENCheck._trigger({
-          rollType: 'MV',
+          rollType,
           cardType,
           shiftKey: event.shiftKey,
           actor: this.actor,
@@ -245,5 +290,32 @@ export class PENRollType {
           token: this.token
       })
     }
+
+  //Function to call the GM Roll Dialog box 
+  static async GMRollDialog (options) {
+    const data = {
+    }
+    const html = await renderTemplate('systems/Pendragon/templates/dialog/gmRollOptions.html',data);
+    return new Promise(resolve => {
+      let formData = null
+      const dlg = new Dialog({
+        title: game.i18n.localize('PEN.gmRoll'),
+        content: html,
+        buttons: {
+          roll: {
+            label: game.i18n.localize("PEN.rollDice"),
+            callback: html => {
+            formData = new FormData(html[0].querySelector('#check-gmroll-form'))
+            return resolve(formData)
+            }
+          }
+        },
+      default: 'roll',
+      close: () => {}
+      },{classes: ["Pendragon", "sheet"]})
+      dlg.render(true);
+    })
+  }  
+
 
 }  

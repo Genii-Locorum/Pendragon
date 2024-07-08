@@ -17,11 +17,12 @@
             {{/if}}
           </div>
           <div class="stat-name centre" title="{{passion.system.flavour}}">{{passion.system.total}}</div>
-          {{#if ../system.lock}}
-            <div class="centre item" data-itemid ="{{passion._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
-          {{else}}
-            <div class="centre item" data-itemid ="{{passion._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
-          {{/if}}
+          <div class="centre item" data-itemid ="{{passion._id}}">
+            <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+            {{#unless ../system.lock}}
+              <a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
+            {{/unless}}
+          </div>  
         {{/if}}  
       </li>
     {{/each}}

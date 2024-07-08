@@ -189,10 +189,12 @@ export class PendragonNPCSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
 
+    html.find(".close-sheet").dblclick(this._onCloseSheet.bind(this));                   // Close Sheet  
     html.find('.item-create').click(this._onItemCreate.bind(this));                  // Add Inventory Item
     html.find(".inline-edit").change(this._onInlineEdit.bind(this));                 // Inline Edit
     html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));             // Actor Toggle
     html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));               // Item Toggle
+    html.find(".npcAutoCalc").dblclick(this._onAutoCalc.bind(this));                 // Auto Calc Scores
     html.find(".rollable.stat").click(PENRollType._onStatCheck.bind(this));             // Stat Check
     html.find(".rollable.skill-name").click(PENRollType._onSkillCheck.bind(this));      // Skill Check
     html.find(".rollable.passion-name").click(PENRollType._onPassionCheck.bind(this));  // Passion check
@@ -201,6 +203,7 @@ export class PendragonNPCSheet extends ActorSheet {
     html.find(".rollable.trait").click(PENRollType._onTraitCheck.bind(this));           // Trait check    
     html.find(".rollable.damage").click(PENRollType._onDamageRoll.bind(this));          // Damage roll  
     html.find(".rollable.combat").click(PENRollType._onCombatCheck.bind(this));         // Combat roll            
+        
     
     // Drag events for macros.
     if (this.actor.isOwner) {
@@ -221,13 +224,19 @@ export class PendragonNPCSheet extends ActorSheet {
       });
   }
 
-  
+
+
 
   /**
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
    * @param {Event} event   The originating click event
    * @private
    */
+
+  async _onCloseSheet(event) {
+    this.close();
+  }
+
   async _onItemCreate(event) {
     event.preventDefault();
     const header = event.currentTarget;
@@ -300,5 +309,21 @@ async _onActorToggle(event){
 await this.actor.update(checkProp);
 return
 }
+
+//Auto Calc NPC Scores
+async _onAutoCalc(event) {
+  await this.actor.update({
+    'system.manMove': this.actor.system.move,
+    'system.manArm': this.actor.system.armour,
+    'system.manShd': this.actor.system.shield,
+    "system.manKnockdown": this.actor.system.hp.knockdown,
+    "system.manMjrWnd": this.actor.system.hp.majorWnd,
+    "system.manDmg": this.actor.system.damage,
+    "system.manHealRate": this.actor.system.healRate,
+    'system.manMaxHP': 0,
+    'system.manUnconscious': 0
+  })
+}
+
 
 }

@@ -11,11 +11,12 @@
         <div class="stat-name rollable trait {{#if (lt trait.system.religious 0)}} underlined {{/if}}" title="{{localize 'PEN.rollHint'}}" data-type ="opptrait" data-itemid="{{trait._id}}">{{trait.system.oppName}}</div>
         <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{trait._id}}" data-property="oppXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if trait.system.oppXP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
         <div class="stat-name centre {{#if (gt trait.system.oppvalue 20)}}purple {{/if}}{{#if (gt trait.system.oppvalue 15)}}bold italics {{/if}}" title="{{trait.system.oppFlavour}}">{{trait.system.oppvalue}}</div>
-        {{#if ../system.lock}}
-          <div class="centre item" data-itemid ="{{trait._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
-        {{else}}
-          <div class="centre item" data-itemid ="{{trait._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
-        {{/if}}
+        <div class="centre item" data-itemid ="{{trait._id}}">
+          <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+          {{#unless ../system.lock}}
+            <a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
+          {{/unless}}
+          </div>
         <div class="stat-name trucated" title="{{localize 'PEN.directed' }}">{{trait.system.directed}}</div>
         </li>
       {{/each}}

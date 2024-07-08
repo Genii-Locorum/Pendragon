@@ -138,7 +138,19 @@
     "gloryAward": 0,
     "woundTotal": 0,
     "lock": false,
-    "notes": ""
+    "notes": "",
+    "altMoveTitle": "Alt Move",
+    "altMove": 0,
+    "manMove":0,
+    "valMod": 0,
+    "manArm": 0,
+    "manShd": 0,
+    "manMaxHP": 0,
+    "manKnockdown": 0,
+    "manMjrWnd": 0,
+    "manDmg": 0,
+    "manHealRate": 0,
+    "manUnconscious": 0
   }
   },
   "Item": {

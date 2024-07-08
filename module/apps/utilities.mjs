@@ -138,14 +138,6 @@ export class PENUtilities {
       )
   }  
 
-    static async gmTestRoutine() {
-
-      let table= (await game.system.api.pid.fromPIDBest({pid:'rt..family-characteristic'}))[0]
-      let results =  table.results.toObject(false).map(itm=> {return (itm.text)})
-
-      //let itemData = await game.system.api.pid.fromPIDBest({pid:results})
-    }
-
   //Make a dice roll, display it if Dice So Nice active and return the result
   static async simpleDiceRoll (formula) {
     let roll = new Roll (formula)
@@ -167,7 +159,7 @@ export class PENUtilities {
     return roll
   }
 
-  //Make a table rollm display if Dice so Nice active and return the roll
+  //Make a table roll display if Dice so Nice active and return the roll
   static async tableDiceRoll (table) {
     const tableResults = await table.roll();
     if (game.modules.get('dice-so-nice')?.active) {

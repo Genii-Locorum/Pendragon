@@ -1,0 +1,25 @@
+<form class="Pendragon" id="check-gmroll-form">
+      <div class="flexrow">
+        <label title = "{{ localize 'PEN.rollTypeHint' }}" >{{localize "PEN.rollType"}}</label>   
+        <select class="resource-label-diff centre" name="rollType" >
+          <option value="NO">{{localize 'PEN.card.NO'}}</option>
+          <option selected value="OP">{{localize 'PEN.card.OP'}}</option>
+          <option value="RE">{{localize 'PEN.card.RE'}}</option>
+          <option value="CO">{{localize 'PEN.card.CO'}}</option>
+        </select>
+      </div>
+      <br>
+
+      <div class="flexrow">
+        <label title = "{{ localize 'PEN.participantHint' }}" >{{localize "PEN.participant"}}</label>   
+          <input data-handle-change class="centre" type="text" value="{{formData.particName}}" name="particName">
+      </div>
+      <br>
+
+      <div class="flexrow">
+        <label title = "{{ localize 'PEN.scoreHint' }}" >{{localize "PEN.score"}}</label>   
+          <input data-handle-change class="centre" type="number" value="{{formData.score}}" name="score">
+      </div>
+      <br>
+
+  </form>

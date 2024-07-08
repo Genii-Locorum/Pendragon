@@ -311,8 +311,8 @@ height: inherit;
 
 .Pendragon .combat-grid {
   display: grid;
-  grid-template-columns: 290px 480px;
-  column-gap: 20px;
+  grid-template-columns: 310px 501px;
+  column-gap: 10px;
 }
 
 .Pendragon .stat-grid{
@@ -376,8 +376,8 @@ height: inherit;
 
 .Pendragon .weapon-grid{
   display: grid;
-  width:481px;
-  grid-template-columns: 150px 100px 50px 90px 60px 30px ;
+  width:501px;
+  grid-template-columns: 150px 100px 50px 90px 50px 60px ;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -387,9 +387,9 @@ height: inherit;
 
 .Pendragon .history-grid {
   display: grid;
-  grid-template-columns: 550px 70px 70px 30px ;
+  grid-template-columns: 550px 70px 70px 60px ;
   gap: 0px;
-  width: 721px;
+  width: 751px;
   margin-top: 0px;
   margin-bottom: 0px;
   border-top: 1px gray solid;
@@ -398,8 +398,8 @@ height: inherit;
 
 .Pendragon .ideal-grid {
   display: grid;
-  width: 651px;
-  grid-template-columns: 550px 70px 30px ;
+  width: 681px;
+  grid-template-columns: 550px 70px 60px ;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -409,8 +409,8 @@ height: inherit;
 
 .Pendragon .wound-grid{
   display: grid;
-  width: 281px;
-  grid-template-columns: 30px 130px 60px 30px 30px;
+  width: 301px;
+  grid-template-columns: 30px 120px 60px 30px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -420,8 +420,8 @@ height: inherit;
 
 .Pendragon .companion-grid{
   display: grid;
-  width: 781px;
-  grid-template-columns: 50px 180px 60px 60px 80px 80px 80px 75px 75px 40px;
+  width: 801px;
+  grid-template-columns: 50px 180px 60px 60px 80px 80px 80px 75px 75px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -431,8 +431,8 @@ height: inherit;
 
 .Pendragon .squire-grid{
   display: grid;
-  width: 661px;
-  grid-template-columns: 250px 100px 60px 60px 60px 100px 30px;
+  width: 691px;
+  grid-template-columns: 250px 100px 60px 60px 60px 100px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -442,8 +442,8 @@ height: inherit;
 
 .Pendragon .retainer-grid{
   display: grid;
-  width: 441px;
-  grid-template-columns: 250px 100px 60px 30px;
+  width: 471px;
+  grid-template-columns: 250px 100px 60px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -453,8 +453,8 @@ height: inherit;
 
 .Pendragon .armour-grid{
   display: grid;
-  width: 761px;
-  grid-template-columns: 30px 200px 50px 50px 200px 200px 30px;
+  width: 791px;
+  grid-template-columns: 30px 200px 50px 50px 200px 200px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -464,8 +464,8 @@ height: inherit;
 
 .Pendragon .gear-grid{
   display: grid;
-  width: 761px;
-  grid-template-columns: 200px 50px 480px 30px;
+  width: 791px;
+  grid-template-columns: 200px 50px 480px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -487,8 +487,8 @@ height: inherit;
 
 .Pendragon .family-grid{
   display: grid;
-  width: 611px;
-  grid-template-columns: 150px 100px 70px 80px 90px 90px 30px;
+  width: 641px;
+  grid-template-columns: 150px 100px 70px 80px 90px 90px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -571,7 +571,7 @@ height: inherit;
 
 .Pendragon .trait-grid{
   display: grid;
-  grid-template-columns: 50px 30px 150px 70px 150px 30px 50px 50px 230px;
+  grid-template-columns: 50px 30px 150px 70px 150px 30px 50px 60px 230px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -579,7 +579,7 @@ height: inherit;
 
 .Pendragon .skill-grid{
   display: grid;
-  grid-template-columns: 30px 150px 50px 30px;
+  grid-template-columns: 25px 145px 35px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -595,7 +595,7 @@ height: inherit;
 
 .Pendragon .passion-grid{
   display: grid;
-  grid-template-columns: 30px 250px 50px 30px;
+  grid-template-columns: 30px 250px 50px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -627,10 +627,13 @@ height: inherit;
   text-align:center;
 }
 
+.Pendragon .middle-icon{
+  padding-bottom: 5px;
+}
+
 .Pendragon .background-doc{
   background-image: none;
   font-size:16px;
-  font-weight: bold;
   padding-left: 10px;
   padding-right: 10px;
   min-height: 200px;
@@ -673,7 +676,7 @@ height: inherit;
  .Pendragon .npc-title-section{
   display: grid;
   width: 320px;
-  grid-template-columns: 250px 30px 80px;
+  grid-template-columns: 250px 80px 20px;
   column-gap:5px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -720,12 +723,17 @@ height: inherit;
 .Pendragon .npc-stats-grid {
   display: grid;
   width: 360px;
-  grid-template-columns: 120px 50px 10px 120px 50px;
+  grid-template-columns: 100px 75px 10px 100px 75px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
   border-bottom: 1px gray solid;
   border-top: 1px gray solid;
+}
+
+.Pendragon .npc-armour {
+  display: grid;
+  grid-template-columns: 33px 9px 33px;
 }
 
 .Pendragon .npc-weapons-grid {

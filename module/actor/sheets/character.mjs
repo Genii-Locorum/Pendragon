@@ -145,7 +145,7 @@ export class PendragonCharacterSheet extends ActorSheet {
         i.system.label = (i.system.label).replace(/(<([^>]+)>)/gi, '')
         history.push(i);
       } else if (i.type === 'passion') {
-        if (i.flags.Pendragon.pidFlag.id === 'i.passion.honour') {
+        if (i.flags.Pendragon?.pidFlag.id === 'i.passion.honour') {
           i.system.isHonour = true
         } else {
           i.system.isHonour = false
@@ -405,7 +405,7 @@ export class PendragonCharacterSheet extends ActorSheet {
     }
   
     // Delete Inventory Item
-      html.find('.item-delete').click(ev => {
+      html.find('.item-delete').dblclick(ev => {
         const li = $(ev.currentTarget).closest(".item");
         const item = this.actor.items.get(li.data("itemid"));
         item.delete();
@@ -441,7 +441,7 @@ export class PendragonCharacterSheet extends ActorSheet {
     await item.update({'flags.Pendragon.pidFlag.id': key,
                          'flags.Pendragon.pidFlag.lang': game.i18n.lang,
                          'flags.Pendragon.pidFlag.priority': 0})
-    if (type === "history" || type === "wound" || type === "horse" || type === "squire" || type ==="gear" || type ==="family") {
+    if (['history', 'wound', 'horse','squire','gear','family','armour'].includes(type)) {
       if(type === "history"){
         await item.update({'system.year' : game.settings.get('Pendragon',"gameYear"),
                            'system.source': "manual" })

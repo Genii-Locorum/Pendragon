@@ -22,48 +22,102 @@
         </div>
       </section>
 
-      <section class="bottom sheet-header">      
-        <div class="centre"><a class="actor-toggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i class="{{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i></a></div>
-      </section>
-
-
       {{!-- Image Section --}}
       <section class="sheet-header">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="70" width="70"/>
       </section>  
+
+      {{!-- Icone Section --}}      
+      <section class="bottom sheet-header">      
+        <div class="centre middle-icon"><a class="close-sheet" title="{{ localize 'PEN.close' }}"> <i class="fas fa-circle-xmark"></i></a></div>
+        {{#if system.lock}}
+          <div><a class=""><i class="fas"></i></a></div>
+        {{else}}  
+          <div class="centre middle-icon"><a class="npcAutoCalc" title="{{ localize 'PEN.calcNPC' }}"> <i class="fas fa-dice"></i></a></div>
+        {{/if}}
+        <div class="centre middle-icon"><a class="actor-toggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i class="{{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i></a></div>
+      </section>
+
     </section>
 
     {{!--Derived Stats Block --}}
     <section class="npc-stats-grid">
-      <div class="npc-name left bold">{{localize 'PEN.hp'}}</div>
-      <div class="npc-name centre">{{system.hp.value}}</div>
-      <div></div>
-      <div class="npc-name left bold">{{localize 'PEN.wounds'}}</div>
-      <div class="npc-name-input centre"><input name="system.woundTotal" type="number" min="0" oninput="validity.valid||(value='');" value="{{system.woundTotal}}" data-dtype="Number"/></div>
+      {{#if system.lock}}
+        <div class="npc-name left bold">{{localize 'PEN.hp'}}</div>
+        <div class="npc-name centre">{{system.hp.value}} / {{system.hp.max}}</div>
+        <div></div>
+        <div class="npc-name left bold">{{localize 'PEN.wounds'}}</div>
+        <div class="npc-name-input centre"><input name="system.woundTotal" type="number" min="0" oninput="validity.valid||(value='');" value="{{system.woundTotal}}" data-dtype="Number"/></div>
 
-      <div class="npc-name left bold">{{localize 'PEN.knockdown'}}</div>
-      <div class="npc-name centre">{{system.hp.knockdown}}</div>
-      <div></div>
-      <div class="npc-name left bold">{{localize 'PEN.armour'}}</div>
-      <div class="npc-name centre" title = "{{localize 'PEN.armourShield'}}">{{system.armour}} / {{system.shield}}</div>
+       <div class="npc-name left bold">{{localize 'PEN.knockdown'}}</div>
+        <div class="npc-name centre">{{system.manKnockdown}}</div>
+        <div></div>
+        <div class="npc-name left bold">{{localize 'PEN.armour'}}</div>
+        <div class="npc-name centre" title = "{{localize 'PEN.armourShield'}}">{{system.manArm}} / {{system.manShd}}</div>
       
-      <div class="npc-name left bold">{{localize 'PEN.mjrWnd'}}</div>
-      <div class="npc-name centre">{{system.hp.majorWnd}}</div>
-      <div></div>
-      <div class="npc-name left bold rollable glory">{{localize 'PEN.gloryAward'}}</div>
-      <div class="npc-name-input centre"><input name="system.gloryAward" type="text" value="{{system.gloryAward}}" data-dtype="Number"/></div>
+        <div class="npc-name left bold">{{localize 'PEN.mjrWnd'}}</div>
+        <div class="npc-name centre">{{system.manMjrWnd}}</div>
+        <div></div>
+        <div class="npc-name left bold rollable glory">{{localize 'PEN.gloryAward'}}</div>
+        <div class="npc-name centre">{{system.gloryAward}}</div>
 
-      <div class="npc-name left bold">{{localize 'PEN.unconscious'}}</div>
-      <div class="npc-name centre">{{system.hp.unconscious}}</div>
-      <div></div>
-      <div class="npc-name left bold">{{localize 'PEN.healRate'}}</div>
-      <div class="npc-name centre">{{system.healRate}}</div>
+        <div class="npc-name left bold">{{localize 'PEN.unconscious'}}</div>
+        <div class="npc-name centre">{{system.hp.unconscious}}</div>
+        <div></div>
+        <div class="npc-name left bold" title="{{ localize 'PEN.valModHint' }}">{{localize 'PEN.valMod'}}</div>
+        <div class="npc-name centre">{{system.valMod}}</div>
 
-      <div class="npc-name left bold">{{localize 'PEN.damage'}}</div>
-      <div class="npc-name centre">{{system.damage}}</div>
-      <div></div>
-      <div class="npc-name left bold rollable move">{{localize 'PEN.move'}}</div>
-      <div class="npc-name centre">{{system.move}}</div>
+        <div class="npc-name left bold">{{localize 'PEN.damage'}}</div>
+        <div class="npc-name centre">{{system.manDmg}}</div>
+        <div></div>
+        <div class="npc-name left bold">{{localize 'PEN.healRate'}}</div>
+        <div class="npc-name centre">{{system.manHealRate}}</div>
+
+        <div class="npc-name left bold rollable move" data-property="move">{{localize 'PEN.move'}}</div>
+        <div class="npc-name centre">{{system.manMove}}</div>
+        <div></div>
+        <div class="npc-name left bold rollable move" data-property="altmove">{{system.altMoveTitle}}</div>
+        <div class="npc-name centre">{{system.altMove}}</div>
+
+      {{else}}
+  
+        <div class="npc-name left bold" title="{{ localize 'PEN.maxHPHint' }}">{{localize 'PEN.maxHP'}}</div>
+        <div class="npc-name-input centre"><input name="system.manMaxHP" type="text" value="{{system.manMaxHP}}" data-dtype="Number"/></div>
+        <div></div>
+        <div class="npc-name left bold">{{localize 'PEN.wounds'}}</div>
+        <div class="npc-name-input centre"><input name="system.woundTotal" type="number" min="0" oninput="validity.valid||(value='');" value="{{system.woundTotal}}" data-dtype="Number"/></div>
+
+        <div class="npc-name left bold">{{localize 'PEN.knockdown'}}</div>
+        <div class="npc-name-input centre"><input name="system.manKnockdown" type="text" value="{{system.manKnockdown}}" data-dtype="Number"/></div>
+        <div></div>
+        <div class="npc-name left bold">{{localize 'PEN.armour'}}</div>
+        <div class="npc-name-input npc-armour centre" title = "{{localize 'PEN.armourShield'}}"><input name="system.manArm" type="text" value="{{system.manArm}}" data-dtype="Number"/> / <input name="system.manShd" type="text" value="{{system.manShd}}" data-dtype="Number"/></div>
+      
+        <div class="npc-name left bold">{{localize 'PEN.mjrWnd'}}</div>
+        <div class="npc-name-input centre"><input name="system.manMjrWnd" type="text" value="{{system.manMjrWnd}}" data-dtype="Number"/></div>
+        <div></div>
+        <div class="npc-name left bold rollable glory">{{localize 'PEN.gloryAward'}}</div>
+        <div class="npc-name-input centre"><input name="system.gloryAward" type="text" value="{{system.gloryAward}}" data-dtype="Number"/></div>
+
+        <div class="npc-name left bold" title="{{ localize 'PEN.unconsciousHint' }}">{{localize 'PEN.unconscious'}}</div>
+        <div class="npc-name-input centre"><input name="system.manUnconscious" type="text" value="{{system.manUnconscious}}" data-dtype="Number"/></div>
+        <div></div>
+        <div class="npc-name left bold" title="{{ localize 'PEN.valModHint' }}">{{localize 'PEN.valMod'}}</div>
+        <div class="npc-name-input centre"><input name="system.valMod" type="text" value="{{system.valMod}}" data-dtype="Number"/></div>
+
+        <div class="npc-name left bold">{{localize 'PEN.damage'}}</div>
+        <div class="npc-name-input centre"><input name="system.manDmg" type="text" value="{{system.manDmg}}" data-dtype="Number"/></div>
+        <div></div>
+        <div class="npc-name left bold">{{localize 'PEN.healRate'}}</div>
+        <div class="npc-name-input centre"><input name="system.manHealRate" type="text" value="{{system.manHealRate}}" data-dtype="Number"/></div>
+
+        <div class="npc-name left bold rollable move">{{localize 'PEN.move'}}</div>
+        <div class="npc-name-input centre"><input name="system.manMove" type="text" value="{{system.manMove}}" data-dtype="Number"/></div>
+        <div></div>
+        <div class="npc-name-input left bold"><input name="system.altMoveTitle" type="text" value="{{system.altMoveTitle}}"/></div>
+        <div class="npc-name-input centre"><input name="system.altMove" type="text" value="{{system.altMove}}" data-dtype="Number"/></div>
+
+      {{/if}}
 
     </section>
     {{!--Weapons Block --}}

@@ -1,6 +1,6 @@
 import { PENWinter } from "../apps/winterPhase.mjs"
 import { PENCharCreate } from "../apps/charCreate.mjs";
-
+import { PENRollType } from "../cards/rollType.mjs";
 
 
 class PENLayer extends PlaceablesLayer {
@@ -62,6 +62,15 @@ export class PENMenu {
           active: game.settings.get('Pendragon','creation'),
           toggle: true,
           onClick: async toggle => await PENCharCreate.creationPhase(toggle)     
+        },
+        {
+          name: "GMRoll",
+          icon: "fas fa-dice-d20",
+          title: game.i18n.localize('PEN.gmRoll'),
+          button: true,
+          visible: true,
+          onClick: async neutralRoll => {
+            await PENRollType._onGMRoll()}            
         }
       ]
     })

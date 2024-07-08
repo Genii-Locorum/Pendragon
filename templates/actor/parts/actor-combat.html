@@ -31,12 +31,12 @@
             <a class="large-icon" title="{{localize 'PEN.treatWound'}}"><i class="item-control fas fa-hand-holding-medical"></i></a>
           </div>
         {{/if}} 
-        {{#if ../system.lock}}
-          <div class="item grid-item centre middle" data-itemid ="{{wound._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
-        {{else}}
-          <div class="item grid-item centre middle item-delete" data-itemid="{{wound._id}}"><a class="fade large-icon" title="{{localize 'PEN.delete'}}"><i class="item-control fas fa-broom-wide"></i></a></div>
-        {{/if}}
-
+        <div class="item grid-item centre" data-itemid ="{{wound._id}}">
+          <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+          {{#unless ../system.lock}}
+            <a class="fade large-icon" title="{{localize 'PEN.delete'}}"><i class="item-control fas fa-broom-wide"></i></a>
+          {{/unless}}
+        </div>  
       {{/each}}
     </div>     
   </div>
@@ -90,11 +90,12 @@
             {{else}}
               <div class="weapon-item stat-name centre">{{weapon.system.rangeName}}</div>
             {{/if}}
-            {{#if ../system.lock}}
-              <div class="weapon-item centre item" data-itemid ="{{weapon._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
-            {{else}}
-              <div class="weapon-item centre item" data-itemid ="{{weapon._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
-            {{/if}}
+            <div class="weapon-item centre item" data-itemid ="{{weapon._id}}">
+              <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+              {{#unless ../system.lock}}
+                <a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
+              {{/unless}}
+            </div>  
           </li>  
         {{/each}}
     

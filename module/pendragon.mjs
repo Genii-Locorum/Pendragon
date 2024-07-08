@@ -8,8 +8,8 @@ import { registerSettings } from './setup/register-settings.mjs';
 import { PENMenu } from "./setup/layers.mjs"
 import { PENSystemSocket } from "./apps/socket.mjs"
 import * as Chat from "./apps/chat.mjs";
-import { PENTooltips } from './apps/tooltips.mjs'
-import { PENUtilities } from "./apps/utilities.mjs";
+import { PENTooltips } from './apps/tooltips.mjs';
+import { PENRollType } from "./cards/rollType.mjs";
 
 
 /* -------------------------------------------- */
@@ -24,7 +24,7 @@ Hooks.once('init', async function() {
     PendragonActor,
     PendragonItem,
     rollItemMacro,
-    GMtest
+    GMRollMacro
   };
 
   // Add custom constants for configuration.
@@ -176,7 +176,7 @@ function rollItemMacro(itemUuid) {
   });
 }
 
-//Allow GM test functionality
-function GMtest() {
-  PENUtilities.gmTestRoutine()
+//Allow GM Roll functionality
+function GMRollMacro() {
+  PENRollType._onGMRoll()
 }

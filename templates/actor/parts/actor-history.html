@@ -10,11 +10,12 @@
     <div class="grid-item stat-name">{{historical.system.label}}</div>
     <div class="grid-item stat-name centre">{{historical.system.year}}</div>
     <div class="grid-item stat-name centre">{{historical.system.glory}}</div>
-    {{#if ../system.lock}}
-      <div class="item grid-item centre middle" data-itemid ="{{historical._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
-    {{else}}
-      <div class="item grid-item centre middle item-delete" data-field ="history" data-itemid="{{historical._id}}"><a class="fade large-icon" title="{{localize 'PEN.delete'}}"><i class="item-control fas fa-broom-wide"></i></a></div>
-    {{/if}}
+    <div class="item grid-item centre" data-itemid ="{{historical._id}}">
+      <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+      {{#unless ../system.lock}}
+        <a class="fade large-icon" title="{{localize 'PEN.delete'}}"><i class="item-control fas fa-broom-wide"></i></a>
+      {{/unless}}
+    </div>  
   {{/each}}
 </div>
 <br>
@@ -26,11 +27,12 @@
   {{#each ideals as |ideal key|}}
     <div class="grid-item stat-name">{{ideal.name}}</div>
     <div class="grid-item stat-name centre"><a class="{{#if ideal.system.active}}darkred{{else}}fade{{/if}}"><i class="fa-solid fa-heart"></i></a></div>
-    {{#if ../system.lock}}
-      <div class="item grid-item centre middle" data-itemid ="{{ideal._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
-    {{else}}
-      <div class="item grid-item centre middle item-delete" data-field ="ideal" data-itemid="{{ideal._id}}"><a class="fade large-icon" title="{{localize 'PEN.delete'}}"><i class="item-control fas fa-broom-wide"></i></a></div>
-    {{/if}}
+    <div class="item grid-item centre" data-itemid ="{{ideal._id}}">
+      <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+      {{#unless ../system.lock}}
+        <a class="fade large-icon" title="{{localize 'PEN.delete'}}"><i class="item-control fas fa-broom-wide"></i></a>
+      {{/unless}}
+    </div>
   {{/each}}
 </div>
 <br>

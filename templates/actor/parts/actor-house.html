@@ -20,11 +20,12 @@
     {{else}}
     <div class="stat-name centre grid-item"></div>
     {{/if}}
-    {{#if ../system.lock}}
-      <div class="centre item grid-item" data-itemid ="{{family._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
-    {{else}}
-      <div class="centre item grid-item" data-itemid ="{{family._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
-    {{/if}}
+    <div class="centre item grid-item" data-itemid ="{{family._id}}">
+      <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+      {{#unless ../system.lock}}
+        <a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
+      {{/unless}}
+    </div>  
   {{/each}}
 </div>
 <br>
@@ -41,10 +42,12 @@
     <div class="stat-name grid-item">{{retainer.name}}</div>
     <div class="stat-name centre grid-item">{{retainer.system.squireType}}</div>
     <div class="stat-name centre grid-item">{{retainer.system.age}}</div>
-    {{#if ../system.lock}}
-      <div class="centre item grid-item" data-itemid ="{{retainer._id}}"><a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a></div>
-    {{else}}
-      <div class="centre item grid-item" data-itemid ="{{retainer._id}}"><a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a></div>
-    {{/if}}
+    <div class="centre item grid-item" data-itemid ="{{retainer._id}}">
+      <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+    {{#unless ../system.lock}}
+      <a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
+    {{/unless}}
+    </div>
+    
   {{/each}}
 </div>

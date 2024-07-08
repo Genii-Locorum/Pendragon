@@ -15,6 +15,7 @@ export class PENCheck {
   //DM = Damage
   //CM = Combat
   //MV = Move
+  //AM = Alternative Move
 
 
   //Card Types
@@ -25,6 +26,7 @@ export class PENCheck {
 
   //Start to prepare the config
   static async _trigger(options={}){
+    console.log(options.shiftKey)
     let config = await PENCheck.normaliseRequest(options)
     if (config === false) {return}  
     let msgID = await PENCheck.startCheck(config)
@@ -36,9 +38,24 @@ export class PENCheck {
   static async normaliseRequest (options){
      
     //Set Basic Config
-    let partic =await PENactorDetails._getParticipantId(options.token,options.actor)
-    let particImg = await PENactorDetails.getParticImg(partic.particId,partic.particType)
-    let particActor = await PENactorDetails._getParticipant(partic.particId,partic.particType)
+    let particName = ""
+    let particId = ""
+    let particType = ""
+    let actorType = ""
+    let particImg = "icons/svg/mystery-man.svg"
+    let partic = ""
+    let particActor = ""
+    if (options.neutralRoll) {
+      particName = options.gmRollName
+    } else {  
+     partic =await PENactorDetails._getParticipantId(options.token,options.actor)
+     particImg = await PENactorDetails.getParticImg(partic.particId,partic.particType)
+     particActor = await PENactorDetails._getParticipant(partic.particId,partic.particType)
+     particName = partic.particName
+     particId = partic.particId
+     particType = partic.particType
+     actorType = particActor.type
+    } 
     let tempItem = ""
     let config = {
       rollType: options.rollType,
@@ -53,10 +70,10 @@ export class PENCheck {
       oppLabel: options.oppLabel ?? "",
       oppRawScore : options.oppRawScore ?? 0,
       //chatType: options.chatType ?? CONST.CHAT_MESSAGE_TYPES.ROLL,
-      particName: partic.particName,
-      particId: partic.particId,
-      particType: partic.particType,
-      actorType: particActor.type,
+      particName,
+      particId,
+      particType,
+      actorType,
       particImg,
       characteristic: options.characteristic ?? false,
       skillId: options.skillId ??  false,
@@ -79,7 +96,9 @@ export class PENCheck {
       fixedOpp: options.fixedOpp ?? 0,
       inquiry: options.inquiry ?? 'no',
       action: 'attack',
-      userID: game.user._id
+      userID: game.user._id,
+      gmRollScore: options.gmRollScore ?? 0,
+      neutralRoll: options.neutralRoll ?? false
     }
    
     //Adjust Config based on roll type
@@ -89,9 +108,14 @@ export class PENCheck {
         config.rawScore = particActor.system.stats[config.characteristic].total ?? 0
         break
       case 'SK':
-        tempItem = particActor.items.get(config.skillId)
-        config.label = tempItem.name ?? ""
-        config.rawScore = tempItem.system.total ?? 0
+        if (config.neutralRoll) {
+          config.label = ""  
+          config.rawScore = config.gmRollScore ?? 0
+        } else {
+          tempItem = particActor.items.get(config.skillId)
+          config.label = tempItem.name ?? ""
+          config.rawScore = tempItem.system.total ?? 0
+        }
         break
       case 'PA':
         tempItem = particActor.items.get(config.skillId)
@@ -173,17 +197,30 @@ export class PENCheck {
         config.shiftKey = true
         break   
       case 'CM':   
-        tempItem = particActor.items.get(config.itemId)
-        config.label = tempItem.name ?? ""
-        config.skillId = tempItem.system.sourceId
-        config.rawScore = tempItem.system.total ?? 0
-        if (particActor.type != 'character') {config.rawScore = tempItem.system.value}
-        if(tempItem.system.improv) {config.flatMod = -5}
+        if (config.neutralRoll) {
+          config.label = ""
+          config.rawScore = config.gmRollScore ?? 0
+        } else {
+          tempItem = particActor.items.get(config.itemId)
+          config.label = tempItem.name ?? ""
+          config.skillId = tempItem.system.sourceId
+          config.rawScore = tempItem.system.total ?? 0
+          if (particActor.type != 'character') {config.rawScore = tempItem.system.value}
+          if(tempItem.system.improv) {config.flatMod = -5}
+        }
         break
       case 'MV':
         config.label = game.i18n.localize('PEN.move')
-        config.rawScore = particActor.system.move ?? 0        
+        if (particActor.type === 'npc') {
+          config.rawScore = particActor.system.manMove ?? 0        
+        } else {
+          config.rawScore = particActor.system.move ?? 0        
+        }  
         break
+      case 'AM':
+        config.label = particActor.system.altMoveTitle   
+        config.rawScore = particActor.system.altMove ?? 0        
+        break  
       default: 
         ui.notifications.error(options.rollType +": " + game.i18n.format('PEN.errorRollInvalid')) 
         return false
@@ -379,7 +416,8 @@ export class PENCheck {
         fixedOpp: config.fixedOpp,
         action: config.action,
         actionLabel: game.i18n.localize('PEN.'+config.action),
-        userID: config.userID
+        userID: config.userID,
+        neutralRoll: config.neutralRoll
       }]
     }
   
@@ -552,11 +590,11 @@ export class PENCheck {
     
   //Check to see if can add XP check.  For characters only
   static async tickXP(chatCard){
+    if (chatCard.neutralRoll) {return}
     //If Fumble and FumbleXP game setting is false don't make roll
     if (chatCard.resultLevel ===0 && !game.settings.get('Pendragon','fumbleXP')) {return}
     //If an evade or dodge action then no tick.
     if (['dodge','evade'].includes(chatCard.action)) {return}
-    
     let actor = await PENactorDetails._getParticipant(chatCard.particId, chatCard.particType)
     if (actor.type != 'character') {return}
     let checkProp = ""

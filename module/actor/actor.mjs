@@ -282,6 +282,8 @@ export class PendragonActor extends Actor {
 
 
 
+
+
   }
 
   // Prepare Common type specific data.
@@ -299,8 +301,24 @@ export class PendragonActor extends Actor {
     const systemData = actorData.system;
     systemData.hp.knockdown = systemData.stats.siz.total;
     systemData.hp.majorWnd = systemData.stats.con.total;
-    systemData.hp.max = systemData.stats.siz.total + systemData.stats.con.total + systemData.hp.adj;
-    systemData.hp.unconscious = Math.round(systemData.hp.max/4);
+
+    //If NPC and manual HP have been entered then override max HP calc
+    if (actorData.type === 'npc') {
+      if (systemData.manMaxHP != 0) {
+        systemData.hp.max = systemData.manMaxHP
+      } else {
+        systemData.hp.max = systemData.stats.siz.total + systemData.stats.con.total + systemData.hp.adj;          
+      } 
+      if (systemData.manUnconscious != 0) {
+        systemData.hp.unconscious = systemData.manUnconscious
+      } else {
+        systemData.hp.unconscious = Math.round(systemData.hp.max/4);      
+      }        
+    } else {  
+      systemData.hp.max = systemData.stats.siz.total + systemData.stats.con.total + systemData.hp.adj;
+      systemData.hp.unconscious = Math.round(systemData.hp.max/4);
+    }
+    
 
     systemData.damage = Math.round((systemData.stats.str.total + systemData.stats.siz.total)/6);
     systemData.horseDam = "";
