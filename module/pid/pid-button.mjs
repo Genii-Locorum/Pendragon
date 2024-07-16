@@ -14,6 +14,7 @@ export function addPIDSheetHeaderButton (headerButtons, sheet) {
       }
     }}
     const numberOfButtons = headerButtons.length
-    headerButtons.splice(numberOfButtons - 1, 0, PIDEditorButton)
+    //headerButtons.splice(numberOfButtons - 1, 0, PIDEditorButton)
+    headerButtons.splice(0, 0, PIDEditorButton)
   //}
 }

@@ -768,7 +768,6 @@ height: inherit;
 .Pendragon .npc-notes-doc {
   background-image: none;
   font-size:14px;
-  font-weight: bold;
   padding-left: 10px;
   padding-right: 10px;
   height: 200px !important;
@@ -1117,6 +1116,12 @@ height: inherit;
   color:darkred
 }
 
+.Pendragon .redbox ul.p6e li::marker {
+  content: '✠ ';
+  font-size:15px;
+  color:cornsilk
+}
+
 .Pendragon ul.norm li::marker {
   content: '• ';
   font-size:15px;
@@ -1181,6 +1186,13 @@ height: inherit;
   font-weight:bold;
   font-size: 20px;
   color: #034694;
+}
+
+.Pendragon .red-title{
+  font-family: "Garamond";
+  font-weight:bold;
+  font-size: 20px;
+  color: darkred;
 }
 
 .Pendragon .jnl-text h4{
