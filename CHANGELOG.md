@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 12.1.13
+- NPC sheets, when locked, only show the headings for Skills, Weapons etc when there are relevant contents.  Heading always shown when the skill sheet is unlocked
+
 ## 12.1.12
 - Added two new Icons to NPC sheet - close sheet and calculate NPC scores
 - Close Icon closes the NPC sheet (sometimes the Close icon in the title bar can get hidden when run from a compendium)

@@ -1003,6 +1003,10 @@ height: inherit;
   margin: 0px;
 }
 
+.Pendragon textarea {
+  min-height: 200px !important;
+}
+
 .Pendragon .item-list {
   margin: 0px;
 }

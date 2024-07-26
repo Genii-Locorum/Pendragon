@@ -163,6 +163,13 @@ export class PendragonNPCSheet extends ActorSheet {
 
 
     // Assign and return
+    context.noSkill = (skills.length<1);
+    context.noWeapon = (weapons.length<1);
+    console.log(context.noWeapon)
+    context.noArmour = (armours.length<1);
+    context.noTrait = (traits.length<1);
+    context.noPassion = (passions.length<1);
+    context.noHorse = (horses.length<1);
     context.gears = gears;
     context.weapons = weapons;
     context.armours = armours;
