@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 12.1.14
+- Change to manifest URL to correct where it points
+
 ## 12.1.13
 - NPC sheets, when locked, only show the headings for Skills, Weapons etc when there are relevant contents.  Heading always shown when the skill sheet is unlocked
 
