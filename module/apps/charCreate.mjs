@@ -696,7 +696,7 @@ export class PENCharCreate {
 
 
     } else {
-      let results =  table.results.toObject(false).filter (itm=>(itm.type > 0)).map(itm=> {return { name: itm.text, pid: itm._id}})
+      let results =  table.results.toObject(false).filter (itm=>(itm.type != 'text')).map(itm=> {return { name: itm.text, pid: itm._id}})
       selected = await PENCharCreate.selectFromRadio ('list',false,results)
       let res = table.results.toObject(false).filter (itm=>(itm._id === selected))[0]
       switch (res.type) {
