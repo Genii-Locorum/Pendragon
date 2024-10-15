@@ -35,7 +35,7 @@ export class OPCard {
   }
 
   
-  //Remove a skill etc from an oppossed card
+  //Remove a skill etc from an opposed card
   static async OPRemove (config) {
     let targetMsg = await game.messages.get(config.targetChatId)
     let rank = config.dataset.rank
