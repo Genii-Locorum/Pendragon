@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 12.1.15
+- Corrected a couple of typos on "Oppossed" or "Oppossing" - to a single s - - thank you to John Barstow
+- Changed code on select item dialog and radio buttons - thank you to John Barstow
+
 ## 12.1.14
 - Change to manifest URL to correct where it points
 
