@@ -137,7 +137,7 @@ export class PENCheck {
           config.rawScore = tempItem.system.skill ?? 0
         } else {
           config.label = tempItem.name + "[" + game.i18n.localize('PEN.age') + "]"
-          config.rawScore = tempItem.system.age - 11 ?? 0          
+          config.rawScore = tempItem.system.age - 9 ?? 0          
         }  
         break    
       case 'TR':

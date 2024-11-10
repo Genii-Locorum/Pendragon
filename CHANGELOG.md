@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 12.1.16
+- Squire age roles changed to age-9 per 6th Ed Core Rulebook (changed from age-11 in Starter Set)
+
 ## 12.1.15
 - Corrected a couple of typos on "Oppossed" or "Oppossing" - to a single s - - thank you to John Barstow
 - Changed code on select item dialog and radio buttons - thank you to John Barstow
