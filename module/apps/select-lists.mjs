@@ -158,4 +158,14 @@ export class PENSelectLists {
     return options;
   } 
 
+  //Follwer Type
+  static getFollowerType () {
+    let options = {
+      "squire" : game.i18n.localize('PEN.squire'),
+      "family" : game.i18n.localize('PEN.family'),
+      "retainer": game.i18n.localize('PEN.retainer')
+    };
+    return options;
+  } 
+
 }

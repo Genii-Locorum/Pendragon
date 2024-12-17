@@ -80,6 +80,7 @@
     <a class="item tab-name" data-tab="companions">{{localize 'PEN.companions'}}</a>
     <a class="item tab-name" data-tab="history">{{localize 'PEN.events'}}</a>
     <a class="item tab-name" data-tab="house">{{localize 'PEN.house'}}</a>
+    {{#if useRelation}}<a class="item tab-name" data-tab="follower">{{localize 'PEN.follower'}}</a>{{/if}}
     <a class="item tab-name" data-tab="biography">{{localize 'PEN.biography'}}</a>
     <a class="item tab-name" data-tab="stats">{{localize 'PEN.stats'}}</a>
     <a class="large-icon  middle actor-toggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i style=width:25px class="{{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i> </a>
@@ -130,9 +131,14 @@
         {{> "systems/Pendragon/templates/actor/parts/actor-companions.html"}}
       </div>
 
-      {{!-- Glory Tab --}}
+      {{!-- House Tab --}}
       <div class="tab house" data-group="primary" data-tab="house">
         {{> "systems/Pendragon/templates/actor/parts/actor-house.html"}}
+      </div>
+
+      {{!-- Follower Tab --}}
+      <div class="tab follower" data-group="primary" data-tab="follower">
+        {{> "systems/Pendragon/templates/actor/parts/actor-follower.html"}}
       </div>
 
       {{!-- Stats Tab --}}

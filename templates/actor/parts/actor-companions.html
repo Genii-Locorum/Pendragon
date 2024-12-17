@@ -48,7 +48,7 @@
     <div class="grid-item middle centre">
       <a class="item-control item-toggle large-icon" data-itemid ="{{horse._id}}" data-property="equipped" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if horse.system.equipped}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
     </div>
-    <div class="stat-name grid-item">{{horse.name}}</div>
+    <div class="stat-name grid-item" title="{{horse.name}}">{{horse.system.label}}</div>
     <div class="stat-name grid-item centre">{{horse.system.totalAR}}</div>
     <div class="stat-name grid-item centre">{{horse.system.move}}</div>
     <div class="stat-name grid-item centre rollable damage" title="{{localize 'PEN.chargeDmgHint'}}: {{horse.system.chargeDmg}}" data-itemid="{{horse._id}}">{{horse.system.damage}}</div>

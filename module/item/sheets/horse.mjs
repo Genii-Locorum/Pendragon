@@ -18,7 +18,7 @@ export class PendragonHorseSheet extends ItemSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['Pendragon', 'sheet', 'item'],
       width: 550,
-      height: 530,
+      height: 580,
       scrollY: ['.item-bottom-panel'],
       tabs: [{navSelector: '.sheet-tabs',contentSelector: '.sheet-body',initial: 'attributes'}]
     })

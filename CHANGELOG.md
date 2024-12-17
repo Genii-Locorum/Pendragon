@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 12.1.17
+- Players can now edit their horses - not just limited to GMs
+- You can now give owned horses a name, colour, breed, cost, age, features and personality
+- There is a new actor type - Follower.  This is very much like an NPC but with a few of the Character background items.  They also have a sub-type - Squire, Family, Retainer.  
+- Squire sub-types have a Squire score, which can be rolled, along with their age (on the personal details tab)
+  They are designed to be converted in the longer term to characters and offer more detail than the "items" on the character sheet.  You can use whichever option you want.
+- There's a new game setting - "Use Reputation" which if active adds a new tab to the character sheet "Follower"
+- GMs can drag other actors to a character sheet (only a character sheet), creating a "relationship" between the two actors - if the "Use Reputation" game setting is active - these relationships appear on the Follower tab
+- Players can edit the title of the relationship or delete it.
+- By clicking on the person's name in the follower tab (not the relationship item) you can open the relevant actor sheet if you have the right permissions
+- If the actor is a Follower with sub-type "squire" you can make Squire and Age rolls from the follower tab.
+
 ## 12.1.16
 - Squire age roles changed to age-9 per 6th Ed Core Rulebook (changed from age-11 in Starter Set)
 

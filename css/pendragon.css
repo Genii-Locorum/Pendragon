@@ -496,6 +496,17 @@ height: inherit;
   border-left: 1px gray solid;
 }
 
+.Pendragon .follower-list-grid{
+  display: grid;
+  width: 641px;
+  grid-template-columns: 150px 100px 200px 70px 70px 50px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
 .Pendragon .grid-item {
   border-bottom: 1px gray solid;
   border-right: 1px gray solid;
@@ -548,6 +559,14 @@ height: inherit;
 .Pendragon .item-armour-grid{
   display: grid;
   grid-template-columns: 180px 390px ;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .item-horse-grid{
+  display: grid;
+  grid-template-columns: 140px 120px 10px 140px 120px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -688,6 +707,18 @@ height: inherit;
   font-family: "Garamond";
   font-size: 16px;
   color: black;
+}
+
+.Pendragon .follower-type {
+  font-family: "Garamond";
+  font-size: 16px;
+  color: black;
+  padding-top: 3px;
+}
+
+.Pendragon .follower-type select{
+  height: calc(100% - 6px);
+  background: rgba(53, 119, 53, 0.3);
 }
 
 .Pendragon .npcname-input input {
@@ -1263,4 +1294,22 @@ height: inherit;
   padding-right:7px;
   background-color: darkred;
   color: cornsilk;
+}
+
+.Pendragon .follower-grid {
+  display: grid;
+  margin: 0px;
+  row-gap: 0px;
+  column-gap: 0px;
+  font-size: 14px;
+  grid-template-columns: 160px 90px;
+}
+
+.Pendragon .follower-details-grid {
+  display: grid;
+  margin: 0px;
+  row-gap: 0px;
+  column-gap: 0px;
+  font-size: 14px;
+  grid-template-columns: 100px 260px;
 }

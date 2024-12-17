@@ -153,7 +153,7 @@ export class PendragonActor extends Actor {
         } 
       } else if (i.type === "skill") {
         i.system.total =Number(i.system.value) + Number(i.system.culture) + Number(i.system.family) + Number(i.system.create) + Number(i.system.winter)
-      }  
+      } 
 
       if (['trait','passion'].includes(i.type)){
         if (i.system.total <5) {i.system.flavour = game.i18n.localize('PEN.unsung')}
@@ -264,9 +264,9 @@ export class PendragonActor extends Actor {
 
   }
 
-  // Prepare NPC type specific data.
+  // Prepare NPC and follower type specific data.
   _prepareNpcData(actorData) {
-    if (actorData.type !== 'npc') return;
+    if (!['npc','follower'].includes(actorData.type) ) return;
 
     // Make modifications to data here. For example:
     const systemData = actorData.system;
@@ -288,7 +288,7 @@ export class PendragonActor extends Actor {
 
   // Prepare Common type specific data.
   async _prepareCommonData(actorData) {
-    if (actorData.type !== 'npc' && actorData.type !== 'character') return;
+    if (!['npc','character','follower'].includes(actorData.type)) return;
     actorData.system.statTotal = 0
     // Handle stats scores, adding labels to stats
     for (let [key, stat] of Object.entries(actorData.system.stats)) {
@@ -302,8 +302,8 @@ export class PendragonActor extends Actor {
     systemData.hp.knockdown = systemData.stats.siz.total;
     systemData.hp.majorWnd = systemData.stats.con.total;
 
-    //If NPC and manual HP have been entered then override max HP calc
-    if (actorData.type === 'npc') {
+    //If NPC or follower, and manual HP have been entered then override max HP calc
+    if (['npc','follower'].includes(actorData.type)) {
       if (systemData.manMaxHP != 0) {
         systemData.hp.max = systemData.manMaxHP
       } else {
@@ -460,6 +460,27 @@ export class PendragonActor extends Actor {
           enabled: true
         }]
       },data.prototypeToken || {})
+    } else if (data.type === 'follower') {
+      data.prototypeToken = foundry.utils.mergeObject( {
+        actorLink: true,
+        disposition: 1,
+        displayName: CONST.TOKEN_DISPLAY_MODES.ALWAYS,
+        displayBars: CONST.TOKEN_DISPLAY_MODES.ALWAYS,
+        sight: {
+          enabled: vision
+        },
+        bar1: {
+          attribute: "hp"
+        },
+        bar2: {
+          attribute: "woundTotal"
+        },
+        detectionModes: [{
+          id: 'basicSight',
+          range: 30,
+          enabled: true
+        }]
+      },data.prototypeToken || {})      
     }
 
     let actor = await super.create(data, options)
@@ -479,7 +500,7 @@ export class PendragonActor extends Actor {
         let passionList = await game.system.api.pid.fromPIDRegexBest({ pidRegExp: /^i.passion\./, type: 'i' })
         await actor.createEmbeddedDocuments("Item", passionList);
     }  
-    return 
+    return actor
   }
 
 

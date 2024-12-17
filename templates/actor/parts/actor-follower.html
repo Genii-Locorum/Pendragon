@@ -1,0 +1,29 @@
+<div class="follower-list-grid">
+  <div class="stat-name grid-item bold">{{localize 'PEN.person'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.type'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.relationship'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.age'}}</div>
+  <div class="stat-name grid-item bold centre">{{localize 'PEN.squire'}}</div>
+  <div class="stat-name grid-item bold centre"></div>
+  
+  {{#each followers as |follower key|}}
+    <div class="stat-name grid-item new-row rollable openActor" data-actoruuid = {{follower.system.sourceUuid}}>{{follower.system.person1Name}}</div>
+    <div class="stat-name centre grid-item">{{follower.system.typeName}}</div>
+    <div class="stat-name centre grid-item">{{follower.system.connection}}</div>
+    {{#if (eq follower.system.typeLabel 'squire')}}
+    <div class="stat-name centre rollable squire grid-item" data-type="followerAge" data-itemid="{{follower._id}}">{{follower.system.age}}</div>
+      <div class="stat-name centre rollable squire grid-item" data-type="followerSquire" data-itemid="{{follower._id}}">{{follower.system.squire}}</div>
+    {{else}}
+      <div class="stat-name centre grid-item">{{follower.system.age}}</div>
+      <div class="stat-name centre grid-item"></div>
+    {{/if}}
+    <div class="centre item grid-item" data-itemid ="{{follower._id}}">
+      <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
+      {{#unless ../system.lock}}
+        <a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
+      {{/unless}}
+    </div>  
+  {{/each}}
+</div>
+<br>
+

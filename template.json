@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character", "npc"],
+    "types": ["character", "npc", "follower"],
     "templates": {
       "base": {
         "hp": {
@@ -151,10 +151,37 @@
     "manDmg": 0,
     "manHealRate": 0,
     "manUnconscious": 0
+  },
+  "follower": {
+    "templates": ["base"],
+    "subtype": "squire",
+    "woundTotal": 0,
+    "lock": false,
+    "barren": false,
+    "heir": false,
+    "view": false,
+    "sol": "ordinary",
+    "squire": 0,
+    "notes": "",
+    "born": 487,
+    "culture": "",
+    "religion": "",
+    "homeland": "",
+    "family": "",
+    "features": "",
+    "manArm": 0,
+    "manShd": 0,
+    "manMaxHP": 0,
+    "manKnockdown": 0,
+    "manMjrWnd": 0,
+    "manDmg": 0,
+    "manHealRate": 0,
+    "manUnconscious": 0,
+    "manMove":0
   }
   },
   "Item": {
-    "types": ["gear", "skill", "trait", "wound", "history", "passion","horse","squire","armour", "weapon","family", "culture", "religion", "class", "homeland","ideal"],
+    "types": ["gear", "skill", "trait", "wound", "history", "passion","horse","squire","armour", "weapon","family", "culture", "religion", "class", "homeland","ideal","relationship"],
     "templates": {
       "base": {
         "libra": 0,
@@ -232,6 +259,13 @@
       "horseCare": "0",
       "horseHealth": "0",
       "horseArmour": 0,
+      "horseName": "",
+      "cost":"",
+      "features": "",
+      "colour": "",
+      "breed": "",
+      "personality": "",
+      "age": 0,
       "damage": "",
       "chargeDmg": "",
       "hp": 0,
@@ -351,6 +385,17 @@
       "hr": 0,
       "dam": 0,
       "move": 0
+    },
+    "relationship" :{
+      "templates": ["base"],
+      "sourceUuid": "",
+      "targetUuid": "",
+      "connection": "",
+      "person1Name": "",
+      "person2Name": "",
+      "typeLabel": "",
+      "born": 0,
+      "squire": 0
     }
   }
 }

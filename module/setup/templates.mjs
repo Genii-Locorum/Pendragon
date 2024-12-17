@@ -15,5 +15,6 @@
     "systems/Pendragon/templates/actor/parts/actor-winter.html",
     "systems/Pendragon/templates/actor/parts/actor-stats.html",
     "systems/Pendragon/templates/actor/parts/actor-house.html",
+    "systems/Pendragon/templates/actor/parts/actor-follower.html",
   ]);
 };

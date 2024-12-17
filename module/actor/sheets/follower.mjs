@@ -1,11 +1,12 @@
 import { PENRollType } from "../../cards/rollType.mjs";
+import {PENSelectLists}  from "../../apps/select-lists.mjs";
 import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class PendragonNPCSheet extends ActorSheet {
+export class PendragonFollowerSheet extends ActorSheet {
 
   //Add PID buttons to sheet
   _getHeaderButtons () {
@@ -17,8 +18,8 @@ export class PendragonNPCSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["Pendragon", "sheet", "actor","npc"],
-      template: "systems/Pendragon/templates/actor/npc-sheet.html",
+      classes: ["Pendragon", "sheet", "actor","follower"],
+      template: "systems/Pendragon/templates/actor/follower-sheet.html",
       width: 380,
       height: 730,
       scrollY: ['.bottom-panel'],
@@ -41,6 +42,11 @@ export class PendragonNPCSheet extends ActorSheet {
     context.system = actorData.system;
     context.flags = actorData.flags;
     context.isGM = game.user.isGM;
+    context.age = game.settings.get('Pendragon','gameYear') - actorData.system.born
+    context.followerType = await PENSelectLists.getFollowerType();
+    context.follower = context.followerType[actorData.system.subType];
+    context.solType = await PENSelectLists.getSOLType();
+    context.solLabel = context.solType[actorData.system.sol];
     context.enrichedDescriptionValue = await TextEditor.enrichHTML(
       context.system.description,
       {
@@ -55,8 +61,8 @@ export class PendragonNPCSheet extends ActorSheet {
       this._prepareCharacterData(context);
     }
 
-    // Prepare NPC data and items.
-    if (actorData.type == 'npc') {
+    // Prepare Follower data and items.
+    if (actorData.type == 'follower') {
       this._prepareItems(context);
     }
 
@@ -195,12 +201,12 @@ export class PendragonNPCSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
 
-    html.find(".close-sheet").dblclick(this._onCloseSheet.bind(this));                   // Close Sheet  
-    html.find('.item-create').click(this._onItemCreate.bind(this));                  // Add Inventory Item
-    html.find(".inline-edit").change(this._onInlineEdit.bind(this));                 // Inline Edit
-    html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));             // Actor Toggle
-    html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));               // Item Toggle
-    html.find(".npcAutoCalc").dblclick(this._onAutoCalc.bind(this));                 // Auto Calc Scores
+    html.find(".close-sheet").dblclick(this._onCloseSheet.bind(this));                  // Close Sheet  
+    html.find('.item-create').click(this._onItemCreate.bind(this));                     // Add Inventory Item
+    html.find(".inline-edit").change(this._onInlineEdit.bind(this));                    // Inline Edit
+    html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));                // Actor Toggle
+    html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));                  // Item Toggle
+    html.find(".npcAutoCalc").dblclick(this._onAutoCalc.bind(this));                    // Auto Calc Scores
     html.find(".rollable.stat").click(PENRollType._onStatCheck.bind(this));             // Stat Check
     html.find(".rollable.skill-name").click(PENRollType._onSkillCheck.bind(this));      // Skill Check
     html.find(".rollable.passion-name").click(PENRollType._onPassionCheck.bind(this));  // Passion check
@@ -208,7 +214,8 @@ export class PendragonNPCSheet extends ActorSheet {
     html.find(".rollable.move").click(PENRollType._onMoveCheck.bind(this));             // Move check
     html.find(".rollable.trait").click(PENRollType._onTraitCheck.bind(this));           // Trait check    
     html.find(".rollable.damage").click(PENRollType._onDamageRoll.bind(this));          // Damage roll  
-    html.find(".rollable.combat").click(PENRollType._onCombatCheck.bind(this));         // Combat roll            
+    html.find(".rollable.combat").click(PENRollType._onCombatCheck.bind(this));         // Combat roll       
+    html.find(".rollable.squire").click(PENRollType._onSquireCheck.bind(this));         // Squire check     
         
     
     // Drag events for macros.
@@ -309,14 +316,14 @@ return
 async _onActorToggle(event){
   const prop= event.currentTarget.dataset.property;
   let checkProp={};
-  if (prop === "lock") {
-    checkProp = {'system.lock': !this.actor.system.lock}
+  if (['lock','view','heir','barren'].includes(prop)) {
+    checkProp = {[`system.${prop}`]: !this.actor.system[prop]}
   } 
 await this.actor.update(checkProp);
 return
 }
 
-//Auto Calc NPC Scores
+//Auto Calc Follower Scores
 async _onAutoCalc(event) {
   await this.actor.update({
     'system.manMove': this.actor.system.move,

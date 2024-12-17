@@ -30,6 +30,8 @@ export class PendragonItem extends Item {
         data.img = 'systems/Pendragon/assets/Icons/scroll-unfurled.svg'
       } else if (data.type === 'ideal') {
         data.img = 'systems/Pendragon/assets/Icons/holy-grail.svg'
+      } else if (data.type === 'relationship') {
+        data.img = 'systems/Pendragon/assets/Icons/tabletop-players.svg'
       }
     }
     super(data, context)

@@ -19,8 +19,14 @@
 
       {{!-- Attributes Tab --}}
       <div class="tab attributes" data-group="primary" data-tab="attributes">
+        {{#if hasOwner}}
+          <div class="item-horse-grid">
+            <div class="stat-name left bold new-row">{{localize 'PEN.name'}}</div>
+            <div class="stat-name-input left {{#if (eq item.system.horseName '')}} input-border {{/if}} dam-value" style="grid-column: 2 / span 4;"><input name="system.horseName" type="text" value="{{item.system.horseName}}"/></div>        
+          </div>  
+        {{/if}}
+        
         <div class = "warhorse-grid">
-          {{#if isGM}}
             <div class="stat-name left bold">{{localize 'PENDRAGON.StatSizAbbr'}}</div>
             <div class="stat-name-input centre {{#if (eq item.system.siz null)}} input-border {{/if}} dam-value"><input name="system.siz" type="text" value="{{item.system.siz}}" data-dtype="Number"/></div>
             <div></div>
@@ -50,37 +56,6 @@
             <div class="stat-name left bold new-row">{{localize 'PEN.maxHP'}}</div>
             <div class="stat-name-input centre {{#if (eq item.system.maxHP null)}} input-border {{/if}} dam-value"><input name="system.maxHP" type="text" value="{{item.system.maxHP}}" data-dtype="Number"/></div>
             <div></div>
-          {{else}}
-            <div class="stat-name left bold">{{localize 'PENDRAGON.StatSizAbbr'}}</div>
-            <div class="stat-name centre">{{item.system.siz}}</div>
-            <div></div>
-            <div class="stat-name left bold">{{localize 'PEN.armour'}}</div>        
-            <div class="stat-name centre">{{item.system.armour}}</div>
-
-            <div class="stat-name left bold">{{localize 'PENDRAGON.StatDexAbbr'}}</div>
-            <div class="stat-name centre">{{item.system.dex}}</div>
-            <div></div>
-            <div class="stat-name left bold">{{localize 'PEN.move'}}</div>
-            <div class="stat-name centre">{{item.system.move}}</div>
-    
-            <div class="stat-name left bold">{{localize 'PENDRAGON.StatStrAbbr'}}</div>
-            <div class="stat-name centre">{{item.system.str}}</div>
-            <div></div>
-            <div class="stat-name left bold">{{localize 'PEN.damage'}}</div>
-            <div class="stat-name centre">{{item.system.damage}}</div>
-
-            <div class="stat-name left bold">{{localize 'PENDRAGON.StatConAbbr'}}</div>
-            <div class="stat-name centre">{{item.system.con}}</div>
-            <div></div>
-            {{#if item.system.combat}}
-              <div class="stat-name left bold">{{localize 'PEN.chargeDmg'}}</div>
-              <div class="stat-name centre">{{item.system.chargeDmg}}</div>
-            {{/if}}
-
-            <div class="stat-name left bold new-row">{{localize 'PEN.maxHP'}}</div>
-            <div class="stat-name centre">{{item.system.maxHP}}</div>
-            <div></div>
-          {{/if}}
 
           <div class="stat-name left bold">{{localize 'PEN.hpShort'}}</div>
           <div class="stat-name-input centre {{#if (eq item.system.hp null)}} input-border {{/if}} dam-value"><input name="system.hp" type="text" value="{{item.system.hp}}" data-dtype="Number"/></div>
@@ -88,31 +63,57 @@
         </div>
       <br>
 
-      <div class="item-armour-grid">
+      <div class="item-horse-grid">
         <div class="stat-name left bold">{{localize 'PEN.combatTrained'}}</div>
         <div class=""><a class="item-control {{#if isGM}} item-toggle {{/if}} large-icon" data-property = "combat" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.combat}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+        <div></div>
         <div class="stat-name left bold">{{localize 'PEN.special'}}</div>
         <div class=""><a class="item-control {{#if isGM}} item-toggle {{/if}} large-icon" data-property = "special" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.special}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+
         {{#if hasOwner}} 
-          <div class="stat-name left bold new-row">{{localize 'PEN.ridden'}}</div>
+        <div class="stat-name left bold">{{localize 'PEN.ridden'}}</div>
           <div class=""><a class="item-control item-toggle large-icon" data-property = "equipped" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.equipped}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+          <div></div>
+          <div class="stat-name left bold">{{localize 'PEN.age'}}</div>
+          <div class="stat-name-input left {{#if (eq item.system.age 0)}} input-border {{/if}} dam-value"><input name="system.age" type="text" value="{{item.system.age}}" data-dtype="Number"/></div>        
+
           <div class="stat-name left bold new-row">{{localize 'PEN.horseArmour'}}</div>
           <div class="stat-name-input left {{#if (eq item.system.horseArmour null)}} input-border {{/if}} dam-value"><input name="system.horseArmour" type="text" value="{{item.system.horseArmour}}" data-dtype="Number"/></div>        
-          <div class="stat-name left bold" title="{{localize 'PEN.degradedHint'}}">{{localize 'PEN.degraded'}}</div>
-          <div class=""><a class="item-control item-toggle large-icon" data-property = "poor" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.poor}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
-          <div class="stat-name left bold">{{localize 'PEN.health'}}</div>
+          <div></div>
+          <div class="stat-name left bold">{{localize 'PEN.cost'}}</div>
+          <div class="stat-name-input left {{#if (eq item.system.cost '')}} input-border {{/if}} dam-value"><input name="system.cost" type="text" value="{{item.system.cost}}"/></div>        
+
+          <div class="stat-name left bold">{{localize 'PEN.breed'}}</div>
+          <div class="stat-name-input left {{#if (eq item.system.breed '')}} input-border {{/if}} dam-value"><input name="system.breed" type="text" value="{{item.system.breed}}"/></div>        
+          <div></div>
+          <div class="stat-name left bold">{{localize 'PEN.colour'}}</div>
+          <div class="stat-name-input left {{#if (eq item.system.colour '')}} input-border {{/if}} dam-value"><input name="system.colour" type="text" value="{{item.system.colour}}"/></div>        
+
+          <br>
+          <div class="stat-name left bold new-row">{{localize 'PEN.health'}}</div>
           <div class="stat-name">
             <select data-handle-change name="system.horseHealth">
               {{selectOptions horseStatusList selected=item.system.horseHealth}}
             </select>
           </div> 
+          <div></div>
           <div class="stat-name left bold">{{localize 'PEN.care'}}</div>
           <div class="stat-name">
             <select data-handle-change name="system.horseCare">
               {{selectOptions horseStatusList selected=item.system.horseCare}}
             </select>
-          </div> 
-        {{/if}}
+          </div>
+
+          <div class="stat-name left bold" title="{{localize 'PEN.degradedHint'}}">{{localize 'PEN.degraded'}}</div>
+          <div class=""><a class="item-control item-toggle large-icon" data-property = "poor" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.poor}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+
+          <div class="new-row"></div>
+          <br>
+          <div class="stat-name left bold new-row">{{localize 'PEN.personality'}}</div>
+          <div class="stat-name-input left {{#if (eq item.system.personality '')}} input-border {{/if}} dam-value" style="grid-column: 2 / span 4;"><input name="system.personality" type="text" value="{{item.system.personality}}"/></div>        
+          <div class="stat-name left bold new-row">{{localize 'PEN.features'}}</div>
+          <div class="stat-name-input left {{#if (eq item.system.features '')}} input-border {{/if}} dam-value" style="grid-column: 2 / span 4;"><input name="system.features" type="text" value="{{item.system.features}}"/></div>        
+         {{/if}}
       </div>
     </div>
 

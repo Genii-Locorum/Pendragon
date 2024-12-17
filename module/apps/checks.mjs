@@ -26,7 +26,6 @@ export class PENCheck {
 
   //Start to prepare the config
   static async _trigger(options={}){
-    console.log(options.shiftKey)
     let config = await PENCheck.normaliseRequest(options)
     if (config === false) {return}  
     let msgID = await PENCheck.startCheck(config)
@@ -69,7 +68,6 @@ export class PENCheck {
       reverseRoll: options.reverseRoll ?? false,
       oppLabel: options.oppLabel ?? "",
       oppRawScore : options.oppRawScore ?? 0,
-      //chatType: options.chatType ?? CONST.CHAT_MESSAGE_TYPES.ROLL,
       particName,
       particId,
       particType,
@@ -131,14 +129,30 @@ export class PENCheck {
         }  
         break   
       case 'SQ':
-        tempItem = particActor.items.get(config.itemId)
-        if (config.subType === 'squire') {
-          config.label = tempItem.name
-          config.rawScore = tempItem.system.skill ?? 0
-        } else {
-          config.label = tempItem.name + "[" + game.i18n.localize('PEN.age') + "]"
-          config.rawScore = tempItem.system.age - 9 ?? 0          
-        }  
+        if (config.subType === 'actorSquire') {
+            let particActor = await PENactorDetails._getParticipant(config.particId,config.particType)
+            config.label = game.i18n.localize('PEN.squire') 
+            config.rawScore = particActor.system.squire ?? 0            
+        } else if (config.subType === 'actorAge') {
+            let particActor = await PENactorDetails._getParticipant(config.particId,config.particType)
+            config.label = game.i18n.localize('PEN.age') 
+            config.rawScore = (game.settings.get('Pendragon','gameYear') - particActor.system.born - 9) ?? 0            
+        } else { 
+          tempItem = particActor.items.get(config.itemId)
+          if (config.subType === 'squire') {
+            config.label = tempItem.name + "[" + game.i18n.localize('PEN.squire') + "]"
+            config.rawScore = tempItem.system.skill ?? 0
+          } else if (config.subType === 'squireAge' ){
+            config.label = tempItem.name + "[" + game.i18n.localize('PEN.age') + "]"
+            config.rawScore = tempItem.system.age - 9 ?? 0          
+          } else if (config.subType === 'followerSquire' ){
+            config.label = tempItem.system.person1Name + "[" + game.i18n.localize('PEN.squire') + "]"
+            config.rawScore = tempItem.system.squire ?? 0
+          } else if (config.subType === 'followerAge' ){
+            config.label = tempItem.system.person1Name + "[" + game.i18n.localize('PEN.age') + "]"
+            config.rawScore = (game.settings.get('Pendragon','gameYear') - tempItem.system.born - 9) ?? 0
+          }   
+        }
         break    
       case 'TR':
         tempItem = particActor.items.get(config.skillId)
@@ -442,7 +456,6 @@ export class PENCheck {
       
     //If this is an Unopposed Combat Roll then trigger resolution
     if (config.cardType ==='CO' && config.action ==='unoppAtt') {
-      console.log("Trigger Closure")
     }
 
 

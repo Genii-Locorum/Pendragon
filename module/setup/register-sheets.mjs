@@ -1,5 +1,6 @@
 import { PendragonCharacterSheet } from '../actor/sheets/character.mjs';
 import { PendragonNPCSheet } from '../actor/sheets/npc.mjs';
+import { PendragonFollowerSheet } from '../actor/sheets/follower.mjs';
 import { PendragonSkillSheet } from '../item/sheets/skill.mjs';
 import { PendragonTraitSheet } from '../item/sheets/trait.mjs';
 import { PendragonHistorySheet } from '../item/sheets/history.mjs';
@@ -16,6 +17,7 @@ import { PendragonReligionSheet } from '../item/sheets/religion.mjs';
 import { PendragonClassSheet } from '../item/sheets/class.mjs';
 import { PendragonHomelandSheet } from '../item/sheets/homeland.mjs';
 import { PendragonIdealSheet } from '../item/sheets/ideal.mjs';
+import { PendragonRelationshipSheet } from '../item/sheets/relationship.mjs';
 import { PENRollTableConfig } from '../sheets/pen-roll-table-config.mjs'
 import { PENJournalSheet } from '../sheets/pen-journal-sheet.mjs'
 
@@ -29,6 +31,11 @@ export function registerSheets () {
 
     Actors.registerSheet('Pendragon', PendragonNPCSheet, {
       types: ['npc'],
+      makeDefault: true
+    })
+
+    Actors.registerSheet('Pendragon', PendragonFollowerSheet, {
+      types: ['follower'],
       makeDefault: true
     })
 
@@ -110,6 +117,11 @@ export function registerSheets () {
     
     Items.registerSheet('Pendragon', PendragonIdealSheet, {
       types: ['ideal'],
+      makeDefault: true
+    }) 
+
+    Items.registerSheet('Pendragon', PendragonRelationshipSheet, {
+      types: ['relationship'],
       makeDefault: true
     }) 
 

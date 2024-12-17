@@ -68,6 +68,16 @@ export function registerSettings () {
     default: true
   });
 
+  game.settings.register('Pendragon', "useRelation", {
+    name: "PEN.Settings.useRelation",
+    hint: "PEN.Settings.useRelationHint",
+    scope: "world",
+    requiresReload: true,
+    config: true,
+    type: Boolean,
+    default: false
+  });
+    
   //Invisible Game Settings 
 
   game.settings.register('Pendragon', "winter", {

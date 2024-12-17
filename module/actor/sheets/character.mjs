@@ -4,6 +4,7 @@ import { PENWinter } from "../../apps/winterPhase.mjs";
 import { PENCharCreate } from "../../apps/charCreate.mjs"
 import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
 import { PENactorItemDrop } from '../actor-itemDrop.mjs';
+import { PENUtilities } from "../../apps/utilities.mjs";
 
 
 /**
@@ -61,6 +62,7 @@ export class PendragonCharacterSheet extends ActorSheet {
     context.isWinter = game.settings.get('Pendragon' , 'winter')
     context.isDevelopment = game.settings.get('Pendragon' , 'development')
     context.isCreation = game.settings.get('Pendragon' , 'creation')
+    context.useRelation = game.settings.get('Pendragon' , 'useRelation')
     context.statTotal = actorData.system.statTotal    
     context.solLabel = game.i18n.localize('PEN.'+actorData.system.sol)
     context.sizLabel = game.i18n.localize('PEN.sizInc.'+actorData.system.stats.siz.growth)
@@ -123,6 +125,7 @@ export class PendragonCharacterSheet extends ActorSheet {
     const families = [];
     const ideals = [];
     const household = [];
+    const followers = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -156,6 +159,8 @@ export class PendragonCharacterSheet extends ActorSheet {
         i.system.careName = game.i18n.localize('PEN.horseHealth.'+i.system.horseCare)
         i.system.healthName = game.i18n.localize('PEN.horseHealth.'+i.system.horseHealth)
         i.system.totalAR = i.system.armour + i.system.horseArmour
+        i.system.label = i.name
+        if (i.system.horseName !="") {i.system.label = i.system.horseName}
         horses.push(i);
       } else if (i.type === 'squire') {
         i.system.squireType = game.i18n.localize('PEN.'+i.system.category)
@@ -173,6 +178,14 @@ export class PendragonCharacterSheet extends ActorSheet {
         families.push(i);
       } else if (i.type === 'ideal') {
         ideals.push(i);
+      } else if (i.type === 'relationship') {
+        i.system.typeName = game.i18n.localize('PEN.' + i.system.typeLabel)
+        if (i.system.born > 0) {
+          i.system.age = game.settings.get('Pendragon','gameYear') - i.system.born  
+        } else {
+          i.system.age=""
+        }
+        followers.push(i)
       }
     }
 
@@ -333,6 +346,7 @@ export class PendragonCharacterSheet extends ActorSheet {
     context.families = families;
     context.ideals = ideals;
     context.household = household;
+    context.followers = followers;
   }
 
   /* -------------------------------------------- */
@@ -345,6 +359,10 @@ export class PendragonCharacterSheet extends ActorSheet {
     html.find('.item-edit').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemid"));
+      if (item.type === 'relationship') {
+        this._updateRelationship(li.data("itemid"), item.system.person1Name)
+        return
+      }
       item.sheet.render(true);
     });
 
@@ -358,12 +376,12 @@ export class PendragonCharacterSheet extends ActorSheet {
     html.find(".inline-edit").change(this._onInlineEdit.bind(this));                        // Inline Edit
     html.find(".item-toggle").dblclick(this._onItemToggle.bind(this));                      // Item Toggle
     html.find(".actor-toggle").dblclick(this._onActorToggle.bind(this));                    // Actor Toggle
-    html.find(".clickable.viewItem").click(this._viewItem.bind(this));                   // View Item
+    html.find(".clickable.viewItem").click(this._viewItem.bind(this));                      // View Item
     html.find(".rollable.stat").click(PENRollType._onStatCheck.bind(this));                 // Stats check
     html.find(".rollable.skill-name").click(PENRollType._onSkillCheck.bind(this));          // Skill check
     html.find(".rollable.passion-name").click(PENRollType._onPassionCheck.bind(this));      // Passion check
     html.find(".rollable.glory").click(PENRollType._onGloryCheck.bind(this));               // Glory check
-    html.find(".rollable.move").click(PENRollType._onMoveCheck.bind(this));                // Glory check
+    html.find(".rollable.move").click(PENRollType._onMoveCheck.bind(this));                 // Glory check
     html.find(".rollable.squire").click(PENRollType._onSquireCheck.bind(this));             // Squire check
     html.find(".rollable.trait").click(PENRollType._onTraitCheck.bind(this));               // Trait check 
     html.find(".rollable.decision").click(PENRollType._onDecisionCheck.bind(this));         // Decision Trait check     
@@ -389,6 +407,7 @@ export class PendragonCharacterSheet extends ActorSheet {
     html.find(".stat-roll").click(this._statRoll.bind(this));                               // Roll Stats
     html.find(".genSkills").click(this._genSkills.bind(this));                              // Reset Base Score
     html.find(".trait-roll").click(this._traitRoll.bind(this));                             // Roll Traits
+    html.find(".openActor").click(this._openActor.bind(this));                              // Open Relationship Actor
     html.find('.charcreate.rollable')                                                       //Character Create Tooltip
       .mouseenter(this.toolTipCharCreateEnter.bind(this))
       .mouseleave(game.PENTooltips.toolTipLeave.bind(this))
@@ -534,6 +553,64 @@ async _onInlineEdit(event){
   }  
 
 
+  //Dropping an actor on to character
+  async _onDropActor(event,data) {
+    event.preventDefault()
+    if (!game.settings.get('Pendragon','useRelation')) {
+      ui.notifications.warn(game.i18n.localize('PEN.noRelation'))
+      return
+    }
+    const dataList = await PENUtilities.getDataFromDropEvent(event, 'Actor')
+    for (const companion of dataList) {
+      let present = (this.actor.items.filter(itm =>itm.type === 'relationship').filter(nitm=>nitm.system.sourceUuid === companion.uuid)).length
+      if (present>0) {
+        ui.notifications.warn(game.i18n.format('PEN.relationPresent',{name: companion.name}))
+        continue
+      }
+
+
+      let actr1 = companion.uuid
+      let actr2 = this.actor.uuid
+      if(actr1 === actr2) {continue}
+      let name = companion.name + "-" + this.actor.name
+      let typeLabel = companion.type
+      let born = 0
+      let squire = 0
+      if (companion.type == 'follower') {
+        typeLabel = companion.system.subtype
+        born = companion.system.born
+        if (companion.system.subtype === 'squire') {
+          squire = companion.system.squire
+        }
+      } else if (companion.type === 'character') {
+        born = companion.system.born
+      }
+
+      const itemData = {
+        name: name,
+        type: "relationship",
+        system: {
+          sourceUuid: actr1,
+          targetUuid: actr2,
+          person1Name: companion.name,
+          person2Name: this.actor.name ,
+          typeLabel: typeLabel,
+          born: born,
+          squire:squire
+        }
+      };
+  
+      // Finally, create the item!
+      let item = await Item.create(itemData, {parent: this.actor});
+      let key = await game.system.api.pid.guessId(item)
+      await item.update({'flags.Pendragon.pidFlag.id': key,
+                           'flags.Pendragon.pidFlag.lang': game.i18n.lang,
+                           'flags.Pendragon.pidFlag.priority': 0})
+        item.sheet.render(true);
+    }
+    return false
+  }
+
   // Tooltip for Character Creation
   async toolTipCharCreateEnter (event) {
     let actor = this.actor
@@ -619,6 +696,45 @@ async _onInlineEdit(event){
     const li = event.currentTarget.dataset.itemId
     const item = this.actor.items.get(li);
     item.sheet.render(true);
+  }
+
+  //Update Relationship
+  async _updateRelationship(itemid, person1Name) {
+    let item = await this.actor.items.get(itemid);
+    let tempActr = await fromUuid(item.system.sourceUuid)
+    if (!tempActr) {
+      ui.notifications.warn(game.i18n.format('PEN.noActor', {actr: person1Name}))
+      return
+    }
+    let name1 = tempActr.name
+    let born = 0
+    let squire = 0
+    let typeLabel = tempActr.type
+    if (['follower','character'].includes(tempActr.type)) {
+      born = tempActr.system.born
+    }
+    if(tempActr.type === 'follower') {
+      typeLabel = tempActr.system.subtype
+      if (tempActr.system.subtype === 'squire') {
+        squire = tempActr.system.squire
+      }
+    }
+    await item.update({
+        'system.person1Name' : name1,
+        'system.born': born,
+        'system.squire' : squire,
+        'system.typeLabel': typeLabel
+      })
+    item.sheet.render(true);
+  }
+
+  //Open Relationship Actor Sheet
+  async _openActor(event) {
+    const sourceUuid= event.currentTarget.dataset.actoruuid;
+    if (sourceUuid) {
+      let tempActor = await fromUuid(sourceUuid)
+      tempActor.sheet.render(true)
+    } 
   }
 
 }
