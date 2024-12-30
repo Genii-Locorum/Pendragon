@@ -1,4 +1,5 @@
 import { PENUtilities } from "./utilities.mjs"
+import { ItemsSelectDialog } from "./item-selection.mjs"
 import { StatsSelectDialog } from "./stat-selection.mjs"
 import { TraitsSelectDialog } from "./trait-selection.mjs"
 import { PENCheck } from "./checks.mjs"
@@ -11,14 +12,14 @@ export class PENCharCreate {
     }else{
       ui.notifications.warn(game.i18n.localize('PEN.creationPhaseEnd'))
     }
-    
+
     await game.settings.set('Pendragon', 'creation', toggle)
 
     for (const a of game.actors) {
       if(a.type === 'character') {
         await a.update({'system.create.toggle': !a.system.create.toggle,})
       }
-    }  
+    }
   }
 
   static async startCreate (event){
@@ -28,21 +29,21 @@ export class PENCharCreate {
     if (event.altKey) {
       await PENCharCreate.undoCreate(actor)
       return
-    }  
+    }
 
     //If creation complete or this isn't a character then return
     if (actor.system.create.complete || actor.type != 'character'){return}
 
     //CHECK THAT ALL THE NECESSARY COMPONENTS ARE IN PLACE
-    let confirm = await PENCharCreate.validate() 
+    let confirm = await PENCharCreate.validate()
     if (!confirm) {return}
 
     //STEP 1: Select creation method
-    if (actor.system.create.step === 1) {   
+    if (actor.system.create.step === 1) {
       let result = await PENCharCreate.step1(actor)
       if (!result) {return}
       await actor.update({'system.create.step': 2})
-      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step1'))    
+      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step1'))
     }
 
     //STEP 2:  Add family
@@ -50,11 +51,11 @@ export class PENCharCreate {
         let result = await PENCharCreate.step2(actor)
         if (!result) {return}
         await actor.update({'system.create.step': 3})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step2'))    
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step2'))
       }
- 
+
     //STEP 3: Add Culture
-    if (actor.system.create.step === 3) {  
+    if (actor.system.create.step === 3) {
       //If actor has a culture then update to say step completed
       if (actor.system.cultureID != "") {
         await actor.update({'system.create.step': 4})
@@ -63,16 +64,16 @@ export class PENCharCreate {
         let result = await PENCharCreate.step3(actor)
         if(!result) {return}
         await actor.update({'system.create.step': 4})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step3'))                               
-      }  
-    } 
-    
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step3'))
+      }
+    }
+
     //STEP 4: Set Characteristics
     if (actor.system.create.step === 4) {
       let result = await PENCharCreate.step4(actor)
       if (!result) {return}
       await actor.update({'system.create.step': 5})
-      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step4'))    
+      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step4'))
     }
 
     //STEP 5: Add Religion
@@ -84,17 +85,17 @@ export class PENCharCreate {
         let result = await PENCharCreate.step5(actor)
         if (!result) {return}
         await actor.update({'system.create.step': 6})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step5'))    
-      }    
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step5'))
+      }
     }
-    
+
     //STEP 6:Set Traits
     if (actor.system.create.step === 6) {
       let result = await PENCharCreate.step6(actor)
       if (!result) {return}
       await actor.update({'system.create.step': 7})
-      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step6'))    
-    }  
+      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step6'))
+    }
 
     //STEP 7: Select Class
     if (actor.system.create.step === 7) {
@@ -105,8 +106,8 @@ export class PENCharCreate {
         let result = await PENCharCreate.step7(actor)
         if (!result) {return}
       await actor.update({'system.create.step': 8})
-      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step7'))       
-      }  
+      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step7'))
+      }
     }
 
     //STEP 8: Select Homeland
@@ -118,32 +119,32 @@ export class PENCharCreate {
         let result = await PENCharCreate.step8(actor)
         if (!result) {return}
         await actor.update({'system.create.step': 9})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step8'))       
-      }  
-    }    
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step8'))
+      }
+    }
 
     //STEP 9:  Set Passions
     if (actor.system.create.step === 9) {
       let result = await PENCharCreate.step9(actor)
       if (!result) {return}
-      await actor.update({'system.create.step': 10})  
-      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step9'))  
+      await actor.update({'system.create.step': 10})
+      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step9'))
     }
- 
+
     //STEP 10: Set Skills
     if (actor.system.create.step === 10) {
       let result = await PENCharCreate.baseSkillScore(actor)
       if (!result) {return}
-      await actor.update({'system.create.step': 11})  
-      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step10'))  
+      await actor.update({'system.create.step': 11})
+      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step10'))
     }
 
     //STEP 11: Family Characteristic
     if (actor.system.create.step === 11) {
       let result = await PENCharCreate.step11(actor)
       if (!result) {return}
-      await actor.update({'system.create.step': 12})  
-      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step11'))  
+      await actor.update({'system.create.step': 12})
+      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step11'))
     }
 
     //STEP 12: Skill Points Spend
@@ -152,38 +153,38 @@ export class PENCharCreate {
       if (!result) {
         await PENCharCreate.undostep13(actor)
         return}
-      await actor.update({'system.create.step': 13})  
-      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step12'))  
-    } 
-    
+      await actor.update({'system.create.step': 13})
+      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step12'))
+    }
+
     //STEP 13: Skill Points Spend
     if (actor.system.create.step === 13) {
       let result = await PENCharCreate.step13(actor)
       if (!result) {return}
-      await actor.update({'system.create.step': 14})  
-      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step13'))  
-    } 
+      await actor.update({'system.create.step': 14})
+      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step13'))
+    }
 
-    //STEP 14: Luck Benefit 
+    //STEP 14: Luck Benefit
     if (actor.system.create.step === 14) {
       let result = await PENCharCreate.step14(actor)
       if (!result) {return}
-      await actor.update({'system.create.step': 15})  
-      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step14'))  
-    } 
+      await actor.update({'system.create.step': 15})
+      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step14'))
+    }
 
-    //STEP 15: Knighted 
+    //STEP 15: Knighted
     if (actor.system.create.step === 15) {
       let result = await PENCharCreate.step15(actor)
       if (!result) {return}
       await actor.update({'system.create.step': 16,
-                          'system.create.complete': true})  
-      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step15'))  
-    } 
+                          'system.create.complete': true})
+      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.create.step15'))
+    }
 
-  }  
-  //----------------END OF CHAR CREATION--------------------  
-   
+  }
+  //----------------END OF CHAR CREATION--------------------
+
 
   //----------------UNDO STEPS------------------------------
   //Undo Create routine
@@ -192,7 +193,7 @@ export class PENCharCreate {
     if (!game.user.isGM){return}
     let lastStep = actor.system.create.step - 1
     if(lastStep <1) {
-      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.noUndo'))     
+      ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.noUndo'))
     } else {
     let confirmation = await PENUtilities.confirmation(game.i18n.localize("PEN.step." + lastStep) + " " + game.i18n.localize('PEN.undoStep'))
     if (!confirmation){return}
@@ -202,113 +203,113 @@ export class PENCharCreate {
       //Reset creation method
       case 1:
         await actor.update({'system.create.random': false,
-                            'system.create.step': 1})     
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step1'))         
+                            'system.create.step': 1})
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step1'))
         break
 
       //Remove parents and glory award
-      case 2: 
+      case 2:
         await PENCharCreate.undostep2(actor)
         await actor.update({'system.create.step': 2})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step2'))     
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step2'))
         break
 
       //Remove culture and delete the culture name
       case 3:
         await PENCharCreate.undoCulture(actor)
         await actor.update({'system.create.step': 3})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step3'))   
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step3'))
         break
 
-      //Reset the stats to 10  
-      case 4:  
+      //Reset the stats to 10
+      case 4:
         await PENCharCreate.undostep4(actor)
         await actor.update({'system.create.step': 4})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step4'))   
-        break        
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step4'))
+        break
 
       //Remove religion and delete the religion name
       case 5:
         await PENCharCreate.undoReligion(actor)
         await actor.update({'system.create.step': 5})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step5'))   
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step5'))
         break
 
       //Reset the trait scores to 10
       case 6:
         await PENCharCreate.undostep6(actor)
         await actor.update({'system.create.step': 6})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step6'))   
-        break    
-          
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step6'))
+        break
+
       //Remove class
       case 7:
         await PENCharCreate.undoClass(actor)
         await actor.update({'system.create.step': 7})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step7'))   
-        break   
-          
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step7'))
+        break
+
       //Remove culture
       case 8:
         await PENCharCreate.undoHomeland(actor)
         await actor.update({'system.create.step': 8})
         ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step8'))
-        break  
-          
+        break
+
       //Reset passion scores
       case 9:
-        await PENCharCreate.undostep9(actor)          
+        await PENCharCreate.undostep9(actor)
         await actor.update({'system.create.step': 9})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step9'))   
-        break 
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step9'))
+        break
 
       //Reset skill scores
         case 10:
-          await PENCharCreate.resetBaseSkillScores(actor)        
+          await PENCharCreate.resetBaseSkillScores(actor)
           await actor.update({'system.create.step': 10})
-          ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step10'))   
-          break 
+          ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step10'))
+          break
 
       //Reset family characteristic
       case 11:
-        await PENCharCreate.undostep11(actor)        
+        await PENCharCreate.undostep11(actor)
         await actor.update({'system.create.step': 11})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step11'))   
-        break 
-        
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step11'))
+        break
+
       //Reset skill points spent
       case 12:
-        await PENCharCreate.undostep12(actor)        
+        await PENCharCreate.undostep12(actor)
         await actor.update({'system.create.step': 12})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step12'))   
-        break         
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step12'))
+        break
 
       //Reset training and development points spent
       case 13:
-        await PENCharCreate.undostep13(actor)        
+        await PENCharCreate.undostep13(actor)
         await actor.update({'system.create.step': 13})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step13'))   
-        break         
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step13'))
+        break
 
       //Reset Luck Benefit
       case 14:
-        await PENCharCreate.undostep14(actor)        
+        await PENCharCreate.undostep14(actor)
         await actor.update({'system.create.step': 14})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step14'))   
-        break           
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step14'))
+        break
 
       //Reset Knighting
       case 15:
-        await PENCharCreate.undostep15(actor)        
+        await PENCharCreate.undostep15(actor)
         await actor.update({'system.create.step': 15,
                             'system.create.complete': false})
-        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step15'))   
-        break   
+        ui.notifications.warn(actor.name + ": " + game.i18n.localize('PEN.undo.step15'))
+        break
 
       }
     }
     return
-  }  
+  }
 
 
   //Choose Creation Method - step 1--------------------------------------------
@@ -319,9 +320,9 @@ export class PENCharCreate {
     button1: {label:game.i18n.localize("PEN.roll"),
               icon: `<i class="fas fa-dice"></i>`},
     button2: {label:game.i18n.localize("PEN.construct"),
-              icon: `<i class="fas fa-book-open-cover"></i>`}          
+              icon: `<i class="fas fa-book-open-cover"></i>`}
     }
-    let usage = await PENCharCreate.twoOptions(data)   
+    let usage = await PENCharCreate.twoOptions(data)
 
     //Get age
     let age = Number(await PENCharCreate.inpValue(game.i18n.localize('PEN.ageInput')))
@@ -332,14 +333,14 @@ export class PENCharCreate {
       return false
     }
     //Calc birth year and create history event
-    let birth = game.settings.get("Pendragon","gameYear") - Number(age)    
+    let birth = game.settings.get("Pendragon","gameYear") - Number(age)
     await PENCharCreate.createHistory (
       actor,
       game.i18n.localize('PEN.born'),
       birth,
       0,
       'born'
-    )  
+    )
     await actor.update({'system.create.random': usage,
                         'system.born' : birth})
     return true
@@ -429,17 +430,17 @@ export class PENCharCreate {
 
   //Select Culture and update stats bonus- step 3 ----------------------------------------------
   static async step3(actor){
-    //Open dialog and select the culture 
+    //Open dialog and select the culture
     const itemData = await PENCharCreate.selectItem('culture',false)
     if (!itemData) {
       ui.notifications.error(game.i18n.localize('PEN.noCultures'))
-    return false            
+    return false
     }
     let culture = await actor.createEmbeddedDocuments("Item", itemData)
     await PENCharCreate.addCulture(actor,culture[0])
     return true
   }
-  
+
 
 
   //Create Stats - step 4--------------------------------------------------------------
@@ -454,10 +455,10 @@ export class PENCharCreate {
     let stats = []
     //If creation method is random then roll stats
     if (actor.system.create.random) {
-      await PENCharCreate.rollStats (actor)  
+      await PENCharCreate.rollStats (actor)
 
 
-      //If creation method is constructed then choose stats    
+      //If creation method is constructed then choose stats
     } else {
         stats = await StatsSelectDialog.create(culture)
         if (!stats) {return false}
@@ -469,7 +470,7 @@ export class PENCharCreate {
           'system.stats.app.value': Number(stats[0].app.value)
         })
     }
-    //Calculate distrinctive features    
+    //Calculate distrinctive features
     let disFeat = "4pos"
     let app = Number(actor.system.stats.app.value)
     if (app <= 5) {disFeat = "deathdoor"}
@@ -481,7 +482,7 @@ export class PENCharCreate {
 
     //Update Stats and features
     await actor.update({'system.features': game.i18n.localize('PEN.app.'+disFeat)})
-    return true  
+    return true
   }
 
 
@@ -518,62 +519,74 @@ export class PENCharCreate {
      //Call Chat Card
     const html = await PENCharCreate.charGenRollChatCard (results,game.i18n.localize('PEN.religion'), actor.name)
     let msg = await PENCharCreate.showCharGenRollChat(html,actor)
-    } else {  
-      //The creation method is constructed so pick the religion  
+    } else {
+      //The creation method is constructed so pick the religion
       itemData = await PENCharCreate.selectItem('religion',false)
-    }  
+    }
     //In either case if itemData not present then error out
     if (!itemData) {
       ui.notifications.error(game.i18n.localize('PEN.noReligions'))
-      return false            
+      return false
     }
     let newItem = await actor.createEmbeddedDocuments("Item", itemData)
     await PENCharCreate.addReligion (actor,newItem[0])
-    return true  
+    return true
   }
 
 
   //Set trait values -Step 6-----------------------------------------------------------------------------------------
   static async step6(actor){
-  let title = game.i18n.localize('PEN.selectTrait')
-  let changes = []
-  //If creation method is random
-  if (actor.system.create.random) {
-    await PENCharCreate.rollTraits(actor)    
-  } else {
-  //If creation method is constructed  
-    let sTrait = await PENCharCreate.selectActorItem(actor,'trait', title)
-      //Now check if you want to set the trait or the opposing value
-      let tList =[
-        {name: sTrait.name, pid: "16"},
-        {name: sTrait.system.oppName, pid: "4"},
-      ]
-      let option = await PENCharCreate.selectItem("list",false,tList,title)
-      await sTrait.update({'system.value': Number(option)})
+    let title = game.i18n.localize('PEN.selectTrait')
+    let changes = []
+    //If creation method is random
+    if (actor.system.create.random) {
+      await PENCharCreate.rollTraits(actor)
+    } else {
+      //If creation method is constructed
       let traits = actor.items.filter(item => item.type === 'trait')
+        .sort((a, b) => a.name.localeCompare(b.name));
+
       //Set trait scores to 15 for Valorous
-      for (let uTrait of traits) {
-        if (uTrait.system.keyword === 'valorous') {
-          uTrait.system.value = 15
+      let valor = traits.find(uTrait => uTrait.flags.Pendragon.pidFlag.id === 'i.trait.valorous');
+      await valor.update({'system.value': 15})
+
+      let [sTrait, opposed] = await PENCharCreate.selectActorTrait(actor, title)
+      // if no trait selected, error out
+      if(!sTrait) {return false;}
+
+      const option = opposed ? 4 : 16;
+      await sTrait.update({'system.value': Number(option)})
+
+      let optTraits = traits.map(uTrait => {
+        return { 
+          id: uTrait.id,
+          name: uTrait.name,
+          value: uTrait.system.total,
+          origVal:uTrait.system.total,
+          base: uTrait.system.value,
+          minVal:5,
+          maxVal:15,
+          religious: uTrait.system.religious,
+          oppName: uTrait.system.oppName,
+          oppValue: uTrait.system.oppvalue,
+          disabled: uTrait.id === sTrait.id
         }
-      }
-      //Exclude the trait that was set to 16
-      let optTraits = traits.filter(uTrait => Math.abs(uTrait.system.total-10) <6).map(uTrait => {
-        return { id: uTrait.id, name: uTrait.name, value: uTrait.system.total, origVal:uTrait.system.total, minVal:5, maxVal:15 }
-      })
+      });
       //Get the points spend
-      let traitVal = await TraitsSelectDialog.create(optTraits,6,false,game.i18n.localize('PEN.Entities.Trait'))  
-      if (!traitVal) {return}
+      let traitVal = await TraitsSelectDialog.create(optTraits,6,false,game.i18n.localize('PEN.Entities.Trait'));
+      if (!traitVal) {return false;}
+
       for (let uTrait of traitVal) {
+        let delta = Number(uTrait.value) - Number(uTrait.origVal)
         changes.push({
           _id: uTrait.id,
-          'system.value': Number(uTrait.value) - Number(uTrait.origVal) 
+          'system.value': Number(uTrait.base) + delta
         })
       }
-      await Item.updateDocuments(changes, {parent: actor})   
+      await Item.updateDocuments(changes, {parent: actor})
     }
 
-    return true    
+    return true
   }
 
 
@@ -582,25 +595,25 @@ export class PENCharCreate {
     //Open dialog and select the class  (not optional)
     let itemData = await PENCharCreate.selectItem('class',false)
     if (!itemData) {
-      ui.notifications.error(game.i18n.localize('PEN.noClasses'))
-      return false            
+      ui.notifications.error(game.i18n.localize('PEN.noClasses'));
+      return false;
     }
     await PENCharCreate. addClass (actor, itemData[0],false)
-    return true    
+    return true
   }
 
 
   //Get Homeland - step8-----------------------------------------------------------------------------------------------
   static async step8(actor) {
-    //Open dialog and select the class (not optional) 
+    //Open dialog and select the class (not optional)
     const itemData = await PENCharCreate.selectItem('homeland',false)
     if (!itemData) {
       ui.notifications.error(game.i18n.localize('PEN.noHomelands'))
-      return false            
+      return false
     }
     await PENCharCreate.addHomeland(actor,itemData[0])
     let newItem = await actor.createEmbeddedDocuments("Item", itemData)
-    return true          
+    return true
   }
 
 
@@ -616,10 +629,10 @@ export class PENCharCreate {
         passionPID = parentPass[0].flags.Pendragon.pidFlag.id
         bonus=Math.min(bonus-15,5)
         //Update the passion values
-        let pPas = actor.items.filter(itm=>itm.flags.Pendragon.pidFlag.id === passionPID)[0]  
+        let pPas = actor.items.filter(itm=>itm.flags.Pendragon.pidFlag.id === passionPID)[0]
         await pPas.update ({'system.inherit': bonus})
       }
-    }  
+    }
     return true
   }
 
@@ -638,11 +651,11 @@ export class PENCharCreate {
           _id: item.id,
           'system.value':score,
         }
-        changes.push(change)  
+        changes.push(change)
       }
-    }         
-    await Item.updateDocuments(changes, {parent: actor})   
-    return true      
+    }
+    await Item.updateDocuments(changes, {parent: actor})
+    return true
   }
 
 
@@ -681,14 +694,14 @@ export class PENCharCreate {
           if (sRoll.toLowerCase() != 'gifted') {
             fUUID.push(sRoll)
           } else {
-            //If second or third rolls are gifted then become Transcendent Beauty  
+            //If second or third rolls are gifted then become Transcendent Beauty
             beauty = beauty + 5
           }
-        }              
+        }
       } else {
         fUUID.push(fRoll)
       }
-    //Else if constructed  
+    //Else if constructed
 
      //Call Chat Card
      const html = await PENCharCreate.charGenRollChatCard (results,game.i18n.localize('PEN.familyChar'), actor.name)
@@ -710,13 +723,13 @@ export class PENCharCreate {
           ui.notifications.error(game.i18n.localize('PEN.religDocGone'))
           return false
       }
-    }  
+    }
     for (let fRes of fUUID) {
       const doc = await fromUuidSync(fRes)
       if (!doc) {
         ui.notifications.error(game.i18n.localize('PEN.religDocGone'))
-        return false   
-      } 
+        return false
+      }
       let item = await actor.items.filter(itm => (itm.flags.Pendragon.pidFlag.id === doc.flags.Pendragon.pidFlag.id))[0]
       await item.update({'system.family': Number(item.system.family) + 3})
       if (actor.system.family === "") {
@@ -732,7 +745,7 @@ export class PENCharCreate {
         await actor.update({'system.family': game.i18n.localize('PEN.transcendent') +" (+"+beauty+"), "+ actor.system.family})
       }
     }
-    await actor.update({'system.beauty': beauty})    
+    await actor.update({'system.beauty': beauty})
     return true
   }
 
@@ -740,7 +753,7 @@ export class PENCharCreate {
   //Spend Skill Points - step 12-------------------------------------------------------------
   static async step12(actor,points) {
     let skills = await (actor.items.filter(itm =>itm.type==='skill')).filter(itm => itm.system.total>0 && itm.system.total<15).map(itm=>{return {
-      id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total, minVal:0, maxVal:15, stat:itm.system.base.stat, bonus:Number(itm.system.family) + Number(itm.system.culture) 
+      id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total, minVal:0, maxVal:15, stat:itm.system.base.stat, bonus:Number(itm.system.family) + Number(itm.system.culture)
     }})
 
     skills.sort(function(a, b){
@@ -757,18 +770,18 @@ export class PENCharCreate {
         sItm.maxVal = actor.system.stats.app.total+ sItm.bonus
       }
     }
-    let skillVal = await TraitsSelectDialog.create(skills,points,true,game.i18n.localize('PEN.Entities.Skill'))  
+    let skillVal = await ItemsSelectDialog.create(skills,points,true,game.i18n.localize('PEN.Entities.Skill'))
     if (!skillVal) {return false}
     let changes=[]
     for (let uSkill of skillVal) {
       changes.push({
         _id: uSkill.id,
-        'system.create': Number(uSkill.value) - Number(uSkill.origVal) 
+        'system.create': Number(uSkill.value) - Number(uSkill.origVal)
       })
     }
-    await Item.updateDocuments(changes, {parent: actor})  
+    await Item.updateDocuments(changes, {parent: actor})
     return true
-  }  
+  }
 
 
 
@@ -794,7 +807,7 @@ export class PENCharCreate {
           //Option 1: Improve skills by 5 points
           case "1":
             let skills = await (actor.items.filter(itm =>itm.type==='skill')).filter(itm => itm.system.total>0 && itm.system.total<15).map(itm=>{return {
-              id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total, minVal:itm.system.total, maxVal:15, winter: itm.system.winter, stat:itm.system.base.stat, bonus:Number(itm.system.family) + Number(itm.system.culture) 
+              id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total, minVal:itm.system.total, maxVal:15, winter: itm.system.winter, stat:itm.system.base.stat, bonus:Number(itm.system.family) + Number(itm.system.culture)
             }})
             skills.sort(function(a, b){
               let x = a.name;
@@ -809,17 +822,17 @@ export class PENCharCreate {
                 sItm.maxVal = Math.max(Number(actor.system.stats.app.total)+ Number(sItm.bonus),15)
               }
             }
-            let skillVal = await TraitsSelectDialog.create(skills,5,true,game.i18n.localize('PEN.Entities.Skill'))  
+            let skillVal = await ItemsSelectDialog.create(skills,5,true,game.i18n.localize('PEN.Entities.Skill'))
             if (!skillVal) {return false}
 
             changes = await skillVal.filter(itm=>itm.value > itm.origVal).map(itm=>{return{_id: itm.id, 'system.winter': Number(itm.winter) + Number(itm.value)-Number(itm.origVal)}})
-            await Item.updateDocuments(changes, {parent: actor})   
-            break  
+            await Item.updateDocuments(changes, {parent: actor})
+            break
 
-          //Option 2: Improve Traits  
+          //Option 2: Improve Traits
           case "2":
             let traits = await (actor.items.filter(itm =>itm.type==='trait')).map(itm=>{return {
-              id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total, minVal:1, maxVal:19, winter:itm.system.winter 
+              id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total, minVal:1, maxVal:19, winter:itm.system.winter
             }})
             traits.sort(function(a, b){
               let x = a.name;
@@ -828,17 +841,17 @@ export class PENCharCreate {
               if (x > y) {return 1};
             return 0;
             });
-            let traitVal = await TraitsSelectDialog.create(traits,1,false,game.i18n.localize('PEN.Entities.Trait'))  
+            let traitVal = await TraitsSelectDialog.create(traits,1,false,game.i18n.localize('PEN.Entities.Trait'))
             if (!traitVal) {return false}
             changes = await traitVal.filter(itm=>itm.value > itm.origVal).map(itm=>{return{_id: itm.id, 'system.winter': Number(itm.winter) + Number(itm.value)-Number(itm.origVal)}})
-            await Item.updateDocuments(changes, {parent: actor})   
-            break            
+            await Item.updateDocuments(changes, {parent: actor})
+            break
 
 
-          //Option 3: Improve Passions  
+          //Option 3: Improve Passions
           case "3":
             let passions = await (actor.items.filter(itm =>itm.type==='passion')).filter(itm => itm.system.total>0 && itm.system.total<20).map(itm=>{return {
-              id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total, minVal:itm.system.total, maxVal:20, winter:itm.system.winter 
+              id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total, minVal:itm.system.total, maxVal:20, winter:itm.system.winter
             }})
             passions.sort(function(a, b){
               let x = a.name;
@@ -847,10 +860,10 @@ export class PENCharCreate {
               if (x > y) {return 1};
             return 0;
             });
-            let passVal = await TraitsSelectDialog.create(passions,1,true,game.i18n.localize('PEN.Entities.Passion'))  
+            let passVal = await ItemsSelectDialog.create(passions,1,true,game.i18n.localize('PEN.Entities.Passion'))
             if (!passVal) {return false}
             changes = await passVal.filter(itm=>itm.value > itm.origVal).map(itm=>{return{_id: itm.id, 'system.winter': Number(itm.winter) + Number(itm.value)-Number(itm.origVal)}})
-            await Item.updateDocuments(changes, {parent: actor})   
+            await Item.updateDocuments(changes, {parent: actor})
             break
 
           //Option 3: Improve a stat
@@ -868,7 +881,7 @@ export class PENCharCreate {
                 })
               }
             }
-            const chosen = await  TraitsSelectDialog.create (stats, 1, true,game.i18n.localize('PEN.characteristic'));
+            const chosen = await  ItemsSelectDialog.create (stats, 1, true,game.i18n.localize('PEN.characteristic'));
             if (!chosen) {
               await PENCharCreate.undostep13(actor)
               return false}
@@ -876,14 +889,14 @@ export class PENCharCreate {
               if (selected.value > selected.origVal) {
                 let target = 'system.stats.' + selected.id + '.winter';
                 await actor.update({[target] : actor.system.stats[selected.id].winter + 1});
-              }  
+              }
             }
             break
         }
       }
     }
     return true
-  }  
+  }
 
 
   //Luck Benefit - step 14-------------------------------------------------------------
@@ -893,9 +906,9 @@ export class PENCharCreate {
                 button1: {label:game.i18n.localize("PEN.yes"),
                           icon: `<i class="fas fa-swords"></i>`},
                 button2: {label:game.i18n.localize("PEN.no"),
-                          icon: `<i class="fas fa-shield"></i>`}          
+                          icon: `<i class="fas fa-shield"></i>`}
                 }
-    let usage = await PENCharCreate.twoOptions(data)   
+    let usage = await PENCharCreate.twoOptions(data)
     if (!usage) {return true}
 
     let results=[]
@@ -925,11 +938,11 @@ export class PENCharCreate {
     })
     //Call Chat Card
     const html = await PENCharCreate.charGenRollChatCard (results,game.i18n.localize('PEN.luckBen'), actor.name)
-    let msg = await PENCharCreate.showCharGenRollChat(html,actor)    
+    let msg = await PENCharCreate.showCharGenRollChat(html,actor)
     let luck = await actor.createEmbeddedDocuments("Item", itemData)
     await luck[0].update({'system.source': 'luck'})
     return true
-  }  
+  }
 
 
   //Knighted - step 15-----------------------------------------------------------------
@@ -939,9 +952,9 @@ export class PENCharCreate {
                 button1: {label:game.i18n.localize("PEN.yes"),
                           icon: `<i class="fas fa-swords"></i>`},
                 button2: {label:game.i18n.localize("PEN.no"),
-                          icon: `<i class="fas fa-shield"></i>`}          
+                          icon: `<i class="fas fa-shield"></i>`}
                 }
-    let usage = await PENCharCreate.twoOptions(data)       
+    let usage = await PENCharCreate.twoOptions(data)
     if (!usage) {return true}
     let lord = Number(await PENCharCreate.inpValue(game.i18n.localize('PEN.lordsGlory')))
     let glory = 1000 + Math.min(Math.round(lord/100),1000)
@@ -954,7 +967,7 @@ export class PENCharCreate {
       shiftKey: true,
       actor: actor,
       token: ""
-    })            
+    })
 
     //Make the leap
     let level = await game.messages.get(msgID).flags.Pendragon.chatCard[0].resultLevel
@@ -962,7 +975,7 @@ export class PENCharCreate {
       glory = glory + 50
     } else if (level ===2) {
       glory = glory + 25}
-    let msg = game.i18n.localize("PEN.leap."+level)  
+    let msg = game.i18n.localize("PEN.leap."+level)
 
 
     await PENCharCreate.createHistory (
@@ -981,7 +994,7 @@ export class PENCharCreate {
   //source = item type or "list"
   //optional - if true add a "none" option
   //list - prepopulated list (name,pid) only used where source = "list"
-  //winTitle - title of the selection box 
+  //winTitle - title of the selection box
   static async selectItem(source,optional,list,winTitle){
   //Get list of items
   let newList = []
@@ -991,7 +1004,7 @@ export class PENCharCreate {
     let mainList = await game.system.api.pid.fromPIDRegexBest({ pidRegExp: new RegExp('^i.' + PENUtilities.quoteRegExp(source) + '.+$'), type: 'i' })
     newList = mainList.map(itm=>{return{name:itm.name, pid: itm.flags.Pendragon.pidFlag.id}})
     if (!winTitle) {
-      winTitle = game.i18n.format("PEN.selectItem",{type:  game.i18n.localize("PEN.Entities." + `${source.capitalize()}`)});  
+      winTitle = game.i18n.format("PEN.selectItem",{type:  game.i18n.localize("PEN.Entities." + `${source.capitalize()}`)});
     }
   }
   if (optional) {
@@ -1004,7 +1017,7 @@ export class PENCharCreate {
   if (newList.length <1) {return false}
   if (newList.length === 1) {
     itemPID = newList[0].pid
-  } else {  
+  } else {
     let destination = 'systems/Pendragon/templates/dialog/selectItem.html';
     let data = {
       newList,
@@ -1040,14 +1053,14 @@ export class PENCharCreate {
     //Get the item details and return them
 
     const itemData = await game.system.api.pid.fromPIDBest({pid:itemPID})
-    return itemData     
-  } 
-  
+    return itemData
+  }
+
   //Choose Item Dialog
   static async selectActorItem(actor,type,title){
-    //Get list of items  
+    //Get list of items
     let newList = await actor.items.filter(itm => itm.type === type).map(itm=> {return {name:itm.name, pid:itm.flags.Pendragon.pidFlag.id,system:{value: itm.system.total}}})
-    
+
     //If traits then set all to 10
     if(type === 'trait') {
       for (let itm of newList) {
@@ -1056,7 +1069,7 @@ export class PENCharCreate {
     }
 
     let destination = 'systems/Pendragon/templates/dialog/selectItem.html';
-    let winTitle = title;  
+    let winTitle = title;
     let data = {
       newList,
     }
@@ -1080,7 +1093,7 @@ export class PENCharCreate {
         },{classes: ["Pendragon", "sheet"]})
         dlg.render(true);
       })
-  
+
       //Get the UUID from the form
       let itemPID = ""
       if (usage) {
@@ -1089,8 +1102,56 @@ export class PENCharCreate {
       if (itemPID === "") {return false}
       //Get the item details and return them
       const item = await actor.items.filter(itm => itm.flags.Pendragon.pidFlag.id === itemPID);
-      return item[0]     
-    } 
+      return item[0]
+    }
+
+  static async selectActorTrait(actor, title){
+    //Get list of items
+    let newList = await actor.items
+      .filter(itm => itm.type === 'trait')
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    let destination = 'systems/Pendragon/templates/dialog/selectTrait.html';
+    let winTitle = title;
+    let data = {
+      newList,
+    }
+    const html = await renderTemplate(destination,data);
+    let usage = await new Promise(resolve => {
+      let formData = null
+      const dlg = new Dialog({
+        title: winTitle,
+        content: html,
+        buttons: {
+          roll: {
+            label: game.i18n.localize("PEN.confirm"),
+            callback: html => {
+            formData = new FormData(html[0].querySelector('#selectItem'))
+            return resolve(formData)
+            }
+          }
+        },
+        default: 'roll',
+        close: () => {}
+        },{classes: ["Pendragon", "sheet"]})
+        dlg.render(true);
+      })
+
+      //Get the UUID from the form
+      let itemPID = ""
+      let opposed = false;
+      if (usage) {
+        itemPID = usage.get('selectItem');
+      }
+      if (itemPID === "") {return [false, false]}
+      if (itemPID.startsWith('OPPOSED')) {
+        itemPID = itemPID.substring(7);
+        opposed = true;
+      }
+      //Get the item details and return them
+      const item = await actor.items.filter(itm => itm.flags.Pendragon.pidFlag.id === itemPID);
+      return [item[0], opposed];
+    }
 
 
 
@@ -1132,7 +1193,7 @@ export class PENCharCreate {
       if (tableCheck === 2) {
         tablePID = 'rt..family-characteristic'
         name = game.i18n.localize('PEN.familyChar')
-      }  
+      }
       let table= (await game.system.api.pid.fromPIDBest({pid:tablePID}))
       if (table.length < 1) {
         ui.notifications.error(game.i18n.format('PEN.noNamedTable',{name: name}))
@@ -1142,11 +1203,11 @@ export class PENCharCreate {
       let results = table[0].results
       if (results.contents.length<1) {
         ui.notifications.error(game.i18n.format('PEN.noTableDocs',{name: name}))
-        return false          
-      }  
+        return false
+      }
       if (results.filter(itm => (itm.type === 0)).length >0 && tableCheck!=2) {
         ui.notifications.error(game.i18n.format('PEN.notTableDoc',{name: name}))
-        return false      
+        return false
       }
       for (let res of results) {
         let rUUID=""
@@ -1168,25 +1229,25 @@ export class PENCharCreate {
           const doc = await fromUuidSync(rUUID)
           if (!doc) {
             ui.notifications.error(game.i18n.format('PEN.religDocGone',{doc:rUUID, table:name}))
-          return false        
+          return false
           }
         }
-      }     
+      }
     }
-    return true        
+    return true
   }
 
 
 
   //Choose Item Dialog
   static async selectFromRadio(source,optional,list,title){
-    //Get list of items  
+    //Get list of items
     let newList = [];
     if (source != 'list'){
       newList = await game.system.api.pid.fromPIDRegexBest({ pidRegExp: new RegExp('^i.' + PENUtilities.quoteRegExp(source) + '.+$'), type: 'i' })
     } else {
       newList = list
-    }  
+    }
 
     //If optional = true add "none" as an option
     if (optional) {
@@ -1196,16 +1257,16 @@ export class PENCharCreate {
         })
       }
 
-    //If there's only one item on the list then return it  
+    //If there's only one item on the list then return it
     let itemPID = ""
     if (newList.length <1) {return false}
     if (newList.length === 1) {
       itemPID = newList[0].flags.Pendragon.pidFlag.id
-    
-    //Otherwise call the dialog selection  
-    } else {  
+
+    //Otherwise call the dialog selection
+    } else {
       let destination = 'systems/Pendragon/templates/dialog/selectItem.html';
-      let winTitle = game.i18n.format("PEN.selectItem",{type:  game.i18n.localize("PEN.Entities." + `${source.capitalize()}`)});  
+      let winTitle = game.i18n.format("PEN.selectItem",{type:  game.i18n.localize("PEN.Entities." + `${source.capitalize()}`)});
       let data = {
         headTitle: title,
         newList,
@@ -1230,18 +1291,18 @@ export class PENCharCreate {
           },{classes: ["Pendragon", "sheet"]})
           dlg.render(true);
         })
-  
+
         //Get the PID from the form
         if (usage) {
           itemPID = usage.get('selectItem');
         }
       }
       if (itemPID === "") {return false}
-      return itemPID     
-    } 
+      return itemPID
+    }
 
 
- //Function to call the Family Create Dialog box 
+ //Function to call the Family Create Dialog box
   //
   static async familyDialog (options) {
     const data = {}
@@ -1265,15 +1326,15 @@ export class PENCharCreate {
       },{classes: ["Pendragon", "sheet"]})
       dlg.render(true);
     })
-  }  
+  }
 
   //Glory Roll
   static async gloryRoll (parentName,actor) {
     let results = []
-    let roll1 = await PENUtilities.complexDiceRoll('2D6') 
+    let roll1 = await PENUtilities.complexDiceRoll('2D6')
     let roll2 = await PENUtilities.complexDiceRoll('2D6')
     let glory = (Number(roll1.total)*100)+2000 + (Number(roll2.total)*100)+500
-    let heroic = Math.floor(((Number(roll2.total)*100)+500)/500)  
+    let heroic = Math.floor(((Number(roll2.total)*100)+500)/500)
     let result = ({glory,heroic})
 
     let rollStr=""
@@ -1310,7 +1371,7 @@ export class PENCharCreate {
     //const tableResults = await table.roll()
     //if (game.modules.get('dice-so-nice')?.active) {
     //  game.dice3d.showForRoll(tableResults.roll)
-    //} 
+    //}
     const res = tableResults.results[0]
   switch (res.type) {
     case CONST.TABLE_RESULT_TYPES.DOCUMENT:
@@ -1329,14 +1390,14 @@ export class PENCharCreate {
     let history = await (actor.items.filter(itm =>itm.type==='history')).filter(itm =>['inherited','born',"squired"].includes(itm.system.source)).map(itm => {return (itm.id)})
     await Item.deleteDocuments(parents, {parent: actor});
     await Item.deleteDocuments(history, {parent: actor});
-    return  
+    return
   }
 
 
 
   //Add a culture
   static async addCulture (actor,culture) {
-    let cPIDs = (culture.system.skills).filter(itm => itm).map(itm => {return (itm.pid)}) 
+    let cPIDs = (culture.system.skills).filter(itm => itm).map(itm => {return (itm.pid)})
     let changes=[]
     for (let item of actor.items) {
       if (item.type === 'skill') {
@@ -1344,12 +1405,12 @@ export class PENCharCreate {
         if (cPIDs.includes(item.flags.Pendragon.pidFlag.id)) {
           const change = {
             _id: item.id,
-            'system.culture': 3,         
+            'system.culture': 3,
           }
-          changes.push(change)  
+          changes.push(change)
         }
-      }         
-      await Item.updateDocuments(changes, {parent: actor})  
+      }
+      await Item.updateDocuments(changes, {parent: actor})
       await actor.update({'system.stats.siz.culture': Number(culture.system.stats.siz.bonus),
                           'system.stats.dex.culture': Number(culture.system.stats.dex.bonus),
                           'system.stats.str.culture': Number(culture.system.stats.str.bonus),
@@ -1369,9 +1430,9 @@ export class PENCharCreate {
                         'system.stats.str.culture': 0,
                         'system.stats.con.culture': 0,
                         'system.stats.app.culture': 0})
-    let skills = actor.items.filter(itm =>itm.type==='skill').map(itm => {return { _id: itm.id, 'system.culture': 0}})  
-    await Item.updateDocuments(skills, {parent: actor})                     
-    return  
+    let skills = actor.items.filter(itm =>itm.type==='skill').map(itm => {return { _id: itm.id, 'system.culture': 0}})
+    await Item.updateDocuments(skills, {parent: actor})
+    return
   }
 
   //undo setting characteristics step 4
@@ -1383,7 +1444,7 @@ export class PENCharCreate {
       'system.stats.con.value': 10,
       'system.stats.app.value': 10,
       'system.features': ""})
-    return    
+    return
   }
 
 
@@ -1392,18 +1453,18 @@ export class PENCharCreate {
     //Set trait religious modifier to +3/-3
     let theseTraits = []
     let adj = 3
-    for (let tCount =0; tCount<2; tCount++) { 
+    for (let tCount =0; tCount<2; tCount++) {
       if (tCount === 0) {
         theseTraits = religion.system.positive
       } else {
         theseTraits = religion.system.negative
         adj = -3
-      }  
+      }
       let list = []
       for (let thisTrait of theseTraits) {list.push(thisTrait.pid)}
-        let traits = (actor.items).filter(itm => ['trait'].includes(itm.type))
-        let changes = traits.filter(rTrait=> list.includes(rTrait.system.pid)).map(rTrait => {return { _id: rTrait.id, 'system.religious': adj}})
-        await Item.updateDocuments(changes, {parent: actor})   
+        let traits = (actor.items).filter(itm => itm.type === 'trait');
+        let changes = traits.filter(rTrait=> list.includes(rTrait.flags.Pendragon.pidFlag.id)).map(rTrait => {return { _id: rTrait.id, 'system.religious': adj}})
+        await Item.updateDocuments(changes, {parent: actor})
       }
     return
   }
@@ -1413,7 +1474,7 @@ export class PENCharCreate {
     let religions = actor.items.filter(itm =>itm.type==='religion').map(itm => {return (itm.id)})
     await Item.deleteDocuments(religions, {parent: actor});
     let traits = actor.items.filter(itm => itm.type==='trait').map(itm => {return { _id: itm.id, 'system.religious': 0}})
-    await Item.updateDocuments(traits, {parent: actor})                           
+    await Item.updateDocuments(traits, {parent: actor})
     return
   }
 
@@ -1421,9 +1482,9 @@ export class PENCharCreate {
   //Undo trait value setting - step 6
   static async undostep6(actor){
     let traits = actor.items.filter(itm => itm.type==='trait').map(itm => {return { _id: itm.id, 'system.value': 10}})
-    await Item.updateDocuments(traits, {parent: actor})   
+    await Item.updateDocuments(traits, {parent: actor})
     return
-  }  
+  }
 
 
   //Add a class
@@ -1436,7 +1497,7 @@ export class PENCharCreate {
       let nItm = await game.system.api.pid.fromPIDBest({pid:newItm.pid})
       if (nItm.length > 0) {
         newItems.push(nItm[0])
-      }  
+      }
     }
 
     //If ask = true then ask if Roll/Choose and update the actor
@@ -1446,10 +1507,10 @@ export class PENCharCreate {
       button1: {label:game.i18n.localize("PEN.roll"),
                 icon: `<i class="fas fa-dice"></i>`},
       button2: {label:game.i18n.localize("PEN.construct"),
-                icon: `<i class="fas fa-book-open-cover"></i>`}          
+                icon: `<i class="fas fa-book-open-cover"></i>`}
       }
       let usage = await PENCharCreate.twoOptions(data)
-      await actor.update({'system.create.random': usage})   
+      await actor.update({'system.create.random': usage})
     }
 
     //Get points available to spend on passions
@@ -1462,7 +1523,7 @@ export class PENCharCreate {
       //let roll = await new Roll("4D6+1").evaluate({ async: true})
       //if (game.modules.get('dice-so-nice')?.active) {
       //  game.dice3d.showForRoll(roll)
-      //}   
+      //}
       available = roll.total
       for (let dCount=0; dCount<roll.dice[0].results.length; dCount++)
       if (dCount === 0){
@@ -1498,7 +1559,7 @@ export class PENCharCreate {
         if (aPass.source != "") {
           //Set the dice if source is populated
           let formula = "1D6+2"
-          if (aPass.source === 'primary') {formula="2D6+8"} 
+          if (aPass.source === 'primary') {formula="2D6+8"}
           else if (aPass.source === 'secondary') {formula="2D6+3"}
           //Roll and display dice
           let roll = await PENUtilities.complexDiceRoll (formula)
@@ -1508,7 +1569,7 @@ export class PENCharCreate {
           //}
           aPass.value = Number(roll.total)
           aPass.origVal = Number(roll.total)
-          aPass.minVal = Number(roll.total) 
+          aPass.minVal = Number(roll.total)
 
           for (let dCount=0; dCount<roll.dice[0].results.length; dCount++)
             if (dCount === 0){
@@ -1528,34 +1589,34 @@ export class PENCharCreate {
         //If constructed method then set the values using the class/homeland modifiers
         if (aPass.source != "") {
           let val = 5
-          if (aPass.source === 'primary') {val=15} 
+          if (aPass.source === 'primary') {val=15}
           else if (aPass.source === 'secondary') {val=10}
           aPass.value = val
           aPass.origVal = val
-          aPass.minVal = val          
-        }  
+          aPass.minVal = val
+        }
       }
     }
     if (results.length > 0) {
       //Call Chat Card
       const html = await PENCharCreate.charGenRollChatCard (results,game.i18n.localize('PEN.passions'), actor.name)
       let msg = await PENCharCreate.showCharGenRollChat(html,actor)
-    } 
-      
-    //Pass the data to trait select  
-    let passionVal = await TraitsSelectDialog.create(optPassions, available,true,game.i18n.localize('PEN.Entities.Passion'))  
+    }
+
+    //Pass the data to trait select
+    let passionVal = await ItemsSelectDialog.create(optPassions, available,true,game.i18n.localize('PEN.Entities.Passion'))
     if (!passionVal) {return false}
 
     //Update starting values
     for (let pItm of passionVal) {
       let item = actor.items.get(pItm.id)
       await item.update ({'system.value': Number(pItm.value)-Number(pItm.homeland)})
-    }  
+    }
     //Create Item classes & Update Source
     let classItems = await Item.createDocuments(newItems, {parent: actor})
     //let classItems = await actor.createEmbeddedDocuments("Item", newItems)
     let updateItems = classItems.map(itm => {return { _id: itm.id, 'system.source': "class"}})
-    await Item.updateDocuments(updateItems, {parent: actor})   
+    await Item.updateDocuments(updateItems, {parent: actor})
     return true
   }
 
@@ -1564,13 +1625,13 @@ export class PENCharCreate {
     let classes = await (actor.items.filter(itm =>['class','horse','armour','weapon','gear'].includes(itm.type))).filter(itm=>itm.system.source==='class'|| itm.type==='class').map(itm => {return (itm.id)})
     await Item.deleteDocuments(classes, {parent: actor});
     let passions = actor.items.filter(itm =>itm.type==='passion').map(itm => {return { _id: itm.id, 'system.source': "", 'system.value': 0}})
-    await Item.updateDocuments(passions, {parent: actor})                 
+    await Item.updateDocuments(passions, {parent: actor})
     return
   }
 
   //Add a homeland
   static async addHomeland (actor,homeland) {
-    let hPIDs = (homeland.system.passions).filter(itm => itm).map(itm => {return (itm.pid)}) 
+    let hPIDs = (homeland.system.passions).filter(itm => itm).map(itm => {return (itm.pid)})
     let changes=[]
     for (let item of actor.items) {
       if (item.type === 'passion') {
@@ -1578,13 +1639,13 @@ export class PENCharCreate {
         if (hPIDs.includes(item.flags.Pendragon.pidFlag.id)) {
           const change = {
             _id: item.id,
-            'system.homeland': 5,         
+            'system.homeland': 5,
           }
-          changes.push(change)  
+          changes.push(change)
         }
-      }  
-    }       
-      await Item.updateDocuments(changes, {parent: actor})  
+      }
+    }
+      await Item.updateDocuments(changes, {parent: actor})
   return
   }
 
@@ -1594,7 +1655,7 @@ export class PENCharCreate {
     let homelands = actor.items.filter(itm =>itm.type==='homeland').map(itm => {return (itm.id)})
     await Item.deleteDocuments(homelands, {parent: actor});
     let passions = actor.items.filter(itm =>itm.type==='passion').map(itm => {return { _id: itm.id, 'system.homeland': 0}})
-    await Item.updateDocuments(passions, {parent: actor})   
+    await Item.updateDocuments(passions, {parent: actor})
     return
   }
 
@@ -1602,23 +1663,23 @@ export class PENCharCreate {
   //Undo set parent passion- step 9
   static async undostep9(actor){
     let passions = actor.items.filter(itm =>itm.type==='passion').map(itm => {return { _id: itm.id, 'system.inherit': 0}})
-    await Item.updateDocuments(passions, {parent: actor})   
+    await Item.updateDocuments(passions, {parent: actor})
     return
   }
 
 
   //Undo set skill scores - step 10
   static async resetBaseSkillScores(actor) {
-    let skills = actor.items.filter(itm =>itm.type==='skill').map(itm => {return { _id: itm.id, 'system.value': 0}})  
-    await Item.updateDocuments(skills, {parent: actor})    
+    let skills = actor.items.filter(itm =>itm.type==='skill').map(itm => {return { _id: itm.id, 'system.value': 0}})
+    await Item.updateDocuments(skills, {parent: actor})
     return
   }
 
-  
+
   //Undo set skill scores - step 11
   static async undostep11(actor) {
-    let skills = actor.items.filter(itm =>itm.type==='skill').map(itm => {return { _id: itm.id, 'system.family': 0}})  
-    await Item.updateDocuments(skills, {parent: actor})    
+    let skills = actor.items.filter(itm =>itm.type==='skill').map(itm => {return { _id: itm.id, 'system.family': 0}})
+    await Item.updateDocuments(skills, {parent: actor})
     await actor.update({'system.family': "",
                         'system.beauty':0})
     return
@@ -1627,16 +1688,16 @@ export class PENCharCreate {
 
   //Undo set skill scores - step 12
   static async undostep12(actor) {
-    let skills = actor.items.filter(itm =>itm.type==='skill').map(itm => {return { _id: itm.id, 'system.create': 0}})  
-    await Item.updateDocuments(skills, {parent: actor})    
+    let skills = actor.items.filter(itm =>itm.type==='skill').map(itm => {return { _id: itm.id, 'system.create': 0}})
+    await Item.updateDocuments(skills, {parent: actor})
     return
   }
 
 
   //Undo training and development - step 13
   static async undostep13(actor) {
-    let skills = actor.items.filter(itm =>['skill','passion','trait'].includes(itm.type)).map(itm => {return { _id: itm.id, 'system.winter': 0}})  
-    await Item.updateDocuments(skills, {parent: actor})    
+    let skills = actor.items.filter(itm =>['skill','passion','trait'].includes(itm.type)).map(itm => {return { _id: itm.id, 'system.winter': 0}})
+    await Item.updateDocuments(skills, {parent: actor})
     await actor.update({
       'system.stats.siz.winter': 0,
       'system.stats.dex.winter': 0,
@@ -1651,15 +1712,15 @@ export class PENCharCreate {
   //Undo set skill scores - step 14
   static async undostep14(actor) {
   //Get ready to delete items
-    let startItems = (actor.items.filter(itm =>["gear"].includes(itm.type))).filter(itm=>itm.system.source==='luck').map(itm => {return (itm.id)})  
-    await Item.deleteDocuments(startItems, {parent: actor});  
+    let startItems = (actor.items.filter(itm =>["gear"].includes(itm.type))).filter(itm=>itm.system.source==='luck').map(itm => {return (itm.id)})
+    await Item.deleteDocuments(startItems, {parent: actor});
     return
   }
 
   //Undo set skill scores - step 15
   static async undostep15(actor) {
-    let history = (actor.items.filter(itm =>["history"].includes(itm.type))).filter(itm=>itm.system.source==='knighted').map(itm => {return (itm.id)})  
-    await Item.deleteDocuments(history, {parent: actor});  
+    let history = (actor.items.filter(itm =>["history"].includes(itm.type))).filter(itm=>itm.system.source==='knighted').map(itm => {return (itm.id)})
+    await Item.deleteDocuments(history, {parent: actor});
     return
   }
 
@@ -1673,7 +1734,7 @@ export class PENCharCreate {
     }
       const messageTemplate = 'systems/Pendragon/templates/chat/charGenRoll.html'
       let html = await renderTemplate (messageTemplate, messageData);
- 
+
      return html;
 
   }
@@ -1692,7 +1753,7 @@ export class PENCharCreate {
         },
       }
     let msg = await ChatMessage.create(chatData);
-    return 
+    return
   }
 
   //Display two button chat window
@@ -1718,7 +1779,7 @@ export class PENCharCreate {
             label: data.button2.label,
             callback: () => {return resolve(false)},
             icon: data.button2.icon
-          } 
+          }
         },
         default: 'button1',
         close: () => {}
@@ -1727,7 +1788,7 @@ export class PENCharCreate {
     })
     return usage
   }
-  
+
   //Get value input
   static async inpValue (title){
     let inpVal = await new Promise(resolve => {
@@ -1768,31 +1829,31 @@ export class PENCharCreate {
     let key = await game.system.api.pid.guessId(histItem)
     await histItem.update({'flags.Pendragon.pidFlag.id': key,
                          'flags.Pendragon.pidFlag.lang': game.i18n.lang,
-                         'flags.Pendragon.pidFlag.priority': 0})  
-    return                       
+                         'flags.Pendragon.pidFlag.priority': 0})
+    return
   }
 
   //Roll Traits
   static async rollTraits (actor) {
     let changes=[]
     let results=[]
-    let rTraits = actor.items.filter(item => item.type === 'trait')          
+    let rTraits = actor.items.filter(item => item.type === 'trait')
     for (let rTrait of rTraits) {
-      //Set dice formula 
+      //Set dice formula
       let formula = "2D6+3"
       if (rTrait.flags.Pendragon.pidFlag.id === 'i.trait.valorous') {
-        formula = "2D6+8"  
+        formula = "2D6+8"
       }
       //Roll and display dice
       let roll = await PENUtilities.complexDiceRoll (formula)
       //let roll = await new Roll(formula).evaluate({ async: true})
       //if (game.modules.get('dice-so-nice')?.active) {
       //  game.dice3d.showForRoll(roll)
-      //}  
+      //}
       rTrait.system.value = Number(roll.total)
       changes.push({
         _id: rTrait.id,
-        'system.value': rTrait.system.value 
+        'system.value': rTrait.system.value
       })
       let rollStr=""
       for (let dCount=0; dCount<roll.dice[0].results.length; dCount++)
@@ -1811,14 +1872,14 @@ export class PENCharCreate {
     //Call Chat Card
     const html = await PENCharCreate.charGenRollChatCard (results,game.i18n.localize('PEN.traits'), actor.name)
     let msg = await PENCharCreate.showCharGenRollChat(html,actor)
-    await Item.updateDocuments(changes, {parent: actor})   
+    await Item.updateDocuments(changes, {parent: actor})
     return
   }
 
   //Roll Characteristics
   static async rollStats(actor) {
 
-    //Calculate distrinctive features    
+    //Calculate distrinctive features
     let results=[]
     for (let [key, stat] of Object.entries(actor.system.stats)) {
       //Set default formula and adjust if there is a culture
@@ -1830,7 +1891,7 @@ export class PENCharCreate {
       //let roll = await new Roll(formula).evaluate({ async: true})
       //if (game.modules.get('dice-so-nice')?.active) {
       //  game.dice3d.showForRoll(roll)
-      //} 
+      //}
       let target = "system.stats."+key+".value"
       let rollStr=""
       for (let dCount=0; dCount<roll.dice[0].results.length; dCount++)

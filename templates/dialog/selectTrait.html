@@ -1,0 +1,19 @@
+<form class="Pendragon" id="selectItem">
+    <div class="stat-name">{{headTitle}}</div>
+    <div class="trait radioList">
+      {{#each newList as |trait id|}}
+        <div class="stat-name">
+          <label>
+            <input type="radio" name="selectItem" value={{trait.flags.Pendragon.pidFlag.id}} {{#if (eq @index 0)}}checked{{/if}}></input>
+            {{trait.name}} {{#if (gt trait.system.religious 0)}}(R){{/if}}
+          </label>
+        </div>
+        <div class="stat-name opposed">
+          <label>
+            {{trait.system.oppName}} {{#if (lt trait.system.religious 0)}}(R){{/if}}
+            <input type="radio" name="selectItem" value="OPPOSED{{trait.flags.Pendragon.pidFlag.id}}" {{#if (eq trait.flags.Pendragon.pidFlag.id 'i.trait.valorous')}}disabled{{/if}}></input>
+          </label>
+        </div>
+      {{/each}}
+    </div>
+</form>

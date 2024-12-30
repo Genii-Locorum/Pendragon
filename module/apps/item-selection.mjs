@@ -1,6 +1,6 @@
-// this dialog is to allocation points to traits
-// using the specialized dialog is more intuitive as it shows trait pairs
-export class TraitsSelectDialog extends Dialog {
+// this is the generic dialog used to allocate points (for skills, passions, etc)
+// traits and stats have more specialized dialogs
+export class ItemsSelectDialog extends Dialog {
     activateListeners (html) {
       super.activateListeners(html)
   
@@ -39,7 +39,6 @@ export class TraitsSelectDialog extends Dialog {
       //If you don't breach the Max Points then update (otherwise ignore)
       if (newCap <= this.data.data.pointsMax) {
         this.data.data.traits[choice].value = Number(this.data.data.traits[choice].value) + change
-        this.data.data.traits[choice].oppValue = 20 - Number(this.data.data.traits[choice].value)
         this.data.data.added = newCap
       
         //Update points spent and the stats value on the form
@@ -48,8 +47,6 @@ export class TraitsSelectDialog extends Dialog {
         divCount.innerText = this.data.data.added
         const statVal = form.querySelector('.item-'+choice)
         statVal.innerText = this.data.data.traits[choice].value
-        const oppVal = form.querySelector('.opp-'+choice)
-        oppVal.innerText = this.data.data.traits[choice].oppValue
         const closecard = form.querySelector('.closecard')
         const upArrow = form.querySelector('.inc-'+choice)
         const downArrow = form.querySelector('.dec-'+choice)
@@ -61,7 +58,7 @@ export class TraitsSelectDialog extends Dialog {
         if (this.data.data.traits[choice].value <= this.data.data.traits[choice].minVal){
           downArrow.innerHTML = "&nbsp"
         }else {
-          downArrow.innerHTML = "<i class='fas fa-circle-up'></i>"
+          downArrow.innerHTML = "<i class='fas fa-circle-down'></i>"
         }
         if (newCap >= this.data.data.pointsMax) {
           closecard.innerHTML = "<button class='proceed cardbutton' type='button'>"+game.i18n.localize('PEN.confirm')+"</button>" 
@@ -79,7 +76,7 @@ export class TraitsSelectDialog extends Dialog {
     }
   
     static async create (traits,points,cap,name) {
-      let destination = 'systems/Pendragon/templates/dialog/traitsInput.html';
+      let destination = 'systems/Pendragon/templates/dialog/itemsInput.html';
       let winTitle = game.i18n.format("PEN.inputTraits",{name: name});
       let data = {
         traits,
@@ -90,7 +87,7 @@ export class TraitsSelectDialog extends Dialog {
       const html = await renderTemplate(destination,data);
       
       return new Promise(resolve => {
-        const dlg = new TraitsSelectDialog(
+        const dlg = new ItemsSelectDialog(
           {
             title: winTitle,
             content: html,

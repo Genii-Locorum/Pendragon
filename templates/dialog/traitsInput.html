@@ -13,13 +13,19 @@
     </div>
     <br>
 
-  <div class="statsCreate">
+  <ol class="items-list trait-point-grid">
     {{#each traits as |trait key|}}
-      <div class="bold stat-name">{{trait.name}}</div>   
-      <div class="centre"><a class="large-icon darkred up rollable inc-{{key}}" data-set="{{key}}">{{#if (lt trait.value trait.maxVal)}}<i class="fas fa-circle-up"></i>{{/if}}</a></div>
-      <div class="centre item-{{key}}">{{trait.value}}</div>
-      <div class="centre"><a class="large-icon darkred down rollable dec-{{key}}" data-set="{{key}}">{{#if (gt trait.value trait.minVal)}}<i class="fas fa-circle-down">{{/if}}</i></a></div>
+    <li>
+      <div class="bold stat-name">{{trait.name}}{{#if (gt trait.religious 0)}}(R){{/if}}</div>
+      <div class="stat-name centre item-{{key}}">{{trait.value}}</div>
+      <div><a class="large-icon darkred up rollable inc-{{key}}" data-set="{{key}}">{{#unless trait.disabled}}{{#if (lt trait.value trait.maxVal)}}<i class="fas fa-circle-up"></i>{{/if}}{{/unless}}</a></div>
+      <div class="bold stat-name">{{trait.oppName}}{{#if (lt trait.religious 0)}}(R){{/if}}</div>
+      <div class="stat-name centre opp-{{key}}">{{trait.oppValue}}</div>
+      <div class="centre"><a class="large-icon darkred down rollable dec-{{key}}" data-set="{{key}}">{{#unless trait.disabled}}{{#if (gt trait.value trait.minVal)}}<i class="fas fa-circle-up"></i>{{/if}}{{/unless}}</a></div>
+    </li>
     {{/each}}
+  </ol>
+  <div class="statsCreate">
   </div>
   <br>
 
