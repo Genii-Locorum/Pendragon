@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 12.1.18
+- Changes thanks to 'jbowtie' - now added as an author
+- Religious traits are now marked as such.
+- Appearance renamed to Appeal as per Pendragon 6E.
+- Fixed an error where many traits were incorrectly being set to 0 when using constructed method.
+- Single dialog for picking famous trait, showing the trait pairs.
+- Trait pairs are sorted by name, always showing the correct order.
+- Cannot choose Cowardly as a famous trait (due to valorous needing to be 15).
+- Now shows the famous trait pair during point allocation (however cannot allocate points to either side).
+- Now marks religious traits during point allocation.
+- Existing "TraitsSelectDialog" named to "ItemsSelectDialog", reflecting its more generic usage.
+
 ## 12.1.17
 - Players can now edit their horses - not just limited to GMs
 - You can now give owned horses a name, colour, breed, cost, age, features and personality
