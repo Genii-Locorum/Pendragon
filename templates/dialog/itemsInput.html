@@ -1,0 +1,28 @@
+<form class="Pendragon stats-input" id="stats-input-form">
+  <br>
+
+  <div class="stats-input">{{localize 'PEN.statsSpend'}}</div>
+  <br>
+
+  <div class="flexcol">
+    <div class='bold statsCreate header counter'>
+      <label class="skill-opt-label">{{ localize 'PEN.pointsSpent' }}:</label>
+      <span class="centre count">{{added}}</span>
+      <span class="centre">/</span>
+      <span class="centre">{{pointsMax}}</span>
+    </div>
+    <br>
+
+  <div class="statsCreate">
+    {{#each traits as |trait key|}}
+      <div class="bold stat-name">{{trait.name}}</div>
+      <div class="centre"><a class="large-icon darkred up rollable inc-{{key}}" data-set="{{key}}">{{#if (lt trait.value trait.maxVal)}}<i class="fas fa-circle-up"></i>{{/if}}</a></div>
+      <div class="centre item-{{key}}">{{trait.value}}</div>
+      <div class="centre"><a class="large-icon darkred down rollable dec-{{key}}" data-set="{{key}}">{{#if (gt trait.value trait.minVal)}}<i class="fas fa-circle-down"></i>{{/if}}</a></div>
+    {{/each}}
+  </div>
+  <br>
+
+  <div class="closecard"><button class='cardbutton' type="button">{{localize 'PEN.spendPoints' }}</button></div>
+
+</form>

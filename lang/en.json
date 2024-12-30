@@ -3,7 +3,7 @@
   "PENDRAGON.StatCon": "Constitution",
   "PENDRAGON.StatDex": "Dexterity",
   "PENDRAGON.StatSiz": "Size",
-  "PENDRAGON.StatApp": "Appearance",
+  "PENDRAGON.StatApp": "Appeal",
 
   "PENDRAGON.StatStrAbbr": "STR",
   "PENDRAGON.StatConAbbr": "CON",
@@ -150,7 +150,7 @@
     "creation": "Character Creation",
     "creationMethod":"Select Character Creation Method",
     "creationPhaseStart": "Character Creation Phase Started",
-    "creationPhaseEnd": "Character Creation Phase Ended",    
+    "creationPhaseEnd": "Character Creation Phase Ended",
     "critBonus": "Critical Bonus",
     "critDamage": "Critical Damage",
     "criticalResult": "Critical Result",
@@ -642,7 +642,7 @@
       "step13": "Step 13 Completed - Training Points spent",
       "step14": "Step 14: Completed - Luck Benefit added",
       "step15": "Step 15: Completed - Knighted.  Character created finished."
-      
+
     },
 
     "undo": {

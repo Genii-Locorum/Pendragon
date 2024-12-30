@@ -1313,3 +1313,25 @@ height: inherit;
   font-size: 14px;
   grid-template-columns: 100px 260px;
 }
+
+/* step six - pick a famous trait */
+.Pendragon .trait.radioList {
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  & .stat-name {
+    width: 40%;
+  }
+  & .stat-name.opposed {
+    text-align: end;
+  }
+}
+
+/* step six - assign trait points */
+.Pendragon .trait-point-grid {
+  li {
+    display: grid;
+    gap: 2px;
+    grid-template-columns: 14ch 4ch 55px 14ch 4ch 40px;
+  }
+}
