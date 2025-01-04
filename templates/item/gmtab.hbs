@@ -1,0 +1,11 @@
+<div class="tab description" data-group="primary" data-tab="gmTab">
+  <div class="stat-name bold">{{localize 'PEN.gmNotes'}}:</div>
+  <div class="background-doc">
+  {{#if editable}} 
+    <prose-mirror name="system.GMdescription" data-document-u-u-i-d="{{item.uuid}}" value="{{system.GMdescription}}" collaborate="true" toggled="true">
+      {{{enrichedGMDescriptionValue}}}
+    </prose-mirror>
+  {{else}} {{{enrichedGMDescriptionValue}}}
+  {{/if}}
+  </div>
+</div>

@@ -738,5 +738,11 @@
       "summary": "Set a group identifier that can be used to find the the most up to date version of this {type}. The System ID should use the English translation of the {type} to support localization across all languages.",
       "title": "Edit System ID (PID)"
     }
+  },
+
+  "TYPES": {
+    "Item": {
+      "armour": "Armour"
+    }
   }
 }
