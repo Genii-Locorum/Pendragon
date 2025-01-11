@@ -1,8 +1,8 @@
-<div class="tab description" data-group="primary" data-tab="gmTab">
+<div class="tab description {{tab.cssClass}}" data-group="primary" data-tab="gmTab">
   <div class="stat-name bold">{{localize 'PEN.gmNotes'}}:</div>
   <div class="background-doc">
   {{#if editable}} 
-    <prose-mirror name="system.GMdescription" data-document-u-u-i-d="{{item.uuid}}" value="{{system.GMdescription}}" collaborate="true" toggled="true">
+    <prose-mirror name="system.GMdescription" data-document-uuid="{{item.uuid}}" value="{{system.GMdescription}}" toggled="true">
       {{{enrichedGMDescriptionValue}}}
     </prose-mirror>
   {{else}} {{{enrichedGMDescriptionValue}}}

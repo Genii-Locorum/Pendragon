@@ -18,7 +18,8 @@
   src: url('../assets/garamond-premier-pro.otf') format('woff2');
 }
 
-.app .header-button.edit-pid-warning {
+.app .header-button.edit-pid-warning,
+.application .window-header .header-control.edit-pid-warning {
   color: red;
 }
 

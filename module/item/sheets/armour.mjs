@@ -17,13 +17,10 @@ export class PendragonArmourSheet extends api.HandlebarsApplicationMixin(
       width: 600,
       height: 520
     },
+    tag: "form",
     // automatically updates the item
     form: {
       submitOnChange: true,
-    },
-    // alternatively we could override _renderFrame(options)
-    window: {
-      controls: [{icon: "fa-solid fa-fingerprint", label:"PEN.PIDFlag.id", action: "editPid"}]
     },
     actions: {
       // probably should be implemented on a base class
@@ -52,6 +49,23 @@ export class PendragonArmourSheet extends api.HandlebarsApplicationMixin(
     }
   }
 
+  async _renderFrame(options) {
+    const frame = await super._renderFrame(options);
+    //define button
+    const sheetPID = this.item.flags?.Pendragon?.pidFlag;
+    const noId = (typeof sheetPID === 'undefined' || typeof sheetPID.id === 'undefined' || sheetPID.id === '')
+    //add button
+    const label = game.i18n.localize("PEN.PIDFlag.id");
+    const pidEditor = `<button type="button" class="header-control fa-solid fa-fingerprint ${noId ? 'edit-pid-warning' : 'edit-pid-exisiting'}"
+        data-action="editPid" data-tooltip="${label}" aria-label="${label}"></button>`;
+    let el = this.window.close;
+    while(el.previousElementSibling.localName === 'button') {
+      el = el.previousElementSibling;
+    }
+    el.insertAdjacentHTML("beforebegin", pidEditor);
+    return frame;
+  }
+
   async _prepareContext (options) {
     // Default tab for first time it's rendered this session
     if (!this.tabGroups.primary) this.tabGroups.primary = 'attributes';
@@ -65,7 +79,7 @@ export class PendragonArmourSheet extends api.HandlebarsApplicationMixin(
       system: this.item.system,
       hasOwner: this.item.isEmbedded === true,
       isGM: game.user.isGM,
-      armourType:  await PENSelectLists.getArmourType(),
+      armourType:  PENSelectLists.getArmourType(),
       fields: this.document.schema.fields,
     }
     let material = this.item.system.material;
@@ -76,7 +90,8 @@ export class PendragonArmourSheet extends api.HandlebarsApplicationMixin(
       this.item.system.description,
       {
         async: true,
-        secrets: sheetData.editable
+        secrets: sheetData.editable,
+        relativeTo: this.item
       }
     )
     sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
