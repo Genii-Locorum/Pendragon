@@ -18,7 +18,8 @@
   src: url('../assets/garamond-premier-pro.otf') format('woff2');
 }
 
-.app .header-button.edit-pid-warning {
+.app .header-button.edit-pid-warning,
+.application .window-header .header-control.edit-pid-warning {
   color: red;
 }
 
@@ -148,12 +149,12 @@ height: inherit;
 
 
 .Pendragon .sheet-tabs {
-  flex: 1;
   border-top:1px gray solid !important;
   border-bottom:1px gray solid !important;
   height: 45px;
   background-color: rgba(128, 128, 128, 0.3);
-  
+  font-family:"Herb";
+  font-size: 20px;
 }
 
 .Pendragon .items-list {
@@ -210,6 +211,11 @@ height: inherit;
   font-family: "Garamond";
   font-size: 20px;
   color: black;
+}
+
+.Pendragon .stat-name select {
+  font-size: inherit;
+  color: inherit;
 }
 
 .Pendragon input .inline-edit {

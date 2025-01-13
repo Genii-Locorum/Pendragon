@@ -136,7 +136,7 @@ export class PIDEditor extends FormApplication {
       'flags.Pendragon.pidFlag.lang': formData.lang || game.i18n.lang,
       'flags.Pendragon.pidFlag.priority': formData.priority || 0
     })
-    const html = $(this.object.sheet.element).find('header.window-header a.header-button.edit-pid-warning,header.window-header a.header-button.edit-pid-exisiting')
+    const html = $(this.object.sheet.element).find('header.window-header .edit-pid-warning,header.window-header .edit-pid-exisiting')
     if (html.length) {
       html.css({
         color: (id ? 'var(--color-text-light-highlight)' : 'red')
