@@ -460,7 +460,7 @@ export class PendragonCharacterSheet extends ActorSheet {
     await item.update({'flags.Pendragon.pidFlag.id': key,
                          'flags.Pendragon.pidFlag.lang': game.i18n.lang,
                          'flags.Pendragon.pidFlag.priority': 0})
-    if (['history', 'wound', 'horse','squire','gear','family','armour'].includes(type)) {
+    if (['history', 'wound', 'horse','squire','gear','family','armour', 'passion'].includes(type)) {
       if(type === "history"){
         await item.update({'system.year' : game.settings.get('Pendragon',"gameYear"),
                            'system.source': "manual" })
