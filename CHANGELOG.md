@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 12.1.19
+- First toe in the water moving to V2 Application.  Armour Sheet is now on V2.  Please report any odd behavious
+- Directed passions can be easily gained during play, by adding a "+" button next to each court.
+- Passions with a zero score are now hidden when the sheet is locked (they are shown when the sheet is unlocked).
+- Now shows the opposing traits and religious marker when you choose to train a trait.
+- Uses the characteristic names in the stat selection dialog (one of the first dialogs a new player will see).
+- Shows the name of the family characteristic in corresponding selection dialog (not just the skill name).
+-Training and prestige dialogs now broken up into more granular choices - addresses Redo training and practice dialog #17
+- All this hard work is by jbowtie, thank you so much.
+
 ## 12.1.18
 - Changes thanks to 'jbowtie' - now added as an author
 - Religious traits are now marked as such.
