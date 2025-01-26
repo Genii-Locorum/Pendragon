@@ -852,7 +852,7 @@ export class PENCharCreate {
             });
             let traitVal = await TraitsSelectDialog.create(traits,1,false,game.i18n.localize('PEN.Entities.Trait'))
             if (!traitVal) {return false}
-            changes = await traitVal.filter(itm=>itm.value > itm.origVal).map(itm=>{return{_id: itm.id, 'system.winter': Number(itm.winter) + Number(itm.value)-Number(itm.origVal)}})
+            changes = await traitVal.filter(itm=>itm.value != itm.origVal).map(itm=>{return{_id: itm.id, 'system.winter': Number(itm.winter) + Number(itm.value)-Number(itm.origVal)}})
             await Item.updateDocuments(changes, {parent: actor})
             break
 
