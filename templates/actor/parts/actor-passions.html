@@ -5,14 +5,18 @@
         {{#if (eq passion.system.level 0)}}
           {{#unless (eq passion.system.court 'adoratio')}}
             <br>
-          {{/unless}}  
+          {{/unless}}
           <div class="stat-name new-row bold passion-name {{#if (gt passion.system.total 40)}} result-success{{/if}}">{{passion.name}}</div>
-          <div></div>  
-          <div class="stat-name centre {{#if (gt passion.system.total 40)}} result-success{{/if}}">{{passion.system.total}}</div>            
+          <div></div>
+          <div class="stat-name centre {{#if (gt passion.system.total 40)}} result-success{{/if}}">{{passion.system.total}}</div>
+          <div class="centre item">
+            <a class="large-icon fade item-create" data-type="passion" data-court="{{passion.system.court}}"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-plus"></i></a>
+          </div>
         {{else}}
+        {{#if (or (ne passion.system.total 0) (not ../system.lock))}}
           <div class="centre new-row"><a class="item-control item-toggle large-icon" data-itemid ="{{passion._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if passion.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
           <div class="stat-name rollable passion-name" title="{{localize 'PEN.rollHint'}}" data-itemid="{{passion._id}}">{{passion.name}}
-            {{#if passion.system.isHonour}}
+            {{#if (ne passion.system.dishonour 0)}}
               [{{passion.system.dishonour}}]
             {{/if}}
           </div>
@@ -22,8 +26,9 @@
             {{#unless ../system.lock}}
               <a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
             {{/unless}}
-          </div>  
-        {{/if}}  
+          </div>
+          {{/if}}
+        {{/if}}
       </li>
     {{/each}}
   </ol>
@@ -32,12 +37,12 @@
     <div class="skill-dev-listitem">
       <div class="stat-name bold grid-item-top grid-item-left">{{localize 'PEN.passion'}}</div>
       <div class="stat-name bold centre grid-item-top">{{localize 'PEN.base'}}</div>
-      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.parent'}}</div>  
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.parent'}}</div>
       <div class="stat-name bold centre grid-item-top">{{localize 'PEN.homeland'}}</div>
-      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.winter'}}</div>   
+      <div class="stat-name bold centre grid-item-top">{{localize 'PEN.winter'}}</div>
       <div class="stat-name bold centre grid-item-top">{{localize 'PEN.total'}}</div>
       <div class="stat-name bold centre grid-item-top">{{localize 'PEN.dishonour'}}</div>
-    </div>  
+    </div>
 
     {{#each passions as |passion key|}}
       {{#unless (eq passion.system.level 0)}}
