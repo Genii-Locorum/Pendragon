@@ -42,11 +42,11 @@ export class StatsSelectDialog extends Dialog {
       let destination = 'systems/Pendragon/templates/dialog/statsInput.html';
       let winTitle = game.i18n.localize("PEN.inputStats");
       let data = {stats:{
-        siz: {value:10, label :game.i18n.localize('PENDRAGON.StatSizAbbr')},
-        dex: {value:10, label :game.i18n.localize('PENDRAGON.StatDexAbbr')},
-        str: {value:10, label :game.i18n.localize('PENDRAGON.StatStrAbbr')},
-        con: {value:10, label :game.i18n.localize('PENDRAGON.StatConAbbr')},
-        app: {value:10, label :game.i18n.localize('PENDRAGON.StatAppAbbr')}
+        siz: {value:10, label :game.i18n.localize('PENDRAGON.StatSiz')},
+        dex: {value:10, label :game.i18n.localize('PENDRAGON.StatDex')},
+        str: {value:10, label :game.i18n.localize('PENDRAGON.StatStr')},
+        con: {value:10, label :game.i18n.localize('PENDRAGON.StatCon')},
+        app: {value:10, label :game.i18n.localize('PENDRAGON.StatApp')}
       },
         culture,
         pointsMax:60,
