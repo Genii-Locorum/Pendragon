@@ -1,5 +1,6 @@
 import { PENUtilities } from "./utilities.mjs";
 import { WinterSelectDialog } from "./winter-select-dialog.mjs";
+import { TraitsSelectDialog } from "./trait-selection.mjs";
 import { PENSelectLists } from "./select-lists.mjs";
 import { PENCheck } from '../apps/checks.mjs';
 import { PENCharCreate } from "./charCreate.mjs";
@@ -13,7 +14,7 @@ export class PENWinter {
 
     await game.settings.set('Pendragon', 'winter', toggle)
 
-    //If Winter Phase toggled off - toggle Winter status off for all characters and increase game year 
+    //If Winter Phase toggled off - toggle Winter status off for all characters and increase game year
     if (!toggle) {
       for (const actr of game.actors.contents) {
         if(actr.type === 'character') {
@@ -27,15 +28,15 @@ export class PENWinter {
                           });
         }
         let squires = await actr.items.filter(itm=>itm.type==='squire').map(itm=>{return {_id:itm.id, 'system.age': itm.system.age+1}})
-        await Item.updateDocuments(squires, {parent: actr})  
+        await Item.updateDocuments(squires, {parent: actr})
 
 
 
-      }        
-    //Update the game year by one 
+      }
+    //Update the game year by one
     let year = game.settings.get('Pendragon',"gameYear") + 1;
     game.settings.set('Pendragon',"gameYear",year);
-    
+
     ui.notifications.warn(game.i18n.localize('PEN.winterPhaseEnd'))
     return
     }
@@ -49,9 +50,9 @@ export class PENWinter {
                         'system.status.aging': true,
                         'system.status.squireAge': false,
                         'system.status.horseSurv': false,
-                        'system.status.familyRoll': false,                        
+                        'system.status.familyRoll': false,
                         'system.status.xp': false});
-  
+
         //Create a history event for each character with this year's passive glory
         const type = 'history'
         const name = `${type.capitalize()}`;
@@ -70,17 +71,17 @@ export class PENWinter {
         await item.update({'flags.Pendragon.pidFlag.id': key,
                              'flags.Pendragon.pidFlag.lang': game.i18n.lang,
                              'flags.Pendragon.pidFlag.priority': 0})
-        }      
-      }    
+        }
+      }
       ui.notifications.warn(game.i18n.localize('PEN.winterPhaseStart'))
 
-    }  
+    }
 
   //
   //Turn on Development without full Winter Phase
   //
   static async developmentPhase(toggle) {
-  
+
     await game.settings.set('Pendragon', 'development', toggle)
     for (const a of game.actors.contents) {
       if(a.type === 'character') {
@@ -89,16 +90,16 @@ export class PENWinter {
                         'system.status.aging': toggle,
                         'system.status.squireAge': toggle,
                         'system.status.horseSurv': toggle,
-                        'system.status.familyRoll': toggle,                        
+                        'system.status.familyRoll': toggle,
                         'system.status.xp': toggle});
       }
-    }  
+    }
   }
 
   //
   //Experience Checks
   //
-  static async xpCheck(event) { 
+  static async xpCheck(event) {
     let success=[];
     for (let i of this.actor.items) {
       if (['skill','trait','passion'].includes(i.type)) {
@@ -135,7 +136,7 @@ export class PENWinter {
     const html = await PENWinter.xpChatCard(success, this.actor.name);
     let msg = await PENWinter.showXPChat (html,this.actor)
     await this.actor.update({'system.status.xp': false})
-  }  
+  }
 
   //
   //XP Check Dice Roll - roll exceeds score or roll = 20
@@ -152,7 +153,7 @@ export class PENWinter {
 
   //
   //Prepare XP Roll Chat Card
-  // 
+  //
   static async xpChatCard (success, actorName) {
     let messageData = {
       speaker: ChatMessage.getSpeaker({ actor: actorName }),
@@ -160,7 +161,7 @@ export class PENWinter {
     }
       const messageTemplate = 'systems/Pendragon/templates/chat/XP-result.html'
       let html = await renderTemplate (messageTemplate, messageData);
- 
+
      return html;
 
   }
@@ -181,7 +182,7 @@ export class PENWinter {
         },
       }
     let msg = await ChatMessage.create(chatData);
-    return 
+    return
   }
 
   //
@@ -189,7 +190,7 @@ export class PENWinter {
   // and choice.  Selected indicates the stat picked and choice is increase or decrease +1/-1
   //
   static async winterImprov(route, event) {
- 
+
     if (route === 'prestige' && this.actor.system.gloryPrestige < 1) {
       return
     }
@@ -210,15 +211,15 @@ export class PENWinter {
           'max': stat.max,
           'min': stat.total
         }
-      if (route === 'prestige') {option.max = 999}  
+      if (route === 'prestige') {option.max = 999}
       options.push(option);
       }
-    } 
+    }
 
     for (let i of this.actor.items) {
-      if (i.type === "passion" || i.type === 'skill' || i.type === 'trait') {
+      if (i.type === 'skill') {
         //If route is prestige add all, if single train add all where skill > 14, for multiple train only add skill where <15
-        if ((route === 'prestige') || (route === 'single' && i.type != 'skill') || (route === 'single' && i.type === 'skill' && i.system.value > 14 && i.system.value < 20) ||(route === 'multiple' && i.type === 'skill' && i.system.value < 15)){        
+        if ((route === 'prestige') || (route === 'single' && i.type != 'skill') || (route === 'single' && i.type === 'skill' && i.system.value > 14 && i.system.value < 20) ||(route === 'multiple' && i.type === 'skill' && i.system.value < 15)){
           let option = {
             'type': i.type,
             'label': game.i18n.localize("PEN."+i.type),
@@ -230,37 +231,22 @@ export class PENWinter {
             'min': 1
           }
 
-          //If a skill and presitge award no maximum. If multiple then max = 15.  Otherwise single training and max is the default of 20
+          //If a skill and prestige award no maximum. If multiple then max = 15.  Otherwise single training and max is the default of 20
           //Can't decrease skills so the minimum is skill value
-          if (i.type === 'skill') { 
+          if (i.type === 'skill') {
             option.min = i.system.value;
             if (route === 'prestige') {
               option.max = 999;
             } else if (route === 'multiple') {
-              option.max = 15;  
+              option.max = 15;
             }
           }
 
-          // For traits the range is always 0-20, except for Prestige with no max or min          
-          if (i.type === 'trait') {
-            option.min = 0;
-          }
-          if (i.type === 'trait' && route === 'prestige') {
-            option.min = -999;
-            option.max = 999;
-          }
-
-          // For passions range is 1-20 except for Prestige reward when there is no max or min
-          if (i.type === 'passion' && route === 'prestige'){
-            option.max = 999;
-            option.min = -999;
-          }
-
-          options.push(option);  
+          options.push(option);
         }
       }
     }
-      
+
     // Sort Options
     options.sort(function(a, b){
       let x = a.name.toLowerCase();
@@ -272,9 +258,9 @@ export class PENWinter {
       if (x < y) {return -1};
       if (x > y) {return 1};
       return 0;
-    });  
+    });
 
-    //If prestinge or single training point then amount = 1, otherwise can choose 6 points  
+    //If prestige or single training point then amount = 1, otherwise can choose 6 points
     let amount = 1;
     if (route === 'multiple') {amount = 6};
     let title = game.i18n.localize('PEN.prestigeAward');
@@ -292,7 +278,7 @@ export class PENWinter {
           pickedName = pickedName + ", ";
         }
         //If a stat then increase by 1
-        if (picked.type === 'stat') { 
+        if (picked.type === 'stat') {
           let target = 'system.stats.' + picked.itemID + '.winter';
           pickedName = pickedName + this.actor.system.stats[picked.itemID].label +"(1)";
           await this.actor.update({[target] : this.actor.system.stats[picked.itemID].winter + 1});
@@ -310,7 +296,7 @@ export class PENWinter {
           let item = this.actor.items.get(picked.itemID);
           pickedName = pickedName + item.name +"(" + picked.choice + ")";
           await item.update({'system.value': Number(item.system.value) + Number(picked.choice)});
-        }  
+        }
       }
 
       //Increase the number of presitge points spent by 1
@@ -320,7 +306,7 @@ export class PENWinter {
       } else {
         pickedName = game.i18n.localize('PEN.training') +": "+ pickedName;
         await this.actor.update ({'system.status.train' :false});
-      }  
+      }
 
         //Add a History Item to show the spend
         const type = 'history'
@@ -341,8 +327,179 @@ export class PENWinter {
         await newHist.update({'flags.Pendragon.pidFlag.id': key,
                              'flags.Pendragon.pidFlag.lang': game.i18n.lang,
                              'flags.Pendragon.pidFlag.priority': 0})
-     
-  }  
+
+  }
+
+  static async winterImprovePassion(route, event) {
+
+    if (route === 'prestige' && this.actor.system.gloryPrestige < 1) {
+      return
+    }
+    if (route != 'prestige' && !this.actor.system.status.train) {
+      return
+    }
+    let options = [];
+    for (let i of this.actor.items) {
+      if (i.type === "passion") {
+        let option = {
+          'type': i.type,
+          'label': game.i18n.localize("PEN."+i.type),
+          'itemID': i._id,
+          'name' : i.name + " (" + i.system.value +")",
+          'value': i.system.value,
+          'choice': "",
+          'max': 20,
+          'min': 1
+        }
+
+        // For passions range is 1-20 except for Prestige reward when there is no max or min
+        if (route === 'prestige'){
+          option.max = 999;
+          option.min = -999;
+        }
+
+        options.push(option);
+      }
+    }
+
+    // Sort Options
+    options.sort(function(a, b){
+      let x = a.name.toLowerCase();
+      let y = b.name.toLowerCase();
+      let p = a.label;
+      let q = b.label;
+      if (p < q) {return -1};
+      if (p > q) {return 1};
+      if (x < y) {return -1};
+      if (x > y) {return 1};
+      return 0;
+    });
+
+    let amount = 1;
+    let title = game.i18n.localize('PEN.prestigeAward');
+    if (route != 'prestige') {title = game.i18n.localize('PEN.training')}
+
+    const selected = await WinterSelectDialog.create (title, options, this.actor.name, amount);
+      if (selected.length <1 || !selected) {
+        ui.notifications.warn(game.i18n.localize('PEN.noSelection'));
+        return
+      }
+      //Picked is the selected item
+      let pickedName = "";
+      for (let picked of selected) {
+        if( pickedName != "") {
+          pickedName = pickedName + ", ";
+        }
+
+        let item = this.actor.items.get(picked.itemID);
+        pickedName = pickedName + item.name +"(" + picked.choice + ")";
+        await item.update({'system.value': Number(item.system.value) + Number(picked.choice)});
+      }
+
+      //Increase the number of presitge points spent by 1
+      if (route === 'prestige') {
+        pickedName = game.i18n.localize('PEN.prestigeAward') +": "+ pickedName;
+        await this.actor.update({'system.prestige': this.actor.system.prestige + 1});
+      } else {
+        pickedName = game.i18n.localize('PEN.training') +": "+ pickedName;
+        await this.actor.update ({'system.status.train' :false});
+      }
+
+        //Add a History Item to show the spend
+        const type = 'history'
+        const name = `${type.capitalize()}`;
+        const itemData = {
+          name: name,
+          type: type,
+          system: {
+            "libra": 0,
+            "denarii": 0,
+            "description": pickedName,
+            "year": game.settings.get('Pendragon',"gameYear"),
+            "glory": 0
+          }
+        }
+        let newHist = await Item.create(itemData, {parent: this.actor});
+        let key = await game.system.api.pid.guessId(newHist)
+        await newHist.update({'flags.Pendragon.pidFlag.id': key,
+                             'flags.Pendragon.pidFlag.lang': game.i18n.lang,
+                             'flags.Pendragon.pidFlag.priority': 0})
+
+  }
+
+
+  // Training may bring a trait up to 19
+  // A prestige reward can bring a trait to 20 or above
+  static async winterImproveTrait(route, event) {
+
+    // shouldn't have been able to select prestige
+    if (route === 'prestige' && this.actor.system.gloryPrestige < 1) {
+      return
+    }
+
+    // training should be done first
+    if (route != 'prestige' && !this.actor.system.status.train) {
+      return
+    }
+    const minVal = route != "prestige" ? 1 : -999;
+    const maxVal = route != "prestige" ? 19 : 999;
+    const traits = await (this.actor.items.filter(itm =>itm.type==='trait')).map(itm=>{return {
+      id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total,
+      religious: itm.system.religious,
+      oppName: itm.system.oppName,
+      oppValue: itm.system.oppvalue,
+      minVal: minVal, maxVal: maxVal, winter:itm.system.winter
+    }})
+    traits.sort(function(a, b){
+      let x = a.name;
+      let y = b.name;
+      if (x < y) {return -1};
+      if (x > y) {return 1};
+    return 0;
+    });
+    let traitVal = await TraitsSelectDialog.create(traits,1,false,game.i18n.localize('PEN.Entities.Trait'))
+    if (!traitVal) {
+      ui.notifications.warn(game.i18n.localize('PEN.noSelection'));
+      return false;
+    }
+    // increase the value
+    const picks = []
+    const changes = await traitVal.filter(itm=>itm.value != itm.origVal).map(itm=>{
+      picks.push(`${itm.name}(${Number(itm.value)-Number(itm.origVal)})`);
+      return {_id: itm.id, 'system.winter': Number(itm.winter) + Number(itm.value)-Number(itm.origVal)};
+    });
+    await Item.updateDocuments(changes, {parent: this.actor});
+    let pickedName = picks.join(", ");
+
+    //Increase the number of presitge points spent by 1
+    if (route === 'prestige') {
+      pickedName = game.i18n.localize('PEN.prestigeAward') +": "+ pickedName;
+      await this.actor.update({'system.prestige': this.actor.system.prestige + 1});
+    } else {
+      pickedName = game.i18n.localize('PEN.training') +": "+ pickedName;
+      await this.actor.update ({'system.status.train' :false});
+    }
+
+    //Add a History Item to show the spend
+    const type = 'history'
+    const name = `${type.capitalize()}`;
+    const itemData = {
+      name: name,
+      type: type,
+      system: {
+        "libra": 0,
+        "denarii": 0,
+        "description": pickedName,
+        "year": game.settings.get('Pendragon',"gameYear"),
+        "glory": 0
+      }
+    }
+    let newHist = await Item.create(itemData, {parent: this.actor});
+    let key = await game.system.api.pid.guessId(newHist)
+    await newHist.update({'flags.Pendragon.pidFlag.id': key,
+                          'flags.Pendragon.pidFlag.lang': game.i18n.lang,
+                          'flags.Pendragon.pidFlag.priority': 0})
+  }
 
   //Economic Circumstances
   //
@@ -379,7 +536,7 @@ export class PENWinter {
     if (['poor','impoverished'].includes(newSOL)) {
       let confirmation = await PENUtilities.confirmation(game.i18n.localize('PEN.economicConfirm'))
       if (!confirmation) {return}
-    }  
+    }
 
     let impoverished = this.actor.system.impoverished
     let conPoor = this.actor.system.stats.con.sol
@@ -410,10 +567,10 @@ export class PENWinter {
         }
         //Degrade armour by 1 point if not already degraded
         armour = await this.actor.items.filter(aitm=>aitm.type==='armour').filter(itm=>itm.system.type && !itm.system.poor).map(itm=>{return {_id:itm.id, 'system.ap': Math.max(Number(itm.system.ap-1),0), 'system.poor': true}})
-        await Item.updateDocuments(armour, {parent: this.actor})      
+        await Item.updateDocuments(armour, {parent: this.actor})
         //Degrade horses if not already degraded
         horses = await this.actor.items.filter(aitm=>aitm.type==='horse').filter(itm=> !itm.system.poor).map(itm=>{return {
-          _id:itm.id, 
+          _id:itm.id,
           'system.move': Math.max(Number(itm.system.move-10),0),
           'system.con': Math.max(Number(itm.system.con-3),0),
           'system.chargeDmg': Math.max((Number((itm.system.chargeDmg).toUpperCase().split("D")[0])-1),0)+"D6",
@@ -421,10 +578,10 @@ export class PENWinter {
           'system.hp': Math.min(itm.system.hp,Number(itm.system.maxHP-3)),
           'system.poor': true
         }})
-        await Item.updateDocuments(horses, {parent: this.actor})      
+        await Item.updateDocuments(horses, {parent: this.actor})
         //If no "poor or impoverished years then set to -1"
         if (impoverished === 0) {impoverished = -1}
-      //Reduce Clothing value  
+      //Reduce Clothing value
         clothing = await this.actor.items.filter(itm=>itm.type==='gear').filter(itm=>itm.flags.Pendragon.pidFlag.id === 'i.gear.clothing')[0]
         if (clothing) {
           await PENWinter.priceReduction(clothing)
@@ -439,29 +596,29 @@ export class PENWinter {
         }
       //Degrade armour by 1 point
         armour = await this.actor.items.filter(aitm=>aitm.type==='armour').filter(itm=>itm.system.type).map(itm=>{return {_id:itm.id, 'system.ap': Math.max(Number(itm.system.ap-1),0),'system.poor': true}})
-        await Item.updateDocuments(armour, {parent: this.actor})     
+        await Item.updateDocuments(armour, {parent: this.actor})
         impoverished = impoverished -1
-      //Delete all squires and horses  
+      //Delete all squires and horses
       companions = await this.actor.items.filter(itm=>itm.type==='horse'||(itm.type==='squire' && itm.system.category==='squire')).map(itm => {return (itm.id)})
       if (companions.length > 0) {
         let confirmation = await PENUtilities.confirmation(game.i18n.localize('PEN.deleteHorsesSquires'))
         if (confirmation) {
           await Item.deleteDocuments(companions, {parent: this.actor});
         } else {
-          ui.notifications.warn(game.i18n.format('PEN.deleteManual',{group: game.i18n.localize('PEN.horsesSquires')}));   
-        }  
+          ui.notifications.warn(game.i18n.format('PEN.deleteManual',{group: game.i18n.localize('PEN.horsesSquires')}));
+        }
       }
-      //Reduce Honour by 2 point  
-        let honour = this.actor.items.filter(itm=>itm.type==='passion').filter(itm=>itm.flags.Pendragon.pidFlag.id=== 'i.passion.honour').map(itm=>{return {_id:itm.id,'system.sol': itm.system.sol-2}})  
-        await Item.updateDocuments(honour, {parent: this.actor})  
-      //Reduce Clothing value  
+      //Reduce Honour by 2 point
+        let honour = this.actor.items.filter(itm=>itm.type==='passion').filter(itm=>itm.flags.Pendragon.pidFlag.id=== 'i.passion.honour').map(itm=>{return {_id:itm.id,'system.sol': itm.system.sol-2}})
+        await Item.updateDocuments(honour, {parent: this.actor})
+      //Reduce Clothing value
         clothing = await this.actor.items.filter(itm=>itm.type==='gear').filter(itm=>itm.flags.Pendragon.pidFlag.id === 'i.gear.clothing')[0]
         if (clothing) {
           await PENWinter.priceReduction(clothing)
         }
-        break        
+        break
       default :
-        ui.notifications.warn(game.i18n.localize('PEN.noSOL'));        
+        ui.notifications.warn(game.i18n.localize('PEN.noSOL'));
         return
 
     }
@@ -473,8 +630,8 @@ export class PENWinter {
                              'system.stats.con.major': conImp,
                              'system.sol': newSOL,
                              'system.impoverished': impoverished,
-                             'system.status.economic': false 
-                            })    
+                             'system.status.economic': false
+                            })
 
     return
 
@@ -490,7 +647,7 @@ export class PENWinter {
       actor: actor,
       token: ""
     })
-    let level = await game.messages.get(msgID).flags.Pendragon.chatCard[0].resultLevel  
+    let level = await game.messages.get(msgID).flags.Pendragon.chatCard[0].resultLevel
     return (level)
   }
 
@@ -505,10 +662,10 @@ export class PENWinter {
     }
     await clothing.update({'system.libra': libra,
                            'system.denarii': denarii})
-    return 
+    return
   }
 
-  //Aging 
+  //Aging
   static async aging(event) {
     if (!this.actor.system.status.aging) {return}
     //Age is increased at end of winter phase so current age check is 34 or more gor agin
@@ -523,14 +680,14 @@ export class PENWinter {
       3: {label: game.i18n.localize('PENDRAGON.StatStrAbbr'),value: 0,base:this.actor.system.stats.str.total},
       4: {label: game.i18n.localize('PENDRAGON.StatConAbbr'),value: 0,base:this.actor.system.stats.con.total},
       5: {label: game.i18n.localize('PENDRAGON.StatAppAbbr'),value: 0,base:this.actor.system.stats.app.total},
-      6: {label: game.i18n.localize('PEN.none'),value: 0, base:0}          
+      6: {label: game.i18n.localize('PEN.none'),value: 0, base:0}
     }
     let results = []
-    let result = await PENUtilities.simpleDiceRoll('2D6')  
+    let result = await PENUtilities.simpleDiceRoll('2D6')
     let senes = Math.max(Math.abs(Number(result)-7)-1,0)
     if (senes > 0) {
       for (let sCount =1; sCount<=senes; sCount++) {
-        let senResult = await PENUtilities.simpleDiceRoll('1D6')  
+        let senResult = await PENUtilities.simpleDiceRoll('1D6')
         switch (senResult) {
         case 1:
         case 2:
@@ -540,7 +697,7 @@ export class PENWinter {
             senRes[senResult].value ++
             senRes[senResult].base --
             results.push({label: senRes[senResult].label,
-              number: senResult})                   
+              number: senResult})
           } else {
             senRes[4].value ++
             results.push({label: senRes[4].label,
@@ -553,7 +710,7 @@ export class PENWinter {
           results.push({label: senRes[senResult].label,
             number: senResult})
           break
-        }    
+        }
       }
     }
 
@@ -561,10 +718,10 @@ export class PENWinter {
     let decRes = 0
     let decLabel = game.i18n.localize('PEN.decrepitudeLive')
     if(this.actor.system.stats.con.total-senRes[4].value <6) {
-      decRes = await PENUtilities.simpleDiceRoll('1D6')  
-      if (decRes > this.actor.system.stats.con.total-senRes[4].value) { 
+      decRes = await PENUtilities.simpleDiceRoll('1D6')
+      if (decRes > this.actor.system.stats.con.total-senRes[4].value) {
         decLabel = game.i18n.localize('PEN.decrepitudeDeath')
-      }  
+      }
     }
     let html = await PENWinter.agingRollChatCard (result,senes,results, this.actor.name, decRes,decLabel)
     await PENWinter.showAgingRollChat (html, this.actor)
@@ -610,7 +767,7 @@ export class PENWinter {
         },
       }
     let msg = await ChatMessage.create(chatData);
-    return 
+    return
   }
 
   //Annual Squire roll
@@ -622,36 +779,36 @@ export class PENWinter {
     //Check each retainer (squire, maiden, other) for leaving
     for (const sqr of squires) {
       if ((sqr.system.category === 'squire' && sqr.system.age>20)||(sqr.system.category === 'maiden' && sqr.system.age>16)||(sqr.system.category === 'other')) {
-        let result = await PENUtilities.simpleDiceRoll('1D20')  
+        let result = await PENUtilities.simpleDiceRoll('1D20')
         sqr.system.leave = false
         sqr.system.label = game.i18n.localize('PEN.remains')
         sqr.system.result = result
         switch (sqr.system.category) {
           case "squire":
             if (sqr.system.result <= 5 + sqr.system.age-19) {
-              sqr.system.leave = true  
+              sqr.system.leave = true
               sqr.system.label = game.i18n.localize('PEN.leaves')
-            }    
+            }
             break
-          case "maiden" :  
+          case "maiden" :
             sqr.system.result = sqr.system.result + ((sqr.system.age-16)*2) + Math.max((sqr.system.age-20)*3,0)
             if (sqr.system.result >=20) {
               sqr.system.leave = true
-              sqr.system.label = game.i18n.localize('PEN.marries')         
+              sqr.system.label = game.i18n.localize('PEN.marries')
             }
           case "other":
             if (sqr.system.result <= 3) {
-              sqr.system.leave = true  
+              sqr.system.leave = true
               if (sqr.system.result === 1) {
                 sqr.system.label = game.i18n.localize('PEN.died')
               } else {
                 sqr.system.label = game.i18n.localize('PEN.leaves')
               }
-            }                
+            }
             break
-        }  
+        }
         leavers.push({id:sqr._id, name: sqr.name, result:sqr.system.result, leave:sqr.system.leave, label: sqr.system.label})
-      }  
+      }
     }
     //If there are retainer that needed testing them create the chat message and delete leavers
     if (leavers.length > 0) {
@@ -665,10 +822,10 @@ export class PENWinter {
           await Item.deleteDocuments(remove, {parent: this.actor});
         } else {
           ui.notifications.warn(game.i18n.format('PEN.deleteManual',{group: game.i18n.localize('PEN.retainers')}));
-        } 
+        }
       }
     }
-    
+
     //Check remaining squires (not maidens or others) for Squire skill improvement
     squires = await this.actor.items.filter(itm=>itm.type==='squire' && itm.system.category==='squire')
     let sqrUpdate = []
@@ -678,7 +835,7 @@ export class PENWinter {
       if (sqr.system.skill <15) {
         imp = 1
       } else {
-        let result = await PENUtilities.simpleDiceRoll('1D20')  
+        let result = await PENUtilities.simpleDiceRoll('1D20')
         if (sqr.system.skill === 20 && result === 20) {
           imp = 1
         } else if (sqr.system.skill<20 && result >16) {
@@ -689,11 +846,11 @@ export class PENWinter {
     }
     if (sqrUpdate.length > 0) {
       let html = await PENWinter.squireImprove (sqrUpdate, this.actor.name)
-      await PENWinter.showAgingRollChat (html, this.actor)    
-      let change = await sqrUpdate.map(itm => {return ({_id: itm._id,'system.skill': itm.skill})})  
-      await Item.updateDocuments(change, {parent: this.actor})  
+      await PENWinter.showAgingRollChat (html, this.actor)
+      let change = await sqrUpdate.map(itm => {return ({_id: itm._id,'system.skill': itm.skill})})
+      await Item.updateDocuments(change, {parent: this.actor})
     }
-    await this.actor.update ({'system.status.squireAge': false})    
+    await this.actor.update ({'system.status.squireAge': false})
   }
 
 
@@ -731,34 +888,34 @@ export class PENWinter {
       for (const horse of horses) {
         let adj = -Number(horse.system.horseCare)-Number(horse.system.horseHealth)
         if (this.actor.system.sol === 'poor') {adj = adj-1}
-        if (this.actor.system.sol === 'impoverished') {adj = adj+ this.actor.system.impoverished}  
+        if (this.actor.system.sol === 'impoverished') {adj = adj+ this.actor.system.impoverished}
         //Roll 1D20 for the horse
-        let result = await PENUtilities.simpleDiceRoll('1D20')  
+        let result = await PENUtilities.simpleDiceRoll('1D20')
         //If results is <=1 Horse Dies
         if (result+adj<=1) {
           change.push({_id: horse._id, name: horse.name, result: result, adj : adj, survive: false, currHealth: horse.system.horseHealth, health: 0, label: game.i18n.localize('PEN.died')})
           dead.push(horse._id)
-        //If result =3+ horse surivives  
+        //If result =3+ horse surivives
         } else if (result+adj>2) {
           change.push({_id: horse._id, name: horse.name, result: result, adj : adj, survive: true, currHealth: horse.system.horseHealth, health: 0, label: game.i18n.localize('PEN.survived')})
           updHorse.push({_id:horse._id, 'system.horseCare':0, 'system.horseHealth': horse.system.horseHealth})
-        //Otherwise make a horsemanship roll  
+        //Otherwise make a horsemanship roll
         } else {
           let level = await PENWinter.horsemanshipRoll(this.actor)
-          //Horsemanship result determines outcome  
+          //Horsemanship result determines outcome
           if (level ===3) {
             change.push({_id: horse._id, name: horse.name, result: result, adj : adj, survive: true, currHealth: horse.system.horseHealth, health: 0, label: game.i18n.localize('PEN.survived')})
             updHorse.push({_id:horse._id, 'system.horseCare':0, 'system.horseHealth': horse.system.horseHealth})
           } else if (level ===2) {
             change.push({_id: horse._id, name: horse.name, result: result, adj : adj, survive: true, currHealth: horse.system.horseHealth, health: 1, label: game.i18n.localize('PEN.weak')})
-            let chng = await PENWinter.horseUpdate(horse, horse.system.horseHealth, 1)    
+            let chng = await PENWinter.horseUpdate(horse, horse.system.horseHealth, 1)
             updHorse.push({_id:horse._id, 'system.horseCare':0, 'system.horseHealth': Math.max(horse.system.horseHealth,1), 'system.move': chng.move, 'system.maxHP': chng.maxHP, 'system.hp': chng.currHP, 'system.chargeDmg': chng.chargeDmg})
           } else if (level ===1) {
             change.push({_id: horse._id, name: horse.name, result: result, adj : adj, survive: true, currHealth: horse.system.horseHealth, health: 2, label: game.i18n.localize('PEN.vweak')})
-            let chng = await PENWinter.horseUpdate(horse, horse.system.horseHealth, 2)    
+            let chng = await PENWinter.horseUpdate(horse, horse.system.horseHealth, 2)
             updHorse.push({_id:horse._id, 'system.horseCare':0, 'system.horseHealth': Math.max(horse.system.horseHealth,2), 'system.move': chng.move, 'system.maxHP': chng.maxHP, 'system.hp': chng.currHP, 'system.chargeDmg': chng.chargeDmg})
           } else if (level ===0) {
-            change.push({_id: horse._id, name: horse.name, result: result, adj : adj, survive: false, currHealth: horse.system.horseHealth, health: 0, label: game.i18n.localize('PEN.died')})            
+            change.push({_id: horse._id, name: horse.name, result: result, adj : adj, survive: false, currHealth: horse.system.horseHealth, health: 0, label: game.i18n.localize('PEN.died')})
             dead.push(horse._id)
           }
         }
@@ -768,7 +925,7 @@ export class PENWinter {
       //If there were horses to test then produce a chat card
       if (change.length > 0) {
         let html = await PENWinter.houseSurvivalChatCard (change, this.actor.name)
-        await PENWinter.showAgingRollChat (html, this.actor)    
+        await PENWinter.showAgingRollChat (html, this.actor)
 
         //If horses dies then confirm deletion
         if (dead.length > 0) {
@@ -776,13 +933,13 @@ export class PENWinter {
           if (confirmation) {
             await Item.deleteDocuments(dead, {parent: this.actor});
           } else {
-            ui.notifications.warn(game.i18n.format('PEN.deleteManual',{group: game.i18n.localize('PEN.horses')}));   
-          }  
+            ui.notifications.warn(game.i18n.format('PEN.deleteManual',{group: game.i18n.localize('PEN.horses')}));
+          }
         }
-        await Item.updateDocuments(updHorse, {parent: this.actor})  
+        await Item.updateDocuments(updHorse, {parent: this.actor})
       }
     }
-    await this.actor.update ({'system.status.horseSurv': false})   
+    await this.actor.update ({'system.status.horseSurv': false})
   }
 
   //Horse Health Update
@@ -802,7 +959,7 @@ export class PENWinter {
       if (newHealth === 2) {
         chargeDmg =  Math.max((Number((chargeDmg).toUpperCase().split("D")[0])-1),0)+"D6"
       }
-    } 
+    }
     return {
       move,
       maxHP,
@@ -823,7 +980,7 @@ export class PENWinter {
       actor: actor,
       token: ""
     })
-    let level = await game.messages.get(msgID).flags.Pendragon.chatCard[0].resultLevel  
+    let level = await game.messages.get(msgID).flags.Pendragon.chatCard[0].resultLevel
     return (level)
   }
 
@@ -840,9 +997,9 @@ export class PENWinter {
         actor: actor,
         token: ""
     })
-    let level = await game.messages.get(msgID).flags.Pendragon.chatCard[0].resultLevel  
+    let level = await game.messages.get(msgID).flags.Pendragon.chatCard[0].resultLevel
     return (level)
-  } 
+  }
 
   //Horse Survival Chat Card
   static async houseSurvivalChatCard (horses, actorName) {
@@ -858,12 +1015,12 @@ export class PENWinter {
   //Family Rolls
   static async familyRoll(event){
     if (!this.actor.system.status.familyRoll) {return}
-    //Child Survival Roll  
-    let children = this.actor.items.filter(itm=>itm.type==='family').filter(itm=>Number(itm.system.died) <1 && itm.system.relation==='child' && (game.settings.get('Pendragon','gameYear') - itm.system.born)<5 && !itm.system.blessed)  
+    //Child Survival Roll
+    let children = this.actor.items.filter(itm=>itm.type==='family').filter(itm=>Number(itm.system.died) <1 && itm.system.relation==='child' && (game.settings.get('Pendragon','gameYear') - itm.system.born)<5 && !itm.system.blessed)
     if (children.length > 0) {
       let cldChng=[]
       for (const child of children) {
-        let result = await PENUtilities.simpleDiceRoll('1D20')  
+        let result = await PENUtilities.simpleDiceRoll('1D20')
         let adjRes = result + this.actor.system.impoverished
         if (this.actor.system.sol === 'poor') {
           adjRes = adjRes-1
@@ -882,12 +1039,12 @@ export class PENWinter {
             label = game.i18n.localize('PEN.died')
           }
         }
-        cldChng.push({_id:child._id, name: child.name,result: result, adj: adjRes-result, died: died, label:label})  
+        cldChng.push({_id:child._id, name: child.name,result: result, adj: adjRes-result, died: died, label:label})
       }
       let html = await PENWinter.childSurvivalChatCard (cldChng, this.actor.name)
       await PENWinter.showAgingRollChat (html, this.actor)
       let cldUpd = cldChng.map(itm=> {return {_id:itm._id,'system.died': itm.died}})
-      await Item.updateDocuments(cldUpd, {parent: this.actor})  
+      await Item.updateDocuments(cldUpd, {parent: this.actor})
     }
 
     //Childbirth
@@ -941,8 +1098,8 @@ export class PENWinter {
       let midResult = 0
       let critRes = 0
       let multiRes = 0
-      let trip = 0 
-      //Else if a PC making the roll  
+      let trip = 0
+      //Else if a PC making the roll
       if (decision==='self'){
         con = this.actor.system.stats.con.total
         impAdj = this.actor.system.impoverished
@@ -968,7 +1125,7 @@ export class PENWinter {
         barren = true
       } else if (decision === 'self') {
         barren = this.actor.system.status.barren
-      }  
+      }
       if ((target<=0 || barren) && !['heir','conception'].includes(prestige)) {
         birthRes = -1
       } else{
@@ -984,7 +1141,7 @@ export class PENWinter {
           birthRes = 1
         }
       }
-    
+
       let birthLabel = ""
       let gender = ""
       //Resolve the outcome of the Birth Result
@@ -997,14 +1154,14 @@ export class PENWinter {
           tragedyRes = await PENUtilities.simpleDiceRoll('1D6') + firstConcept
           if (['heir','gender'].includes(prestige)) {
             gender = await PENWinter.chooseGender()
-          } else { 
+          } else {
             tragedyGen = await PENUtilities.simpleDiceRoll('1D6')
             if ((tragedyGen % 2) == 0) {
               gender = 'female'
             } else {
               gender = 'male'
             }
-          }          
+          }
           //Outcome of tragedy Roll
           if (tragedyRes <3) {
             motherDies = true
@@ -1023,12 +1180,12 @@ export class PENWinter {
           //If Prestige spent on health then child doesnt die
           if (prestige==='health') {
             childDies=false
-            noChild=false  
-          } 
+            noChild=false
+          }
           //If there is a death then check for a Midwife roll
           if (childDies || motherDies){
             //Get midwife score
-            let midwifScore = await PENCharCreate.inpValue(game.i18n.localize('PEN.midwifeScore'))  
+            let midwifScore = await PENCharCreate.inpValue(game.i18n.localize('PEN.midwifeScore'))
             if (midwifScore >0) {
               //If score entered then make check roll
               midResult = await PENUtilities.simpleDiceRoll('1D20')
@@ -1049,13 +1206,13 @@ export class PENWinter {
                   //Otherwise they'll they both survive
                   childDies = false
                   motherDies = false
-                } 
-              }           
-            }    
+                }
+              }
+            }
           }
           //If Mother Dies and is a PC
           if (motherDies && decision === 'self') {
-            let conCheck = await PENWinter.statRoll(this.actor,'con')  
+            let conCheck = await PENWinter.statRoll(this.actor,'con')
             if (conCheck >1) {
               conLoss = 1
               motherDies = false
@@ -1072,23 +1229,23 @@ export class PENWinter {
                   sizLoss = 1
                   motherDies = false
                 }
-              } 
+              }
             }
-          } 
+          }
           //Add any children to the newborn list
           if (!childDies && !noChild){
             newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:"", blessed:false})
           } else if (childDies && !noChild) {
-            newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"dies",notes:game.i18n.localize('PEN.died'), blessed:false})          
-          }  
-          break  
+            newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"dies",notes:game.i18n.localize('PEN.died'), blessed:false})
+          }
+          break
         case 1: //Fail - no birth
           birthLabel = game.i18n.localize('PEN.noConception')
           break
         case 2: //Success - single birth
         if (['heir','gender'].includes(prestige)) {
           gender = await PENWinter.chooseGender()
-        } else { 
+        } else {
           if ((result % 2) == 0) {
             gender = 'female'
           } else {
@@ -1101,34 +1258,34 @@ export class PENWinter {
         case 3: //Multiple Birth - Critical Success
           if (['heir','gender'].includes(prestige)) {
             gender = await PENWinter.chooseGender()
-          }  
+          }
           critRes = await PENUtilities.simpleDiceRoll('1D6')
           if (critRes <5) {
             multiRes = await PENUtilities.simpleDiceRoll('1D20')
             if (multiRes <8) {
               birthLabel = game.i18n.localize('PEN.twins')
               newborn.push({name:game.i18n.localize('PEN.child'),gender:'male', genderLabel: game.i18n.localize('PEN.male'), status:"lives",notes:birthLabel, blessed:false})
-              newborn.push({name:game.i18n.localize('PEN.child'),gender:'female', genderLabel: game.i18n.localize('PEN.female'), status:"lives",notes:birthLabel, blessed:false})              
+              newborn.push({name:game.i18n.localize('PEN.child'),gender:'female', genderLabel: game.i18n.localize('PEN.female'), status:"lives",notes:birthLabel, blessed:false})
             } else if (multiRes<11) {
               birthLabel = game.i18n.localize('PEN.twins')
-              if (gender === "") { gender = 'female'}  
-              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})        
-              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})                      
+              if (gender === "") { gender = 'female'}
+              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})
+              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})
             } else if (multiRes<14) {
               birthLabel = game.i18n.localize('PEN.twins')
-              if (gender === "") { gender = 'male'}  
-              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})        
-              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})                      
+              if (gender === "") { gender = 'male'}
+              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})
+              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})
             } else if (multiRes<17) {
               birthLabel = game.i18n.localize('PEN.twinsIdentical')
-              if (gender === "") { gender = 'female'}  
-              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})        
-              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})                      
+              if (gender === "") { gender = 'female'}
+              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})
+              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})
             } else if (multiRes<20) {
               birthLabel = game.i18n.localize('PEN.twinsIdentical')
-              if (gender === "") { gender = 'male'}  
-              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})        
-              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})                      
+              if (gender === "") { gender = 'male'}
+              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})
+              newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:birthLabel, blessed:false})
             } else {
               let triplets=[]
               let identical = true
@@ -1160,13 +1317,13 @@ export class PENWinter {
                   //For non-identical set first one to matched gender if non currently match
                   triplets[0].gender = gender
                 }
-              } 
+              }
               birthLabel = game.i18n.localize('PEN.triplets')
               if (identical) birthLabel = game.i18n.localize('PEN.tripletsIdentical')
-              newborn.push({name:game.i18n.localize('PEN.child'),gender:triplets[0].gender, genderLabel: game.i18n.localize('PEN.'+triplets[0].gender), status:"lives",notes:birthLabel, blessed:false})     
-              newborn.push({name:game.i18n.localize('PEN.child'),gender:triplets[1].gender, genderLabel: game.i18n.localize('PEN.'+triplets[1].gender), status:"lives",notes:birthLabel, blessed:false})     
-              newborn.push({name:game.i18n.localize('PEN.child'),gender:triplets[2].gender, genderLabel: game.i18n.localize('PEN.'+triplets[2].gender), status:"lives",notes:birthLabel, blessed:false})      
-            }       
+              newborn.push({name:game.i18n.localize('PEN.child'),gender:triplets[0].gender, genderLabel: game.i18n.localize('PEN.'+triplets[0].gender), status:"lives",notes:birthLabel, blessed:false})
+              newborn.push({name:game.i18n.localize('PEN.child'),gender:triplets[1].gender, genderLabel: game.i18n.localize('PEN.'+triplets[1].gender), status:"lives",notes:birthLabel, blessed:false})
+              newborn.push({name:game.i18n.localize('PEN.child'),gender:triplets[2].gender, genderLabel: game.i18n.localize('PEN.'+triplets[2].gender), status:"lives",notes:birthLabel, blessed:false})
+            }
           } else {
             //Roll on Blessed table
             let table= (await game.system.api.pid.fromPIDBest({pid:'rt..blessed-birth'}))[0]
@@ -1175,7 +1332,7 @@ export class PENWinter {
             if (!table) {
               ui.notifications.error(game.i18n.localize('PEN.addBBmanually'))
             } else {
-              const blessedResult = await PENUtilities.tableDiceRoll(table)                
+              const blessedResult = await PENUtilities.tableDiceRoll(table)
               //const blessedResult = await table.roll();
               //if (game.modules.get('dice-so-nice')?.active) {
               //  game.dice3d.showForRoll(blessedResult.roll)
@@ -1192,7 +1349,7 @@ export class PENWinter {
                 gender = 'male'
               }
             }
-            newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:notes, blessed:true})     
+            newborn.push({name:game.i18n.localize('PEN.child'),gender:gender, genderLabel: game.i18n.localize('PEN.'+gender), status:"lives",notes:notes, blessed:true})
           }
           break
         default:
@@ -1203,7 +1360,7 @@ export class PENWinter {
       //Send chat message
       let html =  await PENWinter.childbirthChatCard(birthRes,birthLabel,newborn,motherDies,motherBarren,result,tragedyRes,tragedyGen,midResult,critRes,multiRes,trip,conLoss,strLoss,sizLoss,this.actor.name, this.actor._id)
       await PENWinter.showAgingRollChat (html, this.actor)
-  
+
       //Create family members for each newborn
       let newAdditions = []
       for (let newFamily of newborn){
@@ -1258,10 +1415,10 @@ export class PENWinter {
                   priority: 0
                 }
               }
-            }            
+            }
           }
           await Item.create(itemData, {parent: this.actor});
-          
+
         }
       }
       //If mother Barren then make updates to either spouse or actor
@@ -1270,8 +1427,8 @@ export class PENWinter {
           let spouse = await(this.actor.items.filter(itm=>itm.type==='family').filter(itm=>itm.system.relation==='spouse'))[0]
           await spouse.update({'system.barrenMarriage': true})
         } else if (decision === 'self'){
-          await this.actor.update ({'system.status.barren': true})          
-        }          
+          await this.actor.update ({'system.status.barren': true})
+        }
       }
 
       //If there are stats losses for the actor on birth
@@ -1280,8 +1437,8 @@ export class PENWinter {
           'system.stats.con.age': this.actor.system.stats.con.age - conLoss,
           'system.stats.str.age': this.actor.system.stats.str.age - strLoss,
           'system.stats.siz.age': this.actor.system.stats.siz.age - sizLoss
-        })    
-        
+        })
+
       //If any prestige was spent
       if (prestige != 'none') {
         await this.actor.update({'system.prestige':this.actor.system.prestige+1})
@@ -1309,7 +1466,7 @@ export class PENWinter {
         await Item.create(itemData, {parent: this.actor});
       }
     }
-   
+
     await this.actor.update({'system.status.familyRoll':false})
   }
 
@@ -1336,7 +1493,7 @@ export class PENWinter {
       strLoss,
       sizLoss,
       statLoss
-    } 
+    }
     const messageTemplate = 'systems/Pendragon/templates/chat/childBirth.html'
     let html = await renderTemplate (messageTemplate, messageData);
     return html;
@@ -1349,7 +1506,7 @@ export class PENWinter {
     let messageData = {
       speaker: ChatMessage.getSpeaker({ actor: actorName }),
     children: children,
-    } 
+    }
     const messageTemplate = 'systems/Pendragon/templates/chat/childSurvival.html'
     let html = await renderTemplate (messageTemplate, messageData);
     return html;
@@ -1384,7 +1541,7 @@ export class PENWinter {
         },{classes: ["Pendragon", "sheet"],width:500})
         dlg.render(true);
       })
-    return usage  
+    return usage
   }
 
   //Select Gender of baby
@@ -1392,9 +1549,9 @@ export class PENWinter {
     let aspect = [
       {name: game.i18n.localize('PEN.male'), pid: 'male'},
       {name: game.i18n.localize('PEN.female'), pid: 'female'}
-    ]    
+    ]
     let gender = await PENCharCreate.selectFromRadio('list',false,aspect,game.i18n.localize('PEN.childGender'))
     return gender
-  }  
+  }
 
-}    
+}

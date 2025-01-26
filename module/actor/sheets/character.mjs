@@ -384,9 +384,9 @@ export class PendragonCharacterSheet extends ActorSheet {
     html.find(".rollable.move").click(PENRollType._onMoveCheck.bind(this));                 // Glory check
     html.find(".rollable.squire").click(PENRollType._onSquireCheck.bind(this));             // Squire check
     html.find(".rollable.trait").click(PENRollType._onTraitCheck.bind(this));               // Trait check 
-    html.find(".rollable.decision").click(PENRollType._onDecisionCheck.bind(this));         // Decision Trait check     
-    html.find(".rollable.damage").click(PENRollType._onDamageRoll.bind(this));              // Damage roll      
-    html.find(".rollable.combat").click(PENRollType._onCombatCheck.bind(this));             // Combat roll       
+    html.find(".rollable.decision").click(PENRollType._onDecisionCheck.bind(this));         // Decision Trait check
+    html.find(".rollable.damage").click(PENRollType._onDamageRoll.bind(this));              // Damage roll
+    html.find(".rollable.combat").click(PENRollType._onCombatCheck.bind(this));             // Combat roll
     html.find(".treat-wound").dblclick(PENCombat.treatWound.bind(this));                    // Treat a wound
     html.find(".natural-heal").dblclick(PENCombat.naturalHealing.bind(this));               // Natural Healing
     html.find(".xp-check").click(PENWinter.xpCheck.bind(this));                             // XP Rolls
@@ -394,7 +394,11 @@ export class PendragonCharacterSheet extends ActorSheet {
     html.find(".aging").click(PENWinter.aging.bind(this));                                  // Check aging
     html.find(".squireAge").click(PENWinter.squireWinter.bind(this));                       // Squire and Maiden Winter checks
     html.find(".horseSurvival").click(PENWinter.horseSurvival.bind(this,"single"));         // Check Horse Survival
-    html.find(".prestige-check").click(PENWinter.winterImprov.bind(this,"prestige"));       // Spend prestige
+    html.find(".prestige-trait").click(PENWinter.winterImproveTrait.bind(this,"prestige")); // Spend prestige on a trait
+    html.find(".prestige-passion").click(PENWinter.winterImprovePassion.bind(this,"prestige")); // Spend prestige on a passion
+    html.find(".prestige-check").click(PENWinter.winterImprov.bind(this,"prestige"));       // Spend prestige on a characteristic or skill
+    html.find(".train-trait").click(PENWinter.winterImproveTrait.bind(this,"single"));      // Spend training on a trait
+    html.find(".train-passion").click(PENWinter.winterImprovePassion.bind(this,"single"));  // Spend training on a passion
     html.find(".train-single").click(PENWinter.winterImprov.bind(this,"single"));           // Spend training as a single point
     html.find(".train-multiple").click(PENWinter.winterImprov.bind(this,"multiple"));       // Spend training spread across multiple skills
     html.find(".familyRoll").click(PENWinter.familyRoll.bind(this,"single"));               // Family Rolls

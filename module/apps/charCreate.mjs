@@ -709,7 +709,12 @@ export class PENCharCreate {
 
 
     } else {
-      let results =  table.results.toObject(false).filter (itm=>(itm.type != 'text')).map(itm=> {return { name: itm.text, pid: itm._id}})
+      let results =  await Promise.all(table.results.toObject(false).filter (itm=>(itm.type != 'text')).map(async itm=> {
+        const doclookup = await PENCharCreate.documentFromResult(itm);
+        const itemlookup = await actor.items.find(itm2 => (itm2.flags.Pendragon.pidFlag.id === doclookup.flags.Pendragon.pidFlag.id));
+        return { name: `${itemlookup.system.familyChar} (${itm.text})`, pid: itm._id}
+      }));
+      console.log(results);
       selected = await PENCharCreate.selectFromRadio ('list',false,results)
       let res = table.results.toObject(false).filter (itm=>(itm._id === selected))[0]
       switch (res.type) {
@@ -730,7 +735,7 @@ export class PENCharCreate {
         ui.notifications.error(game.i18n.localize('PEN.religDocGone'))
         return false
       }
-      let item = await actor.items.filter(itm => (itm.flags.Pendragon.pidFlag.id === doc.flags.Pendragon.pidFlag.id))[0]
+      let item = await actor.items.find(itm => (itm.flags.Pendragon.pidFlag.id === doc.flags.Pendragon.pidFlag.id));
       await item.update({'system.family': Number(item.system.family) + 3})
       if (actor.system.family === "") {
         await actor.update({'system.family': item.system.familyChar})
@@ -832,7 +837,11 @@ export class PENCharCreate {
           //Option 2: Improve Traits
           case "2":
             let traits = await (actor.items.filter(itm =>itm.type==='trait')).map(itm=>{return {
-              id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total, minVal:1, maxVal:19, winter:itm.system.winter
+              id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total,
+              religious: itm.system.religious,
+              oppName: itm.system.oppName,
+              oppValue: itm.system.oppvalue,
+              minVal:1, maxVal:19, winter:itm.system.winter
             }})
             traits.sort(function(a, b){
               let x = a.name;
@@ -843,7 +852,7 @@ export class PENCharCreate {
             });
             let traitVal = await TraitsSelectDialog.create(traits,1,false,game.i18n.localize('PEN.Entities.Trait'))
             if (!traitVal) {return false}
-            changes = await traitVal.filter(itm=>itm.value > itm.origVal).map(itm=>{return{_id: itm.id, 'system.winter': Number(itm.winter) + Number(itm.value)-Number(itm.origVal)}})
+            changes = await traitVal.filter(itm=>itm.value != itm.origVal).map(itm=>{return{_id: itm.id, 'system.winter': Number(itm.winter) + Number(itm.value)-Number(itm.origVal)}})
             await Item.updateDocuments(changes, {parent: actor})
             break
 
@@ -1913,7 +1922,21 @@ export class PENCharCreate {
     return
   }
 
-
+ static async documentFromResult(res){
+      let uuid = "";
+      switch (res.type) {
+        case CONST.TABLE_RESULT_TYPES.DOCUMENT:
+          uuid =`${res.documentCollection}.${res.documentId}`;
+          break
+        case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
+          uuid = `Compendium.${res.documentCollection}.Item.${res.documentId}`;
+          break
+        default:
+          ui.notifications.error(game.i18n.localize('PEN.religDocGone'))
+          return false
+      }
+      return await fromUuidSync(uuid)
+    }
 }
 
 
