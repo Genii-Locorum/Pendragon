@@ -18,14 +18,15 @@ export class PENWinter {
     if (!toggle) {
       for (const actr of game.actors.contents) {
         if(actr.type === 'character') {
-          await actr.update({'system.status.train': false,
-                          'system.status.economic': false,
-                          'system.status.aging': false,
-                          'system.status.squireAge': false,
-                          'system.status.horseSurv': false,
-                          'system.status.familyRoll': false,
-                          'system.status.xp': false
-                          });
+          await actr.update({
+            'system.status.train': false,
+            'system.status.economic': false,
+            'system.status.aging': false,
+            'system.status.squireAge': false,
+            'system.status.horseSurv': false,
+            'system.status.familyRoll': false,
+            'system.status.xp': false
+          });
         }
         let squires = await actr.items.filter(itm=>itm.type==='squire').map(itm=>{return {_id:itm.id, 'system.age': itm.system.age+1}})
         await Item.updateDocuments(squires, {parent: actr})
@@ -48,10 +49,10 @@ export class PENWinter {
         await a.update({'system.status.train': true,
                         'system.status.economic': true,
                         'system.status.aging': true,
-                        'system.status.squireAge': false,
-                        'system.status.horseSurv': false,
-                        'system.status.familyRoll': false,
-                        'system.status.xp': false});
+                        'system.status.squireAge': true,
+                        'system.status.horseSurv': true,
+                        'system.status.familyRoll': true,
+                        'system.status.xp': true});
 
         //Create a history event for each character with this year's passive glory
         const type = 'history'

@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 12.1.20
+- Fix issue with Winterphase not resetting some of the rolls, thus prevented them from being repeated.
+
 ## 12.1.19
 - First toe in the water moving to V2 Application.  Armour Sheet is now on V2.  Please report any odd behavious
 - Directed passions can be easily gained during play, by adding a "+" button next to each court.
