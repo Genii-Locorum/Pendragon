@@ -837,7 +837,11 @@ export class PENCharCreate {
           //Option 2: Improve Traits
           case "2":
             let traits = await (actor.items.filter(itm =>itm.type==='trait')).map(itm=>{return {
-              id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total, minVal:1, maxVal:19, winter:itm.system.winter
+              id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total,
+              religious: itm.system.religious,
+              oppName: itm.system.oppName,
+              oppValue: itm.system.oppvalue,
+              minVal:1, maxVal:19, winter:itm.system.winter
             }})
             traits.sort(function(a, b){
               let x = a.name;
