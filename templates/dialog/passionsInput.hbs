@@ -1,0 +1,36 @@
+<form class="Pendragon stats-input" id="stats-input-form">
+  <br>
+
+  <div class="stats-input">{{localize 'PEN.passionSpend'}}</div>
+  <br>
+
+  <div class="flexcol">
+    <div class='bold statsCreate header counter'>
+      <label class="skill-opt-label">{{ localize 'PEN.pointsSpent' }}:</label>
+      <span class="centre count">{{added}}</span>
+      <span class="centre">/</span>
+      <span class="centre">{{pointsMax}}</span>
+    </div>
+    <br>
+
+  <div class="statsCreate">
+    {{#each courts as |court|}}
+    <h4 class="bold court-name">{{court.label}}</h4>
+    <div></div>
+    <div></div>
+    <div></div>
+    {{#each ../passions as |passion key|}}
+      {{#if (eq passion.court court.name)}}
+      <div class="bold passion-name">{{passion.name}}</div>
+      <div class="centre"><a class="large-icon darkred up rollable inc-{{key}}" data-set="{{key}}">{{#if (lt passion.value passion.max)}}<i class="fas fa-circle-up"></i>{{/if}}</a></div>
+      <div class="centre item-{{key}}">{{passion.value}}</div>
+      <div class="centre"><a class="large-icon darkred down rollable dec-{{key}}" data-set="{{key}}">{{#if (gt passion.value passion.min)}}<i class="fas fa-circle-down"></i>{{/if}}</a></div>
+      {{/if}}
+    {{/each}}
+    {{/each}}
+  </div>
+  <br>
+
+  <div class="closecard"><button class='cardbutton' type="button">{{localize 'PEN.spendPoints' }}</button></div>
+
+</form>

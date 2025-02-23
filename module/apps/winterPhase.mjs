@@ -1,6 +1,7 @@
 import { PENUtilities } from "./utilities.mjs";
 import { WinterSelectDialog } from "./winter-select-dialog.mjs";
 import { TraitsSelectDialog } from "./trait-selection.mjs";
+import { PassionsSelectDialog } from "./passion-selection.mjs";
 import { PENSelectLists } from "./select-lists.mjs";
 import { PENCheck } from '../apps/checks.mjs';
 import { PENCharCreate } from "./charCreate.mjs";
@@ -341,22 +342,25 @@ export class PENWinter {
     }
     let options = [];
     for (let i of this.actor.items) {
-      if (i.type === "passion") {
+      if (i.type === "passion" && i.system.value > 0) {
         let option = {
           'type': i.type,
           'label': game.i18n.localize("PEN."+i.type),
           'itemID': i._id,
-          'name' : i.name + " (" + i.system.value +")",
+          'name' : i.name,
           'value': i.system.value,
+          'origValue': i.system.value,
+          'court': i.system.court,
+          'level': i.system.level,
           'choice': "",
           'max': 20,
-          'min': 1
+          'min': 0
         }
 
-        // For passions range is 1-20 except for Prestige reward when there is no max or min
+        // For passions range is 0-20 except for Prestige reward when there is no max
         if (route === 'prestige'){
           option.max = 999;
-          option.min = -999;
+          option.min = 0;
         }
 
         options.push(option);
@@ -365,22 +369,14 @@ export class PENWinter {
 
     // Sort Options
     options.sort(function(a, b){
-      let x = a.name.toLowerCase();
-      let y = b.name.toLowerCase();
-      let p = a.label;
-      let q = b.label;
-      if (p < q) {return -1};
-      if (p > q) {return 1};
-      if (x < y) {return -1};
-      if (x > y) {return 1};
-      return 0;
+      return a.court.localeCompare(b.court) || a.label.localeCompare(b.label) || a.name.localeCompare(b.name);
     });
 
-    let amount = 1;
+    const amount = 1;
     let title = game.i18n.localize('PEN.prestigeAward');
     if (route != 'prestige') {title = game.i18n.localize('PEN.training')}
 
-    const selected = await WinterSelectDialog.create (title, options, this.actor.name, amount);
+    const selected = await PassionsSelectDialog.create (title, options, amount, 1);
       if (selected.length <1 || !selected) {
         ui.notifications.warn(game.i18n.localize('PEN.noSelection'));
         return

@@ -1341,3 +1341,15 @@ height: inherit;
     grid-template-columns: 14ch 4ch 55px 14ch 4ch 40px;
   }
 }
+.Pendragon .passion-name {
+  font-family: "Garamond";
+  font-size: 20px;
+  color: black;
+  padding-left: 1rem;
+}
+.Pendragon .court-name {
+  font-family: "Garamond";
+  font-size: 20px;
+  color: black;
+  text-transform: capitalize;
+}
