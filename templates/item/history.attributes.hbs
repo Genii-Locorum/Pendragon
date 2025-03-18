@@ -1,0 +1,26 @@
+<section class="tab attributes {{tab.cssClass}}" data-group="primary" data-tab="attributes">
+<!-- disabled as it currently does not work as expected-->
+  <!--div class = "history-item-grid">  
+    <div class="stat-name left bold new-row">{{localize 'PEN.favour'}}</div>
+    <div class="centre"><a class="item-control item-toggle large-icon" data-property = "favour" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.favour}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+  </div> 
+
+  <br -->
+
+  <div class = "history-small-grid">
+    <div class="stat-name left bold">{{localize 'PEN.year'}}</div>
+    <div class="stat-name-input centre"><input name="system.year" type="text" value="{{item.system.year}}" data-dtype="Number"/></div>
+    <br>
+
+    <div class="stat-name left bold new-row">{{localize 'PEN.glory'}}</div>
+    <div class="stat-name-input centre"><input name="system.glory" type="text" value="{{item.system.glory}}" data-dtype="Number"/></div>
+
+    {{#if item.system.favour}}
+      <br>
+      <div class="stat-name left bold new-row">{{localize 'PEN.favourLevel'}}</div>
+      <div class="stat-name-input centre"><input name="system.favourLevel" type="text" value="{{item.system.favourLevel}}" data-dtype="Number"/></div>
+    {{/if}}  
+
+  </div>
+</section>
+

@@ -110,4 +110,11 @@ export function registerSettings () {
     default: false
   });
 
-}    
+  // used by migration script
+  game.settings.register('Pendragon', "systemMigrationVersion", {
+    config: false,
+    scope: "world",
+    type: String,
+    default: ""
+  });
+}

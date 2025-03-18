@@ -57,7 +57,7 @@ export class PENWinter {
 
         //Create a history event for each character with this year's passive glory
         const type = 'history'
-        const name = `${type.capitalize()}`;
+        const name = game.i18n.localize('PEN.winterPhasePassiveGlory');
         const itemData = {
           name: name,
           type: type,
@@ -312,7 +312,7 @@ export class PENWinter {
 
         //Add a History Item to show the spend
         const type = 'history'
-        const name = `${type.capitalize()}`;
+        const name = pickedName;
         const itemData = {
           name: name,
           type: type,
@@ -404,7 +404,7 @@ export class PENWinter {
 
         //Add a History Item to show the spend
         const type = 'history'
-        const name = `${type.capitalize()}`;
+        const name = game.i18n.localize('PEN.winterPhaseTrainPassion');
         const itemData = {
           name: name,
           type: type,
@@ -479,7 +479,7 @@ export class PENWinter {
 
     //Add a History Item to show the spend
     const type = 'history'
-    const name = `${type.capitalize()}`;
+    const name = game.i18n.localize('PEN.winterPhaseTrainTrait');
     const itemData = {
       name: name,
       type: type,
@@ -1441,12 +1441,12 @@ export class PENWinter {
         await this.actor.update({'system.prestige':this.actor.system.prestige+1})
         //Add a History Item to show the spend
         const type = 'history'
-        const name = `${type.capitalize()}`;
+        const name = `${game.i18n.localize('PEN.spendPrestige')}: ${game.i18n.localize('PEN.childBirth')}`;
         const itemData = {
           name: name,
           type: type,
           system: {
-            "description": game.i18n.localize('PEN.spendPrestige')+": "+game.i18n.localize('PEN.childBirth'),
+            "description": `${game.i18n.localize('PEN.spendPrestige')}: ${game.i18n.localize('PEN.childBirth')}`,
             "year": game.settings.get('Pendragon',"gameYear"),
             "glory": 0
           },

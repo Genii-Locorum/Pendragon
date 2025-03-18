@@ -1,0 +1,11 @@
+<div class="tab {{tab.cssClass}}" data-group="primary" data-tab="description">
+  <div class="stat-name bold">{{localize 'PEN.description'}}:</div>
+  <div class="background-doc">
+  {{#if editable}} 
+    <prose-mirror name="system.description" data-document-uuid="{{item.uuid}}" value="{{system.description}}" toggled="true">
+      {{{enrichedDescriptionValue}}}
+    </prose-mirror>
+  {{else}} {{{enrichedDescriptionValue}}}
+  {{/if}}
+  </div>
+</div>
