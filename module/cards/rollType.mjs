@@ -208,13 +208,13 @@ export class PENRollType {
   //Start a Trait Check
   static async _onTraitCheck(event) {
     let ctrlKey = isCtrlKey(event ?? false);
-    let cardType = "NO";
+    let cardType = CardType.UNOPPOSED;
     let subType = event.currentTarget.dataset.type;
     let skillId = event.currentTarget.dataset.itemid;
     if (event.altKey) {
-      cardType = "OP";
+      cardType = CardType.OPPOSED;
     } else if (ctrlKey) {
-      cardType = "RE";
+      cardType = CardType.FIXED;
     }
     if (game.settings.get("Pendragon", "switchShift")) {
       event.shiftKey = !event.shiftKey;
@@ -232,7 +232,7 @@ export class PENRollType {
 
   //Start a Decision Trait Check
   static async _onDecisionCheck(event) {
-    let cardType = "NO";
+    let cardType = CardType.UNOPPOSED;
     let skillId = event.currentTarget.dataset.itemid;
     if (game.settings.get("Pendragon", "switchShift")) {
       event.shiftKey = !event.shiftKey;

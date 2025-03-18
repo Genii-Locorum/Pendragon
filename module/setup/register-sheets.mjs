@@ -22,6 +22,7 @@ import { PendragonHomelandSheet } from '../item/sheets/homeland.mjs';
 import { PendragonIdealSheet } from '../item/sheets/ideal.mjs';
 import { PendragonRelationshipSheet } from '../item/sheets/relationship.mjs';
 import { PENJournalSheet } from '../sheets/pen-journal-sheet.mjs'
+import { PendragonCharacterSheetv2 } from '../actor/sheets/characterv2.mjs';
 //const {Actors, Items, Journal} = foundry.documents.collections;
 
 export function registerSheets () {
@@ -29,6 +30,10 @@ export function registerSheets () {
     foundry.documents.collections.Actors.registerSheet('Pendragon', PendragonCharacterSheet, {
       types: ['character'],
       makeDefault: true
+    })
+
+    Actors.registerSheet('Pendragon', PendragonCharacterSheetv2, {
+      types: ['character'],
     })
 
     foundry.documents.collections.Actors.registerSheet('Pendragon', PendragonNPCSheetv2, {
