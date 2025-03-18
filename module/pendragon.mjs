@@ -10,6 +10,7 @@ import { PENSystemSocket } from "./apps/socket.mjs"
 import * as Chat from "./apps/chat.mjs";
 import { PENTooltips } from './apps/tooltips.mjs';
 import { PENRollType } from "./cards/rollType.mjs";
+import { migrateWorld } from "./setup/migrations.mjs";
 
 
 /* -------------------------------------------- */
@@ -38,7 +39,7 @@ Hooks.once('init', async function() {
   CONFIG.Actor.documentClass = PendragonActor;
   CONFIG.Item.documentClass = PendragonItem;
 
-  
+
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
 });
@@ -52,7 +53,7 @@ Hooks.on('ready', async () => {
 
 //Remove certain Items types from the list of options to create under the items menu (can still be created directly from the character sheet)
 Hooks.on("renderDialog", (dialog, html) => {
-  let deprecatedTypes = ["wound", "squire", "family","relationship"]; // 
+  let deprecatedTypes = ["wound", "squire", "family","relationship"]; //
   Array.from(html.find("#document-create option")).forEach(i => {
       if (deprecatedTypes.includes(i.value))
       {
@@ -72,7 +73,7 @@ Hooks.on('renderSettingsConfig', (app, html, options) => {
       '<h3 class="setting-header">' +
         game.i18n.localize('PEN.Settings.xpCheck') +
         '</h3>'
-    )  
+    )
 
   systemTab
     .find('input[name=Pendragon\\.switchShift]')
@@ -81,7 +82,7 @@ Hooks.on('renderSettingsConfig', (app, html, options) => {
       '<h3 class="setting-header">' +
         game.i18n.localize('PEN.Settings.diceRolls') +
         '</h3>'
-    )      
+    )
 
     systemTab
     .find('input[name=Pendragon\\.tokenVision]')
@@ -90,7 +91,7 @@ Hooks.on('renderSettingsConfig', (app, html, options) => {
       '<h3 class="setting-header">' +
         game.i18n.localize('PEN.Settings.other') +
         '</h3>'
-    ) 
+    )
 
 });
 
@@ -108,7 +109,7 @@ Hooks.on('renderSceneControls', PENMenu.renderControls)
 /* -------------------------------------------- */
 
 Hooks.once("ready", async function() {
-  // Always reset GM Tool toggles to False and ensyre actors training is false
+  // Always reset GM Tool toggles to False and ensure actors training is false
   if (game.user.isGM) {
     if (game.settings.get('Pendragon' , 'winter')) {game.settings.set('Pendragon','winter', false)};
     if (game.settings.get('Pendragon' , 'development')) {game.settings.set('Pendragon','development', false)};
@@ -117,8 +118,8 @@ Hooks.once("ready", async function() {
       if(a.type === 'character') {
         await a.update({'system.status.train': false});
       }
-    } 
-  } 
+    }
+  }
   game.PENTooltips = new PENTooltips()
 
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
@@ -128,9 +129,17 @@ Hooks.once("ready", async function() {
       return false;
     }
   });
+
+  if (!game.user.isGM) return;
+  // determine if a migration is necessary and feasible
+  const currentVersion = game.settings.get("Pendragon", "systemMigrationVersion");
+  const needsMigration = !currentVersion || foundry.utils.isNewerVersion("12.1.21", currentVersion);
+  if(needsMigration) {
+    migrateWorld();
+  }
 });
 
-//  Hotbar Macros                             
+//  Hotbar Macros
 async function createItemMacro(data, slot) {
   // First, determine if this is a valid owned item.
   if (data.type !== "Item") return;

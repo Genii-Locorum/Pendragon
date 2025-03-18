@@ -614,6 +614,9 @@
     "winterPhaseEnd": "Winter Phase ended",
     "winterPhaseStart": "Winter Phase started",
     "winterPhaseSteps": "Please click the relevant steps of the Winter Phase (steps in bold are clickable)",
+    "winterPhasePassiveGlory": "Winter Phase: awarded passive glory",
+    "winterPhaseTrainTrait": "Training and Practice: changed personality trait",
+    "winterPhaseTrainPassion": "Training and Practice: changed passion",
     "wound": "Wound",
     "wounds":"Wounds",
     "xpCheck": "XP Check",
@@ -748,7 +751,8 @@
 
   "TYPES": {
     "Item": {
-      "armour": "Armour"
+      "armour": "Armour",
+      "history": "Event"
     }
   }
 }

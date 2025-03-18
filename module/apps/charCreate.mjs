@@ -1714,8 +1714,6 @@ export class PENCharCreate {
       'system.stats.con.winter': 0,
       'system.stats.app.winter': 0,
       'system.features': ""})
-    let history = await (actor.items.filter(itm =>itm.type==='history')).filter(itm =>["born","squired"].includes(itm.system.source)).map(itm => {return (itm.id)})
-      await Item.deleteDocuments(history, {parent: actor});
   }
 
   //Undo set skill scores - step 14
@@ -1823,7 +1821,7 @@ export class PENCharCreate {
 
 
   //Create history item
-  static async createHistory (actor,name, year,glory,source) {
+  static async createHistory (actor, name, year, glory, source) {
     const itemData = {
       name: name,
       type: 'history',

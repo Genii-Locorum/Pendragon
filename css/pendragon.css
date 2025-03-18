@@ -393,7 +393,7 @@ height: inherit;
 
 .Pendragon .history-grid {
   display: grid;
-  grid-template-columns: 550px 70px 70px 60px ;
+  grid-template-columns: 70px 550px 70px 60px ;
   gap: 0px;
   width: 751px;
   margin-top: 0px;

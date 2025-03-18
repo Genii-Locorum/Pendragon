@@ -1,19 +1,19 @@
 <div class="history-grid">  
-  <div class="stat-name bold grid-item">{{ localize "PEN.event" }}</div>
   <div class="stat-name bold grid-item centre">{{ localize "PEN.year" }}</div>
+  <div class="stat-name bold grid-item">{{ localize "PEN.event" }}</div>
   <div class="stat-name bold grid-item centre">{{ localize "PEN.glory" }}</div>
   <div class="stat-name bold grid-item centre item-create" data-type="history">  
     <a class="large-icon" title="{{localize 'PEN.addHistory'}}"><i class="item-control fas fa-plus"></i></a>
   </div> 
 
   {{#each history as |historical key|}}
-    <div class="grid-item stat-name">{{historical.system.label}}</div>
     <div class="grid-item stat-name centre">{{historical.system.year}}</div>
+    <div class="grid-item stat-name">{{historical.name}}</div>
     <div class="grid-item stat-name centre">{{historical.system.glory}}</div>
     <div class="item grid-item centre" data-itemid ="{{historical._id}}">
       <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
       {{#unless ../system.lock}}
-        <a class="fade large-icon" title="{{localize 'PEN.delete'}}"><i class="item-control fas fa-broom-wide"></i></a>
+        <a class="item-control item-delete fade large-icon"><i title="{{localize 'PEN.delete'}}" class="fas fa-broom-wide"></i></a>
       {{/unless}}
     </div>  
   {{/each}}
