@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 12.1.22
+All of this is the hardwork of jbowtie - all thanks and credit to him
+-	Update the history dialog to ApplicationV2.
+-	Remove the (currently broken) favour checkbox. You can rename the event if you need to track favour.
+-	Remove the misleading read-only "description" label on the attributes tab.
+-	On the character sheet, swap the "Year" and "Event" columns, to read more naturally.
+-	On the character sheet, fix the broken 'delete event' functionality when the sheet is unlocked, allowing mistaken and blank entries to be cleaned up.
+-	During character creation, do not delete events when resetting step 13. This fixes the deletion of the 'born' and 'squired' events.
+-	During the winter phase, name events more precisely (not just 'History').
+-	Add infrastructure to support migrations, and use it to rename events named "History" that have a non-empty description.
+
+## 12.1.21
+- Winter phase passion dialog updated: Specific instruction at the top of the page, Group existing passions by courts, Correctly allow raising and lowering of existing passions, Capped at twenty for winter training, uncapped for prestige training (thanks to jbowtie)
+- Skills now display the Description and GM Description properly.
+
 ## 12.1.20
 - Fix issue with Winterphase not resetting some of the rolls, thus prevented them from being repeated.
 
