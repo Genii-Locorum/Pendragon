@@ -18,6 +18,13 @@
   src: url('../assets/garamond-premier-pro.otf') format('woff2');
 }
 
+@font-face {
+  font-family: 'Messiri';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/ElMessiri-VariableFont_wght.ttf') format('woff2');
+}
+
 .app .header-button.edit-pid-warning,
 .application .window-header .header-control.edit-pid-warning {
   color: red;
@@ -1560,4 +1567,21 @@ height: inherit;
 .Pendragon .skill-header {
   display: grid;
    grid-template-columns: 230px 20px 150px;
+}
+
+.Pendragon.character2 {
+  --pendragon-blue: #1274bd;
+  --pendragon-red: #ab0f14;
+  --header-row: #240202;
+  --background-color: #fffde7;
+
+  & .window-content {
+    background-color: var(--background-color);
+    background-image: url('../assets/backgrounds/arches.png');
+    background-size: auto;
+  }
+  & .charname-input input {
+    color: var(--pendragon-red);
+    font-family: 'Messiri';
+  }
 }
