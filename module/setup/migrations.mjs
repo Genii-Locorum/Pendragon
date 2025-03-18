@@ -18,6 +18,7 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
             await actor.update(updateData);
         }
     }
+    await game.settings.set("Pendragon", "systemMigrationVersion",targetVersion)
 }
 
 function migrateActor(actor) {
