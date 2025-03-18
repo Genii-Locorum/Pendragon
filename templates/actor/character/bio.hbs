@@ -1,0 +1,26 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="biography">
+  <h2>{{localize 'PEN.biographyHeading'}}</h2>
+  <div class="bio-layout">
+    <div class="flexrow">
+      <label class="bold"><span>{{localize 'PEN.age'}}:</span><input style="flex:1;" type="text" value="{{age}}" readonly/></label>
+      <label class="bold"><span>{{localize 'PEN.born'}}:</span><input style="flex:1;" type="text" value="{{system.born}}" data-dtype="Number" readonly/></label>
+      <label class="bold"><span>{{localize 'PEN.died'}}:</span><input style="flex:1;" name="system.died" type="text" value="{{system.died}}" data-dtype="Number"/></label>
+    </div>
+    <div class="flexrow">
+      <label class="bold"><input type="checkbox" {{#if system.heir}}checked{{/if}} /><span>{{localize 'PEN.heir'}}</span></label>
+      <label class="bold"><input type="checkbox" {{#if system.status.barren}}checked{{/if}} /><span>{{localize 'PEN.barren'}}</span></label>
+    </div>
+    <div class="flexrow">
+      <label class="bold"><span>{{localize 'PEN.motto'}}:</span><input style="flex:1;" name="system.motto" type="text" value="{{system.motto}}" /></label>
+    </div>
+    <div class="flexrow">
+      <label class="bold"><span>{{localize 'PEN.heraldry'}}:</span><input style="flex:1;" name="system.heraldry" type="text" value="{{system.heraldry}}" /></label>
+    </div>
+    <p class="bold">{{localize 'PEN.history'}}</p>
+    <div class="prose-frame">
+    <prose-mirror name="system.background" data-document-uuid="{{actor.uuid}}" value="{{system.background}}" toggled="true">
+      {{{enrichedBackgroundValue}}}
+    </prose-mirror>
+    </div>
+  </div>
+</section>

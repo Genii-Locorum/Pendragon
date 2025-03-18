@@ -1,0 +1,33 @@
+<header class="sheet-header">
+  <div style="max-width: 125px;text-align:center;">
+    <img src="{{actor.prototypeToken.texture.src}}" title="{{actor.name}}" style="width:100%;height:auto;"/>
+    <div data-action="rollGlory">
+    <div>Glory</div>
+    <div>{{system.reputation}}</div>
+    <div>{{formatNumber system.glory}}</div>
+    </div>
+  </div>
+  <div class="header-fields">
+    <div class="charname-input"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></div>
+
+    <div class="flexrow">
+    <label class="bold"><span>{{localize 'PEN.culture'}}:</span><input style="flex:1;" type="text" value="{{system.cultureName}}" readonly/></label>
+    <label class="bold"><span>{{localize 'PEN.religion'}}:</span><input style="flex:1;" type="text" value="{{system.religionName}}" readonly/></label>
+    </div>
+    <div class="flexrow">
+    <label class="bold"><span>{{localize 'PEN.homeland'}}:</span><input style="flex:1;" type="text" value="{{system.homelandName}}" readonly/></label>
+    <label class="bold"><span>{{localize 'PEN.familyChar'}}:</span><input style="flex:1;" type="text" value="{{system.family}}" readonly/></label>
+    </div>
+    <label class="bold"><span>{{localize 'PEN.distFeat'}}:</span><input style="flex:1;" name="system.features" type="text" value="{{system.features}}"/></label>
+    <div style="display:flex;gap:1rem;">
+      {{#each system.stats as |stat key|}}
+        <div style="text-align:center;font-size:1.6em;flex:1;" data-itemid="{{key}}" data-action="rollStat"><div style="font-family:Messiri;">{{stat.labelShort}}</div><div>{{stat.total}}</div></div>
+      {{/each}}
+    </div>
+  </div>
+  <div style="max-width: 125px;text-align:center;">
+  <img class="profile-img" src="{{actor.img}}" data-edit="img" data-action="onEditImage" title="{{actor.name}}" style="width:100%;height:auto;"/>
+  <div>Hit Points</div>
+  <div>{{system.hp.value}} / {{system.hp.max}}</div>
+  </div>
+</header>
