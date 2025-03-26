@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 12.1.23
+All of this is the hardwork of jbowtie - all thanks and credit to him
+- When you select a religious trait or it's opposite as your famous trait during character creation, it now becomes 16, not 19.
+- Use the new passion selection dialog during the character creation training phase (step 13). Passions may only be raised, not lowered, during this step. (As opposed to Winter, when they may also be lowered).
+- You can turn off child mortality in the game settings - this will skip child survival rolls and causes any "tragedy" result during childbirth to be treated as "no conception".
+
 ## 12.1.22
 All of this is the hardwork of jbowtie - all thanks and credit to him
 -	Update the history dialog to ApplicationV2.
