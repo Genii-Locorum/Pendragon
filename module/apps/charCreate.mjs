@@ -1,5 +1,6 @@
 import { PENUtilities } from "./utilities.mjs"
 import { ItemsSelectDialog } from "./item-selection.mjs"
+import {PassionsSelectDialog} from "./passion-selection.mjs"
 import { StatsSelectDialog } from "./stat-selection.mjs"
 import { TraitsSelectDialog } from "./trait-selection.mjs"
 import { PENCheck } from "./checks.mjs"
@@ -555,7 +556,8 @@ export class PENCharCreate {
       if(!sTrait) {return false;}
 
       const option = opposed ? 4 : 16;
-      await sTrait.update({'system.value': Number(option)})
+      // subtract the religious bonus so base value+religious = selected option
+      await sTrait.update({'system.value': Number(option) - sTrait.system.religious})
 
       let optTraits = traits.map(uTrait => {
         return { 
@@ -860,18 +862,28 @@ export class PENCharCreate {
           //Option 3: Improve Passions
           case "3":
             let passions = await (actor.items.filter(itm =>itm.type==='passion')).filter(itm => itm.system.total>0 && itm.system.total<20).map(itm=>{return {
-              id: itm.id, name: itm.name, value: itm.system.total, origVal:itm.system.total, minVal:itm.system.total, maxVal:20, winter:itm.system.winter
+              'type': itm.type,
+              'label': game.i18n.localize("PEN."+itm.type),
+              'itemID': itm._id,
+              'name' : itm.name,
+              'value': itm.system.total,
+              'origValue': itm.system.total,
+              'court': itm.system.court,
+              'level': itm.system.level,
+              'choice': "",
+              'max': 20,
+              'min': itm.system.total,
+              winter:itm.system.winter
             }})
+            // Sort Options
             passions.sort(function(a, b){
-              let x = a.name;
-              let y = b.name;
-              if (x < y) {return -1};
-              if (x > y) {return 1};
-            return 0;
+              return a.court.localeCompare(b.court) || a.label.localeCompare(b.label) || a.name.localeCompare(b.name);
             });
-            let passVal = await ItemsSelectDialog.create(passions,1,true,game.i18n.localize('PEN.Entities.Passion'))
-            if (!passVal) {return false}
-            changes = await passVal.filter(itm=>itm.value > itm.origVal).map(itm=>{return{_id: itm.id, 'system.winter': Number(itm.winter) + Number(itm.value)-Number(itm.origVal)}})
+            const passVal = await PassionsSelectDialog.create (title, passions, 1, 1);
+            if (!passVal || passVal.length <1) {
+              return false;
+            }
+            changes = await passVal.filter(itm=>itm.value != itm.origValue).map(itm=>{return{_id: itm.itemID, 'system.winter': Number(itm.winter) + Number(itm.value)-Number(itm.origValue)}})
             await Item.updateDocuments(changes, {parent: actor})
             break
 
