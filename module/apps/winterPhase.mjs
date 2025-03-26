@@ -1014,7 +1014,7 @@ export class PENWinter {
     if (!this.actor.system.status.familyRoll) {return}
     //Child Survival Roll
     let children = this.actor.items.filter(itm=>itm.type==='family').filter(itm=>Number(itm.system.died) <1 && itm.system.relation==='child' && (game.settings.get('Pendragon','gameYear') - itm.system.born)<5 && !itm.system.blessed)
-    if (children.length > 0) {
+    if (children.length > 0 && game.settings.get('Pendragon', 'childMortality')) {
       let cldChng=[]
       for (const child of children) {
         let result = await PENUtilities.simpleDiceRoll('1D20')
@@ -1082,7 +1082,6 @@ export class PENWinter {
       let newborn = []
       let result = 0
       let firstConcept = 0
-      let diceRoll=""
       let childDies = false
       let motherDies = false
       let motherBarren = false
@@ -1132,7 +1131,7 @@ export class PENWinter {
           birthRes = 3
         } else if (result <= target || ['heir','conception'].includes(prestige)) {
           birthRes = 2
-        } else if (result === 20) {
+        } else if (result === 20 && game.settings.get('Pendragon', 'childMortality')) {
           birthRes = 0
         } else {
           birthRes = 1
