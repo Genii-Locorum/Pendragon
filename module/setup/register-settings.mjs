@@ -59,6 +59,15 @@ export function registerSettings () {
     default: 2000
   });
 
+  game.settings.register('Pendragon', "childMortality", {
+    name: "PEN.Settings.childMortality",
+    hint: "PEN.Settings.childMortalityHint",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true
+  });
+
   game.settings.register('Pendragon', "tokenVision", {
     name: "PEN.Settings.tokenVision",
     hint: "PEN.Settings.tokenVisionHint",

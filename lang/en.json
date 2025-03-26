@@ -675,6 +675,8 @@
     "Settings": {
       "autoXP": "Automate XP",
       "autoXPHint": "Automatically grants XP checks for Success or Critical",
+      "childMortality": "Child Mortality",
+      "childMortalityHint": "When off, child survival rolls are skipped and childbirth tragedies are not possible.",
       "critAdj": "Critical Bonus Adjustment",
       "critAdjHint": "Reduce critical bonuses where all parties have a bonus",
       "diceRolls": "Dice Rolls",
