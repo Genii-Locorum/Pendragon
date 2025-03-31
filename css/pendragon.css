@@ -1569,6 +1569,7 @@ height: inherit;
    grid-template-columns: 230px 20px 150px;
 }
 
+/* new character sheet experiments */
 .Pendragon.character2 {
   --pendragon-blue: #1274bd;
   --pendragon-red: #ab0f14;
@@ -1583,5 +1584,10 @@ height: inherit;
   & .charname-input input {
     color: var(--pendragon-red);
     font-family: 'Messiri';
+  }
+  & .sheet-tabs {
+    font-family: Messiri, Signika, sans-serif;
+    background-color: var(--pendragon-blue);
+    color: var(--background-color)
   }
 }
