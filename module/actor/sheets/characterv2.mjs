@@ -3,105 +3,158 @@ import { PENRollType } from "../../cards/rollType.mjs";
 import { PENCombat } from "../../apps/combat.mjs";
 import { PENWinter } from "../../apps/winterPhase.mjs";
 import { PENCharCreate } from "../../apps/charCreate.mjs"
-import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
 import { PENactorItemDrop } from '../actor-itemDrop.mjs';
 import { PENUtilities } from "../../apps/utilities.mjs";
+import { PIDEditor } from "../../pid/pid-editor.mjs";
 
+const { api, sheets } = foundry.applications;
 
-/**
- * Extend the basic ActorSheet with some very simple modifications
- * @extends {ActorSheet}
- */
-export class PendragonCharacterSheetv2 extends ActorSheet {
-
-  //Add PID buttons to sheet
-  _getHeaderButtons () {
-    const headerButtons = super._getHeaderButtons()
-    addPIDSheetHeaderButton(headerButtons, this)
-    return headerButtons
+export class PendragonActorSheet extends api.HandlebarsApplicationMixin(
+  sheets.ActorSheetV2
+) {
+  constructor (options = {}) {
+    super(options)
+  }
+  // handle editPid action
+  static _onEditPid(event) {
+    event.stopPropagation(); // Don't trigger other events
+    if ( event.detail > 1 ) return; // Ignore repeated clicks
+    new PIDEditor(this.actor, {}).render(true, { focus: true })
   }
 
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["Pendragon", "sheet", "actor","character2"],
-      template: "systems/Pendragon/templates/actor/character-sheet.html",
-      width: 840,
-      height: 655,
-      scrollY: ['.bottom-panel'],
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "combat" }]
+  // adds the PID editor to the sheet frame
+  async _renderFrame(options) {
+    const frame = await super._renderFrame(options);
+    //define button
+    const sheetPID = this.actor.flags?.Pendragon?.pidFlag;
+    const noId = (typeof sheetPID === 'undefined' || typeof sheetPID.id === 'undefined' || sheetPID.id === '')
+    //add button
+    const label = game.i18n.localize("PEN.PIDFlag.id");
+    const pidEditor = `<button type="button" class="header-control fa-solid fa-fingerprint ${noId ? 'edit-pid-warning' : 'edit-pid-exisiting'}"
+        data-action="editPid" data-tooltip="${label}" aria-label="${label}"></button>`;
+    let el = this.window.close;
+    while(el.previousElementSibling.localName === 'button') {
+      el = el.previousElementSibling;
+    }
+    el.insertAdjacentHTML("beforebegin", pidEditor);
+    return frame;
+  }
+  static async _onEditImage(event, target) {
+    const attr = target.dataset.edit;
+    const current = foundry.utils.getProperty(this.document, attr);
+    const { img } =
+      this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
+      {};
+    const fp = new FilePicker({
+      current,
+      type: 'image',
+      redirectToRoot: img ? [img] : [],
+      callback: (path) => {
+        this.document.update({ [attr]: path });
+      },
+      top: this.position.top + 40,
+      left: this.position.left + 10,
     });
+    return fp.browse();
+  }
+}
+
+export class PendragonCharacterSheetv2 extends PendragonActorSheet {
+  constructor (options = {}) {
+    super(options)
   }
 
-
-  // -------------------------------------------- 
-
-  //@override
-  async getData() {
-
-    const context = super.getData();
-
-    // Use a safe clone of the actor data for further operations.
-    const actorData = this.actor.toObject(false);
-
-    // Add the actor's data to context.data for easier access, as well as flags.
-    context.system = actorData.system;
-    context.flags = actorData.flags;
-    context.isGM = game.user.isGM;
-    context.isLocked = actorData.system.lock
-    context.hasCulture = false
-    context.hasHomeland = false
-    context.hasClass = false
-    context.hasReligion = false
-    if (actorData.system.cultureID != "") {context.hasCulture = true}  
-    if (actorData.system.homelandID != "") {context.hasHomeland = true} 
-    if (actorData.system.classID != "") {context.hasClass = true}
-    if (actorData.system.religionID != "") {context.hasReligion = true}
-    context.hasFamily = false
-    if (actorData.items.filter(itm =>itm.type==='skill' && itm.system.family > 0).length >0) {context.hasFamily = true}
-    if (actorData.system.beauty > 0) {context.hasFamily = true}
-    context.isWinter = game.settings.get('Pendragon' , 'winter')
-    context.isDevelopment = game.settings.get('Pendragon' , 'development')
-    context.isCreation = game.settings.get('Pendragon' , 'creation')
-    context.useRelation = game.settings.get('Pendragon' , 'useRelation')
-    context.statTotal = actorData.system.statTotal    
-    context.solLabel = game.i18n.localize('PEN.'+actorData.system.sol)
-    context.sizLabel = game.i18n.localize('PEN.sizInc.'+actorData.system.stats.siz.growth)
-    context.enrichedBackgroundValue = await TextEditor.enrichHTML(
-      context.system.background,
-      {
-        async: true,
-        secrets: context.editable
-      }
-    )
-
-    // Prepare character data and items.
-    if (actorData.type == 'character') {
-      this._prepareItems(context);
-      this._prepareCharacterData(context);
+  static DEFAULT_OPTIONS = {
+    classes: ['Pendragon', 'sheet', 'actor', 'character2'],
+    position: {
+      width: 840,
+      height: 1000,
+    },
+    tag: "form",
+    // automatically updates the item
+    form: {
+      submitOnChange: true,
+    },
+    actions: {
+      // probably should be implemented on a base class
+      onEditImage: this._onEditImage,
+      editPid: this._onEditPid
+    },
+    window: {
+      resizeable: true,
     }
 
-    // Prepare NPC data and items.
-    if (actorData.type == 'npc') {
-      this._prepareItems(context);
+  }
+
+  static PARTS = {
+    header: {
+      template: "systems/Pendragon/templates/actor/character/header.hbs"
+    },
+    tabs: {
+      template: 'templates/generic/tab-navigation.hbs',
+    },
+    // each tab gets its own template
+    combat: {
+      template: 'systems/Pendragon/templates/actor/character/combat.hbs'
+    },
+    traits: {
+      template: 'systems/Pendragon/templates/actor/character/traits.hbs'
+    },
+  }
+  // this does the minimum currently, just sets the tab
+  // could also prepare tab-specific fields
+  async _preparePartContext(partId, context) {
+    switch (partId) {
+      case 'combat':
+      case 'traits':
+        context.tab = context.tabs[partId];
+        break;
+      default:
     }
-
-    // Add roll data for TinyMCE editors.
-    context.rollData = context.actor.getRollData();
-
     return context;
   }
-
-  /**
-   * Organize and classify Items for Character sheets.
-   *
-   * @param {Object} actorData The actor to prepare.
-   *
-   * @return {undefined}
-   */
-  _prepareCharacterData(context) {
-
-
+  
+  async _prepareContext (options) {
+    // Default tab for first time it's rendered this session
+    if (!this.tabGroups.primary) this.tabGroups.primary = 'combat';
+    // if we had a base class, do this then mergeObject
+    // let sheetData = await super._prepareContext(options);
+    let sheetData = {
+      editable: this.isEditable,
+      owner: this.document.isOwner,
+      limited: this.document.limited,
+      actor: this.actor,
+      system: this.actor.system,
+      flags: this.actor.flags,
+      hasOwner: this.actor.isEmbedded === true,
+      isGM: game.user.isGM,
+      fields: this.document.schema.fields,
+      // will not move to base class
+      isLocked: this.actor.system.lock,
+      isWinter: game.settings.get('Pendragon' , 'winter'),
+      isDevelopment: game.settings.get('Pendragon' , 'development'),
+      isCreation: game.settings.get('Pendragon' , 'creation'),
+      useRelation: game.settings.get('Pendragon' , 'useRelation'),
+      items: this.actor.items,
+    };
+    // this could be moved to a helper, review boilerplate code
+    sheetData.tabs = {
+      combat: {
+        cssClass:  this.tabGroups['primary'] === 'combat' ? 'active' : '',
+        group: 'primary',
+        id: 'combat',
+        label: 'PEN.combat'
+      },
+      traits: {
+        cssClass:  this.tabGroups['primary'] === 'traits' ? 'active' : '',
+        group: 'primary',
+        id: 'traits',
+        label: 'PEN.traits'
+      },
+    }
+    // now organize the items belonging to the character
+    this._prepareItems(sheetData);
+    return sheetData;
   }
 
   /**
@@ -132,7 +185,7 @@ export class PendragonCharacterSheetv2 extends ActorSheet {
     for (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
       if (i.type === 'gear') {
-        i.system.cleanDesc =  i.system.description.replace(/<[^>]+>/g, "") 
+        i.system.cleanDesc =  i.system.description.replace(/<[^>]+>/g, "")
         gears.push(i);
       } else if (i.type === 'trait') {
         traits.push(i);
@@ -182,7 +235,7 @@ export class PendragonCharacterSheetv2 extends ActorSheet {
       } else if (i.type === 'relationship') {
         i.system.typeName = game.i18n.localize('PEN.' + i.system.typeLabel)
         if (i.system.born > 0) {
-          i.system.age = game.settings.get('Pendragon','gameYear') - i.system.born  
+          i.system.age = game.settings.get('Pendragon','gameYear') - i.system.born
         } else {
           i.system.age=""
         }
@@ -201,7 +254,7 @@ export class PendragonCharacterSheetv2 extends ActorSheet {
         'name': game.i18n.localize('PEN.civilitas'),
         'system': {'total': this.actor.system.civilitas,
                    'court':'civilitas',
-                   'level':0}    
+                   'level':0}
       },
       {
         'name': game.i18n.localize('PEN.fervor'),
@@ -220,7 +273,7 @@ export class PendragonCharacterSheetv2 extends ActorSheet {
         'system': {'total': this.actor.system.honor,
                    'court': 'honor',
                    'level':0}
-      }      
+      }
   )
 
     // Sort Gears
@@ -252,7 +305,7 @@ export class PendragonCharacterSheetv2 extends ActorSheet {
       if (x < y) {return -1};
       if (x > y) {return 1};
       return 0;
-    });  
+    });
 
     // Sort History
     history.sort(function(a, b){
@@ -274,7 +327,7 @@ export class PendragonCharacterSheetv2 extends ActorSheet {
       let p = a.system.court
       let q = b.system.court
       let r = a.system.level
-      let s = b.system.level      
+      let s = b.system.level
       if (p < q) {return -1};
       if (p > q) {return 1};
       if (r < s) {return -1};
@@ -350,6 +403,82 @@ export class PendragonCharacterSheetv2 extends ActorSheet {
     context.followers = followers;
   }
 
+}
+
+/**
+ * Extend the basic ActorSheet with some very simple modifications
+ * @extends {ActorSheet}
+ */
+export class PendragonCharacterSheetv2x extends ActorSheet {
+
+
+
+  // --------------------------------------------
+
+  //@override
+  async getData() {
+
+    const context = super.getData();
+
+    // Use a safe clone of the actor data for further operations.
+    const actorData = this.actor.toObject(false);
+
+    // Add the actor's data to context.data for easier access, as well as flags.
+    context.hasCulture = false
+    context.hasHomeland = false
+    context.hasClass = false
+    context.hasReligion = false
+    if (actorData.system.cultureID != "") {context.hasCulture = true}
+    if (actorData.system.homelandID != "") {context.hasHomeland = true}
+    if (actorData.system.classID != "") {context.hasClass = true}
+    if (actorData.system.religionID != "") {context.hasReligion = true}
+    context.hasFamily = false
+    if (actorData.items.filter(itm =>itm.type==='skill' && itm.system.family > 0).length >0) {context.hasFamily = true}
+    if (actorData.system.beauty > 0) {context.hasFamily = true}
+    context.isWinter = game.settings.get('Pendragon' , 'winter')
+    context.isDevelopment = game.settings.get('Pendragon' , 'development')
+    context.isCreation = game.settings.get('Pendragon' , 'creation')
+    context.useRelation = game.settings.get('Pendragon' , 'useRelation')
+    context.statTotal = actorData.system.statTotal
+    context.solLabel = game.i18n.localize('PEN.'+actorData.system.sol)
+    context.sizLabel = game.i18n.localize('PEN.sizInc.'+actorData.system.stats.siz.growth)
+    context.enrichedBackgroundValue = await TextEditor.enrichHTML(
+      context.system.background,
+      {
+        async: true,
+        secrets: context.editable
+      }
+    )
+
+    // Prepare character data and items.
+    if (actorData.type == 'character') {
+      this._prepareItems(context);
+      this._prepareCharacterData(context);
+    }
+
+    // Prepare NPC data and items.
+    if (actorData.type == 'npc') {
+      this._prepareItems(context);
+    }
+
+    // Add roll data for TinyMCE editors.
+    context.rollData = context.actor.getRollData();
+
+    return context;
+  }
+
+  /**
+   * Organize and classify Items for Character sheets.
+   *
+   * @param {Object} actorData The actor to prepare.
+   *
+   * @return {undefined}
+   */
+  _prepareCharacterData(context) {
+
+
+  }
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -384,7 +513,7 @@ export class PendragonCharacterSheetv2 extends ActorSheet {
     html.find(".rollable.glory").click(PENRollType._onGloryCheck.bind(this));               // Glory check
     html.find(".rollable.move").click(PENRollType._onMoveCheck.bind(this));                 // Glory check
     html.find(".rollable.squire").click(PENRollType._onSquireCheck.bind(this));             // Squire check
-    html.find(".rollable.trait").click(PENRollType._onTraitCheck.bind(this));               // Trait check 
+    html.find(".rollable.trait").click(PENRollType._onTraitCheck.bind(this));               // Trait check
     html.find(".rollable.decision").click(PENRollType._onDecisionCheck.bind(this));         // Decision Trait check
     html.find(".rollable.damage").click(PENRollType._onDamageRoll.bind(this));              // Damage roll
     html.find(".rollable.combat").click(PENRollType._onCombatCheck.bind(this));             // Combat roll
@@ -416,7 +545,7 @@ export class PendragonCharacterSheetv2 extends ActorSheet {
     html.find('.charcreate.rollable')                                                       //Character Create Tooltip
       .mouseenter(this.toolTipCharCreateEnter.bind(this))
       .mouseleave(game.PENTooltips.toolTipLeave.bind(this))
-    
+
 
     // Drag events for macros.
     if (this.actor.isOwner) {
@@ -427,7 +556,7 @@ export class PendragonCharacterSheetv2 extends ActorSheet {
         li.addEventListener("dragstart", handler, false);
       });
     }
-  
+
     // Delete Inventory Item
       html.find('.item-delete').dblclick(ev => {
         const li = $(ev.currentTarget).closest(".item");
@@ -437,7 +566,7 @@ export class PendragonCharacterSheetv2 extends ActorSheet {
       });
   }
 
-  
+
 
   /**
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
@@ -457,7 +586,7 @@ export class PendragonCharacterSheetv2 extends ActorSheet {
     };
     // Remove the type from the dataset since it's in the itemData.type prop.
     delete itemData.system["type"];
-  
+
 
     // Finally, create the item!
     let item = await Item.create(itemData, {parent: this.actor});
@@ -493,7 +622,7 @@ async _onInlineEdit(event){
       target = "system.hp";
     } else if (field === 'armour'){
       target = "system.ap";
-    } 
+    }
 
     await item.update ({ [target]: newScore});
     this.actor.render(false);
@@ -555,7 +684,7 @@ async _onInlineEdit(event){
   async _onDropItemCreate(itemData) {
     const newItemData = await PENactorItemDrop._PENonDropItemCreate(this.actor,itemData);
     return this.actor.createEmbeddedDocuments("Item", newItemData);
-  }  
+  }
 
 
   //Dropping an actor on to character
@@ -604,7 +733,7 @@ async _onInlineEdit(event){
           squire:squire
         }
       };
-  
+
       // Finally, create the item!
       let item = await Item.create(itemData, {parent: this.actor});
       let key = await game.system.api.pid.guessId(item)
@@ -642,7 +771,7 @@ async _onInlineEdit(event){
             status = game.i18n.localize('PEN.incomplete')
             check = "step" + sCount
             if (actor.system.create.step> sCount) {status = "<strong>"+game.i18n.localize('PEN.complete')+"</strong>"}
-            }    
+            }
             toolTip = toolTip + "<div>" + game.i18n.localize('PEN.step.'+sCount)+ " - " + status + "</div>"
           }
           game.PENTooltips.displayToolTip(toolTip)
@@ -681,12 +810,12 @@ async _onInlineEdit(event){
     }
   }
 
-  //Trigger Skills Base Score Calculation 
+  //Trigger Skills Base Score Calculation
   async _genSkills(event){
     await PENCharCreate.baseSkillScore(this.actor)
   }
 
-  //Trigger Trait Rolls 
+  //Trigger Trait Rolls
   async _traitRoll(event){
     if (this.actor.system.create.traits) {
       await PENCharCreate.rollTraits(this.actor)
@@ -739,7 +868,7 @@ async _onInlineEdit(event){
     if (sourceUuid) {
       let tempActor = await fromUuid(sourceUuid)
       tempActor.sheet.render(true)
-    } 
+    }
   }
 
 }
