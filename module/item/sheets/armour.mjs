@@ -1,12 +1,8 @@
 import {PENSelectLists}  from "../../apps/select-lists.mjs";
 import { PIDEditor } from "../../pid/pid-editor.mjs";
-const { api, sheets } = foundry.applications;
+import { PendragonItemSheet } from "./item-sheet.mjs";
 
-// I'm copying the boilerplate approach here
-// we probably really want a PendragonItemSheet for our common code
-export class PendragonArmourSheet extends api.HandlebarsApplicationMixin(
-  sheets.ItemSheetV2
-) {
+export class PendragonArmourSheet extends PendragonItemSheet {
   constructor (options = {}) {
     super(options)
   }
@@ -25,7 +21,7 @@ export class PendragonArmourSheet extends api.HandlebarsApplicationMixin(
     actions: {
       // probably should be implemented on a base class
       onEditImage: this._onEditImage,
-      editPid: PendragonArmourSheet.#onEditPid
+      editPid: this._onEditPid
     }
 
   }
@@ -49,38 +45,14 @@ export class PendragonArmourSheet extends api.HandlebarsApplicationMixin(
     }
   }
 
-  async _renderFrame(options) {
-    const frame = await super._renderFrame(options);
-    //define button
-    const sheetPID = this.item.flags?.Pendragon?.pidFlag;
-    const noId = (typeof sheetPID === 'undefined' || typeof sheetPID.id === 'undefined' || sheetPID.id === '')
-    //add button
-    const label = game.i18n.localize("PEN.PIDFlag.id");
-    const pidEditor = `<button type="button" class="header-control fa-solid fa-fingerprint ${noId ? 'edit-pid-warning' : 'edit-pid-exisiting'}"
-        data-action="editPid" data-tooltip="${label}" aria-label="${label}"></button>`;
-    let el = this.window.close;
-    while(el.previousElementSibling.localName === 'button') {
-      el = el.previousElementSibling;
-    }
-    el.insertAdjacentHTML("beforebegin", pidEditor);
-    return frame;
-  }
-
   async _prepareContext (options) {
     // Default tab for first time it's rendered this session
     if (!this.tabGroups.primary) this.tabGroups.primary = 'attributes';
     // if we had a base class, do this then mergeObject
-    // let sheetData = await super._prepareContext(options);
+    // let sheetData = 
     let sheetData = {
-      editable: this.isEditable,
-      owner: this.document.isOwner,
-      limited: this.document.limited,
-      item: this.item,
-      system: this.item.system,
-      hasOwner: this.item.isEmbedded === true,
-      isGM: game.user.isGM,
+      ...await super._prepareContext(options),
       armourType:  PENSelectLists.getArmourType(),
-      fields: this.document.schema.fields,
     }
     let material = this.item.system.material;
     sheetData.armourLabel = sheetData.armourType[material]
@@ -172,39 +144,5 @@ export class PendragonArmourSheet extends api.HandlebarsApplicationMixin(
     } else {return} 
       await this.item.update(checkProp)
     return ;
-  }
-
-  // handle editPid action
-  static #onEditPid(event) {
-    event.stopPropagation(); // Don't trigger other events
-    if ( event.detail > 1 ) return; // Ignore repeated clicks
-    new PIDEditor(this.item, {}).render(true, { focus: true })
-  }
-  /**
-   * Handle changing a Document's image.
-   *
-   * @this PendragonArmourSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
-   * @returns {Promise}
-   * @protected
-   */
-  static async _onEditImage(event, target) {
-    const attr = target.dataset.edit;
-    const current = foundry.utils.getProperty(this.document, attr);
-    const { img } =
-      this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
-      {};
-    const fp = new FilePicker({
-      current,
-      type: 'image',
-      redirectToRoot: img ? [img] : [],
-      callback: (path) => {
-        this.document.update({ [attr]: path });
-      },
-      top: this.position.top + 40,
-      left: this.position.left + 10,
-    });
-    return fp.browse();
   }
 }

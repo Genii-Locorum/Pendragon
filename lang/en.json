@@ -417,6 +417,22 @@
     "pen":"Pen",
     "penalty": "Penalty",
     "pending": "Pending",
+    "period": {
+      "all": "All Periods",
+      "anarchy": "Anarachy Period",
+      "aurelius": "Aurelius Period",
+      "boyKing": "Boy King Period",
+      "conquest": "Conquest Period",
+      "constantin": "Constantin Period",
+      "grailQuest": "Grail Quest Period",
+      "romance": "Romance Period",
+      "tournament": "Tournament Period",
+      "twilight": "Twilight Period",
+      "tyrant": "Tyrant Period",
+      "uprising": "Uprising Period",
+      "uther": "Uther Period",
+      "vortigern": "Vortigern Period"
+    },
     "person": "Person",
     "personal": "Personal Details",
     "personality": "Personality",
@@ -623,6 +639,7 @@
     "xpRoll": "Experience Rolls",
     "y": "Y",
     "year": "Year",
+    "yearAvailable": "Year Available",
     "yes": "Yes",
 
     "card": {
