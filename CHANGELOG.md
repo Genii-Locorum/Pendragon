@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 12.1.24
+- Corrected a typo causing Critical Damage to not roll correctly.  Thank you to Razage.
+- The Armour sheet now has an "Available Year" input field on the Description tab, which then shows the period the item is available in. This is part of moving to Application V2 and will be 
+  extended to other items as we migrate them.  Only GMs can alter the year.  Thanks to jbowtie.
+
 ## 12.1.23
 All of this is the hardwork of jbowtie - all thanks and credit to him
 - When you select a religious trait or it's opposite as your famous trait during character creation, it now becomes 16, not 19.

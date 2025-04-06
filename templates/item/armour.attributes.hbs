@@ -56,10 +56,6 @@
       <div class="stat-name left bold">{{localize 'PEN.notes'}}</div>
       <div class="stat-name-input {{#if (eq item.system.notes '')}} input-border {{/if}}"><input name="system.notes" type="text" value="{{item.system.notes}}"/></div>
 
-      <div class="stat-name left bold">{{localize 'PEN.yearAvailable'}}</div>
-      <div class="stat-name-input "><input name="system.yearAvailable" type="text" value="{{item.system.yearAvailable}}" data-dtype="Number"/></div>
-      <div class="stat-name left bold"></div>
-      <div class="stat-name">{{period}}</div>
     </div>
     {{#if hasOwner}}
       <br>
