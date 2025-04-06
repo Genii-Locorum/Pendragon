@@ -202,7 +202,7 @@ export class PENCheck {
           }
         }
         if (config.damCrit) {
-          if (tempItem.system.damageChar = 'b') {
+          if (tempItem.system.damageChar === 'b') {
             config.rollFormula = config.rollFormula + "+2D6"
           } else {          
             config.rollFormula = config.rollFormula + "+4D6"
