@@ -1365,3 +1365,26 @@ height: inherit;
   color: black;
   text-transform: capitalize;
 }
+
+.system-Pendragon h3.combat-tracker-header {
+  margin: 0;
+}
+
+.system-Pendragon .seating-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 2px groove var(--color-border-dark-4);
+}
+
+.system-Pendragon .pendragon-combat-extras {
+  margin: 0;
+  border-top: 2px groove var(--color-border-dark-4);
+  & a.center {
+    flex:3;
+    font-size: var(--font-size-20);
+    text-align: center;
+    line-height: var(--sidebar-header-height);
+  }
+
+}
