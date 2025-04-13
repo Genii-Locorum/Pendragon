@@ -155,6 +155,7 @@ height: inherit;
   background-color: rgba(128, 128, 128, 0.3);
   font-family:"Herb";
   font-size: 20px;
+  color: black;
 }
 
 .Pendragon .items-list {
@@ -215,7 +216,9 @@ height: inherit;
 
 .Pendragon .stat-name select {
   font-size: inherit;
-  color: inherit;
+  color: black;
+  background: transparent;
+  border: 1px solid black;
 }
 
 .Pendragon input .inline-edit {
@@ -645,6 +648,7 @@ height: inherit;
 .Pendragon .large-icon{
   font-size: 20px;
   text-align:center;
+  color:black;
 }
 
 .Pendragon .xlarge-icon{
@@ -1034,10 +1038,18 @@ height: inherit;
   position:relative;
   padding-left: 5px;
   padding-right: 5px;
+  color: black;
 }
 
 .Pendragon .prosemirror .editor-container {
   margin: 0px;
+  background: transparent;
+}
+
+.Pendragon .prosemirror .menu {
+  margin: 0px;
+  background: transparent;
+  color: black;
 }
 
 .Pendragon textarea {

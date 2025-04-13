@@ -761,6 +761,7 @@
       "id": "PID",
       "info": "Info",
       "key": "System ID (PID)",
+      "noPID": "{type} document requires a PID",
       "others": "Other documents with this PID and language (excluding documents in other actors and items)",
       "priority": "System ID Priority",
       "summary": "Set a group identifier that can be used to find the the most up to date version of this {type}. The System ID should use the English translation of the {type} to support localization across all languages.",

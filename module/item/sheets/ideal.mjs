@@ -126,15 +126,25 @@ export class PendragonIdealSheet extends ItemSheet {
     for (const item of dataList) {
       if (!item || !item.system) continue
       if (!type.includes(item.type)) {continue}
-      //Dropping in traitGroup list
-      if (collection.find(el => el.pid === item.flags.Pendragon.pidFlag.id)) {
+
+      //If no PID then give warning and move to next item
+      if (typeof(item.flags?.Pendragon?.pidFlag?.id)=== "undefined") {
+        ui.notifications.warn(game.i18n.format('PEN.PIDFlag.noPID', {type:item.name}));
+        continue
+      }
+
+      //If Duplicate item then give warning and move to next item
+      if (collection.find(el => el.pid === item.flags?.Pendragon?.pidFlag?.id)) {
         ui.notifications.warn(item.name + " : " +   game.i18n.localize('PEN.dupItem'));
         continue
       }
+  
       let score = 0
       if (['require'].includes(collectionName)) {
         score = await PENCharCreate.inpValue (game.i18n.localize("PEN.minScore"))
       }
+
+      //Add item to collection
       collection.push({name: item.name, oppName: item.system.oppName, uuid: item.uuid, pid:item.flags.Pendragon.pidFlag.id, score: Number(score)})
     }
     await this.item.update({ [`system.${collectionName}`]: collection })

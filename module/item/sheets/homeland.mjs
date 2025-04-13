@@ -95,13 +95,24 @@ export class PendragonHomelandSheet extends ItemSheet {
     for (const item of dataList) {
       if (!item || !item.system) continue
       if (![type].includes(item.type)) {continue}
-      //Dropping in Passion list
-      if (collection.find(el => el.pid === item.flags.Pendragon.pidFlag.id)) {
+
+      //If no PID then give warning and move to next item
+      if (typeof(item.flags?.Pendragon?.pidFlag?.id)=== "undefined") {
+        ui.notifications.warn(game.i18n.format('PEN.PIDFlag.noPID', {type:item.name}));
+        continue
+      }
+
+      //If Duplicate item then give warning and move to next item
+      if (collection.find(el => el.pid === item.flags?.Pendragon?.pidFlag?.id)) {
         ui.notifications.warn(item.name + " : " +   game.i18n.localize('PEN.dupItem'));
         continue
       }
+
+      //Add item to collection
       collection.push({name: item.name, oppName: item.system.oppName, uuid: item.uuid, pid:item.flags.Pendragon.pidFlag.id})
     }
+
+
     await this.item.update({ [`system.${collectionName}`]: collection })
   }
 
