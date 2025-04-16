@@ -780,7 +780,17 @@
   "TYPES": {
     "Item": {
       "armour": "Armour",
-      "history": "Event"
+      "class": "Class",
+      "culture": "Culture",
+      "history": "Event",
+      "homeland": "Homeland",
+      "horse": "Horse",
+      "ideal": "Ideal",
+      "passion": "Passion",
+      "religion": "Religion",
+      "skill": "Skill",
+      "trait": "Trait",
+      "weapon": "Weapon"
     }
   }
 }

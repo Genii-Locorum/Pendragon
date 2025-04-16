@@ -1,5 +1,4 @@
 import {PENSelectLists}  from "../../apps/select-lists.mjs";
-import { PIDEditor } from "../../pid/pid-editor.mjs";
 import { PendragonItemSheet } from "./item-sheet.mjs";
 
 export class PendragonArmourSheet extends PendragonItemSheet {
