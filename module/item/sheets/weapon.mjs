@@ -77,27 +77,7 @@ export class PendragonWeaponSheet extends PendragonItemSheet {
         secrets: sheetData.editable
       }
     )
-    // this could be moved to a helper, review boilerplate code
-    sheetData.tabs = {
-      attributes: {
-        cssClass:  this.tabGroups['primary'] === 'attributes' ? 'active' : '',
-        group: 'primary',
-        id: 'attributes',
-        label: 'PEN.attributes'
-      },
-      description: {
-        cssClass:  this.tabGroups['primary'] === 'description' ? 'active' : '',
-        group: 'primary',
-        id: 'description',
-        label: 'PEN.description'
-      },
-      gmTab: {
-        cssClass:  this.tabGroups['primary'] === 'gmTab' ? 'active' : '',
-        group: 'primary',
-        id: 'gmTab',
-        label: 'PEN.gmTab'
-      }
-    }
+    sheetData.tabs = this._initTabs('primary', ['attributes', 'description', 'gmTab']);
     return sheetData
   }
 

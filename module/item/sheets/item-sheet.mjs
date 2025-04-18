@@ -73,4 +73,17 @@ export class PendragonItemSheet extends api.HandlebarsApplicationMixin(
     if ( event.detail > 1 ) return; // Ignore repeated clicks
     new PIDEditor(this.item, {}).render(true, { focus: true })
   }
+
+  _initTabs(group, tabNames) {
+    const tabs = {};
+    tabNames.forEach(name => {
+      tabs[name] = {
+        cssClass:  this.tabGroups[group] === name ? 'active' : '',
+        group,
+        id: name,
+        label: `PEN.${name}`
+      }
+    });
+    return tabs;
+  }
 }
