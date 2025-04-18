@@ -1,0 +1,39 @@
+<section class="tab attributes {{tab.cssClass}}" data-group="primary" data-tab="attributes">
+
+  <div class="item-trait-grid">
+    <div class="stat-name left bold">{{localize 'PEN.court'}}</div>
+    {{#if isGM}}
+      <div class="stat-name centre">
+        <select data-handle-change name="system.court">
+          {{selectOptions courtType selected=item.system.court}}
+        </select>
+      </div>
+    {{else}}
+      <div class="stat-name centre">{{court}}</div>
+    {{/if}}
+    <br>
+
+    {{#if hasOwner}}
+    <div class="stat-name left bold new-row">{{localize 'PEN.score'}}</div>
+    <div class="stat-name indent bold new-row">{{localize 'PEN.baseVal'}}</div>
+    <div class="stat-name-input centre"><input name="system.value" type="text" value="{{item.system.value}}" data-dtype="Number"/></div>
+    <div class="stat-name indent bold">{{localize 'PEN.inherit'}}</div>
+    <div class="stat-name-input centre"><input name="system.inherit" type="text" value="{{item.system.inherit}}" data-dtype="Number"/></div>
+    <div class="stat-name indent bold">{{localize 'PEN.homeland'}}</div>
+    <div class="stat-name-input centre"><input name="system.homeland" type="text" value="{{item.system.homeland}}" data-dtype="Number"/></div>
+    <div class="stat-name indent bold">{{localize 'PEN.sol'}}</div>
+    <div class="stat-name-input centre"><input name="system.sol" type="text" value="{{item.system.sol}}" data-dtype="Number"/></div>
+    <div class="stat-name indent bold">{{localize 'PEN.winter'}}</div>
+    <div class="stat-name-input centre"><input name="system.winter" type="text" value="{{item.system.winter}}" data-dtype="Number"/></div>
+    <div class="stat-name indent bold ">{{localize 'PEN.total'}}</div>
+    <div class="stat-name centre bold">{{item.system.total}}</div>
+    {{#if isHonour}}
+    <div class="stat-name indent bold" title="{{localize 'PEN.dishonourTitle'}}">{{localize 'PEN.dishonour'}}</div>
+    <div class="stat-name-input centre"><input name="system.dishonour" type="text" value="{{item.system.dishonour}}" data-dtype="Number"/></div>
+    {{/if}}
+    <br>
+    <div class="stat-name left bold new-row">{{localize 'PEN.xpCheck'}}</div>
+    <div class="centre"><a class="item-control item-toggle large-icon" data-property = "XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+    {{/if}}
+  </div>
+</section>
