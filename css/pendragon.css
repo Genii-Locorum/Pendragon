@@ -64,7 +64,7 @@
 }
 
 .journal-entry-content {
-  background-image: url("../assets/KAP Background.jpg") !important;
+  background-image:url("../assets/KAP Background.jpg");
   background-size: cover !important;
 }
 
@@ -81,7 +81,7 @@
 }
 
 .chat-message {
-  background-image: url("../assets/parchment.jpg") !important;
+  background-image:url("../assets/parchment.jpg");
   background-size: auto;
 }
 
@@ -1694,8 +1694,26 @@
 .Pendragon.character2 {
   --pendragon-blue: #1274bd;
   --pendragon-red: #ab0f14;
+  --pendragon-gold: #ffd000;
   --header-row: #240202;
   --background-color: #fffde7;
+  --exalted-color: rebeccapurple;
+  --font-h2: Messiri, Signika, sans-serif;
+  --pd-light-row: #e5dbd488;
+
+  & h2 {
+    color: var(--pendragon-red);
+    text-shadow: none;
+    border-block-end: none;
+    margin: 1rem 0 0.5rem;
+  }
+
+  & h3 {
+    color: var(--pendragon-red);
+    text-shadow: none;
+    border-block-end: none;
+    margin: 1rem 0 0.5rem;
+  }
 
   & .window-content {
     background-color: var(--background-color);
@@ -1710,5 +1728,92 @@
     font-family: Messiri, Signika, sans-serif;
     background-color: var(--pendragon-blue);
     color: var(--background-color)
+  }
+
+  & section.tab {
+    overflow: hidden auto;
+    scrollbar-gutter: stable;
+  }
+  & .combat-grid {
+    display: grid;
+    grid-template-columns: 310px 1fr;
+    column-gap: 1em;
+    margin-right: 0.5em;
+    .actions {
+      display: grid;
+      gap: 0.25em;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+  }
+
+  & ol.trait-grid2 {
+    display: grid;
+    list-style: none;
+    padding: 0;
+    grid-template-columns: 2em 1fr min-content 1fr 2em;
+    gap: 0em 1em;
+    font-size: 1.2em;
+    margin: 0 0 1em;
+    li {
+      display: grid;
+      grid-column: 1/-1;
+      grid-template-columns: subgrid;
+      padding: 0.5em 0.5em 0.5em 0;
+    }
+    li:nth-child(even) {
+      background-color: var(--pd-light-row);
+    }
+  }
+
+  & .trait.religious {
+    text-decoration-line: underline;
+  }
+  & .famous {
+    font-weight: bold;
+  }
+  & .exalted {
+    color: var(--exalted-color);
+    text-transform: uppercase;
+    font-style: italic;
+  }
+  & .pills {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  }
+  & .pill {
+    font-size: var(--font-size-11);
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 1px solid var(--color-border-dark-5);
+    border-radius: 3px;
+    background: #f8f4f1;
+    padding: 0.1875rem 0.375rem;
+    display: flex;
+    gap: 0.25rem;
+    margin: 0;
+  }
+  & .skill-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 0.5rem;
+    height: 100%;
+    & .skill-list {
+      display: block;
+      column-gap: unset;
+    }
+    & > *:first-child .skill-list {
+      column-count: 2;
+    }
+    & li {
+      font-size: 1rem;
+      break-inside: avoid;
+    }
+    & li:nth-child(even) {
+      background-color: var(--pd-light-row);
+    }
   }
 }
