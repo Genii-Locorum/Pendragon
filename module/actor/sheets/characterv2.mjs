@@ -57,6 +57,18 @@ export class PendragonActorSheet extends api.HandlebarsApplicationMixin(
     });
     return fp.browse();
   }
+  _initTabs(group, tabNames) {
+    const tabs = {};
+    tabNames.forEach(name => {
+      tabs[name] = {
+        cssClass:  this.tabGroups[group] === name ? 'active' : '',
+        group,
+        id: name,
+        label: `PEN.${name}`
+      }
+    });
+    return tabs;
+  }
 }
 
 export class PendragonCharacterSheetv2 extends PendragonActorSheet {
@@ -100,6 +112,15 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     traits: {
       template: 'systems/Pendragon/templates/actor/character/traits.hbs'
     },
+    passions: {
+      template: 'systems/Pendragon/templates/actor/character/passions.hbs'
+    },
+    skills: {
+      template: 'systems/Pendragon/templates/actor/character/skills.hbs'
+    },
+    equipment: {
+      template: 'systems/Pendragon/templates/actor/character/equipment.hbs'
+    },
   }
   // this does the minimum currently, just sets the tab
   // could also prepare tab-specific fields
@@ -107,6 +128,9 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     switch (partId) {
       case 'combat':
       case 'traits':
+      case 'passions':
+      case 'skills':
+      case 'equipment':
         context.tab = context.tabs[partId];
         break;
       default:
@@ -137,21 +161,7 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       useRelation: game.settings.get('Pendragon' , 'useRelation'),
       items: this.actor.items,
     };
-    // this could be moved to a helper, review boilerplate code
-    sheetData.tabs = {
-      combat: {
-        cssClass:  this.tabGroups['primary'] === 'combat' ? 'active' : '',
-        group: 'primary',
-        id: 'combat',
-        label: 'PEN.combat'
-      },
-      traits: {
-        cssClass:  this.tabGroups['primary'] === 'traits' ? 'active' : '',
-        group: 'primary',
-        id: 'traits',
-        label: 'PEN.traits'
-      },
-    }
+    sheetData.tabs = this._initTabs("primary", ["combat", "traits", "passions", "skills", "equipment"]);
     // now organize the items belonging to the character
     this._prepareItems(sheetData);
     return sheetData;
