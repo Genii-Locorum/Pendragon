@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 12.1.27
+- History, Traits, Passions and Weapons have now been moved over to V2 Application
+- Combat Tracker now has two types of Combat - Feast and Skirmish - with a button to switch between the two modes
+- In feast mode, group the participants by seating area; sort by and display Glory instead of the raw initiative score.
+- Uses DEX for initiative in skirmish mode (allowing for a functional combat tracker) and seating rolls for initiative in feast mode.
+- Adds "enums" for the roll types, card types, and roll results, making it easier to avoid confusion in some places.
+
+
 ## 12.1.26
 - You can once again add PIDs to armour
 

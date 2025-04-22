@@ -1,7 +1,8 @@
-2024/11/08-06:34:47.367 1388 Recovering log #61
-2024/11/08-06:34:47.367 1388 Delete type=0 #61
-2024/11/08-06:34:47.367 1388 Delete type=3 #60
-2024/11/08-06:51:49.192 4e2c Level-0 table #65: started
-2024/11/08-06:51:49.192 4e2c Level-0 table #65: 0 bytes OK
-2024/11/08-06:51:49.193 4e2c Delete type=0 #63
-2024/11/08-06:51:49.194 4e2c Manual compaction at level-0 from '!macros!DXuLeg6NtvzVTX9D' @ 72057594037927935 : 1 .. '!macros!DXuLeg6NtvzVTX9D' @ 0 : 0; will stop at (end)
+2025/04/22-22:02:16.770 46d8 Log #61: 0 ops saved to Table #68 OK
+2025/04/22-22:02:16.770 46d8 Archiving D:\Foundry VTT\Data\Data\systems\Pendragon\packs\macro/000061.log: OK
+2025/04/22-22:02:16.770 46d8 Log #67: 0 ops saved to Table #69 OK
+2025/04/22-22:02:16.770 46d8 Archiving D:\Foundry VTT\Data\Data\systems\Pendragon\packs\macro/000067.log: OK
+2025/04/22-22:02:16.772 46d8 Table #11: 1 entries OK
+2025/04/22-22:02:16.774 46d8 Archiving D:\Foundry VTT\Data\Data\systems\Pendragon\packs\macro/MANIFEST-000060: OK
+2025/04/22-22:02:16.774 46d8 Archiving D:\Foundry VTT\Data\Data\systems\Pendragon\packs\macro/MANIFEST-000066: OK
+2025/04/22-22:02:16.775 46d8 **** Repaired leveldb D:\Foundry VTT\Data\Data\systems\Pendragon\packs\macro; recovered 1 files; 562 bytes. Some data may have been lost. ****
