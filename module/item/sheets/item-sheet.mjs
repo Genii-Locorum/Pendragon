@@ -1,4 +1,5 @@
 import { yearToPeriodName } from "../../apps/chronology.mjs";
+import { PIDEditor } from '../../pid/pid-editor.mjs'
 const { api, sheets } = foundry.applications;
 
 

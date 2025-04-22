@@ -1,9 +1,11 @@
 # CHANGELOG
 
+## 12.1.26
+- You can once again add PIDs to armour
+
 ## 12.1.25
 Some colour changes so that even if using Dark mode the text will still be black and therefore visible.  If I've missed any instances then please let me know.
 When dropping traits, passions, skills etc to other items (e.g. adding Traits to a Religion) you will get a message if the item doesn't have a PID and therefore can't be dropped
-
 
 ## 12.1.24
 - Corrected a typo causing Critical Damage to not roll correctly.  Thank you to Razage.
