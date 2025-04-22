@@ -203,6 +203,8 @@
     "economicCirc": "Economic Circumstance",
     "economicConfirm": "This has a significant impact",
     "emptyList": "No Items",
+    "encounterSwitchFeast": "Change to Feast",
+    "encounterSwitchSkirmish": "Change to Skirmish",
     "eqpd": "Eq",
     "equestrian": "Equestrian notes",
     "equipment": "Equip",
@@ -224,6 +226,12 @@
     "favour": "Favour",
     "favourLevel": "Favour Level",
     "favourShort": "F",
+    "feast": {
+      "aboveSalt": "Above the Salt",
+      "closeSalt": "Closer to the Salt",
+      "farSalt": "Further from the Salt",
+      "onFloor": "On the Floor"
+    },
     "features": "Features",
     "female": "Female",
     "fervor": "Fervour",
@@ -772,7 +780,17 @@
   "TYPES": {
     "Item": {
       "armour": "Armour",
-      "history": "Event"
+      "class": "Class",
+      "culture": "Culture",
+      "history": "Event",
+      "homeland": "Homeland",
+      "horse": "Horse",
+      "ideal": "Ideal",
+      "passion": "Passion",
+      "religion": "Religion",
+      "skill": "Skill",
+      "trait": "Trait",
+      "weapon": "Weapon"
     }
   }
 }

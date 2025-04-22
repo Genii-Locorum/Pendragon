@@ -1,11 +1,6 @@
-import { PIDEditor } from "../../pid/pid-editor.mjs";
-const { api, sheets } = foundry.applications;
+import { PendragonItemSheet } from "./item-sheet.mjs";
 
-// I'm copying the boilerplate approach here
-// we probably really want a PendragonItemSheet for our common code
-export class PendragonHistorySheet extends api.HandlebarsApplicationMixin(
-  sheets.ItemSheetV2
-) {
+export class PendragonHistorySheet extends PendragonItemSheet {
   constructor (options = {}) {
     super(options)
   }
@@ -22,9 +17,8 @@ export class PendragonHistorySheet extends api.HandlebarsApplicationMixin(
       submitOnChange: true,
     },
     actions: {
-      // probably should be implemented on a base class
       onEditImage: this._onEditImage,
-      editPid: PendragonHistorySheet.#onEditPid
+      editPid: this._onEditPid
     }
 
   }
@@ -41,44 +35,19 @@ export class PendragonHistorySheet extends api.HandlebarsApplicationMixin(
       template: 'systems/Pendragon/templates/item/history.attributes.hbs'
     },
     description: {
-      template: 'systems/Pendragon/templates/item/history.description.hbs'
+      template: 'systems/Pendragon/templates/item/base.description.hbs'
     },
     gmTab: {
       template: 'systems/Pendragon/templates/item/gmtab.hbs'
     }
   }
 
-  async _renderFrame(options) {
-    const frame = await super._renderFrame(options);
-    //define button
-    const sheetPID = this.item.flags?.Pendragon?.pidFlag;
-    const noId = (typeof sheetPID === 'undefined' || typeof sheetPID.id === 'undefined' || sheetPID.id === '')
-    //add button
-    const label = game.i18n.localize("PEN.PIDFlag.id");
-    const pidEditor = `<button type="button" class="header-control fa-solid fa-fingerprint ${noId ? 'edit-pid-warning' : 'edit-pid-exisiting'}"
-        data-action="editPid" data-tooltip="${label}" aria-label="${label}"></button>`;
-    let el = this.window.close;
-    while(el.previousElementSibling.localName === 'button') {
-      el = el.previousElementSibling;
-    }
-    el.insertAdjacentHTML("beforebegin", pidEditor);
-    return frame;
-  }
-
   async _prepareContext (options) {
     // Default tab for first time it's rendered this session
     if (!this.tabGroups.primary) this.tabGroups.primary = 'attributes';
-    // if we had a base class, do this then mergeObject
-    // let sheetData = await super._prepareContext(options);
+
     let sheetData = {
-      editable: this.isEditable,
-      owner: this.document.isOwner,
-      limited: this.document.limited,
-      item: this.item,
-      system: this.item.system,
-      hasOwner: this.item.isEmbedded === true,
-      isGM: game.user.isGM,
-      fields: this.document.schema.fields,
+      ...await super._prepareContext(options),
     }
 
     // these two values could be set during _preparePartContext
@@ -97,27 +66,7 @@ export class PendragonHistorySheet extends api.HandlebarsApplicationMixin(
         secrets: sheetData.editable
       }
     )
-    // this could be moved to a helper, review boilerplate code
-    sheetData.tabs = {
-      attributes: {
-        cssClass:  this.tabGroups['primary'] === 'attributes' ? 'active' : '',
-        group: 'primary',
-        id: 'attributes',
-        label: 'PEN.attributes'
-      },
-      description: {
-        cssClass:  this.tabGroups['primary'] === 'description' ? 'active' : '',
-        group: 'primary',
-        id: 'description',
-        label: 'PEN.description'
-      },
-      gmTab: {
-        cssClass:  this.tabGroups['primary'] === 'gmTab' ? 'active' : '',
-        group: 'primary',
-        id: 'gmTab',
-        label: 'PEN.gmTab'
-      }
-    }
+    sheetData.tabs = this._initTabs('primary', ['attributes', 'description', 'gmTab']);
     return sheetData
   }
 
@@ -134,73 +83,5 @@ export class PendragonHistorySheet extends api.HandlebarsApplicationMixin(
     }
     return context;
   }
-  
-  /* -------------------------------------------- */
-  
-  /**
-   * Activate event listeners using the prepared sheet HTML
-   */
-  _onRender (context, _options) {
-    // Everything below here is only needed if the sheet is editable
-    if (!context.editable) return;
 
-    // pure Javascript, no jQuery
-    this.element.querySelectorAll('.item-toggle').forEach(n => n.addEventListener("dblclick", this.#onItemToggle.bind(this)));
-  }
-  
-  /* -------------------------------------------- */
-  
-  //Handle toggle states
-  async #onItemToggle(event){
-    event.preventDefault();
-    const prop=event.currentTarget.closest('.item-toggle').dataset.property;
-    let checkProp="";
-    if(['equipped','poor'].includes(prop)){
-      checkProp = {[`system.${prop}`]: !this.item.system[prop]}
-    } else if (prop ==='armour') {    //If type != true = shield, then change to armour (true)
-      if (!this.item.system.type) {
-        checkProp = {'system.type': true}
-      } else {return}
-    } else if (prop ==='shield') {  //If type = true = armour, then change to shield (false)
-      if (this.item.system.type) {
-        checkProp = {'system.type': false}
-      } else {return}
-    } else {return} 
-      await this.item.update(checkProp)
-    return ;
-  }
-
-  // handle editPid action
-  static #onEditPid(event) {
-    event.stopPropagation(); // Don't trigger other events
-    if ( event.detail > 1 ) return; // Ignore repeated clicks
-    new PIDEditor(this.item, {}).render(true, { focus: true })
-  }
-  /**
-   * Handle changing a Document's image.
-   *
-   * @this PendragonArmourSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
-   * @returns {Promise}
-   * @protected
-   */
-  static async _onEditImage(event, target) {
-    const attr = target.dataset.edit;
-    const current = foundry.utils.getProperty(this.document, attr);
-    const { img } =
-      this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
-      {};
-    const fp = new FilePicker({
-      current,
-      type: 'image',
-      redirectToRoot: img ? [img] : [],
-      callback: (path) => {
-        this.document.update({ [attr]: path });
-      },
-      top: this.position.top + 40,
-      left: this.position.left + 10,
-    });
-    return fp.browse();
-  }
 }
