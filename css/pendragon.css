@@ -1828,4 +1828,21 @@
       background-color: var(--pd-light-row);
     }
   }
+
+  & tr:has(th) {
+    background-color: var(--header-row);
+    color: white;
+    th {
+      text-align: start;
+    }
+  }
+  & tr:has(td) {
+    border-bottom: 1px solid var(--color-border-dark-4);
+  }
+  & tr:nth-child(even) {
+    background-color: var(--pd-light-row);
+  }
+  & .horse {
+    display: inline-block;
+  }
 }
