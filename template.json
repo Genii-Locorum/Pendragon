@@ -36,7 +36,7 @@
           "str": {
             "value": 10,
             "culture": 0,
-            "create": 0,            
+            "create": 0,
             "poison": 0,
             "disease": 0,
             "sol":0,
@@ -280,7 +280,7 @@
       "templates": ["base"],
       "age": 14,
       "skill": 15,
-      "knightMod": 0,  
+      "knightMod": 0,
       "glory": 0,
       "category": "squire"
     },
@@ -359,7 +359,7 @@
           "max": 18
         }
       },
-      "skills": []  
+      "skills": []
     },
     "religion": {
       "templates": ["base"],
