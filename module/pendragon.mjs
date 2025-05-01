@@ -14,6 +14,7 @@ import { PENTooltips } from "./apps/tooltips.mjs";
 import { PENRollType } from "./cards/rollType.mjs";
 import { migrateWorld } from "./setup/migrations.mjs";
 import { PendragonCombatTracker } from "./apps/combat-tracker.mjs";
+import { PendragonStatusEffects } from "./apps/status-effects.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -43,6 +44,8 @@ Hooks.once("init", async function () {
   CONFIG.Combatant.documentClass = PendragonCombatant;
 
   CONFIG.ui.combat = PendragonCombatTracker;
+  console.log(CONFIG.statusEffects);
+  CONFIG.statusEffects = PendragonStatusEffects.allStatusEffects;
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
