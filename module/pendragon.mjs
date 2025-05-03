@@ -57,7 +57,7 @@ Hooks.on("ready", async () => {
 //Remove certain Items types from the list of options to create under the items menu (can still be created directly from the character sheet)
 Hooks.on("renderDialog", (dialog, html) => {
   let deprecatedTypes = ["wound", "squire", "family", "relationship"]; //
-  Array.from(html.find("#document-create option")).forEach((i) => {
+  Array.from(html.querySelectorAll("#document-create option")).forEach((i) => {
     if (deprecatedTypes.includes(i.value)) {
       i.remove();
     }

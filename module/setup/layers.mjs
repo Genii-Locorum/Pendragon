@@ -3,7 +3,7 @@ import { PENCharCreate } from "../apps/charCreate.mjs";
 import { PENRollType } from "../cards/rollType.mjs";
 
 
-class PENLayer extends PlaceablesLayer {
+class PENLayer extends foundry.canvas.layers.PlaceablesLayer {
 
   constructor () {
     super()
@@ -24,19 +24,21 @@ class PENLayer extends PlaceablesLayer {
   get placeables () {
     return []
   }
- 
+
 }
 
 export class PENMenu {
   static getButtons (controls) {
     canvas.pengmtools = new PENLayer()
     const isGM = game.user.isGM
-    controls.push({
+    console.log(controls);
+    controls.pendragon = {
       icon: "fas fa-tools",
       layer: "pengmtools",
       name: "pendragonmenu",
       title: game.i18n.localize('PEN.GMTools'),
       visible: isGM,
+      order: 11,
       tools: [
         {
           name: "Session",
@@ -46,7 +48,7 @@ export class PENMenu {
           toggle: true,
           visible: true,
           onClick: async toggle => {await PENWinter.winterPhase(toggle)}
-        },  
+        },
         {
           name: "Development",
           icon: "fas fa-helmet-battle",
@@ -54,14 +56,14 @@ export class PENMenu {
           active: game.settings.get('Pendragon','development'),
           toggle: true,
           onClick: async toggle => await PENWinter.developmentPhase(toggle)
-        },  
+        },
         {
           name: "Creation",
           icon: "fas fa-wand-magic-sparkles",
           title:  game.i18n.localize('PEN.creation'),
           active: game.settings.get('Pendragon','creation'),
           toggle: true,
-          onClick: async toggle => await PENCharCreate.creationPhase(toggle)     
+          onClick: async toggle => await PENCharCreate.creationPhase(toggle)
         },
         {
           name: "GMRoll",
@@ -70,20 +72,19 @@ export class PENMenu {
           button: true,
           visible: true,
           onClick: async neutralRoll => {
-            await PENRollType._onGMRoll()}            
+            await PENRollType._onGMRoll()}
         }
       ]
-    })
+    };
   }
 
   static renderControls (app, html, data) {
-    const isGM = game.user.isGM
-    const gmMenu = html.find('.fas-fa-tools').parent()
-    gmMenu.addClass('pendragon-menu')
+    //const isGM = game.user.isGM;
+    //const gmMenu = html.querySelector('.fas-fa-tools').parentElement;
+    //gmMenu.classList.add('pendragon-menu');
   }
 
 }
 
 
 
- 
