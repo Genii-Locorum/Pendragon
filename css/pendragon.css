@@ -496,8 +496,8 @@ height: inherit;
 
 .Pendragon .family-grid{
   display: grid;
-  width: 641px;
-  grid-template-columns: 150px 100px 70px 80px 90px 90px 60px;
+  width: 720px;
+  grid-template-columns: 150px 100px 150px 80px 90px 90px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;

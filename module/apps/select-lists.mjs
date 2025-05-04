@@ -130,13 +130,20 @@ export class PENSelectLists {
   //relation Types
   static getRelationTypes () {
     let options = {
-      "parent" : game.i18n.localize('PEN.parent'),
+      "mother" : game.i18n.localize('PEN.mother'),
+      "father" : game.i18n.localize('PEN.father'),
+      "grandmother" : game.i18n.localize('PEN.grandmother'),
+      "grandfather" : game.i18n.localize('PEN.grandfather'),
+      "aunt" : game.i18n.localize('PEN.aunt'),
+      "uncle" : game.i18n.localize('PEN.uncle'),
+      "cousin" : game.i18n.localize('PEN.cousin'),
+      "sibling" : game.i18n.localize('PEN.sibling'),
       "spouse" : game.i18n.localize('PEN.spouse'),
       "child" : game.i18n.localize('PEN.child'),
       "other": game.i18n.localize('PEN.other'),
     };
     return options;
-  } 
+  }
 
   //Squire Types
   static getSquireTypes () {
