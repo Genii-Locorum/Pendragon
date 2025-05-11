@@ -46,7 +46,7 @@ export class PENRollType {
 
   //Start a GM Roll
   static async _onGMRoll(event) {
-    let shiftKey = event.shiftKey;
+    let shiftKey = event?.shiftKey;
     if (!game.user.isGM) {
       ui.notifications.error(game.i18n.format("PEN.notGM"));
       return;

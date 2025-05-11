@@ -2,6 +2,7 @@ import { PENCheck } from './checks.mjs';
 import { PENactorDetails } from './actorDetails.mjs';
 
 export function addChatListeners(html) {
+  html.on('click', '.cardbutton', PENCheck.triggerChatButton)
 }
 
 

@@ -46,11 +46,16 @@ Hooks.once("init", async function () {
 
   if (V13) {
     CONFIG.ui.combat = PendragonCombatTracker;
+    CONFIG.Canvas.layers.pendragonmenu = {group: 'interface', layerClass: PENLayer};
   } else {
     CONFIG.ui.combat = PendragonCombatTrackerV12;
+    // v12 Add GM Tool Layer
+    Hooks.on("getSceneControlButtons", PENMenu.getButtons);
+    Hooks.on("renderSceneControls", PENMenu.renderControls);
+    //Add Chat Log Hooks
+    Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
   }
 
-  CONFIG.Canvas.layers.pendragonmenu = {group: 'interface', layerClass: PENLayer};
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
@@ -96,12 +101,7 @@ Hooks.on("renderSettingsConfig", (app, html, options) => {
 
 PendragonHooks.listen();
 
-//Add Chat Log Hooks
-Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
 
-//Add GM Tool Layer
-//Hooks.on("getSceneControlButtons", PENMenu.getButtons);
-//Hooks.on("renderSceneControls", PENMenu.renderControls);
 
 // Customize combat tracker
 Hooks.on("renderCombatTracker", async (combatTracker, html, combatData) =>
