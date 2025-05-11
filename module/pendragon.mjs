@@ -14,6 +14,7 @@ import { PENTooltips } from "./apps/tooltips.mjs";
 import { PENRollType } from "./cards/rollType.mjs";
 import { migrateWorld } from "./setup/migrations.mjs";
 import { PendragonCombatTracker } from "./apps/combat-tracker.mjs";
+import { PendragonCombatTrackerV12 } from "./apps/combat-tracker-v12.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -28,6 +29,7 @@ Hooks.once("init", async function () {
     rollItemMacro,
     GMRollMacro,
   };
+  const V13 = game.release.generation >= 13;
 
   // Add custom constants for configuration.
   CONFIG.PENDRAGON = PENDRAGON;
@@ -42,7 +44,11 @@ Hooks.once("init", async function () {
   CONFIG.Combat.documentClass = PendragonCombat;
   CONFIG.Combatant.documentClass = PendragonCombatant;
 
-  CONFIG.ui.combat = PendragonCombatTracker;
+  if (V13) {
+    CONFIG.ui.combat = PendragonCombatTracker;
+  } else {
+    CONFIG.ui.combat = PendragonCombatTrackerV12;
+  }
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
@@ -51,16 +57,6 @@ Hooks.once("init", async function () {
 Hooks.on("ready", async () => {
   game.socket.on("system.Pendragon", async (data) => {
     PENSystemSocket.callSocket(data);
-  });
-});
-
-//Remove certain Items types from the list of options to create under the items menu (can still be created directly from the character sheet)
-Hooks.on("renderDialog", (dialog, html) => {
-  let deprecatedTypes = ["wound", "squire", "family", "relationship"]; //
-  Array.from(html.querySelectorAll("#document-create option")).forEach((i) => {
-    if (deprecatedTypes.includes(i.value)) {
-      i.remove();
-    }
   });
 });
 
