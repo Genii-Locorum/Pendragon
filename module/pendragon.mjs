@@ -7,7 +7,7 @@ import { PENDRAGON } from "./setup/config.mjs";
 import { handlebarsHelper } from "./setup/handlebar-helper.mjs";
 import { PendragonHooks } from "./hooks/index.mjs";
 import { registerSettings } from "./setup/register-settings.mjs";
-import { PENMenu } from "./setup/layers.mjs";
+import { PENMenu, PENLayer } from "./setup/layers.mjs";
 import { PENSystemSocket } from "./apps/socket.mjs";
 import * as Chat from "./apps/chat.mjs";
 import { PENTooltips } from "./apps/tooltips.mjs";
@@ -49,6 +49,8 @@ Hooks.once("init", async function () {
   } else {
     CONFIG.ui.combat = PendragonCombatTrackerV12;
   }
+
+  CONFIG.Canvas.layers.pendragonmenu = {group: 'interface', layerClass: PENLayer};
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
@@ -98,8 +100,8 @@ PendragonHooks.listen();
 Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
 
 //Add GM Tool Layer
-Hooks.on("getSceneControlButtons", PENMenu.getButtons);
-Hooks.on("renderSceneControls", PENMenu.renderControls);
+//Hooks.on("getSceneControlButtons", PENMenu.getButtons);
+//Hooks.on("renderSceneControls", PENMenu.renderControls);
 
 // Customize combat tracker
 Hooks.on("renderCombatTracker", async (combatTracker, html, combatData) =>
