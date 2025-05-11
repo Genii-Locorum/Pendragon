@@ -1,6 +1,8 @@
 import {PENSelectLists}  from "../../apps/select-lists.mjs";
 import { PendragonItemSheet } from "./item-sheet.mjs";
 
+const {TextEditor} = foundry.applications.ux;
+
 export class PendragonArmourSheet extends PendragonItemSheet {
   constructor (options = {}) {
     super(options)

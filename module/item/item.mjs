@@ -36,7 +36,15 @@ export class PendragonItem extends Item {
     }
     super(data, context)
   }
-  
+
+  static async createDialog(data={}, createOptions={}, { types, ...options }={}) {
+//Enter the document types you want to remove from the side bar create option - 'base' is removed in the super
+const invalid = ["wound", "squire", "family", "relationship"]; //
+if (!types) types = this.TYPES.filter(type => !invalid.includes(type));
+else types = types.filter(type => !invalid.includes(type));
+return super.createDialog(data, createOptions, { types, ...options });
+}
+
   prepareData() {
     // As with the actor class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).

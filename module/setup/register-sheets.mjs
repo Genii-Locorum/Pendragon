@@ -20,7 +20,7 @@ import { PendragonIdealSheet } from '../item/sheets/ideal.mjs';
 import { PendragonRelationshipSheet } from '../item/sheets/relationship.mjs';
 import { PENRollTableConfig } from '../sheets/pen-roll-table-config.mjs'
 import { PENJournalSheet } from '../sheets/pen-journal-sheet.mjs'
-
+const {Actors, Items, Journal} = foundry.documents.collections;
 
 export function registerSheets () {
   Actors.unregisterSheet("core", ActorSheet);
