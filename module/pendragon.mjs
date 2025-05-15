@@ -52,8 +52,17 @@ Hooks.once("init", async function () {
     // v12 Add GM Tool Layer
     Hooks.on("getSceneControlButtons", PENMenu.getButtons);
     Hooks.on("renderSceneControls", PENMenu.renderControls);
-    //Add Chat Log Hooks
+    //v12 Add Chat Log Hooks
     Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
+    //Remove certain Items types from the list of options to create under the items menu
+    Hooks.on("renderDialog", (dialog, html) => {
+      let deprecatedTypes = ["wound", "squire", "family", "relationship"]; //
+      Array.from(html.find("#document-create option")).forEach((i) => {
+        if (deprecatedTypes.includes(i.value)) {
+          i.remove();
+        }
+      });
+});
   }
 
 
