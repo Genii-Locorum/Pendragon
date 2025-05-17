@@ -288,8 +288,6 @@ height: inherit;
   column-gap: 10px;
   margin-top: 0px;
   margin-bottom: 0px;
-  height: 200px;
-  max-height: 200px;
 }
 
 .Pendragon .skill-list {
@@ -951,6 +949,7 @@ height: inherit;
   left: -999px;
   top: -999px;
   background-color: #fff;
+  color: #000;
   padding: 10px;
   border: 2px solid #670b0b;
   background: url("../assets/parchment.jpg");
@@ -1366,8 +1365,26 @@ height: inherit;
   text-transform: capitalize;
 }
 
+.Pendragon .dice-roll .dice-tooltip {
+  display: none;
+}
+.Pendragon .dice-roll.expanded .dice-tooltip {
+  display: flex;
+}
+
+/* Dark theme */
+.system-Pendragon.theme-dark {
+  --color-text-primary: #000;
+  --color-text-emphatic: #000;
+  --color-text-secondary: #333;
+}
+
+/*  combat tracker for seating */
 .system-Pendragon h3.combat-tracker-header {
   margin: 0;
+}
+.system-Pendragon .seating {
+  display: list-item;
 }
 
 .system-Pendragon .seating-list {
@@ -1386,5 +1403,14 @@ height: inherit;
     text-align: center;
     line-height: var(--sidebar-header-height);
   }
+}
 
+/* v13 tweaks */
+.Pendragon.item .sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & img {
+    height: 64px;
+  }
 }

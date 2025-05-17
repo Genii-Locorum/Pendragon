@@ -17,7 +17,7 @@ export class PendragonItemSheet extends api.HandlebarsApplicationMixin(
     const noId = (typeof sheetPID === 'undefined' || typeof sheetPID.id === 'undefined' || sheetPID.id === '');
     //add button
     const label = game.i18n.localize("PEN.PIDFlag.id");
-    const pidEditor = `<button type="button" class="header-control fa-solid fa-fingerprint ${noId ? 'edit-pid-warning' : 'edit-pid-exisiting'}"
+    const pidEditor = `<button type="button" class="header-control fa-solid fa-fingerprint icon ${noId ? 'edit-pid-warning' : 'edit-pid-exisiting'}"
         data-action="editPid" data-tooltip="${label}" aria-label="${label}"></button>`;
     let el = this.window.close;
     while (el.previousElementSibling.localName === 'button') {

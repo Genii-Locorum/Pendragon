@@ -7,13 +7,14 @@ import { PENDRAGON } from "./setup/config.mjs";
 import { handlebarsHelper } from "./setup/handlebar-helper.mjs";
 import { PendragonHooks } from "./hooks/index.mjs";
 import { registerSettings } from "./setup/register-settings.mjs";
-import { PENMenu } from "./setup/layers.mjs";
+import { PENMenu, PENLayer } from "./setup/layers.mjs";
 import { PENSystemSocket } from "./apps/socket.mjs";
 import * as Chat from "./apps/chat.mjs";
 import { PENTooltips } from "./apps/tooltips.mjs";
 import { PENRollType } from "./cards/rollType.mjs";
 import { migrateWorld } from "./setup/migrations.mjs";
 import { PendragonCombatTracker } from "./apps/combat-tracker.mjs";
+import { PendragonCombatTrackerV12 } from "./apps/combat-tracker-v12.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -28,6 +29,7 @@ Hooks.once("init", async function () {
     rollItemMacro,
     GMRollMacro,
   };
+  const V13 = game.release.generation >= 13;
 
   // Add custom constants for configuration.
   CONFIG.PENDRAGON = PENDRAGON;
@@ -42,7 +44,27 @@ Hooks.once("init", async function () {
   CONFIG.Combat.documentClass = PendragonCombat;
   CONFIG.Combatant.documentClass = PendragonCombatant;
 
-  CONFIG.ui.combat = PendragonCombatTracker;
+  if (V13) {
+    CONFIG.ui.combat = PendragonCombatTracker;
+    CONFIG.Canvas.layers.pendragonmenu = {group: 'interface', layerClass: PENLayer};
+  } else {
+    CONFIG.ui.combat = PendragonCombatTrackerV12;
+    // v12 Add GM Tool Layer
+    Hooks.on("getSceneControlButtons", PENMenu.getButtons);
+    Hooks.on("renderSceneControls", PENMenu.renderControls);
+    //v12 Add Chat Log Hooks
+    Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
+    //Remove certain Items types from the list of options to create under the items menu
+    Hooks.on("renderDialog", (dialog, html) => {
+      let deprecatedTypes = ["wound", "squire", "family", "relationship"]; //
+      Array.from(html.find("#document-create option")).forEach((i) => {
+        if (deprecatedTypes.includes(i.value)) {
+          i.remove();
+        }
+      });
+});
+  }
+
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
@@ -51,16 +73,6 @@ Hooks.once("init", async function () {
 Hooks.on("ready", async () => {
   game.socket.on("system.Pendragon", async (data) => {
     PENSystemSocket.callSocket(data);
-  });
-});
-
-//Remove certain Items types from the list of options to create under the items menu (can still be created directly from the character sheet)
-Hooks.on("renderDialog", (dialog, html) => {
-  let deprecatedTypes = ["wound", "squire", "family", "relationship"]; //
-  Array.from(html.find("#document-create option")).forEach((i) => {
-    if (deprecatedTypes.includes(i.value)) {
-      i.remove();
-    }
   });
 });
 
@@ -98,12 +110,7 @@ Hooks.on("renderSettingsConfig", (app, html, options) => {
 
 PendragonHooks.listen();
 
-//Add Chat Log Hooks
-Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
 
-//Add GM Tool Layer
-Hooks.on("getSceneControlButtons", PENMenu.getButtons);
-Hooks.on("renderSceneControls", PENMenu.renderControls);
 
 // Customize combat tracker
 Hooks.on("renderCombatTracker", async (combatTracker, html, combatData) =>
