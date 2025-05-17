@@ -44,7 +44,6 @@ Hooks.once("init", async function () {
   CONFIG.Combatant.documentClass = PendragonCombatant;
 
   CONFIG.ui.combat = PendragonCombatTracker;
-  console.log(CONFIG.statusEffects);
   CONFIG.statusEffects = PendragonStatusEffects.allStatusEffects;
 
   // Preload Handlebars templates.

@@ -5,6 +5,7 @@ import { PENCharCreate } from "../../apps/charCreate.mjs"
 import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
 import { PENactorItemDrop } from '../actor-itemDrop.mjs';
 import { PENUtilities } from "../../apps/utilities.mjs";
+import { PendragonStatusEffects } from "../../apps/status-effects.mjs";
 
 
 /**
@@ -77,12 +78,13 @@ export class PendragonCharacterSheet extends ActorSheet {
     // Prepare character data and items.
     if (actorData.type == 'character') {
       this._prepareItems(context);
-      this._prepareCharacterData(context);
+      this._prepareEffects(context);
     }
 
     // Prepare NPC data and items.
     if (actorData.type == 'npc') {
       this._prepareItems(context);
+      this._prepareEffects(context);
     }
 
     // Add roll data for TinyMCE editors.
@@ -92,15 +94,18 @@ export class PendragonCharacterSheet extends ActorSheet {
   }
 
   /**
-   * Organize and classify Items for Character sheets.
+   * Organize and classify active effects for Character sheets.
    *
    * @param {Object} actorData The actor to prepare.
    *
    * @return {undefined}
    */
-  _prepareCharacterData(context) {
-
-
+  _prepareEffects(context) {
+    const status = {};
+    for(let s of PendragonStatusEffects.allStatusEffects) {
+      status[s.id] = this.actor.statuses.has(s.id);
+    }
+    context.statuses = status;
   }
 
   /**
@@ -537,16 +542,26 @@ async _onInlineEdit(event){
 
     if(['lock','heir'].includes(prop)){
       checkProp = {[`system.${prop}`]: !this.actor.system[prop]}
-    } else if(['chirurgery','unconscious','nearDeath','madness','melancholy','misery','barren'].includes(prop)){
+    } else if(['chirurgery','barren'].includes(prop)){
       checkProp = {[`system.status.${prop}`]: !this.actor.system.status[prop]}
+    } else if(['unconscious','dying','maddened','melancholic','miserable'].includes(prop)){
+      this.toggleStatus(prop);
+      return;
     } else if (prop === "debilitated") {
-      checkProp = {'system.status.debilitated': !this.actor.system.status.debilitated,
-                   'system.status.chirurgery': false}
+      this.toggleStatus(prop);
+      checkProp = {'system.status.chirurgery': false}
     } else {
       return
     }
     await this.actor.update(checkProp);
     return
+  }
+
+  async toggleStatus(statusId) {
+    const existing = this.actor.effects.getName(statusId);
+    if ( existing ) return existing.delete();
+    const effect = await ActiveEffect.implementation.fromStatusEffect(statusId);
+    return ActiveEffect.implementation.create(effect, { parent: this.actor });
   }
 
 

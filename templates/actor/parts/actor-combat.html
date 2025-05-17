@@ -55,7 +55,7 @@
       <div class="stat-name left bold">{{localize 'PEN.deterior'}}</div>
       <div class="stat-name stat-name-input centre"><input name="system.deterDam" type="text" value="{{actor.system.deterDam}}" data-dtype="Number"/></div>
       <div></div>
-      {{#if system.status.debilitated}}
+      {{#if statuses.debilitated}}
         <div class="stat-name left bold new-row">{{localize 'PEN.chirurgery'}}</div>
         <div class="stat-name centre">
           <a class="item-control actor-toggle large-icon" data-property="chirurgery" title="{{localize 'PEN.chirurgeryHint'}}"><i class="{{#if system.status.chirurgery}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>

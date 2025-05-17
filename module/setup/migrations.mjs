@@ -25,7 +25,6 @@ function migrateActor(actor) {
     const updateData = {};
 
     // migrate Owned items
-    console.log(actor)
     const items = actor.items.reduce((arr, i) => {
         // Migrate the Owned Item
         const itemData = i instanceof CONFIG.Item.documentClass ? i.toObject() : i;
