@@ -1,18 +1,15 @@
 import { RollResult } from "./checks.mjs";
 
-export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs?.CombatTracker ?? CombatTracker) {
+export class PendragonCombatTrackerV12 extends (foundry.applications?.sidebar?.tabs
+  ?.CombatTracker ?? CombatTracker) {
   // override the render for customization
   renderTracker(html) {
     // actual combat - do the standard thing
     if (!this.viewed) return;
 
-    // V12 = data-control / V13 data-action
-    const combatControl = html.querySelector("[data-action='startCombat']");
-    const combatControlNav = html.querySelector("nav.combat-controls");
-    const hasextraControl = html.querySelector(".pendragon-combat-extras");
-    if(combatControl && combatControlNav && !hasextraControl) {
-      combatControlNav.before(this.#addEncounterTypeControl(this.viewed));
-    }
+    const combatControl = html.querySelector("[data-control='startCombat']");
+    const combatControlNav = html.querySelector("#combat-controls");
+    if(combatControl && combatControlNav) combatControlNav.before(this.#addEncounterTypeControl(this.viewed));
     // TODO: allow GM to drag and drop actors to reflect new seats
     const combatants = this.viewed.combatants;
     // feast - add the seating areas
@@ -27,14 +24,18 @@ export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs
       for (const row of combatantRows) {
         const combatantId = row.dataset.combatantId ?? "";
         const combatant = this.viewed.combatants.get(combatantId, { strict: true });
-        const init = row.querySelector(".token-initiative span");
+        const init = row.querySelector(".initiative");
         if (init) init.innerText = combatant.actor.system.glory.toLocaleString();
         // Adjust controls with system extensions
-        for (const controlIcon of row.querySelectorAll(".combatant-control.icon")) {
+        for (const control of row.querySelectorAll("a.combatant-control")) {
+          const controlIcon = control.querySelector("i");
+          if (!controlIcon) continue;
 
-          controlIcon.classList.add("fa-fw");
+          // Ensure even spacing between combatant controls
+          controlIcon.classList.remove("fas");
+          controlIcon.classList.add("fa-solid", "fa-fw");
 
-          if (controlIcon.dataset.action === "pingCombatant") {
+          if (control.dataset.control === "pingCombatant") {
             // Use an icon for the `pingCombatant` control that looks less like a targeting reticle
             controlIcon.classList.remove("fa-bullseye-arrow");
             controlIcon.classList.add("fa-signal-stream");
@@ -48,7 +49,7 @@ export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs
     const seatingArea = document.createElement("li");
     const above = combatants.filter(c => Math.floor(c.initiative) == rollNeeded);
     const children = above.length ? list.querySelectorAll(Array.from(above).map(c => `[data-combatant-id="${c.id}"]`).join(", ")) : [];
-    seatingArea.classList.add("seating");
+    seatingArea.classList.add("combatant");
     seatingArea.innerHTML = `<h3 class="combat-tracker-header">${label}</h3><ol class="seating-list"></ol>`;
     list.prepend(seatingArea);
     seatingArea.querySelector("ol").replaceChildren(...children);
@@ -68,13 +69,7 @@ export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs
       a.innerText = game.i18n.localize("PEN.encounterSwitchFeast");
     }
     a.addEventListener("click", event => {
-      encounter.switchEncounterType();
-      if (encounter.isFeast()) {
-        event.target.innerText = game.i18n.localize("PEN.encounterSwitchSkirmish");
-      }
-      else {
-        event.target.innerText = game.i18n.localize("PEN.encounterSwitchFeast");
-      }
+      this.viewed.switchEncounterType();
     });
     nav.append(a);
     return nav;

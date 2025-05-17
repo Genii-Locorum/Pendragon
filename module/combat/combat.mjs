@@ -71,7 +71,7 @@ export class PendragonCombat extends Combat {
       // TODO: small feast move up one level of success
       // TODO: royal feast above and closer move down one level
       // we want to use glory as the tiebreaker
-      const fractionalGlory = combatant.actor.system.glory / 10000;
+      const fractionalGlory = combatant.actor.system.glory / 100_000;
       var gloryRoll = updates.push({
         _id: id,
         initiative: level + fractionalGlory,

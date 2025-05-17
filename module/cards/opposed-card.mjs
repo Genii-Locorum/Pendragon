@@ -147,12 +147,12 @@ export class OPCard {
                             'flags.Pendragon.state': 'closed',
                           })
     const pushhtml = await PENCheck.startChat(targetMsg.flags.Pendragon)
-    await targetMsg.update({content: pushhtml})    
+    await targetMsg.update({content: pushhtml})
     return
   }
   
   
-  //Check to see if there is an open card that matches the cardTyoe that's not more than a day old
+  //Check to see if there is an open card that matches the cardType that's not more than a day old
   static async checkNewMsg (config) {  
     let messages = ui.chat.collection.filter(message => {
       if (  config.cardType === message.getFlag('Pendragon', 'cardType') &&  message.getFlag('Pendragon', 'state') !== 'closed'){
