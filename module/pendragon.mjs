@@ -15,6 +15,7 @@ import { PENRollType } from "./cards/rollType.mjs";
 import { migrateWorld } from "./setup/migrations.mjs";
 import { PendragonCombatTracker } from "./apps/combat-tracker.mjs";
 import { PendragonCombatTrackerV12 } from "./apps/combat-tracker-v12.mjs";
+import { PendragonStatusEffects } from "./apps/status-effects.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -44,6 +45,8 @@ Hooks.once("init", async function () {
   CONFIG.Combat.documentClass = PendragonCombat;
   CONFIG.Combatant.documentClass = PendragonCombatant;
 
+  CONFIG.statusEffects = PendragonStatusEffects.allStatusEffects;
+
   if (V13) {
     CONFIG.ui.combat = PendragonCombatTracker;
     CONFIG.Canvas.layers.pendragonmenu = {group: 'interface', layerClass: PENLayer};
@@ -62,9 +65,8 @@ Hooks.once("init", async function () {
           i.remove();
         }
       });
-});
+    });
   }
-
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();

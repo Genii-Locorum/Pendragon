@@ -1,4 +1,5 @@
 import {PENSelectLists}  from "../apps/select-lists.mjs";
+import { PendragonStatusEffects } from "../apps/status-effects.mjs";
 import { PENUtilities } from "../apps/utilities.mjs";
 
 //Extend the base Actor Class
@@ -26,8 +27,6 @@ export class PendragonActor extends Actor {
    */
   prepareDerivedData() {
     const actorData = this;
-    const systemData = actorData.system;
-    const flags = actorData.flags.Pendragon || {};
 
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
@@ -56,7 +55,7 @@ export class PendragonActor extends Actor {
 
 
     //Set Culture ID and add stats max
-    let culture = actorData.items.filter(itm =>itm.type==='culture')[0]  
+    let culture = actorData.items.filter(itm =>itm.type==='culture')[0]
     if (culture) {systemData.cultureID = culture._id
                   systemData.cultureName = culture.name
     }
@@ -68,19 +67,19 @@ export class PendragonActor extends Actor {
     }
 
     //Set Homeland ID
-    let homeland = actorData.items.filter(itm =>itm.type==='homeland')[0]  
+    let homeland = actorData.items.filter(itm =>itm.type==='homeland')[0]
     if (homeland) {systemData.homelandID = homeland._id
       systemData.homelandName = homeland.name
     }
 
     //Set Class ID
-    let actClass = actorData.items.filter(itm =>itm.type==='class')[0]  
+    let actClass = actorData.items.filter(itm =>itm.type==='class')[0]
     if (actClass) {systemData.classID = actClass._id
       systemData.className = actClass.name
     }
 
     //Set Religion ID
-    let religion = actorData.items.filter(itm =>itm.type==='religion')[0]  
+    let religion = actorData.items.filter(itm =>itm.type==='religion')[0]
     if (religion) {
       systemData.religionID = religion._id
       systemData.religionName = religion.name
@@ -90,7 +89,7 @@ export class PendragonActor extends Actor {
     //Actor only Adjustments
     systemData.damage = systemData.damage + systemData.damAdj
     systemData.move = systemData.move + systemData.moveAdj
-    systemData.armour = systemData.armour + systemData.armourAdj   
+    systemData.armour = systemData.armour + systemData.armourAdj
 
 
     //Calculate passive Glory
@@ -122,9 +121,9 @@ export class PendragonActor extends Actor {
     //Calculate passive Glory for obese
     if (systemData.stats.siz.growth > 2) {
       systemData.obese = 20
-    }  
+    }
 
-    for (let i of actorData.items) {   
+    for (let i of actorData.items) {
       if (i.type === "trait") {
         let tempTotal = Number(i.system.value) + Number(i.system.religious) + Number(i.system.winter)
         if ((tempTotal) > 20) {
@@ -137,23 +136,23 @@ export class PendragonActor extends Actor {
           i.system.total = tempTotal
           i.system.oppvalue = 20 - tempTotal
         }
-        
+
         if (i.system.total > 19 || i.system.oppvalue > 19) {
-          systemData.trait = systemData.trait + 25; 
+          systemData.trait = systemData.trait + 25;
         } else if (i.system.total > 15 || i.system.oppvalue > 15) {
           systemData.trait = systemData.trait + 15;
-        } 
+        }
       } else if (i.type === "passion") {
         i.system.total = Number(i.system.value) + Number(i.system.inherit) + Number(i.system.sol) + Number(i.system.homeland) + Number(i.system.winter)
         systemData[i.system.court] = systemData[i.system.court] + Math.min(20,Number(i.system.total))
         if (i.system.total > 19) {
-          systemData.passion = systemData.passion + 25 
+          systemData.passion = systemData.passion + 25
         } else if (i.system.total > 15) {
-          systemData.passion = systemData.passion + 15 
-        } 
+          systemData.passion = systemData.passion + 15
+        }
       } else if (i.type === "skill") {
         i.system.total =Number(i.system.value) + Number(i.system.culture) + Number(i.system.family) + Number(i.system.create) + Number(i.system.winter)
-      } 
+      }
 
       if (['trait','passion'].includes(i.type)){
         if (i.system.total <5) {i.system.flavour = game.i18n.localize('PEN.unsung')}
@@ -168,7 +167,7 @@ export class PendragonActor extends Actor {
           else {i.system.oppFlavour =""}
         }
       }
-    }  
+    }
 
     //Check that Ideals are active and apply benefits
     systemData.passglory.ideals = 0
@@ -178,11 +177,11 @@ export class PendragonActor extends Actor {
           for (let rItm of i.system.require) {
             let actItm = actorData.items.filter(itm=>itm.flags.Pendragon.pidFlag.id === rItm.pid)[0]
             if (rItm.score <0) {
-              if (actItm.system.total > 20+rItm.score) {i.system.active = false}  
+              if (actItm.system.total > 20+rItm.score) {i.system.active = false}
             } else {
               if (actItm.system.total < rItm.score) {i.system.active = false}
             }
-          } 
+          }
         if (i.system.active) {
           systemData.passglory.ideals = systemData.passglory.ideals +  i.system.glory
           systemData.armour = systemData.armour + i.system.armour
@@ -194,24 +193,24 @@ export class PendragonActor extends Actor {
           }
           systemData.move = systemData.move + i.system.move
           systemData.hp.max = systemData.hp.max + i.system.hp
-          systemData.healRate = systemData.healRate + i.system.hr 
+          systemData.healRate = systemData.healRate + i.system.hr
 
-        }  
+        }
       }
-    }     
+    }
 
 
     //Convert skilltype to the name of the Skill
     let skillType = PENSelectLists.getWeaponTypes();
     let rangeType = PENSelectLists.getWeaponRange();
-    for (let i of actorData.items) {   
+    for (let i of actorData.items) {
       if (i.type === "weapon") {
         i.system.skillName = skillType[i.system.skill]
         if (i.system.melee) {
           i.system.rangeName = "";
         } else {
           i.system.rangeName = rangeType[i.system.range].charAt(0);
-        }  
+        }
 
         //Add the skill score to the weapon matched on skill/weaponType and add the skill ID to the weapon
         for (let j of actorData.items) {
@@ -219,7 +218,7 @@ export class PendragonActor extends Actor {
             i.system.total = j.system.total;
             i.system.sourceID = j._id;
           }
-        } 
+        }
 
         //Calculate the damage for the weapon for the actor
         let damageDice = 0;
@@ -232,8 +231,8 @@ export class PendragonActor extends Actor {
           if(i.system.damageChar === 'c') {                 //If damage source is character use the character Dam as number of D6
             damageDice = systemData.damage
           } else if (i.system.damageChar === 'b') {          //If damage source is brawling use the character Dam as flat mod
-            damageFlatMod = systemData.damage  
-          }  
+            damageFlatMod = systemData.damage
+          }
 
           damageFlatMod = Number(damageFlatMod) + Number(i.system.damageBonus) + Number(systemData.damageMod)
 
@@ -242,23 +241,21 @@ export class PendragonActor extends Actor {
         }
         i.system.damage = damageFormula;
       }
-    }  
-
-
-
-    systemData.hp.value = systemData.hp.max - systemData.totalWounds - systemData.aggravDam - systemData.deterDam;  
-    if (systemData.hp.value <=0) {
-      systemData.status.nearDeath = true;
-      systemData.status.unconscious = true;
-      systemData.status.debilitated = true;
     }
+
+    systemData.hp.value = systemData.hp.max - systemData.totalWounds - systemData.aggravDam - systemData.deterDam;
     systemData.hp.unconscious = Math.round(systemData.hp.max/4);
     systemData.tap = Math.min(100,systemData.passion) + Math.min(100,systemData.trait)
     systemData.passive = Number(systemData.tap) + Number(systemData.appeal) + Number(systemData.passglory.ideals) + Number(systemData.passglory.estate) + Number(systemData.passglory.other) + Number(systemData.solVal) + Number(systemData.obese)
 
+    // If hp <=0 we probably should do something
+    // code used to set DYING/DEBILITATED/UNCONSCIOUS etc here but creating effects during prepare can end up with duplicates or cycles
+    // TOR2E emits a warning to chat 'actor expected to have STATUS' which if we don't spam chat at wrong time may be useful
+
     //Check debilitated status
-    if (systemData.status.debilitated && systemData.status.chirurgery && systemData.hp.value >= Math.floor(systemData.hp.max/2)) {
-      systemData.status.debilitated = false;
+    if (this.statuses.has(PendragonStatusEffects.DEBILITATED) && systemData.status.chirurgery && systemData.hp.value >= Math.floor(systemData.hp.max/2)) {
+      //TODO - review in case deleting effect during prepare is a problem
+      this.removeStatus(PendragonStatusEffects.DEBILITATED);
       systemData.status.chirurgery = false;
     }
 
@@ -269,7 +266,6 @@ export class PendragonActor extends Actor {
     if (!['npc','follower'].includes(actorData.type) ) return;
 
     // Make modifications to data here. For example:
-    const systemData = actorData.system;
     for (let i of actorData.items) {
       if (i.type === "trait") {
         i.system.total = i.system.value
@@ -277,8 +273,8 @@ export class PendragonActor extends Actor {
         i.system.total = i.system.value
       } else if (i.type === "skill") {
         i.system.total =i.system.value
-      }        
-    }  
+      }
+    }
 
 
 
@@ -307,18 +303,18 @@ export class PendragonActor extends Actor {
       if (systemData.manMaxHP != 0) {
         systemData.hp.max = systemData.manMaxHP
       } else {
-        systemData.hp.max = systemData.stats.siz.total + systemData.stats.con.total + systemData.hp.adj;          
-      } 
+        systemData.hp.max = systemData.stats.siz.total + systemData.stats.con.total + systemData.hp.adj;
+      }
       if (systemData.manUnconscious != 0) {
         systemData.hp.unconscious = systemData.manUnconscious
       } else {
-        systemData.hp.unconscious = Math.round(systemData.hp.max/4);      
-      }        
-    } else {  
+        systemData.hp.unconscious = Math.round(systemData.hp.max/4);
+      }
+    } else {
       systemData.hp.max = systemData.stats.siz.total + systemData.stats.con.total + systemData.hp.adj;
       systemData.hp.unconscious = Math.round(systemData.hp.max/4);
     }
-    
+
 
     systemData.damage = Math.round((systemData.stats.str.total + systemData.stats.siz.total)/6);
     systemData.horseDam = "";
@@ -328,14 +324,14 @@ export class PendragonActor extends Actor {
     systemData.reputation = ""
 
 
-        
+
     //Loop through all items to see if they have impact
     systemData.totalWounds=0;
     let glory = 0;
     let armour = 0;
     let shield = 0;
-    for (let i of actorData.items) {    
-       if (i.type === 'wound') {                  
+    for (let i of actorData.items) {
+       if (i.type === 'wound') {
         //Ignore wounds with a negative value
         systemData.totalWounds = systemData.totalWounds + Math.max(i.system.value,0);
        } else if (i.type === "history") {
@@ -352,7 +348,7 @@ export class PendragonActor extends Actor {
        }
     }
     //Calculate current HP then check for Near Death
-    systemData.hp.value = systemData.hp.max - (systemData.woundTotal ? systemData.woundTotal : 0);  
+    systemData.hp.value = systemData.hp.max - (systemData.woundTotal ? systemData.woundTotal : 0);
     if (glory < 3000) {
       systemData.reputation = game.i18n.localize('PEN.unproven')
     } else if (glory < 4000) {
@@ -376,9 +372,6 @@ export class PendragonActor extends Actor {
     systemData.armour = armour;
     systemData.shield = shield;
   }
-
-
-
 
   /**
    * Override getRollData() that's supplied to rolls.
@@ -480,7 +473,7 @@ export class PendragonActor extends Actor {
           range: 30,
           enabled: true
         }]
-      },data.prototypeToken || {})      
+      },data.prototypeToken || {})
     }
 
     let actor = await super.create(data, options)
@@ -495,14 +488,27 @@ export class PendragonActor extends Actor {
         //Get list of traits and add to actor
         let traitList = await game.system.api.pid.fromPIDRegexBest({ pidRegExp: /^i.trait\./, type: 'i' })
         await actor.createEmbeddedDocuments("Item", traitList);
-    
+
         //Get list of passions and add to actor
         let passionList = await game.system.api.pid.fromPIDRegexBest({ pidRegExp: /^i.passion\./, type: 'i' })
         await actor.createEmbeddedDocuments("Item", passionList);
-    }  
+    }
     return actor
   }
 
-
+  async addStatus(statusId) {
+    // if we already have the status, nothing to do
+    if(this.statuses.has(statusId)) return;
+    // just in case
+    const existing = this.effects.getName(statusId);
+    if ( existing ) return;
+    // otherwise add the status effect
+    const effect = await ActiveEffect.implementation.fromStatusEffect(statusId);
+    return ActiveEffect.implementation.create(effect, { parent: this });
+  }
+  removeStatus(statusId) {
+    const existing = this.effects.getName(statusId);
+    if ( existing ) return existing.delete();
+  }
 
 }

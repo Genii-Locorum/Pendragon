@@ -1,5 +1,6 @@
 import { PENUtilities } from "../apps/utilities.mjs";
 import { PENSelectLists } from "./select-lists.mjs";
+import { PendragonStatusEffects } from "./status-effects.mjs";
 
 export class PENCombat {
 
@@ -173,8 +174,8 @@ export class PENCombat {
           createNew=true
         } else {
           let target = 'system.stats.'+statImpact+'.disease'
-          await this.actor.update ({[target]: this.actor.system.stats[statImpact].disease - damAmount,
-                                    'system.status.debilitated': true})
+          await this.actor.update ({[target]: this.actor.system.stats[statImpact].disease - damAmount})
+          await actor.addStatus(PendragonStatusEffects.DEBILITATED);
         }
         break
       case "fire":
@@ -190,8 +191,8 @@ export class PENCombat {
         }        
         break
       case "poison":
-        await this.actor.update ({'system.stats.con.poison': this.actor.system.stats.con.poison - damAmount,
-                                  'system.status.debilitated': true})
+        await this.actor.update ({'system.stats.con.poison': this.actor.system.stats.con.poison - damAmount})
+        await actor.addStatus(PendragonStatusEffects.DEBILITATED);
         break
       default:
         ui.notifications.warn(damType + ": " + game.i18n.localize('PEN.noDamType'))    
@@ -259,6 +260,7 @@ export class PENCombat {
     if (item.system.created) {return}
     let status = game.i18n.localize('PEN.minor') 
     let unconscious = false;
+    let dying = false;
 
     if (item.system.value >= actor.system.hp.max){
       status = game.i18n.localize('PEN.mortal')
@@ -271,15 +273,18 @@ export class PENCombat {
     //Check to see if damage >= current HP
     if (actor.system.hp.value < actor.system.hp.unconscious) {
       unconscious = true;
+      dying = true;
     }
     let checkProp = {'system.created': true,
                      'system.description': status}
     await item.update(checkProp)
 
     if (unconscious){
-      checkProp = {'system.status.unconscious': true,
-                   'system.status.debilitated': true}
-      await actor.update(checkProp)
+      await actor.addStatus(PendragonStatusEffects.UNCONSCIOUS);
+      await actor.addStatus(PendragonStatusEffects.DEBILITATED);
+    }
+    if (dying) {
+      await actor.addStatus(PendragonStatusEffects.DYING);
     }
     return
   }

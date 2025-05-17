@@ -5,6 +5,7 @@ import { PassionsSelectDialog } from "./passion-selection.mjs";
 import { PENSelectLists } from "./select-lists.mjs";
 import { PENCheck } from '../apps/checks.mjs';
 import { PENCharCreate } from "./charCreate.mjs";
+import { PendragonStatusEffects } from "./status-effects.mjs";
 
 export class PENWinter {
 
@@ -1395,7 +1396,7 @@ export class PENWinter {
           let spouse = await(this.actor.items.filter(itm=>itm.type==='family').filter(itm=>itm.system.relation==='spouse'))[0]
           await spouse.update({'system.died': game.settings.get('Pendragon','gameYear')})
         } else if (decision === 'self'){
-          await this.actor.update ({'system.status.nearDeath': true})
+          await this.actor.addStatus ('dead');
           const itemData = {
             name: game.i18n.localize('PEN.died'),
             type: 'history',
