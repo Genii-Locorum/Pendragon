@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 13.1.28
+- Updated to work with Foundry V13
+- Anyone being able to expand a dice roll is a known issue
+- Please report any other issues at https://github.com/Genii-Locorum/Pendragon/issues
+- And PLEASE do back up your worlds before migrating to Foundry V13 and/or Pendragon 13.1.28
+
+
 ## 12.1.27
 - History, Traits, Passions and Weapons have now been moved over to V2 Application
 - Combat Tracker now has two types of Combat - Feast and Skirmish - with a button to switch between the two modes
