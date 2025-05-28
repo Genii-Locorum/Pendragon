@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 13.1.29
+- Adjusting selectivity of Dark Mode overrid (we are effectively ignoring Dark Mode and trying not to affect things that aren't part of the Pendragon system)
+- Adjusted svg files to have an explicit height and width
+
 ## 13.1.28
 - Updated to work with Foundry V13
 - Anyone being able to expand a dice roll is a known issue
