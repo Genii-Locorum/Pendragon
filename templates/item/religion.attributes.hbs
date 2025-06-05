@@ -1,0 +1,51 @@
+<section class="tab attributes {{tab.cssClass}}" data-group="primary" data-tab="attributes">
+  <br>
+  {{!-- Positive Traits --}}
+    <div class="horizontalboxed {{#if isGM}} droppable {{/if}} virtues" data-collection = "positive">
+    <div class="stat-name">{{ localize "PEN.virtues"}}</div>
+    <ol class="item-list">
+      {{#each virtues as |virtue|}}
+        <li class="item flexrow" data-item-id="{{virtue.uuid}}" >
+          <div class="item-name flexrow">
+            {{#if virtue.valid}}
+              <div class="stat-name">{{virtue.name}}</div>
+            {{else}}
+              <div class="stat-name result-success">{{virtue.name}} [{{localize 'PEN.invalid'}}]</div>
+            {{/if}}
+          </div>
+          <div class="item-controls">
+            {{#if ../isGM}}
+              <a class="item-control item-delete" title="{{localize 'PEN.deleteItem'}}" data-action="deleteItem"><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+    </div>
+    <br>
+
+<br>
+{{!-- Negative Traits --}}
+  <div class="horizontalboxed {{#if isGM}} droppable {{/if}} virtues" data-collection = "negative">
+  <div class="stat-name">{{ localize "PEN.vices"}}</div>
+  <ol class="item-list">
+    {{#each vices as |vice|}}
+      <li class="item flexrow" data-item-id="{{vice.uuid}}" >
+        <div class="item-name flexrow">
+          {{#if vice.valid}}
+          <div class="stat-name">{{vice.name}}</div>
+        {{else}}
+          <div class="stat-name result-success">{{vice.name}} [{{localize 'PEN.invalid'}}]</div>
+        {{/if}}
+        </div>
+        <div class="item-controls">
+          {{#if ../isGM}}
+            <a class="item-control item-delete" title="{{localize 'PEN.deleteItem'}}" data-action="deleteItem"><i class="fas fa-trash"></i></a>
+          {{/if}}
+        </div>
+      </li>
+    {{/each}}
+  </ol>
+  </div>
+  <br>
+</section>

@@ -89,6 +89,9 @@
 
 .Pendragon .centre {
   text-align: center;
+  & > input {
+    text-align: inherit;
+  }
 }
 
 .Pendragon .middle {

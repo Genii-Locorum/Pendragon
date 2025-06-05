@@ -1,4 +1,3 @@
-import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
 import {PENSelectLists}  from "../../apps/select-lists.mjs";
 import { PendragonItemSheet } from "./item-sheet.mjs";
 
@@ -17,6 +16,9 @@ export class PendragonPassionSheet extends PendragonItemSheet {
     // automatically updates the item
     form: {
       submitOnChange: true,
+    },
+    window: {
+      resizable: true,
     },
     actions: {
       onEditImage: this._onEditImage,

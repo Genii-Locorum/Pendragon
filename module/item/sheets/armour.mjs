@@ -19,6 +19,9 @@ export class PendragonArmourSheet extends PendragonItemSheet {
     form: {
       submitOnChange: true,
     },
+    window: {
+      resizable: true,
+    },
     actions: {
       // probably should be implemented on a base class
       onEditImage: this._onEditImage,
