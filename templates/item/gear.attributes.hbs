@@ -1,0 +1,13 @@
+<section class="tab attributes {{tab.cssClass}}" data-group="primary" data-tab="attributes">
+  <div class="item-trait-grid">
+    <div class="stat-name left bold">{{localize 'PEN.quantity'}}</div>
+    <div class="stat-name-input {{#if (eq item.system.quantity '')}} input-border {{/if}} left"><input name="system.quantity" type="text" value="{{item.system.quantity}}" ="Number"/></div>
+  </div>
+
+  <div class="money-grid">
+    <div class="stat-name left bold">{{localize 'PEN.price'}}</div>
+    <div class="stat-name-input {{#if (eq item.system.libra '')}} input-border {{/if}} left"><input name="system.libra" type="text" value="{{item.system.libra}}" data-dtype="Number"/></div>
+    <div class="stat-name left bold">/</div>
+    <div class="stat-name-input {{#if (eq item.system.denarii '')}} input-border {{/if}} left"><input name="system.denarii" type="text" value="{{item.system.denarii}}" data-dtype="Number"/></div>
+  </div>
+</section>
