@@ -1,0 +1,25 @@
+<section class="tab attributes {{tab.cssClass}}" data-group="primary" data-tab="attributes">
+
+  <div class="horizontalboxed {{#if isGM}} droppable {{/if}} virtues" data-collection = "passions">
+  <div class="stat-name">{{ localize "PEN.passions"}}</div>
+  <ol class="item-list">
+    {{#each passions as |passion|}}
+      <li class="item flexrow" data-item-id="{{passion.uuid}}" data-pid = "{{passion.flags.Pendragon.pidFlag.id}}" >
+        <div class="item-name flexrow">
+          {{#if passion.valid}}
+            <div class="stat-name">{{passion.name}}</div>
+          {{else}}
+            <div class="stat-name result-success">{{passion.name}} [{{localize 'PEN.invalid'}}]</div>
+          {{/if}}
+        </div>
+        <div class="item-controls">
+          {{#if ../isGM}}
+            <a class="item-control item-delete" title="{{localize 'PEN.deleteItem'}}" data-action="deleteItem"><i class="fas fa-trash"></i></a>
+          {{/if}}
+        </div>
+      </li>
+    {{/each}}
+  </ol>
+  </div>
+
+</section>

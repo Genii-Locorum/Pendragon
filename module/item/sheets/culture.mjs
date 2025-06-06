@@ -1,4 +1,3 @@
-import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
 import { PENUtilities } from "../../apps/utilities.mjs"
 import { PendragonItemSheet } from "./item-sheet.mjs";
 
