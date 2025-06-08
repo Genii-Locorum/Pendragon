@@ -1,0 +1,98 @@
+<section class="tab attributes {{tab.cssClass}}" data-group="primary" data-tab="attributes">
+  <div class="stat-name bold">{{ localize "PEN.passions"}}</div>
+  {{!-- Primary Passions --}}
+  <div class="horizontalboxed {{#if isGM}} droppable {{/if}} virtues" data-collection = "primary">
+    <div class="stat-name">{{ localize "PEN.primary"}}</div>
+    <ol class="item-list">
+      {{#each primary as |passion|}}
+        <li class="item flexrow" data-item-id="{{passion.uuid}}" data-pid = "{{passion.flags.Pendragon.pidFlag.id}}" >
+          <div class="item-name flexrow">
+            {{#if passion.valid}}
+              <div class="stat-name">{{passion.name}}</div>
+            {{else}}
+              <div class="stat-name result-success">{{passion.name}} [{{localize 'PEN.invalid'}}]</div>
+            {{/if}}
+          </div>
+          <div class="item-controls">
+            {{#if ../isGM}}
+              <a class="item-control item-delete" title="{{localize 'PEN.deleteItem'}}" data-action="deleteItem"><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  </div>
+
+  {{!-- Secondary Passions --}}
+  <div class="horizontalboxed {{#if isGM}} droppable {{/if}} virtues" data-collection = "secondary">
+    <div class="stat-name">{{ localize "PEN.secondary"}}</div>
+    <ol class="item-list">
+      {{#each secondary as |passion|}}
+        <li class="item flexrow" data-item-id="{{passion.uuid}}" data-pid = "{{passion.flags.Pendragon.pidFlag.id}}" >
+          <div class="item-name flexrow">
+            {{#if passion.valid}}
+              <div class="stat-name">{{passion.name}}</div>
+            {{else}}
+              <div class="stat-name result-success">{{passion.name}} [{{localize 'PEN.invalid'}}]</div>
+            {{/if}}
+          </div>
+          <div class="item-controls">
+            {{#if ../isGM}}
+              <a class="item-control item-delete" title="{{localize 'PEN.deleteItem'}}" data-action="deleteItem"><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  </div>
+
+  {{!-- Tertiary Passions --}}
+  <div class="horizontalboxed {{#if isGM}} droppable {{/if}} virtues" data-collection = "tertiary">
+    <div class="stat-name">{{ localize "PEN.tertiary"}}</div>
+    <ol class="item-list">
+      {{#each tertiary as |passion|}}
+        <li class="item flexrow" data-item-id="{{passion.uuid}}" data-pid = "{{passion.flags.Pendragon.pidFlag.id}}" >
+          <div class="item-name flexrow">
+            {{#if passion.valid}}
+              <div class="stat-name">{{passion.name}}</div>
+            {{else}}
+              <div class="stat-name result-success">{{passion.name}} [{{localize 'PEN.invalid'}}]</div>
+            {{/if}}
+          </div>
+          <div class="item-controls">
+            {{#if ../isGM}}
+              <a class="item-control item-delete" title="{{localize 'PEN.deleteItem'}}" data-action="deleteItem"><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  </div>
+
+  <div class="stat-name bold">{{ localize "PEN.startingEquip"}}</div>
+  {{!-- Starting Equipment --}}
+  <div class="horizontalboxed {{#if isGM}} droppable {{/if}} gear" data-collection = "gear">
+    <ol class="item-list">
+      {{#if gearsisEmpty}}
+        <div class="stat-name">{{ localize "PEN.emptyList" }}</div>
+      {{/if}}
+      {{#each gears as |gear|}}
+        <li class="item flexrow" data-item-id="{{gear.uuid}}" data-pid = "{{gear.flags.Pendragon.pidFlag.id}}" data-collection = "gear">
+          <div class="item-name flexrow">
+            {{#if gear.valid}}
+            <div class="stat-name">{{gear.name}}</div>
+            {{else}}
+            <div class="stat-name result-success">{{gear.name}} [{{localize 'PEN.invalid'}}]</div>
+            {{/if}}
+          </div>
+          <div class="item-controls">
+            {{#if ../isGM}}
+              <a class="item-control item-delete" title="{{localize 'PEN.deleteItem'}}" data-action="deleteItem"><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  </div>
+
+</section>
