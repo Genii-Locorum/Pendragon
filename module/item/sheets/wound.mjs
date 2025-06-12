@@ -1,52 +1,50 @@
-import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
+import { PendragonItemSheet } from "./item-sheet.mjs";
 
-export class PendragonWoundSheet extends ItemSheet {
-    constructor (...args) {
-      super(...args)
-      this._sheetTab = 'items'
+export class PendragonWoundSheet extends PendragonItemSheet {
+  constructor (options = {}) {
+    super(options)
+  }
+
+  static DEFAULT_OPTIONS = {
+    classes: ['Pendragon', 'sheet', 'item'],
+    position: {
+      width: 310,
+      height: 240
+    },
+    tag: "form",
+    // automatically updates the item
+    form: {
+      submitOnChange: true,
+    },
+    window: {
+      resizable: true,
+    },
+    actions: {
+      onEditImage: this._onEditImage,
+      editPid: this._onEditPid
     }
 
-  //Add PID buttons to sheet
-  _getHeaderButtons () {
-    const headerButtons = super._getHeaderButtons()
-    addPIDSheetHeaderButton(headerButtons, this)
-    return headerButtons
-  }    
+  }
 
-  static get defaultOptions () {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['Pendragon', 'sheet', 'item'],
-      width: 310,
-      height: 240,
-      scrollY: ['.item-bottom-panel'],
-      tabs: [{navSelector: '.sheet-tabs',contentSelector: '.sheet-body',initial: 'attributes'}]
-    })
+  static PARTS = {
+    header: {
+      //TODO: static header, no image
+      template: "systems/Pendragon/templates/item/header.hbs"
+    },
+    // each tab gets its own template
+    attributes: {
+      template: 'systems/Pendragon/templates/item/wound.hbs'
+    },
   }
-  
-  /** @override */
-  get template () {
-    return `systems/Pendragon/templates/item/${this.item.type}.html`
+
+  async _prepareContext (options) {
+
+    let sheetData = {
+      ...await super._prepareContext(options),
+    }
+    sheetData.source = game.i18n.localize('PEN.'+this.item.system.source);
+
+    return sheetData;
   }
-  
-  getData () {
-    const sheetData = super.getData()
-    const itemData = sheetData.item
-    sheetData.hasOwner = this.item.isEmbedded === true
-    sheetData.isGM = game.user.isGM
-    sheetData.source = game.i18n.localize('PEN.'+this.item.system.source)
-      
-   
-    return sheetData
-  }
-  
-  /* -------------------------------------------- */
-  /**
-   * Activate event listeners using the prepared sheet HTML
-   * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
-   */
-  activateListeners (html) {
-    super.activateListeners(html)
-    // Everything below here is only needed if the sheet is editable
-    if (!this.options.editable) return
-  }
+
 }

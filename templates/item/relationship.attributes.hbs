@@ -1,0 +1,14 @@
+<section class="tab attributes {{tab.cssClass}}" data-group="primary" data-tab="attributes">
+
+  <div class="item-armour-grid">
+    <div class="stat-name left bold">{{localize 'PEN.person1'}}</div>
+    <div class="stat-name left">{{person1Name}}</div>
+    <div class="stat-name left bold">{{localize 'PEN.person2'}}</div>
+    <div class="stat-name left">{{person2Name}}</div>
+    <br>
+    <div class="stat-name left bold new-row">{{localize 'PEN.relationship'}}</div>
+    <div class="stat-name-input {{#if (eq item.system.connection '')}} input-border {{/if}} left"><input name="system.connection" type="text" value="{{item.system.connection}}"/></div>
+  </div>
+
+</section>
+

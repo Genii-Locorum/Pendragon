@@ -1,66 +1,75 @@
-import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
 import { PENUtilities } from "../../apps/utilities.mjs"
 import { PENCharCreate } from '../../apps/charCreate.mjs'
+import { PendragonItemSheet } from "./item-sheet.mjs";
 
-export class PendragonIdealSheet extends ItemSheet {
-  constructor (...args) {
-    super(...args)
-    this._sheetTab = 'items'
+export class PendragonIdealSheet extends PendragonItemSheet {
+  #dragDrop;
+  constructor (options = {}) {
+    super(options);
+    this.#dragDrop = this.#createDragDropHandlers();
   }
 
-  //Add PID buttons to sheet
-  _getHeaderButtons () {
-    const headerButtons = super._getHeaderButtons()
-    addPIDSheetHeaderButton(headerButtons, this)
-    return headerButtons
-  }
-
-  static get defaultOptions () {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['Pendragon', 'sheet', 'item'],
+  static DEFAULT_OPTIONS = {
+    classes: ['Pendragon', 'sheet', 'item'],
+    position: {
       width: 520,
-      height: 670,
-      scrollY: ['.item-bottom-panel'],
-      tabs: [{navSelector: '.sheet-tabs',contentSelector: '.sheet-body',initial: 'attributes'}]
-    })
+      height: 670
+    },
+    tag: "form",
+    // automatically updates the item
+    form: {
+      submitOnChange: true,
+    },
+    window: {
+      resizable: true,
+    },
+    actions: {
+      onEditImage: this._onEditImage,
+      editPid: this._onEditPid,
+      deleteItem: PendragonIdealSheet.#deleteItem
+    },
+    dragDrop: [{dropSelector: ".droppable"}]
+
   }
-  
-  /** @override */
-  get template () {
-    return `systems/Pendragon/templates/item/${this.item.type}.html`
+
+  static PARTS = {
+    header: {
+      template: "systems/Pendragon/templates/item/header.hbs"
+    },
+    tabs: {
+      template: 'templates/generic/tab-navigation.hbs',
+    },
+    // each tab gets its own template
+    attributes: {
+      template: 'systems/Pendragon/templates/item/ideal.attributes.hbs'
+    },
+    description: {
+      template: 'systems/Pendragon/templates/item/base.description.hbs'
+    },
+    gmTab: {
+      template: 'systems/Pendragon/templates/item/gmtab.hbs'
+    }
   }
-  
-  async getData () {
-    const sheetData = super.getData()
-    const itemData = sheetData.item
-    sheetData.hasOwner = this.item.isEmbedded === true
-    sheetData.isGM = game.user.isGM
-    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
-      sheetData.data.system.description,
-      {
-        async: true,
-        secrets: sheetData.editable
-      }
-    )
-    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
-      sheetData.data.system.GMdescription,
-      {
-        async: true,
-        secrets: sheetData.editable
-      }
-    )
-    const traitGroup = []
-    const require = []
+
+  async _prepareContext (options) {
+    // Default tab for first time it's rendered this session
+    if (!this.tabGroups.primary) this.tabGroups.primary = 'attributes';
+
+    let sheetData = {
+      ...await super._prepareContext(options),
+    }
+    const traitGroup = [];
+    const require = [];
 
     for (let pItm of this.item.system.require){
-      let valid = true
+      let valid = true;
       if ((await game.system.api.pid.fromPIDBest({pid:pItm.pid})).length <1) {valid = false}
       let label = " [" +  game.i18n.localize("PEN.Entities."+(pItm.pid.split(".")[1]).capitalize())+"]"
       if (pItm.score<0 && pItm.pid.split(".")[1] === 'trait') {
         require.push({name: pItm.oppName + label, uuid: pItm.uuid, pid: pItm.pid, score:-pItm.score, valid: valid});
       } else {
         require.push({name: pItm.name + label, uuid: pItm.uuid, pid: pItm.pid, score:pItm.score, valid: valid});
-      }  
+      }
     }
     require.sort(function(a, b){
       let x = a.name;
@@ -68,12 +77,12 @@ export class PendragonIdealSheet extends ItemSheet {
       if (x < y) {return -1};
       if (x > y) {return 1};
     return 0;
-    });    
+    });
 
     for (let pItm of this.item.system.traitGroup){
       let valid = true
       if ((await game.system.api.pid.fromPIDBest({pid:pItm.pid})).length <1) {valid = false}
-      traitGroup.push({name: pItm.name, uuid: pItm.uuid, pid: pItm.pid, valid: valid})      
+      traitGroup.push({name: pItm.name, uuid: pItm.uuid, pid: pItm.pid, valid: valid})
     }
     traitGroup.sort(function(a, b){
       let x = a.name;
@@ -81,65 +90,94 @@ export class PendragonIdealSheet extends ItemSheet {
       if (x < y) {return -1};
       if (x > y) {return 1};
     return 0;
-    });    
+    });
 
-    sheetData.require = require
-    sheetData.traitGroup = traitGroup
+    sheetData.require = require;
+    sheetData.traitGroup = traitGroup;
+
+    // these two values could be set during _preparePartContext
+    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
+      this.item.system.description,
+      {
+        async: true,
+        secrets: sheetData.editable,
+        relativeTo: this.item
+      }
+    )
+    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
+      this.item.system.GMdescription,
+      {
+        async: true,
+        secrets: sheetData.editable
+      }
+    )
+    sheetData.tabs = this._initTabs('primary', ['attributes', 'description', 'gmTab']);
     return sheetData
   }
-  
-  /* -------------------------------------------- */
-  /**
-  * Activate event listeners using the prepared sheet HTML
-  * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
-  */
-  activateListeners (html) {
-    super.activateListeners(html)
-    // Everything below here is only needed if the sheet is editable
-    if (!this.options.editable) return
-    html.find('.item-delete').click(event => this._onItemDelete(event))
-    const dragDrop = new DragDrop({
-      dropSelector: '.droppable',
-      callbacks: { drop: this._onDrop.bind(this) }
-    })
-    dragDrop.bind(html[0])
+
+  // this does the minimum currently, just sets the tab
+  // could also prepare tab-specific fields
+  async _preparePartContext(partId, context) {
+    switch (partId) {
+      case 'attributes':
+      case 'description':
+      case 'gmTab':
+        context.tab = context.tabs[partId];
+        break;
+      default:
+    }
+    return context;
   }
-  
-  /* -------------------------------------------- */
-  
-  //Allow for an item being dragged and dropped on to the sheet
-  async _onDrop (event, type = ['trait'], collectionName = 'traitGroup') {
+  _onRender (context, _options) {
+    this.#dragDrop.forEach((d) => d.bind(this.element));
+  }
+  #createDragDropHandlers() {
+    return this.options.dragDrop.map((d) => {
+      d.permissions = {
+        //dragstart: this._canDragStart.bind(this),
+        drop: this._canDragDrop.bind(this),
+      };
+      d.callbacks = {
+        //dragstart: this._onDragStart.bind(this),
+        //dragover: this._onDragOver.bind(this),
+        drop: this._onDrop.bind(this),
+      };
+      return new DragDrop(d);
+    });
+  }
+
+  _canDragDrop(selector) {
+    return this.isEditable;
+  }
+
+  async _onDrop (event) {
     event.preventDefault()
     event.stopPropagation()
-    collectionName = event.currentTarget.dataset.collection
+    const type = ['trait'];
+    const collectionName = event.currentTarget.dataset.collection ?? 'traitGroup';
     if (['require'].includes(collectionName)) {
-      type =["trait","passion","skill"]
-    } else {
-      type = ["trait"]
+      type.push('passion', 'skill');
     }
-    
-     
-
     const dataList = await PENUtilities.getDataFromDropEvent(event, 'Item')
     const collection = this.item.system[collectionName] ? foundry.utils.duplicate(this.item.system[collectionName]) : []
- 
+
     for (const item of dataList) {
-      if (!item || !item.system) continue
-      if (!type.includes(item.type)) {continue}
+      if (!item || !item.system) continue;
+      if (!type.includes(item.type)) {continue;}
 
       //If no PID then give warning and move to next item
       if (typeof(item.flags?.Pendragon?.pidFlag?.id)=== "undefined") {
         ui.notifications.warn(game.i18n.format('PEN.PIDFlag.noPID', {type:item.name}));
-        continue
+        continue;
       }
 
       //If Duplicate item then give warning and move to next item
       if (collection.find(el => el.pid === item.flags?.Pendragon?.pidFlag?.id)) {
         ui.notifications.warn(item.name + " : " +   game.i18n.localize('PEN.dupItem'));
-        continue
+        continue;
       }
-  
-      let score = 0
+
+      let score = 0;
       if (['require'].includes(collectionName)) {
         score = await PENCharCreate.inpValue (game.i18n.localize("PEN.minScore"))
       }
@@ -147,20 +185,16 @@ export class PendragonIdealSheet extends ItemSheet {
       //Add item to collection
       collection.push({name: item.name, oppName: item.system.oppName, uuid: item.uuid, pid:item.flags.Pendragon.pidFlag.id, score: Number(score)})
     }
+
+
     await this.item.update({ [`system.${collectionName}`]: collection })
   }
 
-  //Delete's a skill in the main skill list      
-  async _onItemDelete (event, collectionName = 'traitGroup') {    
-    collectionName = event.currentTarget.dataset.collection
-    const target = $(event.currentTarget).closest('.item')
-    const itemId = target.data('item-id')
-    const itemIndex = this.item.system[collectionName].findIndex(itm => (itemId && itm.uuid === itemId))
-    if (itemIndex > -1) {
-      const collection = this.item.system[collectionName] ? foundry.utils.duplicate(this.item.system[collectionName]) : []
-      collection.splice(itemIndex, 1)
-      await this.item.update({ [`system.${collectionName}`]: collection })
-    }
+  //Delete an item from the collection
+  static async #deleteItem(event, target) {
+    const {itemId} = target.closest("[data-item-id]")?.dataset ?? {};
+    const {collection} = target.closest('[data-collection]').dataset ?? {};
+    const coll = this.item.system[collection] ?? [];
+    await this.item.update({ [`system.${collection}`]: coll.filter(itm => itm.uuid != itemId) });
   }
-
 }

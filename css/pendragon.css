@@ -89,6 +89,9 @@
 
 .Pendragon .centre {
   text-align: center;
+  & > input {
+    text-align: inherit;
+  }
 }
 
 .Pendragon .middle {
@@ -974,6 +977,7 @@ height: inherit;
 .Pendragon .horizontalboxed {
   border-top: 2px rgba(68, 7, 4, 1) solid;
   border-bottom: 2px rgba(68, 7, 4, 1) solid;
+  margin-top: 1lh;
 }
 
 .Pendragon .rollWrite-grid {
@@ -1057,6 +1061,14 @@ height: inherit;
 
 .Pendragon .item-list {
   margin: 0px;
+}
+
+.Pendragon .droppable .item-list:not(:has(li)):before {
+  content: "Add items by dropping them here";
+  text-align: center;
+  margin-block-end: 1lh;
+  display: block;
+  font-style: italic;
 }
 
 .Pendragon .indent {

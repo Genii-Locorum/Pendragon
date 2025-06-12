@@ -782,6 +782,7 @@
       "armour": "Armour",
       "class": "Class",
       "culture": "Culture",
+      "family": "Family",
       "gear": "Gear",
       "history": "Event",
       "homeland": "Homeland",
@@ -791,7 +792,8 @@
       "religion": "Religion",
       "skill": "Skill",
       "trait": "Trait",
-      "weapon": "Weapon"
+      "weapon": "Weapon",
+      "wound": "Wound"
     }
   }
 }

@@ -17,6 +17,9 @@ export class PendragonWeaponSheet extends PendragonItemSheet {
     form: {
       submitOnChange: true,
     },
+    window: {
+      resizable: true,
+    },
     actions: {
       onEditImage: this._onEditImage,
       editPid: this._onEditPid
