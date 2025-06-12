@@ -5,7 +5,7 @@
   "version": "13.1.29",
   "compatibility": {
     "minimum": 12,
-    "verified": "13.344",
+    "verified": "13.345",
     "maximum": 13
   },
   "authors": [
@@ -43,8 +43,8 @@
     }
   ],
   "grid":{
-    "distance": 5,
-    "units": "ft"
+    "distance": 1,
+    "units": "yd"
   }, 
   "primaryTokenAttribute": "hp",
   "secondaryTokenAttribute": "",
