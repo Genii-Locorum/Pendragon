@@ -1,0 +1,34 @@
+{
+  "folder": null,
+  "name": "9) Set up Tables",
+  "_id": "LSzSRMsMuqWLo0gG",
+  "pages": [],
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..set-up-tables",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.LSzSRMsMuqWLo0gG",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1734462613625,
+    "modifiedTime": 1749770144140,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 95313,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!LSzSRMsMuqWLo0gG"
+}

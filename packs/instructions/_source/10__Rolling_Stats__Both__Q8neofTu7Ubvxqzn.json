@@ -1,0 +1,546 @@
+{
+  "folder": null,
+  "name": "10) Rolling Stats (Both)",
+  "_id": "Q8neofTu7Ubvxqzn",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Characteristic Roll",
+      "type": "text",
+      "_id": "4lgxq4ZXogu4FBdz",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>If you hover your mouse over the name of a characteristic (e.g. STR) you should see a red glow appear. This indicates that clicking on this does something.</p><p>In this case clicking on the characteristic name will start a Characteristic Roll.</p><p>You will get a pop up box telling you what is being rolled (Strength in the above example) and asking for the bonus to this roll. This is the amount that will be added to your Characteristic value for this dice roll (it is not added to the dice roll itself).</p><p>The dialog box will also tell you the type of roll - Normal, Opposed etc.</p><p>Enter a bonus as a positive value, and a penalty as a negative value.</p><p>Then click on the \"Roll Dice\" button to make the roll. Alternatively click on the \"Close\" option to cancel the roll.</p><p>You'll see a message appear in the Chat Log showing your character's name, the Characteristic followed by the modified score in brackets.</p><p>If your modified score is over 20 then the amount over twenty will be added to the dice roll as a Critical Bonus (e.g. if your modified STR is 25 then 5 will be added to the dice roll automatically).</p><p>Underneath that you'll see the Success level (Critical, Success, Failure or Fumble) and some icon representing the result level (green swords are critical or success rolls, red skulls are for failed/fumble rolls).</p><p>If you click on or around the \"Success Level\" box the message will expand to show you some more information about the roll made.<br /></p><p><strong>Click</strong> on the name to make a normal dice roll with the \"bonus\" dialogue box</p><p><strong>SHIFT + click</strong> to make a normal roll with no bonuses</p><p><strong>ALT + click</strong> to make an opposed roll with the \"bonus\" dialogue box</p><p><strong>ALT+ SHIFT + click</strong> to make an opposed roll with no bonuses</p><p><strong>CTRL + click</strong> to make a fixed opposed roll. There is no option to bypass the dialogue box as you will need to enter the resistance (opposed) value.</p><p></p><p>*This is the default game behaviour. There is a game setting each player can change so that the default becomes no dialogue box, and holding SHIFT causes the dialogue box to appear. See the Game Settings instructions.<br /></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.4lgxq4ZXogu4FBdz"
+    },
+    {
+      "sort": 200000,
+      "name": "Trait Roll",
+      "type": "text",
+      "_id": "IkkN37zhHijlkeY8",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This works identically to a Characteristic Roll but for Traits. However you can click on the trait name or the opposed trait name (for Characters, not NPCs) to get use the main or opposing trait.</p><p></p><p>If you click on the scales between the Traits you will make a Decision Roll.  If you haven't pressed the shift key then you will be asked for a Reflex Modifier.  This will apply to the first trait roll and will be deducted from the opposite trait.</p><p>The trait name will appear in the chat message.</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.IkkN37zhHijlkeY8"
+    },
+    {
+      "sort": 300000,
+      "name": "Passion Roll",
+      "type": "text",
+      "_id": "u26G6bqD3nnJH2j9",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This works identically to a Characteristic Roll but for Passions.</p><p>The passion name will appear in the chat message.</p><p>Although the Honour value shown on the face of the character sheet and in the roll does not include private dishonour, the roll is automatically adjusted for this.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.u26G6bqD3nnJH2j9"
+    },
+    {
+      "sort": 400000,
+      "name": "Skill Roll",
+      "type": "text",
+      "_id": "k3QFyslCGhLCHAbD",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This works identically to a Characteristic Roll but for Skills, with one exception.</p><p></p><p><strong>Inquiry Roll</strong></p><p>The one difference is in the Dialog box there is an option for an Inquiry roll. If you select yes then only the GM sees the roll and there is no automatic XP check granted, even for a success (to preserve the unknown outcome).</p><p>A chat message will appear saying the player or GM rolled some dice privately but only the GM sees the results.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.k3QFyslCGhLCHAbD"
+    },
+    {
+      "sort": 800000,
+      "name": "Quick Rolls",
+      "type": "text",
+      "_id": "uKFu8Z9MbgTMr3Lp",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>If you want to make a roll with no penalty/bonus hold Shift key and click the relevant skill, characteristic etc.</p><p>The relevant roll will be made but without the bonus/penalty box appearing it.</p><p>There is a @UUID[Compendium.Pendragon.instructions.JournalEntry.7U9pKyQCsPrhgwnl.JournalEntryPage.8JRDCc5CePLRMFxN]{SHIFT key} game setting which changes this default behaviour.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749775456608,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.uKFu8Z9MbgTMr3Lp"
+    },
+    {
+      "sort": 900000,
+      "name": "Squire Rolls",
+      "type": "text",
+      "_id": "G4jBCfNAtg74xkB5",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>You can find your squires on the Squires tab. Clicking on the name in the list will make a skill roll against the squire's skill.</p><p>Clicking on the \"Age\" score makes a roll using the Squire's age rather than the squire skill.</p><p>Quick rolls can also be made in the usual way.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.G4jBCfNAtg74xkB5"
+    },
+    {
+      "sort": 1000000,
+      "name": "Opposed Rolls",
+      "type": "text",
+      "_id": "CK3Ac3BGEddUTVI8",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Most rolls give you the option to make an opposed roll. Simply hold the ALT key and click on the relevant skills, characteristic etc.</p><p></p><p>If you are the first person to add to an opposed roll you will have the option to enter a Reflex modifier. This is added to your score (deducted for a negative value) and deducted from your opponents score (added for a negative value).</p><p></p><p>Up to five rolls can be added to an opposed roll.</p><p></p><p>Your GM can delete rolls added in error, resolve the roll or close it without resolving it.</p><p></p><p>When the roll is resolved the dice rolls will be shown if you are using Dice So Nice and the colours should match those selected by the relevant player. </p><p>Resolving the roll will show one of several states for each participant:</p><ul><li><p>Winner</p></li><li><p>Partial Success</p></li><li><p>Tie</p></li><li><p>Loser</p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.CK3Ac3BGEddUTVI8"
+    },
+    {
+      "sort": 500000,
+      "name": "Glory Roll",
+      "type": "text",
+      "_id": "WGdq8jqB34rBs2ut",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><span style=\"font-family:Roboto, sans-serif\">This works identically to a Characteristic Roll but for Glory.</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">Click on the word \"Glory\" in the top section of the character sheet to make the roll.</span></p><p>You can make quick rolls (SHIFT + click), and opposed rolls (ALT + click) in the usual way.</p><p>Remember this is the default game behaviour.  There is a game setting each player can change so that the default becomes no dialogue box, and holding SHIFT causes the dialogue box to appear.  See the Game Settings instructions.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.WGdq8jqB34rBs2ut"
+    },
+    {
+      "sort": 1200000,
+      "name": "Combat Rolls",
+      "type": "text",
+      "_id": "HTjmDNGz1ZN25LwO",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Combat rolls work like opposed rolls but with some slight changes.</p><p>To make a combat roll click on the name of a weapon to open the dialogue box (<strong>SHIFT + click</strong> to make the roll without a dialogue box which means using the default Combat Action of Attack)*.</p><p>The first party to the roll get the chance to enter a Reflex Modifier.</p><p>All parties get to select a Combat Action:</p><ul><li><p>Attack - this is the default and uses the combat skill linked to the weapon being used (e.g. Sword skill for an Arming sword)</p></li><li><p>Mounted - choose this if fighting from a horse and not using a Lance or other specified weapon. Your combat skill is limited to your Horsemanship skill if it is lower than your weapon skill.</p></li><li><p>Charge - choose this if making a charge and not using a weapon linked to the Charge skill. Your combat skill is limited to your Charge Skill if it is lower than your weapon skill.</p></li><li><p>Dodge - you use your Move skill rather than your combat skills</p></li><li><p>Evade - you use your Move skill rather than your combat skills</p></li><li style=\"box-sizing:border-box;user-select:text\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px\"><span style=\"font-family:Roboto, sans-serif\">Unopposed attack - use this if you are attacking someone/something that isn't fighting back. This becomes a \"normal\" roll and will resolve itself immediately, but will give the appropriate damage options.</span></p></li></ul><p>The GM can resolve the roll or remove parts of the roll as needed.</p><p>All of this is just like an opposed roll.</p><p>On resolving the roll, the Chat Message has some slight differences. Each party to the roll with see a \"Roll Damage\" button if they were the winner or tied. The damage roll will already take in to account Critical damage. Pressing the button will cause a new roll and the chat message to appear - you don't need to click the weapon damage. This damage does not get reduced from the opponent's Armour or Shield to allow the GM flexibility to adjust things. It does not automatically add the wound - again to provide the GM with some flexibility.</p><p>For each party to the roll, they will also see a shield icon on their result if their opponent is causing them damage and they scored a partial success or better - this means they get to include their Shield value in reducing the damage done.</p><p>Finally, in the case of a Fumble you will see a red Sword icon to indicate you have dropped the weapon or it is broken.</p><p></p><p>*This is the default game behaviour. There is a game setting each player can change so that the default becomes no dialogue box, and holding SHIFT causes the dialogue box to appear. See the Game Settings instructions.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.HTjmDNGz1ZN25LwO"
+    },
+    {
+      "sort": 1100000,
+      "name": "Fixed Opposed Rolls",
+      "type": "text",
+      "_id": "XKQF902VAxGuTiUM",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>By clicking on the <strong>CTRL</strong> key and making a check you will get be asked to enter a Resistance value. The opposed roll is then automatically made against this value.<br /><br />Only one person may be included in the Fixed Opposed roll.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.XKQF902VAxGuTiUM"
+    },
+    {
+      "sort": 700000,
+      "name": "Move Roll",
+      "type": "text",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><span style=\"font-family:Roboto, sans-serif\">This works identically to a Characteristic Roll but for Move.</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">Click on the word \"Move\" in the top section of the character sheet to make the roll.</span></p><p>You can make quick rolls (SHIFT + click), and opposed rolls (ALT + click) in the usual way.</p><p>Remember this is the default game behaviour. There is a game setting each player can change so that the default becomes no dialogue box, and holding SHIFT causes the dialogue box to appear. See the Game Settings instructions.</p><p>When making a combat roll you can choose Evade/Dodge as the combat action which uses the Move score rather than the Weapon Skill score.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {
+        "core": {}
+      },
+      "_stats": {
+        "compendiumSource": "JournalEntry.Q8neofTu7Ubvxqzn.JournalEntryPage.WGdq8jqB34rBs2ut",
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "_id": "8WfTBPXalEEYbekv",
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.8WfTBPXalEEYbekv"
+    },
+    {
+      "sort": 450000,
+      "name": "Weapon Rolls",
+      "type": "text",
+      "_id": "JPOU2h5bwqqkXXwt",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>See @UUID[.HTjmDNGz1ZN25LwO] </p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.JPOU2h5bwqqkXXwt"
+    },
+    {
+      "sort": 1300000,
+      "name": "Crib Sheet",
+      "type": "text",
+      "_id": "9ReInXM26NJfQomg",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>A quick crib sheet for the default options when making rolls:</p><table><tbody><tr><td data-colwidth=\"141\"><p></p></td><td data-colwidth=\"125\"><p style=\"text-align:center\"><strong>click</strong></p></td><td data-colwidth=\"120\"><p style=\"text-align:center\"><strong>ALT+click</strong></p></td><td data-colwidth=\"177\"><p style=\"text-align:center\"><strong>CTRL + click</strong></p></td></tr><tr><td data-colwidth=\"141\"><p><strong>Characteristic</strong></p></td><td data-colwidth=\"125\"><p style=\"text-align:center\">Normal Roll</p></td><td data-colwidth=\"120\"><p style=\"text-align:center\">Opposed Roll</p></td><td data-colwidth=\"177\"><p style=\"text-align:center\">Fixed Opposed Roll</p></td></tr><tr><td data-colwidth=\"141\"><p><strong>Trait</strong></p></td><td data-colwidth=\"125\"><p style=\"text-align:center\">Normal Roll</p></td><td data-colwidth=\"120\"><p style=\"text-align:center\">Opposed Roll</p></td><td data-colwidth=\"177\"><p style=\"text-align:center\">Fixed Opposed Roll</p></td></tr><tr><td data-colwidth=\"141\"><p><strong>Trait - Decision</strong></p></td><td data-colwidth=\"125\"><p style=\"text-align:center\">Normal Roll</p></td><td data-colwidth=\"120\"><p style=\"text-align:center\">Normal roll</p></td><td data-colwidth=\"177\"><p style=\"text-align:center\">Normal roll</p></td></tr><tr><td data-colwidth=\"141\"><p><strong>Passion</strong></p></td><td data-colwidth=\"125\"><p style=\"text-align:center\">Normal Roll</p></td><td data-colwidth=\"120\"><p style=\"text-align:center\">Opposed Roll</p></td><td data-colwidth=\"177\"><p style=\"text-align:center\">Fixed Opposed Roll</p></td></tr><tr><td data-colwidth=\"141\"><p><strong>Skill</strong></p></td><td data-colwidth=\"125\"><p style=\"text-align:center\">Normal Roll</p></td><td data-colwidth=\"120\"><p style=\"text-align:center\">Opposed Roll</p></td><td data-colwidth=\"177\"><p style=\"text-align:center\">Fixed Opposed Roll</p></td></tr><tr><td data-colwidth=\"141\"><p><strong>Weapon</strong></p></td><td data-colwidth=\"125\"><p style=\"text-align:center\">Combat Roll</p></td><td data-colwidth=\"120\"><p style=\"text-align:center\">Combat Roll</p></td><td data-colwidth=\"177\"><p style=\"text-align:center\">Combat Roll</p></td></tr><tr><td data-colwidth=\"141\"><p><strong>Glory</strong></p></td><td data-colwidth=\"125\"><p style=\"text-align:center\">Normal Roll</p></td><td data-colwidth=\"120\"><p style=\"text-align:center\">Opposed Roll</p></td><td data-colwidth=\"177\"><p style=\"text-align:center\">Fixed Opposed Roll</p></td></tr><tr><td data-colwidth=\"141\"><p><strong>Move</strong></p></td><td data-colwidth=\"125\"><p style=\"text-align:center\">Normal Roll</p></td><td data-colwidth=\"120\"><p style=\"text-align:center\">Opposed Roll</p></td><td data-colwidth=\"177\"><p style=\"text-align:center\">Fixed Opposed Roll</p></td></tr><tr><td data-colwidth=\"141\"><p><strong>Squire</strong></p></td><td data-colwidth=\"125\"><p style=\"text-align:center\">Normal Roll</p></td><td data-colwidth=\"120\"><p style=\"text-align:center\">Opposed Roll</p></td><td data-colwidth=\"177\"><p style=\"text-align:center\">Fixed Opposed Roll</p></td></tr></tbody></table><p>Using <strong>SHIFT</strong> by default ignores the dialogue box and using the default settings. You can reverse this in the game settings @UUID[Compendium.Pendragon.instructions.JournalEntry.7U9pKyQCsPrhgwnl.JournalEntryPage.8JRDCc5CePLRMFxN]{SHIFT key}</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749775509355,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!Q8neofTu7Ubvxqzn.9ReInXM26NJfQomg"
+    }
+  ],
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..rolling-stats-both",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.Q8neofTu7Ubvxqzn",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1734462613625,
+    "modifiedTime": 1749770146453,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 97657,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!Q8neofTu7Ubvxqzn"
+}

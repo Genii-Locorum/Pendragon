@@ -1,0 +1,113 @@
+{
+  "folder": null,
+  "name": "4) Pendragon IDs (Both)",
+  "_id": "gOCGw5hx6CoGK3h1",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "PIDs",
+      "type": "text",
+      "_id": "9XSOOqLUjc6FpTzQ",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>The Pendragon ID (PID) utilises the code developed by the team behind the Call of Cthulhu 7th Edition Foundry implementation and all credit goes to them.<br /><br />Everyone (GM, assistant GM or Players) will see a \"fingerprint\" icon at the top right of most sheets in Foundry.</p><p><br />If the icon is red then a PID hasn't been set and you (or your GM) should resolve this straight away.</p><p></p><p>Only GMs can edit the PID by clicking on the fingerprint icon</p><p></p><p>There are three parts of the PID</p><ul><li><p>Document Header Type (e.g. \"i\" for item or \"a\" for actor). This is set automatically</p></li><li><p>Document Type (e.g. 'skill', 'character' although this can be blank in cases of tables, journals etc).  This will be set automatically.</p></li><li><p>Keyword - this is what you need to set, although the wand icon next to the input box will auto populate it for you.</p></li></ul><p></p><p>The PID will let the system identify what an item is, irrespective of what's its called. For example PID 'i.skill.firstaid' will tell the system that this is the First Aid Skill, even if you've called the skill 'Medicine'.<br /><br />In addition you also set the game language (e.g. EN for English) and a Priority. When looking for a PID the system will return the document with the highest priority.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!gOCGw5hx6CoGK3h1.9XSOOqLUjc6FpTzQ"
+    },
+    {
+      "sort": 200000,
+      "name": "Reserved PIDs",
+      "type": "text",
+      "_id": "s6yqhRtdJKHS7g3p",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Listed below are some of the important PIDs that are used in the system. It is important that these are not changed on the relevant documents.</p><p></p><p></p><table><tbody><tr><td data-colwidth=\"237\"><p style=\"text-align:center\"><strong>PID</strong></p></td><td><p style=\"text-align:center\"><strong>Usage</strong></p></td></tr><tr><td data-colwidth=\"237\"><p style=\"text-align:center\">rt..religion</p></td><td><p style=\"text-align:center\">Religion table used in character generation</p></td></tr><tr><td data-colwidth=\"237\"><p style=\"text-align:center\">rt..family-characteristic</p></td><td><p style=\"text-align:center\">Family characteristic table used in character generation</p></td></tr><tr><td data-colwidth=\"237\"><p style=\"text-align:center\">rt..luck-benefits</p></td><td><p style=\"text-align:center\">Luck benefits table used in character generations</p></td></tr><tr><td data-colwidth=\"237\"><p style=\"text-align:center\">rt..blessed-birth</p></td><td><p style=\"text-align:center\">Blessed Birth tables used in Winter Phase</p></td></tr><tr><td data-colwidth=\"237\"><p style=\"text-align:center\">i.skill.horsemanship</p></td><td><p style=\"text-align:center\">Horsemanship skill used in Combat</p></td></tr><tr><td data-colwidth=\"237\"><p style=\"text-align:center\">i.skill.charge</p></td><td><p style=\"text-align:center\">Charge skill used in Combat</p></td></tr><tr><td data-colwidth=\"237\"><p></p></td><td><p></p></td></tr><tr><td data-colwidth=\"237\"><p></p></td><td><p></p></td></tr><tr><td data-colwidth=\"237\"><p></p></td><td><p style=\"text-align:center\"></p></td></tr></tbody></table>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!gOCGw5hx6CoGK3h1.s6yqhRtdJKHS7g3p"
+    }
+  ],
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..pendragon-i-ds",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.gOCGw5hx6CoGK3h1",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1719597783187,
+    "modifiedTime": 1749770128603,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 12500,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!gOCGw5hx6CoGK3h1"
+}

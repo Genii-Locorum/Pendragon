@@ -1,0 +1,503 @@
+{
+  "folder": null,
+  "name": "13) Winter Phase (Both)",
+  "_id": "NKQVeB00DO4RfHEj",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Winter Phase",
+      "type": "text",
+      "_id": "JClE8n4rcuXssKLs",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Activating the Winter Phase is controlled by the GM from the GM Tools.</p><p>Once Winter Phase is turned on there will be an extra tab visible on your Character Sheet. An History entry is added to your @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.8390AvE66aRvM5fJ]{Events Tab} with this year's glory.</p><p>When the Winter Phase is turned off the game year increases by one and so your character's age will automatically increase by 1 year.</p><p>There are many steps to a Winter Phase. You can do everything manually or some stages have been automated for you. Given that a character can die (in Childbirth or due to aging) we appreciate you may want to makes the rolls yourself.</p><p>The stages of the Winter Phase are:</p><ul><li><p>@UUID[.SATAFmPjcQbxdClZ] (manual)</p></li><li><p>@UUID[.TkC0R47aztAeBTQu] (manual)</p></li><li><p>@UUID[.jnbbfQEU7hcwV3Ah]</p></li><li><p>@UUID[.RrrOlH0FVuoe2fox]</p></li><li><p>@UUID[.F3ATfUdHvTCV5ZE6]</p></li><li><p>@UUID[.65FI8fOChF1PF07n]</p></li><li><p>@UUID[.dtFFRERr0gt3dI8V]</p></li><li><p>@UUID[.y70FF7IdgRTnHweV]</p></li><li><p>@UUID[.Q3jZfR6tyGC4Dk4U] - this is fully automated</p></li><li><p>@UUID[.7w2QQBimHJ8DcuNu]</p></li><li><p>@UUID[.PzONb0J36K4pjM49]</p></li></ul><p>As each step is completed (if using the automated process) then a tick will appear next to the step name and clicking on the step will no longer do anything.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749772378933,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!NKQVeB00DO4RfHEj.JClE8n4rcuXssKLs"
+    },
+    {
+      "sort": 200000,
+      "name": "Experience Rolls",
+      "type": "text",
+      "_id": "jnbbfQEU7hcwV3Ah",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><span style=\"font-family:Roboto, sans-serif\"><strong style=\"box-sizing:border-box;user-select:text\">Experience Checks</strong></span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">Click on the title \"Experience Rolls\" to make all the rolls - the dice are rolled in the background (you won't see the dice roll if you have a module) but you will get a Chat Message showing each Statistic check, the roll and whether there was improvement or not. The XP check boxes are automatically turned off.</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">If there are no XP checks to be made you will see a notification telling you this.</span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!NKQVeB00DO4RfHEj.jnbbfQEU7hcwV3Ah"
+    },
+    {
+      "sort": 300000,
+      "name": "Training",
+      "type": "text",
+      "_id": "y70FF7IdgRTnHweV",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">There are two options under the training banner - you will only be able to choose one per Winter Phase</span></p><ul style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;padding:0px 0px 0px 1.5em;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\"><li style=\"box-sizing:border-box;user-select:text\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px\"><span style=\"font-family:Roboto, sans-serif\">to improve a statistics a single point (this allows you to raise a characteristic, increase/decrease a passion or trait and raise a skill that is already 15 or higher)</span></p></li><li style=\"box-sizing:border-box;user-select:text\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px\"><span style=\"font-family:Roboto, sans-serif\">spread training across skills, lets you spend 6 points across skills that are 14 or lower</span></p></li></ul><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">Once you've selected the appropriate option a pop up box will appear listing the statistics you can train that are relevant to your option (e.g. choosing the improve single point option will not show skills below 15 score).</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">Only skills, traits, passions on the character sheet will be shown so if you want to train a new skill for example add it to the character sheet first.</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">Click on the up and down arrows to improve or reduce a statistic.  There are maximum and minimum values in line with the rules that limit what you can change (e.g. trying to improve a skill that is already 20 will do nothing, or trying to reduce a passion below 1 also does nothing).</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">For traits only the main trait is shown, not the opposing trait. To increase the opposing trait simply click the down arrow for the main trait. E.g. to increase Lazy, select to reduce Energetic.</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">If you have chosen the multiple point options then the grid will show you the new score and you can remove these points by clicking the opposite arrow (e.g. if you raised First Aid by 3 points, clicking the down arrow reduces the spend to 2 points).</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">The pop up box will close as soon as you have spent the relevant number of points. A history event will be added showing your training.</span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!NKQVeB00DO4RfHEj.y70FF7IdgRTnHweV"
+    },
+    {
+      "sort": 400000,
+      "name": "Prestige Awards",
+      "type": "text",
+      "_id": "7w2QQBimHJ8DcuNu",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><span style=\"font-family:Roboto, sans-serif\">The number in brackets is the number of prestige reward you have to spend. Clicking on this option will give you a pop up box listing all the statistics you can change. Click on the relevant up or down arrow to select that item.</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">For traits only the main trait is shown, not the opposing trait. To increase the opposing trait simply click the down arrow for the main trait. E.g. to increase Lazy, select to reduce Energetic.</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">Only skills, traits, passions on the character sheet will be shown so if you want to train a new skill for example add it to the character sheet first.</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">The pop up box will close as soon as you click an up or down arrow. A history event will be added and the number of Rewards will be reduced.</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">You can repeat this step if you have multiple reward points to spend.</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\"><strong style=\"box-sizing:border-box;user-select:text\">Note</strong>: The GM can edit the number of points you have spent if the character sheet is unlocked.</span></p><p>If you want to spend Prestige on Child Birth rolls that is done through the next step @UUID[.PzONb0J36K4pjM49]</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!NKQVeB00DO4RfHEj.7w2QQBimHJ8DcuNu"
+    },
+    {
+      "sort": 150000,
+      "name": "Solo Scenarios",
+      "type": "text",
+      "_id": "SATAFmPjcQbxdClZ",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This is a manual task</p><p>Work with your GM and complete and solo scenarios, adjusting any score, XP checks etc.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!NKQVeB00DO4RfHEj.SATAFmPjcQbxdClZ"
+    },
+    {
+      "sort": 175000,
+      "name": "Personal Events",
+      "type": "text",
+      "_id": "TkC0R47aztAeBTQu",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><span style=\"font-family:Roboto, sans-serif\">This is a manual task</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">Work with your GM and complete and personal events, adjusting any score, XP checks etc.</span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!NKQVeB00DO4RfHEj.TkC0R47aztAeBTQu"
+    },
+    {
+      "sort": 250000,
+      "name": "Economic Circumstances",
+      "type": "text",
+      "_id": "RrrOlH0FVuoe2fox",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This is semi automated.</p><p>Choose your standard of living (you will need to adjust your money manually). The system will update you character for the impacts including reducing the value of your clothing, honour etc.</p><p>When loosing items such as squires or horses you are given the option to delete the items manually or let the system do it.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!NKQVeB00DO4RfHEj.RrrOlH0FVuoe2fox"
+    },
+    {
+      "sort": 275000,
+      "name": "Aging",
+      "type": "text",
+      "_id": "F3ATfUdHvTCV5ZE6",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This step is automated with any dice being rolled showing and the outcomes appearing in a chat message.</p><p>Lost characteristics are automatically adjusted on the \"Aging\" section of the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.qLYS7miTa5T31GYn]{Stats Tab}</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749772542325,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!NKQVeB00DO4RfHEj.F3ATfUdHvTCV5ZE6"
+    },
+    {
+      "sort": 287500,
+      "name": "Squire and Maiden Rolls",
+      "type": "text",
+      "_id": "65FI8fOChF1PF07n",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This step is automated and checks to see whether squires or maidens remain in your service.  If leaving your service you <span style=\"font-family:Roboto, sans-serif\">are given the option to delete the items manually or let the system do it.</span></p><p>Squires can also improve their squire skill.</p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!NKQVeB00DO4RfHEj.65FI8fOChF1PF07n"
+    },
+    {
+      "sort": 293750,
+      "name": "Horse Survival",
+      "type": "text",
+      "_id": "dtFFRERr0gt3dI8V",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This step is automated.</p><p>Combat and special horses must make a roll to survive the year. </p><p>In some cases you will have a Horsemanship roll made for you as part of the horse survival.  This does not give an XP check at this time.</p><p>Horses can survive, loose stats, hit points  etc or die</p><p>If horses die <span style=\"font-family:Roboto, sans-serif\">you are given the option to delete the items manually or let the system do it.</span></p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!NKQVeB00DO4RfHEj.dtFFRERr0gt3dI8V"
+    },
+    {
+      "sort": 350000,
+      "name": "Tally Glory",
+      "type": "text",
+      "_id": "Q3jZfR6tyGC4Dk4U",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This stage is automated and adds the relevant passive Glory to your character sheet when the Winter Phase was started (so the Glory is included for Prestige Awards),</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!NKQVeB00DO4RfHEj.Q3jZfR6tyGC4Dk4U"
+    },
+    {
+      "sort": 500000,
+      "name": "Family Rolls",
+      "type": "text",
+      "_id": "PzONb0J36K4pjM49",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This is an automated process.</p><p>There are two parts to this stage</p><p><strong>Family Survival</strong></p><p>A dice roll is made for all children up to the age of five. The outcome is shown in a chat card. Where a child dies the relevant family member item is updated to show the death.</p><p><strong>Childbirth</strong></p><p>The first question is who is testing for childbirth. If there is no test to be done then select \"none\". If your character can bear a child then select \"Self\". If your spouse is the target of your affections then select \"Spouse\" otherwise if it is a lover select \"Other\".</p><p>If you have unspent Prestige points you will have the option to spend them.</p><p>You will then be asked to enter some relevant information, what you are asked will depend on who the person who may get pregnant is and your circumstances.</p><p>Dice are rolled and the outcome appears on the chat card.</p><p>You may, if you have chosen to spend Prestige, be asked about the gender of the child(ren). In the event of a Tragedy you may be asked if a midwife is available to help prevent death.</p><p>All children (whether they survive or not) are added to the family on the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.fRLDTfqAgmiltXyr]{House Tab}</p><p>If the marriage turns out to be barren then either the Spouse family member is updated or you are. No adjustments made if the person who may have conceived was \"other\"</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749774504723,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!NKQVeB00DO4RfHEj.PzONb0J36K4pjM49"
+    }
+  ],
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..winter-phase-both",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.NKQVeB00DO4RfHEj",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1734462613625,
+    "modifiedTime": 1749770152552,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 99708,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!NKQVeB00DO4RfHEj"
+}

@@ -1,0 +1,620 @@
+{
+  "name": "5) Character Sheet (All)",
+  "_id": "b5d7Ha8LOeLSNvul",
+  "pages": [
+    {
+      "sort": 300000,
+      "name": "Character Sheet",
+      "type": "text",
+      "_id": "0DpvKuF4Ur2jqNTK",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>The character sheet is made up of three main sections.</p><p><strong>Stats Section</strong></p><p>This is the section at the top of the character sheet. It is always visible whilst the character sheet is open (unless you make the window very small). It shows your character's name, characteristics, status (e.g. Debilitated), other important information (e.g. Armour) and an image for your character.<br /><br />If Character Creation is turned on then it will also show a Quartered Shield icon above the character image</p><p></p><p><strong>Tab Bar</strong></p><p>This is in the middle of the sheet and has a grey background. This lists the available tabs. Please note the \"padlock\" icon at the far right. <span style=\"text-decoration:underline\"><span style=\"text-decoration:underline\">Double clicking</span></span> on this locks and unlocks the sheet.</p><p></p><p><strong>Tab Section</strong></p><p>As you select the different tabs in the <strong>Tab Bar</strong> this section will change to show relevant information.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.0DpvKuF4Ur2jqNTK"
+    },
+    {
+      "sort": 400000,
+      "name": "Editing a character",
+      "type": "text",
+      "_id": "FElHOQiryTfX4zxc",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Generally text in red, or where there is a red underline, can be entered/edited.</p><p></p><p>Some entries, such as money, are always editable. Other entries, such as the year your character was born, can only be changed when the character sheet is unlocked (toggle the padlock icon in the <strong>Tab Bar</strong>).</p><p></p><p>In several places you will see an \"Eye\" icon if the character sheet is locked - this will open up the relevant item in more detail and may let you edit certain fields that can't be edited directly in the character sheet.</p><p></p><p>If the character sheet is unlocked the \"Eye\" icon will be supplemented with a \"Broom\" or a \"x\" icon which is used to delete an item.  You will need to Double Click the Broom/X icon to delete the item.</p><p></p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.FElHOQiryTfX4zxc"
+    },
+    {
+      "sort": 500000,
+      "name": "Combat Tab",
+      "type": "text",
+      "_id": "0YxsvVe0d1sSzu6F",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>The combat tab shows has three sections.</p><p></p><p>The top part of the tab shows derived characteristics (e.g. Unconscious) and are automatically calculated for you. It also has entries for Aggravation and Deterioration Damage that you can edit at any time. Clicking on the \"Natural Healing\" icon applies the healing rules - see @UUID[Compendium.Pendragon.instructions.JournalEntry.nK2HPwEm6y15GqKh.JournalEntryPage.Rh5w3CHEaLoAfkOf]{Natural Healing}</p><p>Below this are two grids.</p><p><strong>Wounds</strong></p><p>The left hand grid shows all the wounds your character has taken. To add a wound click on the \"+\" icon and a wound sheet will pop up. Enter the wound value (it will close automatically when you move off the input box - or click the close button). We'll talk more about this in the wounds page - @UUID[Compendium.Pendragon.instructions.JournalEntry.nK2HPwEm6y15GqKh.JournalEntryPage.F6sWns3Q5TtIXhy6]{Add a Wound}</p><p><strong>Weapons</strong></p><p>The right hand grid shows your weapons. You can drag new weapons from the relevant Items folder. All the information will add including your skill score (Value). You can click on the \"eye\" icon to see more information about the weapon and to edit certain fields - which fields are editable will depend on if you are a player or a GM. Unlocking the character sheet changes the \"eye\" icon to a \"broom\" and allows you to delete weapons in the grid.</p><p>See @UUID[Compendium.Pendragon.instructions.JournalEntry.Q8neofTu7Ubvxqzn.JournalEntryPage.HTjmDNGz1ZN25LwO]{Combat Rolls} for how to make a combat roll</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": 1749771356594,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.0YxsvVe0d1sSzu6F"
+    },
+    {
+      "sort": 600000,
+      "name": "Traits Tab",
+      "type": "text",
+      "_id": "PmCNQJ0LXo1AeVVt",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>The traits tab lists the traits for your character. If there are any missing they can be dragged to your character sheet from the Traits menu. You can not create new (personalised) traits - you'll need to get the GM to do this.</p><p></p><p>The traits are laid out with the</p><ul><li><p>Trait score</p></li><li><p>XP check box (Double Click this to toggle it on/off)</p></li><li><p>Trait name</p></li><li><p>Scales icon</p></li><li><p>Opposing Trait name</p></li><li><p>Opposing trait XP check box (Double Click this to toggle it on/off)</p></li><li><p>Opposing Trait score</p></li><li><p>Eye icon to view the trait in more detail and edit the trait score even though the character sheet is locked.</p></li><li><p>Details of any directed/obsessed information</p></li></ul><p></p><p>For details on how to make a Trait roll see @UUID[Compendium.Pendragon.instructions.JournalEntry.Q8neofTu7Ubvxqzn.JournalEntryPage.IkkN37zhHijlkeY8]{Trait Roll}</p><p></p><p>To edit the trait click on the \"eye\" icon. If you unlock the character sheet the \"eye\" icon is supplemented with a \"Broom\" which, if double clicked, will delete the trait.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": 1749771420196,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.PmCNQJ0LXo1AeVVt"
+    },
+    {
+      "sort": 700000,
+      "name": "Passions Tab",
+      "type": "text",
+      "_id": "dY9bwgsZV3XBq1Le",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This is very much like the <strong>Traits Tab</strong> with a layout of:</p><ul><li><p>XP check box <span style=\"font-family:Roboto, sans-serif\">(Double Click this to toggle it on/off)</span></p></li><li><p>Passion Name. Any private dishonour is shown in square brackets after the name</p></li><li><p>Passion Score. This excludes any private dishonour</p></li><li><p>\"Eye\" icon to view details and edit the passion score even though the character sheet is locked</p></li></ul><p></p><p>At the end of the Passions list is the total score for each Court. Where the total exceeds 40 then the Court is coloured green and you will need to manually amend one or more passions to reduce the total to 40.</p><p></p><p>Unlocking the character sheet lets you edit the Passion score and gives you the \"Broom\" icon to delete the passion.</p><p></p><p>You can drag new passions from the Items menu.</p><p></p><p>See @UUID[Compendium.Pendragon.instructions.JournalEntry.Q8neofTu7Ubvxqzn.JournalEntryPage.u26G6bqD3nnJH2j9]{Passion Roll} for how to make a Passion Roll</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": 1749771842600,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.dY9bwgsZV3XBq1Le"
+    },
+    {
+      "sort": 800000,
+      "name": "Skills Tab",
+      "type": "text",
+      "_id": "8v47GsMzyfnsL7qo",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Again much like the <strong>Traits Tab</strong> this is a list of the skills your character has and you can drag new skills from the Items menu.</p><p></p><p>The list of skills shows:</p><ul><li><p>XP check box (Double click to toggle this on/off)</p></li><li><p>Skill name</p></li><li><p>Skill score</p></li><li><p>\"Eye\" icon to view the skill details and edit certain fields even when the character sheet is locked.</p></li></ul><p></p><p>Skills with a grey background are Combat Skills.</p><p></p><p>When the character sheet is unlocked you can delete skills (the \"Eye\" icon is supplemented with a \"Broom\" icon).</p><p></p><p>See @UUID[Compendium.Pendragon.instructions.JournalEntry.Q8neofTu7Ubvxqzn.JournalEntryPage.k3QFyslCGhLCHAbD]{Skill Roll} for how to make Skill rolls.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": 1749771839803,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.8v47GsMzyfnsL7qo"
+    },
+    {
+      "sort": 900000,
+      "name": "Equip Tab",
+      "type": "text",
+      "_id": "TK3AJJwLFtTGA2mH",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>There are two grids on this tab.</p><p><strong>Armour</strong></p><p>The first grid lists the armour your character has with the following layout</p><ul><li><p>Equipped checkbox (Double Click this to toggle it on and off). Equipped armour is automatically added to your Armour score visible in the <strong>Stats Section</strong> of the character sheet</p></li><li><p>Armour name</p></li><li><p>AP - Armour Points. Note that the AP for shields can be edited as your shield takes damage from Axes</p></li><li><p>Pen - this is the missile penalty related to the shield</p></li><li><p>Disadvantage - you will see \"View Details\" if the armour has a disadvantage - use the \"Eye\" icon to view the details</p></li><li><p>Notes - you will see \"View Details\" if the armour has any notes- use the \"Eye\" icon to view the details</p></li><li><p>Eye icon - lets you view details and edit the notes</p></li></ul><p></p><p>The second grid is for equipment. The + icon at the right of the grid lets you add a new piece of equipment and a pop up box will ask for the relevant information. The layout of the grid will show:</p><ul><li><p>Equipment Name</p></li><li><p>Quantity</p></li><li><p>Description</p></li><li><p>Eye icon so you can view the details</p></li></ul><p></p><p>Unlocking the character sheet supplements the \"Eye\" icon with a \"Broom\" to let you delete the armour or piece of equipment.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.TK3AJJwLFtTGA2mH"
+    },
+    {
+      "sort": 1000000,
+      "name": "Squires Tab",
+      "type": "text",
+      "_id": "sEG9oOq3L4kqF5uB",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>There are four section to this tab</p><ul><li><p>Squires - click the \"+\" icon to add a new squire. Use the \"Eye\" icon to view the details and edit them.<br />Clicking on the squire's name will cause a Squire Skill roll to be made using the squire skill @UUID[Compendium.Pendragon.instructions.JournalEntry.Q8neofTu7Ubvxqzn.JournalEntryPage.G4jBCfNAtg74xkB5]{Squire Rolls}.</p><p>Clicking on the squire's age will cause a specific squire skill roll to be made using Age - 11</p></li></ul><blockquote><p>Note: Winter Phase will automatically increase your squires' age.</p></blockquote><ul><li><p>Horses - Drag a horse from the Item Menu to add a new steed or click the \"+\" icon. Only HP are editable in the grid. The Health and Care ratings affect Horse Survival in the Winter Phase. Use the \"Eye\" icon to view the details of the horse or unlock the character sheet to show the \"Broom\" icon and delete a horse.</p><p>Toggle the \"ride\" box on to show which horse you are riding - this will determine some weapon damage in the @UUID[.0YxsvVe0d1sSzu6F]</p><p>See @UUID[Compendium.Pendragon.instructions.JournalEntry.CJOK9y9zaz3G50kC.JournalEntryPage.HW6JQrGlDvPURzrF]{Horse Damage} for more information on damage.</p></li><li><p>Equestrian notes - add any notes about horses etc here</p></li><li><p>Joust results - you can enter/edit the number of wins and losses here</p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": 1749775887225,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.sEG9oOq3L4kqF5uB"
+    },
+    {
+      "sort": 1006250,
+      "name": "Events Tab",
+      "type": "text",
+      "_id": "8390AvE66aRvM5fJ",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This page has three sections</p><p></p><p><strong>Events</strong></p><p>Click on the \"+\" icon to add an event. The \"Eye\" icon will let you view and edit the details.</p><p>Unlocking the character sheet will let you delete events with the \"Broom\" icon.</p><p>Some events may be created during character generation that will need you to edit the details.</p><p></p><p><strong>Ideals</strong></p><p>You can drag ideals from the items menu to the character sheet (it will check you meet the requirements) and these will be displayed here.  If you no longer meet the minimum requirements then the ideal will not be active.  Active ideals will automatically updated for benefits (e.g. Glory, Armour etc).</p><p></p><p><strong>Passive Glory</strong></p><p>Most of the values shown are automatically calculated for you. Enter the  \"Estate\" and \"Other\" values manually.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.8390AvE66aRvM5fJ"
+    },
+    {
+      "sort": 1037500,
+      "name": "Bio Tab",
+      "type": "text",
+      "_id": "jLkjoTOmE5GIIuJW",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>There is a plethora of character information for you to record here.</p><ul><li><p>Age - this is automatically calculated for you</p></li><li><p>Culture **</p></li><li><p>Religion **</p></li><li><p>Homeland **</p></li><li><p>Class **</p></li><li><p>Lord - manually enter your Lord</p></li><li><p>Heir - tick box to show if you are the family heir. Double click to toggle it</p></li><li><p>Born - unlock the character sheet to edit/enter the year of birth. If using the Character Generation Wizard this will be added automatically</p></li><li><p>Standard of Living - this is entered via the Winter Phase</p></li><li><p>Barren - this can be toggled off and on. It refers to your character's fertility. A Barren marriage is recorded on the \"Spouse\" family member.</p></li><li><p>Family Characteristic **</p></li><li><p>Motto - enter your family motto</p></li><li><p>Heraldry - enter a description of your coat of arms</p></li><li><p>Distinctive Features - enter the details here. This may be part populated if you use the Character Generation Wizard.</p></li><li><p>Background - enter other character details here.</p></li></ul><p></p><p>** These entries will be automatically populated if a relevant item is dragged to the character sheet or is populated using the Character Generation Wizard. In these cases unlocking the character sheet will let you delete the item from the sheet. Otherwise the entry can be manually typed in but no associated benefits are granted.  Clicking on the name of the Class, Relgion etc (not the title) will open up the Item Sheet for viewing.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.jLkjoTOmE5GIIuJW"
+    },
+    {
+      "sort": 450000,
+      "name": "Stats Section",
+      "type": "text",
+      "_id": "Ra9PK638R24cc31A",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>The stats section is made up of three parts</p><p><strong>Characteristics</strong> - to see a detailed breakdown or adjust certain values you need to go to the @UUID[.qLYS7miTa5T31GYn]. See @UUID[Compendium.Pendragon.instructions.JournalEntry.Q8neofTu7Ubvxqzn.JournalEntryPage.4lgxq4ZXogu4FBdz]{Characteristic Roll} for how to make a characteristic roll.</p><p></p><p><strong>Statuses</strong> - Double clicking these checkboxes will toggle them on and off. The first three statuses will automatically toggle on if appropriate as you take wounds (more about this in the wounds page).</p><p></p><p><strong>Derived Stats</strong></p><ul><li><p>Hit Points show current and maximum HP. These are automatically calculated and updated for you</p></li><li><p>Move - your movement rate is automatically calculated. You can click on \"Move\" to make a roll against your Movement Score</p></li><li><p>Glory - your Glory is automatically calculated from items on the \"Events tab\" - see later. Clicking on the word Glory will make a Glory skill roll based on current Glory /1000</p></li><li><p>Damage - this is calculated automatically and applied to the relevant weapons on the Combat Tab</p></li><li><p>Armour - this is calculated automatically from items on the Equipment tab that are marked as equipped. The two values displayed are AP from armour and shield respectively</p></li><li><p>Money shown as Libra and Denarii - you can edit this.</p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": 1749770403812,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.Ra9PK638R24cc31A"
+    },
+    {
+      "sort": 1300000,
+      "name": "Winter Tab",
+      "type": "text",
+      "_id": "7IY9RyzovHwzf5jS",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This tab is only visible when the GM turns on the Winter Phase or Development Phase.</p><p>See the @UUID[Compendium.Pendragon.instructions.JournalEntry.NKQVeB00DO4RfHEj.JournalEntryPage.JClE8n4rcuXssKLs]{Winter Phase} for more information on this.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": 1749774522090,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.7IY9RyzovHwzf5jS"
+    },
+    {
+      "sort": 1050000,
+      "name": "Stats Tab",
+      "type": "text",
+      "_id": "qLYS7miTa5T31GYn",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Characteristics</strong></p><p>The top part of the tab shows each characteristic and the various score that make up the total (e.g. Base, Culture, Aging).</p><p>A player can normally only alter the Poison and Disease values, but the GM can alter all values.  Alternatively when in Character Creation mode all values can be adjusted.</p><p>The \"Max\" values are taken from the \"Culture\" item added to the character (if you've manually entered the culture then they will all be 18).</p><p></p><p><strong>Adjustments</strong></p><p>Under the grid is a list of adjustments that the GM can make to a character - adding or reducing Max HP, etc.   Only the GM can amend them.</p><p></p><p><strong>Dice Icon</strong></p><p>In Character Creation mode there will be a dice icon at the top right of the Stats grid.  If it is red then you can click on it to roll the Base Values.  Once rolled the icon will go grey and you can't re-roll.   A GM can reset this by ALT+click on the icon and it will turn red.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.qLYS7miTa5T31GYn"
+    },
+    {
+      "sort": 1012500,
+      "name": "House Tab",
+      "type": "text",
+      "_id": "fRLDTfqAgmiltXyr",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>The House tab is made up of two parts</p><p></p><p><strong>Family</strong></p><p>Family members are listed including their Gender, type, Glory and the year they were born and died.</p><p>Click the \"+\" icon to add a new family member.</p><p>The \"eye\" icon lets you view/edit the details and unlocking the character sheet adds a \"broom\" so you can delete the entries.</p><p>Character Creation and Winter Phase can add/edit family members automatically.</p><p></p><p><strong>Retainers</strong></p><p>You can add other non-family members of your household here with the \"+\" icon. The \"eye\" and \"broom\" icons let you view/edit and delete the entries.</p><p>From a system perspective these retainers are @UUID[Compendium.Pendragon.instructions.JournalEntry.v3ktSTC0ThniVvS0.JournalEntryPage.tPuc34LTZbqYr3Xr]{Squires}</p><p>Their age automatically updates at the end of the Winter Phase.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": 1749775058063,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.fRLDTfqAgmiltXyr"
+    },
+    {
+      "sort": 1400000,
+      "name": "Follower Tab",
+      "type": "text",
+      "_id": "956N6gsBXB5T09Ka",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>If the GM has activated the @UUID[Compendium.Pendragon.instructions.JournalEntry.7U9pKyQCsPrhgwnl.JournalEntryPage.bfXTt8IYHlChzhqc]{Use Relationships} setting in the Game Settings this tab will be visible.</p><p>The GM can create relationships with other actors by dragging them on to the character sheet. When doing so the relationship is created as an item and the item is displayed allowing the relationship to be defined.</p><p></p><p>Relationships can be viewed/edited or deleted be using the relevant icons.</p><p></p><p>Clicking on the person's name will open up the actor sheet, if the player has the relevant permissions in game.</p><p></p><p>If the Follower is a Squire then you can roll the Squire or Age rolls from the relevant value on the Followers Tab.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749774944631,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!b5d7Ha8LOeLSNvul.956N6gsBXB5T09Ka"
+    }
+  ],
+  "folder": null,
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..4-character-sheet-all",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1719597783187,
+    "modifiedTime": 1749770126902,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 25000,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!b5d7Ha8LOeLSNvul"
+}

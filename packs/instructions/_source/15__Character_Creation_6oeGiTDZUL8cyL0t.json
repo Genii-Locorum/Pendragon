@@ -1,0 +1,817 @@
+{
+  "folder": null,
+  "name": "15) Character Creation",
+  "_id": "6oeGiTDZUL8cyL0t",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Creation Methods",
+      "type": "text",
+      "_id": "D2zwz3NcY2ih4HhP",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>There are three ways to create a character which you can for the most part, mix and match from.</p><p></p><p>@UUID[.I3Tr0BSAlnHvBWE5]</p><p>@UUID[.f6IHJxAmKbOjzRJz]</p><p>@UUID[.T83N26BqSr7jw5Na]</p><p></p><p>Whilst in Creation Mode your Traits, Passions and Skills tabs will show a list of the various items with the base and other scores which you can edit.</p><p>The skill tabs has a \"recalculate\" button at the top right which will recalculate the base scores and the traits tab has a dice icon to re-roll the starting scores.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.D2zwz3NcY2ih4HhP"
+    },
+    {
+      "sort": 200000,
+      "name": "Manual Method",
+      "type": "text",
+      "_id": "I3Tr0BSAlnHvBWE5",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>In this method you will edit everything manually.</p><ul><li><p>Ask the GM to turn Character Creation mode on</p></li><li><p>Ask the GM to create a new actor in Foundry and choose 'Character' as the type and assign ownership to you</p></li><li><p>You can enter your characteristics or roll them on the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.qLYS7miTa5T31GYn]{Stats Tab}</p></li><li><p>This will automatically add Skills, Traits and Passions to the character sheet</p></li><li><p>Unlock the character sheet</p></li><li><p>Follow the character creation method from the Players Guide going to the appropriate tabs to enter the stats</p></li><li><p>You will need to enter stats, bonuses and the like yourself in the relevant tabs</p></li><li><p>You will also have to add equipment and History events.</p></li></ul>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749776060311,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.I3Tr0BSAlnHvBWE5"
+    },
+    {
+      "sort": 300000,
+      "name": "Semi Automated",
+      "type": "text",
+      "_id": "f6IHJxAmKbOjzRJz",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>In this method you will edit some things manually.</p><ul style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;padding:0px 0px 0px 1.5em\"><li><p>Ask the GM to turn Character Creation mode on</p></li><li><p>Ask the GM to create a new actor in Foundry and choose 'Character' as the type and assign ownership to you</p></li><li><p>Choose your Culture, Class, Homeland and Religion, dragging the relevant items to your character sheet.</p></li><li><p>Go to the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.qLYS7miTa5T31GYn]{Stats Tab} and either select your stats values or roll them.</p></li><li><p>Whilst some equipment and bonuses are added you may need to review these and make any manual adjustments as you go</p></li><li style=\"box-sizing:border-box;user-select:text\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px\"><span style=\"font-family:Roboto, sans-serif\">You will also have to add History events.</span></p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749776138614,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.f6IHJxAmKbOjzRJz"
+    },
+    {
+      "sort": 400000,
+      "name": "Character Creation Wizard",
+      "type": "text",
+      "_id": "T83N26BqSr7jw5Na",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><span style=\"font-family:Roboto, sans-serif\">In this method you will be guided through the character creation method with much of it automated for you.</span></p><p>For the wizard to run there needs to be several tables set up with the correct @UUID[Compendium.Pendragon.instructions.JournalEntry.gOCGw5hx6CoGK3h1.JournalEntryPage.9XSOOqLUjc6FpTzQ]{PIDs}. You will need</p><table style=\"box-sizing:border-box;user-select:text;width:620px;border-collapse:collapse;background:rgba(0, 0, 0, 0.05);border-top:1px solid var(--color-border-light-tertiary);border-bottom:1px solid var(--color-border-light-tertiary);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\"><tbody><tr style=\"box-sizing:border-box;user-select:text\"><td data-colwidth=\"237\" style=\"box-sizing:border-box;user-select:text;padding:0.25em 0px 0.25em 2px\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;text-align:center\"><span style=\"font-family:Roboto, sans-serif\"><strong style=\"box-sizing:border-box;user-select:text\">PID</strong></span></p></td><td style=\"box-sizing:border-box;user-select:text;padding:0.25em 0px\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;text-align:center\"><span style=\"font-family:Roboto, sans-serif\"><strong style=\"box-sizing:border-box;user-select:text\">Table</strong></span></p></td></tr><tr style=\"box-sizing:border-box;user-select:text;background-color:rgba(255, 255, 255, 0.2)\"><td data-colwidth=\"237\" style=\"box-sizing:border-box;user-select:text;padding:0.25em 0px 0.25em 2px\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;text-align:center\"><span style=\"font-family:Roboto, sans-serif\">rt..religion</span></p></td><td style=\"box-sizing:border-box;user-select:text;padding:0.25em 0px\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;text-align:center\"><span style=\"font-family:Roboto, sans-serif\">Religion table used in character generation</span></p></td></tr><tr style=\"box-sizing:border-box;user-select:text\"><td data-colwidth=\"237\" style=\"box-sizing:border-box;user-select:text;padding:0.25em 0px 0.25em 2px\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;text-align:center\"><span style=\"font-family:Roboto, sans-serif\">rt..family-characteristic</span></p></td><td style=\"box-sizing:border-box;user-select:text;padding:0.25em 0px\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;text-align:center\"><span style=\"font-family:Roboto, sans-serif\">Family characteristic table used in character generation</span></p></td></tr><tr style=\"box-sizing:border-box;user-select:text;background-color:rgba(255, 255, 255, 0.2)\"><td data-colwidth=\"237\" style=\"box-sizing:border-box;user-select:text;padding:0.25em 0px 0.25em 2px\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;text-align:center\"><span style=\"font-family:Roboto, sans-serif\">rt..luck-benefits</span></p></td><td style=\"box-sizing:border-box;user-select:text;padding:0.25em 0px\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;text-align:center\"><span style=\"font-family:Roboto, sans-serif\">Luck benefits table used in character generations</span></p></td></tr><tr style=\"box-sizing:border-box;user-select:text\"><td data-colwidth=\"237\" style=\"box-sizing:border-box;user-select:text;padding:0.25em 0px 0.25em 2px\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;text-align:center\"><span style=\"font-family:Roboto, sans-serif\">rt..blessed-birth</span></p></td><td style=\"box-sizing:border-box;user-select:text;padding:0.25em 0px\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;text-align:center\"><span style=\"font-family:Roboto, sans-serif\">Blessed Birth tables used in Winter Phase</span></p></td></tr></tbody></table><ul><li><p><span style=\"font-family:Roboto, sans-serif\">Ask the GM to turn Character Creation mode on</span></p></li><li><p><span style=\"font-family:Roboto, sans-serif\">Ask the GM to create a new actor in Foundry and choose 'Character' as the type and assign ownership to you</span></p></li><li><p><span style=\"font-family:Roboto, sans-serif\">At the top right of the character sheet you should see a red quartered shield.  Hovering over this will reveal an extensive tooltip that lists the steps in the character creation and how far you have progressed through it.  Clicking on the shield takes you to the next step.</span></p></li><li><p><span style=\"font-family:Roboto, sans-serif\">Your GM can move you back a step by ALT+click on the shield (and can do this several times to remove multiple steps.  Removing a step removes the items, bonuses etc that were added.</span></p></li><li><p><span style=\"font-family:Roboto, sans-serif\">Once all steps have been completed the shield will turn grey and clicking it has no further effect (your GM can still ALT+click to move your back steps).</span></p></li><li><p><span style=\"font-family:Roboto, sans-serif\">The individual steps are set out in the following pages </span></p><p></p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749776327790,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.T83N26BqSr7jw5Na"
+    },
+    {
+      "sort": 500000,
+      "name": "Creation Method",
+      "type": "text",
+      "_id": "mW0ixUw2wxOyHzq1",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Creation Method</strong></p><p>The first step in the wizard is to choose the \"Roll\" or \"Select\" option.  They both do what their name suggests</p><p><strong>Roll</strong> means you roll for things like some starting values or religion</p><p><strong>Select</strong> means you get to pick more things</p><p>That doesn't mean everything is rolled or selected, there are always some instance where you have to do the opposite.</p><p>Click the relevant button to choose your option.</p><p><strong>Character's Age</strong></p><p>Once that's done enter your character's age.  This will then add a history item showing when you were born and sets this on your character.</p><p></p><p>Move on to @UUID[.HnijTDYLb3oC6DDO]</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.mW0ixUw2wxOyHzq1"
+    },
+    {
+      "sort": 600000,
+      "name": "Add Parents",
+      "type": "text",
+      "_id": "HnijTDYLb3oC6DDO",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>You'll be given a form to enter details about your parents.</p><p></p><p>Ticking the knight box generates \"Glory\" for them which in turn determines your starting Glory (its based off the best of the two rolls). The glory rolls will be shown in a chat message (one for each parent if they were knights)</p><p></p><p>You don't have to enter one or both parents - leave the relevant \"Name\" field blank.</p><p></p><p>One you've clicked the \"Add Parents\" button you will now have them added to your Family (@UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.fRLDTfqAgmiltXyr]{House Tab}) with the \"Parent\" type.</p><p></p><p>You will also have History Events added - one for becoming a squire with the requisite glory reward and then some \"Heroic Events\". You will need to work with your GM to decide what the Heroic Events are. Update the descriptions and make any character adjustments (you can do this later).</p><p></p><p>You can now move on to @UUID[.xZ8SozzjMIJHKhlu]</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749776447983,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.HnijTDYLb3oC6DDO"
+    },
+    {
+      "sort": 700000,
+      "name": "Add Culture",
+      "type": "text",
+      "_id": "xZ8SozzjMIJHKhlu",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>The first job is to select your Culture (this will never be random). The list is pulled from all the cultures in the World or the Compendia.</p><p>This will add the Culture to the character sheet (you can see it in the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.jLkjoTOmE5GIIuJW]{Bio Tab}) which in turn adds bonuses to tabs and skills.</p><p>You will then move on to @UUID[.tqwKyfDuiBYKRj9C]</p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749776446596,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.xZ8SozzjMIJHKhlu"
+    },
+    {
+      "sort": 800000,
+      "name": "Set Characteristics",
+      "type": "text",
+      "_id": "tqwKyfDuiBYKRj9C",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>What happens now will depend on the @UUID[.mW0ixUw2wxOyHzq1] you chose earlier.</p><p></p><p>If you selected <strong>Roll</strong> then your statistics base values will be rolled for you and there's nothing for you to do.  The results will be shown in a chat message.</p><p></p><p>If you chose <strong>Select</strong> then you will get a dialog box where you get to set your characteristics.  The default is ten points in each stat and you can increase and decrease them in the range 8-15</p><p>When you stats total 60 points the \"Spend Points\" button changes to \"Confirm\".</p><p></p><p>You can now move to @UUID[.HB1h30D56RP4wuTm]</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.tqwKyfDuiBYKRj9C"
+    },
+    {
+      "sort": 900000,
+      "name": "Add Religion",
+      "type": "text",
+      "_id": "HB1h30D56RP4wuTm",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Again what happens next depends on what you selected <span style=\"font-family:Roboto, sans-serif\">in the @UUID[.mW0ixUw2wxOyHzq1] step.</span></p><p></p><p>If you chose <strong>Roll</strong> then your religion is selected randomly from the Religion table.  </p><p></p><p>If you chose <strong>Select</strong> then you are presented with a list of all the religions in World or the Compendia and you select one.</p><p></p><p>You can now move on to @UUID[.gW4bn11r6nKXuVy6]</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.HB1h30D56RP4wuTm"
+    },
+    {
+      "sort": 1000000,
+      "name": "Set Traits",
+      "type": "text",
+      "_id": "gW4bn11r6nKXuVy6",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Again what happens next depends on what you selected <span style=\"font-family:Roboto, sans-serif\">in the @UUID[.mW0ixUw2wxOyHzq1] step.</span></p><p></p><p>If you chose <strong>Roll</strong> then your starting trait values generated randomly based on the religion. A chat message will show you the results.</p><p></p><p>If you chose <strong>Select</strong> you select a single trait to start at 16 and then you are asked whether to set the trait or the opposing trait to 16.   After this you get a list of the other traits and their starting values which you can alter by up to 6 points in total.</p><p></p><p>You can now move on to @UUID[.NQgc7KYZ79egJSCI]</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.gW4bn11r6nKXuVy6"
+    },
+    {
+      "sort": 1100000,
+      "name": "Add Class",
+      "type": "text",
+      "_id": "NQgc7KYZ79egJSCI",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Irrespective of whether you chose <strong>Roll </strong>or <strong>Select</strong> you now pick your Knightly Class.  This is drawn up from all the classes in the World or the Compendia.</p><p></p><p>If you chose <strong>Roll</strong> your starting passions are rolled for you based on your class (there is a chat message showing the results) and then you are presented with a list of passions and a random number of additional points to spend.</p><p></p><p>If you chose <strong>Select</strong> then the starting passion values are set by your class and you are given a fixed number of additional points to spend.</p><p></p><p>Your character's passion score are updated and you can move on to @UUID[.ABAdWwribzZNPL5i]</p><p></p><p></p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.NQgc7KYZ79egJSCI"
+    },
+    {
+      "sort": 1200000,
+      "name": "Select Homeland",
+      "type": "text",
+      "_id": "ABAdWwribzZNPL5i",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><span style=\"font-family:Roboto, sans-serif\">Irrespective of whether you chose <strong style=\"box-sizing:border-box;user-select:text;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\">Roll </strong>or <strong style=\"box-sizing:border-box;user-select:text;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:15.75px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\">Select</strong> you now pick your Homeland. This is drawn up from all the classes in the World or the Compendia.</span></p><p>If your homeland gives a passion bonus this will be updated.</p><p></p><p>You can now move on to @UUID[.QEBfDMd7Zjx34BlL]</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.ABAdWwribzZNPL5i"
+    },
+    {
+      "sort": 1300000,
+      "name": "Add Parent Passion",
+      "type": "text",
+      "_id": "QEBfDMd7Zjx34BlL",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>You get the option to add a parental passion or select \"none\".</p><p>If you select a parental passion you will be asked for the parents score and ( if appropriate) your passion score will be increased.</p><p></p><p>You can now move on to @UUID[.kKsV0qrf8zamyLI5]</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.QEBfDMd7Zjx34BlL"
+    },
+    {
+      "sort": 1400000,
+      "name": "Set Skills",
+      "type": "text",
+      "_id": "kKsV0qrf8zamyLI5",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><span style=\"font-family:Roboto, sans-serif\">You will step through this step without noticing anything but in the background the base scores for your skills are calculated from your Base Characteristics plus any Characteristic Culture modifier.</span></p><p></p><p>You can now move on to @UUID[.6vUO48KUpXYO8Jey]{Family Characteristic}</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.kKsV0qrf8zamyLI5"
+    },
+    {
+      "sort": 1500000,
+      "name": "Family Characteristic",
+      "type": "text",
+      "_id": "6vUO48KUpXYO8Jey",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><span style=\"font-family:Roboto, sans-serif\">Again what happens next depends on what you selected in the @UUID[.mW0ixUw2wxOyHzq1] step.</span></p><p>If you chose Roll then your family characteristic is selected randomly from the Family Characteristic table.  The table includes \"Gifted\".  A chat message is produced from the roll.</p><p>If you chose Select then you are presented with a list of the items on the Family Characteristic table except for \"Gifted\".</p><p>The family characteristic is added to your @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.jLkjoTOmE5GIIuJW]{Bio Tab} and the relevant skills are updated.</p><p>You can now move on to @UUID[.f1Krzt3KUJAafeck]</p><p><br class=\"Apple-interchange-newline\" /></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749776497466,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.6vUO48KUpXYO8Jey"
+    },
+    {
+      "sort": 1600000,
+      "name": "Skill Points",
+      "type": "text",
+      "_id": "f1Krzt3KUJAafeck",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This step is the same whether you chose <strong>Roll </strong>or <strong>Select </strong>at the start.</p><p></p><p>You have 10 points to spend on your skills.  Use the dialog box to spend the points.  These will update the Training part of your skill scores.</p><p></p><p>You can now move on to  @UUID[.wRZE8vjs0I1alQ0U]</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.f1Krzt3KUJAafeck"
+    },
+    {
+      "sort": 1700000,
+      "name": "Training & Practice",
+      "type": "text",
+      "_id": "wRZE8vjs0I1alQ0U",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>For each year of training you can select one of the following</p><ul><li><p>Increase skills - you can spend 5 points on skills</p></li><li><p>Adjust traits - you can increase or decrease a trait by one point</p></li><li><p>Increase passions - you can increase a passion by one point</p></li><li><p>Increase characteristics - you can increase a characteristic by one point</p></li></ul><p></p><p>Each year of training is done separately and any skills etc that have the maximum will no longer be shown.</p><p></p><p>You can now move on to @UUID[.kjijql0kDg5a2n7t]</p><p></p><p></p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.wRZE8vjs0I1alQ0U"
+    },
+    {
+      "sort": 1800000,
+      "name": "Luck Benefit",
+      "type": "text",
+      "_id": "kjijql0kDg5a2n7t",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>You will first be asked if you are eligible for a Luck Benefit - discuss this with your GM.</p><p></p><p>If you answered yes you will then roll on the \"Luck Benefits table\" with a chat message showing the result.</p><p></p><p>The relevant item will be added to your @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.TK3AJJwLFtTGA2mH]{Equip Tab} but any permanent effects will need to be adjusted manually (e.g. add a Sword with +1 damage).</p><p></p><p>You can now move on to @UUID[.z8amvqVh5hnxy4L0]</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749776547078,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.kjijql0kDg5a2n7t"
+    },
+    {
+      "sort": 1900000,
+      "name": "Knighted",
+      "type": "text",
+      "_id": "z8amvqVh5hnxy4L0",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>First, confirm that you are ready to be Knighted.</p><p></p><p>If you are then enter the amount of your Lord's glory.</p><p></p><p>After this a DEX roll is made for you for \"the leap\".</p><p></p><p>A history item is created and added to your character.</p><p></p><p></p><p>Your character creation wizard is now complete and the shield should turn grey.  Clicking on it has no further effect.</p><p></p><p>There are some things you will need to @UUID[.El5zG1GSjRQQvT8C]</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.z8amvqVh5hnxy4L0"
+    },
+    {
+      "sort": 2000000,
+      "name": "Tidy Up",
+      "type": "text",
+      "_id": "El5zG1GSjRQQvT8C",
+      "title": {
+        "show": true,
+        "level": 2
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Although the character wizard has completed there are a few things you may want to tidy up</p><ul><li><p>You may have had multiple spears added on the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.0YxsvVe0d1sSzu6F]{Combat Tab}. Change the quantity on the first item and delete the duplicates</p></li><li><p>Because all Passions in the game were added you may have several with a zero score on the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.dY9bwgsZV3XBq1Le]{Passions Tab}. Delete any you don't want to keep (you can always add them back later).</p></li><li><p>You will probably have some Armour on the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.TK3AJJwLFtTGA2mH]{Equip Tab}. Make sure you've equipped those you want to use.</p></li><li><p>You'll also likely have some horses on the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.sEG9oOq3L4kqF5uB]{Squires Tab}. You may want to select one as \"Ridden\"</p></li><li><p>On the same tab you may want to add a squire.</p></li><li><p>Amend any History Events on the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.8390AvE66aRvM5fJ]{Events Tab} especially the \"Heroic Event\" items adding more details.</p></li><li><p>On the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.jLkjoTOmE5GIIuJW]{Bio Tab} you may want to add your Lord, a Motto and your Heraldic device. You will also want to give some more detail about your distinctive features. And any other background you want.</p></li><li><p>Add a character image.</p></li><li><p>Ensure the character sheet is locked.</p></li></ul><p>You're now ready to go.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749776780341,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!6oeGiTDZUL8cyL0t.El5zG1GSjRQQvT8C"
+    }
+  ],
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..character-creation",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.6oeGiTDZUL8cyL0t",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1734462613625,
+    "modifiedTime": 1749770101475,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!6oeGiTDZUL8cyL0t"
+}

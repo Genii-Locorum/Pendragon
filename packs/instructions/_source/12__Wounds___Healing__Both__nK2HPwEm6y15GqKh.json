@@ -1,0 +1,309 @@
+{
+  "folder": null,
+  "name": "12) Wounds & Healing (Both)",
+  "_id": "nK2HPwEm6y15GqKh",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Add a Wound",
+      "type": "text",
+      "_id": "F6sWns3Q5TtIXhy6",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>When you add a wound to the character (by clicking on the \"+\" icon of the wounds section of the Combat Tab) you get a pop up box called \"Add wound\"</p><p>First select the Damage Type - Wound, Cold, Disease, Fire, Fall, Poison or Suffocate.</p><p>Then enter the amount of damage</p><p>Finally for Disease enter the Impact (Hit Points or the specific Characteristic)</p><ul><li><p>Wound and Fall damage create normal wounds</p></li><li><p>Cold damage creates a \"Cold\" wound if one doesn't already exist or adds to an existing cold wound. Cold@UUID[.BS5YMZSWPPVKLcfe]{ wounds can not be treated}. Disease which impacts Hit Points creates a new wound, but if it affects a characteristic it lowers that score (and any associated derived scores). Look at the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.qLYS7miTa5T31GYn]{Stats Tab} to see the disease damage.</p></li><li><p>Fire and Suffocation are like cold damage (they either create or add to an existing wound) but they can be treated.</p></li><li><p>Poison affects the characters CON rather than creating a wound. Look at the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.qLYS7miTa5T31GYn]{Stats Tab} to see the poison damage.</p></li></ul><p>When the wound is created it's severity is calculated and included in the wound.</p><p>Once created the only value that can be changed on the wound itself is the current damage. You can, from the combat tab, toggle on/off the \"treated\" box.</p><p>If you made a mistake and want to change a wound type etc you need to delete the wound. To delete a wound in full you need to unlock the character sheet for the \"Broom\" icon to appear - double click this icon to delete the relevant wound.</p><p>If the character sheet is locked you may see a \"Healing Hand\" icon - this is used to Heal a wound (see @UUID[.BS5YMZSWPPVKLcfe])</p><p>The Debilitated, Unconscious and Near Death statuses may be ticked following the addition of the wound - as these are not specifically related to the wound but are a character level status they are shown in the @UUID[Compendium.Pendragon.instructions.JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.Ra9PK638R24cc31A]{Stats Section} at the top of the character sheet. E.g. a major wound automatically renders the character unconscious and that in turn debilitates them.<br /></p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749775809262,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!nK2HPwEm6y15GqKh.F6sWns3Q5TtIXhy6"
+    },
+    {
+      "sort": 200000,
+      "name": "Healing a Wound",
+      "type": "text",
+      "_id": "BS5YMZSWPPVKLcfe",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>At the moment there are three ways to heal a wound, other than simply deleting it.</p><p></p><p>If the character sheet is locked click on the \"eye\" icon to open the wound sheet and you can manually adjust the damage score.</p><p></p><p>If the wound has not yet been treated with First Aid (the \"Td\" check box will be unticked) you will see a \"Healing Hand\" icon at the right hand side of the wound grid. Double click this icon to open up a healing dialogue box which will ask for the amount of healing. If a healing roll has been fumbled and you need to add damage simply enter it as a negative value.</p><p>If the healing amount exceeds the wound, then the wound is deleted, otherwise the wound value will be adjusted and the \"Td\" check box automatically ticked. You should see that the \"Healing Hand\" icon has now disappeared.</p><p>To uncheck the \"Td\" box simply double click it.</p><p></p><p>The third option is to wait and allow @UUID[.Rh5w3CHEaLoAfkOf] to take its course.</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!nK2HPwEm6y15GqKh.BS5YMZSWPPVKLcfe"
+    },
+    {
+      "sort": 300000,
+      "name": "Current/Max Hit Points",
+      "type": "text",
+      "_id": "1GI8c1HYAY3LbJ6e",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Current HP are automatically calculated by deducting the total of the individual wounds, aggravation damage and deterioration damage from your Maximum HP (which is calculated for you).</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!nK2HPwEm6y15GqKh.1GI8c1HYAY3LbJ6e"
+    },
+    {
+      "sort": 212500,
+      "name": "Aggravation/Deterioration",
+      "type": "text",
+      "_id": "61qIjPqLkhCzqyh8",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>These damage values need to be entered manually on the <strong>Combat Tab</strong>. They are included in the calculation of current HP.</p><p></p><p>Adjust the Aggravation/Deterioration Damage before Natural Healing.</p><p></p><p>If the character is Debilitated a \"Chirurgery\" checkbox will appear on the <strong>Combat Tab</strong> towards the top right corner (under Natural Healing).</p><p></p><p>If a successful Chirurgery check is made at any point after the character is debilitated then tick this box. If this box is ticked and the character is at half hit points or higher then the Debilitated status will be automatically removed.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!nK2HPwEm6y15GqKh.61qIjPqLkhCzqyh8"
+    },
+    {
+      "sort": 400000,
+      "name": "NPCs",
+      "type": "text",
+      "_id": "NU3YsSRQLX62qowk",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>NPCs do not track individual wounds. Instead there is a single wound value which adjusts current HP. The GM will need to manually review wounds as they are taken by the NPC.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!nK2HPwEm6y15GqKh.NU3YsSRQLX62qowk"
+    },
+    {
+      "sort": 350000,
+      "name": "Natural Healing",
+      "type": "text",
+      "_id": "Rh5w3CHEaLoAfkOf",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>In the combat tab in the top right hand corner you should see \"Natural Healing\" and a \"Rising Sun\" icon. Double click this icon to trigger natural healing.</p><p>The order that damage is removed is as follows:</p><ul><li><p>Deterioration Damage</p></li><li><p>Aggravation Damage</p></li><li><p>Wounds from lowest damage wounds in preference to those with higher damage.</p></li></ul><p></p><p>Only carry out Natural Healing after Aggravation/Deterioration Damage has been reviewed/updated.</p><p></p><p>Natural Healing also reduces the impact of Poison damage.  This is in addition to the healing listed above.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749771279208,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!nK2HPwEm6y15GqKh.Rh5w3CHEaLoAfkOf"
+    },
+    {
+      "sort": 206250,
+      "name": "Weekly Healing",
+      "type": "text",
+      "_id": "WF4c84I29uynbesi",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>There are two parts to the weekly healing.</p><ul><li><p>Deterioration Damage</p></li><li><p>@UUID[.Rh5w3CHEaLoAfkOf]</p></li></ul><p></p><p>At the moment Deterioration Damage needs to be reviewed manually. Do this and make any adjustments before Natural Healing</p><p></p><p>Natural Healing is automated - i.e. there's an icon to click and it will run automatically. See the page below on Natural Healing for more information</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!nK2HPwEm6y15GqKh.WF4c84I29uynbesi"
+    }
+  ],
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..wounds-healing-both",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.nK2HPwEm6y15GqKh",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1734462613625,
+    "modifiedTime": 1749770151035,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 99415,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!nK2HPwEm6y15GqKh"
+}
