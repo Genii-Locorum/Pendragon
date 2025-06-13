@@ -1,0 +1,74 @@
+{
+  "folder": null,
+  "name": "14) Hotbar Macros",
+  "_id": "5yLFpjPADXj1VqOi",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Hotbar Macros",
+      "type": "text",
+      "_id": "8Lg8NH0h4ejhtp8I",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>You can create hotbar macros for the following:</p><ul><li><p>Traits</p></li><li><p>Passions</p></li><li><p>Skills</p></li><li><p>Weapons (from the combat tab)</p></li></ul><p>These will make roll checks with the usual ALT and SHIFT options.</p><p></p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!5yLFpjPADXj1VqOi.8Lg8NH0h4ejhtp8I"
+    }
+  ],
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..hotbar-macros",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.5yLFpjPADXj1VqOi",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1734462613625,
+    "modifiedTime": 1749770101475,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 100000,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!5yLFpjPADXj1VqOi"
+}

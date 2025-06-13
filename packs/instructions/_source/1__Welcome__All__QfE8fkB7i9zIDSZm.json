@@ -1,0 +1,113 @@
+{
+  "name": "1) Welcome (All)",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Welcome",
+      "type": "text",
+      "_id": "nVEgrKj235qjFDdC",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Welcome to the Foundry VTT implementation of Chaosium's Pendragon RPG.</p><p></p><p>There is limited automated functionality, but this will be developed over time. Hopefully there is enough here to get you playing the game and feedback is always welcome to help guide what gets worked on.</p><p></p><p>This is not an introduction to Foundry, there are many great videos and articles out there on how to use the software. This is aimed at helping you get going with Pendragon.</p><p></p><p>The following pages are aimed predominantly at either the GM, Players or All users.</p><p><br />We hope you enjoy the game.</p><p></p><p></p><p>This system gives you the ability to create various items such as Relgions, Classes, Cultures etc but does not come packaged with any.</p><p></p><p>There is a \"P6EBase\" module that comes with some basic items which appear on the character sheet (such as skills, traits) and some samples of other items to give you some examples to work from.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!QfE8fkB7i9zIDSZm.nVEgrKj235qjFDdC"
+    },
+    {
+      "sort": 200000,
+      "name": "Create a Scene",
+      "type": "text",
+      "_id": "7U2cpRdGqXCfEXuE",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>So first things first.</p><p></p><p>Create a scene in Foundry - this will give you access to the @UUID[Compendium.Pendragon.instructions.JournalEntry.CJhCwQigLrJhBBQF]{GM Tools}</p><p></p><p>You should see the \"Tools\" icon in the scene control buttons at the top left of your screen</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": 1749770229752,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!QfE8fkB7i9zIDSZm.7U2cpRdGqXCfEXuE"
+    }
+  ],
+  "folder": null,
+  "flags": {
+    "core": {},
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..1-welcome-all",
+        "lang": "en",
+        "priority": 0
+      }
+    }
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.QfE8fkB7i9zIDSZm",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1719597783187,
+    "modifiedTime": 1749770114419,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "_id": "QfE8fkB7i9zIDSZm",
+  "sort": -100000,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!QfE8fkB7i9zIDSZm"
+}

@@ -1,0 +1,73 @@
+{
+  "folder": null,
+  "name": "7) Follower Sheet",
+  "_id": "yaykjaIiEB8PSd8P",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Follower Sheet",
+      "type": "text",
+      "_id": "yGV8I3M9nDAvomVY",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><span style=\"font-family:Roboto, sans-serif\">This is a cut-down character sheet but operates in the same way as a character sheet for the most part.</span></p><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">There are three icons at the top right of the screen (just to the right of the Follower image).</span></p><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">The first icon (an x in a circle) will close the Follower sheet as sometime the \"Close\" option on the title bar can get hidden.</span></p><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">The third icon is a padlock - toggling it with Double Click makes more of the sheet editable and adds View/Delete icons (these are hidden when locked to give a cleaner appearance).<br style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track)\" /><br style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track)\" />The middle icon is only visible when the Follower sheet is unlocked and is a pair of dice. When this is double clicked the Followers scores (e.g. Max HP, Knockdown) etc will be automatically derived from the stats. You can then edit any or all of the values to override the calculated score whils the sheet is unlocked. You can double click the dice icon to return <strong style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track)\">ALL</strong> these scores to the calculated defaults.</span></p><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">You <strong style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track)\">can not</strong> make dice rolls whilst the Follower sheet is unlocked</span></p><p></p><p>There is also a fourth icon (a book) in the secondary stats selection below the Follower image. Toggling this changes the tab below to show Personal Details or Weapons, Skills etc. The personal details can be input (except Age which is calculated) when the Follower sheet is unlocked.  If the follower is a Squire then you can enter a squire skill score - and you can roll this and age as per the squire item.</p><p></p><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">Some differences to note:</span></p><ul style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px;padding:0px 0px 0px 1.5em;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\"><li style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track)\"><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px\"><span style=\"font-family:Roboto, sans-serif\">Rather than a list of wounds there is one Wound Stat that should simply be updated. Major Wound statuses are not shown - you should track this accordingly.</span></p></li><li style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track)\"><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px\"><span style=\"font-family:Roboto, sans-serif\">Whilst weapons etc can be dragged to the character sheet they can be added manually with the \"+\" icon to allow you to add one off or bespoke skills, weapons etc.</span></p></li><li style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track)\"><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px\"><span style=\"font-family:Roboto, sans-serif\">Weapon score and Damage should be added manually - they are not derived from the interaction of skills and weapon. This is to allow for the potential in the future to import NPCs from blocks of text</span></p></li><li style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track)\"><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px\"><span style=\"font-family:Roboto, sans-serif\">Armour has an \"Arm\" toggle box. Toggle this on for armour and off for Shields. Remember you can override the armour values manually when the NPC sheet is unlocked.</span></p></li><li style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track)\"><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px\"><span style=\"font-family:Roboto, sans-serif\">Traits only show and roll the main trait (not the opposed trait). If you need this for an NPC add a new trait using the Opposed details.</span></p></li></ul><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px;min-height:1rem;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"></p><p style=\"box-sizing:border-box;user-select:text;scrollbar-width:thin;scrollbar-color:var(--color-scrollbar) var(--color-scrollbar-track);margin:0.5em 0px;color:rgb(25, 24, 19);font-family:Roboto, sans-serif;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Roboto, sans-serif\">When creating a token for an Follower there are two attributes shown on the icon. The top attribute is the \"Total Wounds\" and can be updated on the token. The bottom number is the Current HP and can't be edited. Changing the \"Total Wounds\" updates the Current HP and the health bar.</span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!yaykjaIiEB8PSd8P.yGV8I3M9nDAvomVY"
+    }
+  ],
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..7-follower-sheet",
+        "lang": "en",
+        "priority": 0
+      }
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1734462613625,
+    "modifiedTime": 1749770138420,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 81250,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!yaykjaIiEB8PSd8P"
+}

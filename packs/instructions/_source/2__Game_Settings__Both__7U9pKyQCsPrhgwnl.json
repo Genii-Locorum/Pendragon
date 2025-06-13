@@ -1,0 +1,349 @@
+{
+  "name": "2) Game Settings (Both)",
+  "_id": "7U9pKyQCsPrhgwnl",
+  "pages": [
+    {
+      "sort": 0,
+      "name": "Game Settings (Both)",
+      "type": "text",
+      "_id": "sIDjhqsdi0cmQUm9",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>The current game settings options are:</p><ul><li><p>@UUID[.ty31IeGwbI6DR5cM]</p></li><li><p>@UUID[.WyR6m6LOKiF3HVmB]</p></li><li><p>@UUID[.8JRDCc5CePLRMFxN]</p></li><li><p>@UUID[.xvSMxXzJeG1DEqE2]</p></li><li><p>@UUID[.yCbdGRto5p6ReXOg]</p></li><li><p>@UUID[.DSedYGFfcELhYENQ]</p></li><li><p>@UUID[.bfXTt8IYHlChzhqc]{Use Relationships}</p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {
+        "core": {}
+      },
+      "_stats": {
+        "compendiumSource": "JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.sIDjhqsdi0cmQUm9",
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!7U9pKyQCsPrhgwnl.sIDjhqsdi0cmQUm9"
+    },
+    {
+      "sort": 100000,
+      "name": "Game Year (GM only)",
+      "type": "text",
+      "_id": "ty31IeGwbI6DR5cM",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Enter the year of the game. </p><p></p><p>As you runt the Winter Phase the year will automatically update but you can manually change the year here as needed.  </p><p></p><p>When creating a new History Events the year defaults to the Game Year.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!7U9pKyQCsPrhgwnl.ty31IeGwbI6DR5cM"
+    },
+    {
+      "sort": 200000,
+      "name": "Automate and Fumble XP (GM only)",
+      "type": "text",
+      "_id": "WyR6m6LOKiF3HVmB",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>There are two checkboxes.</p><p><strong>Automate XP</strong></p><p>If this option is turned on then any skill, trait or passion will get an XP check added whenever a Critical, Success or Fumble is rolled.</p><p>Traits that are fumbled award the XP check to the opposing trait.</p><p>When using a weapon the XP check is applied to the relevant skill.</p><p>You can still manually check and uncheck the XP boxes on individual skills etc.</p><p>An Inquiry Roll, Dodge or Evade combat action will not automatically add an XP check.</p><p></p><p><strong>Fumble XP</strong></p><p>If turned off then Automate XP All will not be granted in the event of a Fumble. If Automate XP All is turned off then this will have no effect.</p><p></p><table><tbody><tr><td><p></p></td><td><p style=\"text-align:center\"><strong>Automate XP On</strong></p></td><td><p style=\"text-align:center\"><strong>Automate XP Off</strong></p></td></tr><tr><td><p><strong>Fumble XP On</strong></p></td><td><p style=\"text-align:center\">XP checks added automatically for Critical, Success &amp; Fumble</p></td><td><p style=\"text-align:center\">Add XP checks manually</p></td></tr><tr><td><p><strong>Fumble XP Off</strong></p></td><td><p style=\"text-align:center\">XP checks added automatically for Critical  &amp; Success</p></td><td><p style=\"text-align:center\">Add XP checks manually</p></td></tr></tbody></table>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!7U9pKyQCsPrhgwnl.WyR6m6LOKiF3HVmB"
+    },
+    {
+      "sort": 300000,
+      "name": "SHIFT key (both)",
+      "type": "text",
+      "_id": "8JRDCc5CePLRMFxN",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>By default when clicking a Check Roll (skill, trait etc) a dialogue box opens asking for things like modifiers. Pressing SHIFT and clicking stops this box from appearing and uses no modifiers (unless set by something else in the game).</p><p>Toggling this option on changes this behaviour so that the default is that no box appears, and using SHIFT + click causes the box to appear.</p><p>This is set separately by the person playing the game and can be different for each player.</p><p></p><p>This <strong>does not</strong> apply to Horse damage where the SHIFT key is used to apply charging damage.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!7U9pKyQCsPrhgwnl.8JRDCc5CePLRMFxN"
+    },
+    {
+      "sort": 400000,
+      "name": "Critical Bonus Adjustment (GM only)",
+      "type": "text",
+      "_id": "xvSMxXzJeG1DEqE2",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>When an opposed or combat roll is made and all parties have a critical bonus due to scores of 20+ then all parties bonuses are reduced by the lowest bonus.<br /></p><p>For example, two knights with Sword Skills of 20 (+3) and 20 (+5) would see their Skills reduced to 20 and 20 (+2), respectively.  This rule has the effect of putting equally-proficient characters on a more even footing with fewer critical successes overall.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!7U9pKyQCsPrhgwnl.xvSMxXzJeG1DEqE2"
+    },
+    {
+      "sort": 500000,
+      "name": "Tooltip Delay (GM only)",
+      "type": "text",
+      "_id": "yCbdGRto5p6ReXOg",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This sets the amount of time in milliseconds before a custom tool tip appears.</p><p></p><p>At the moment the only custom tooltip is the character creation wizard.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!7U9pKyQCsPrhgwnl.yCbdGRto5p6ReXOg"
+    },
+    {
+      "sort": 600000,
+      "name": "Character Token Vision (GM only)",
+      "type": "text",
+      "_id": "DSedYGFfcELhYENQ",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This determines whether newly created characters have Token Vision set to off or on.  Tick the box to turn it on by default.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!7U9pKyQCsPrhgwnl.DSedYGFfcELhYENQ"
+    },
+    {
+      "sort": 700000,
+      "name": "Use Relationships",
+      "type": "text",
+      "_id": "bfXTt8IYHlChzhqc",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>When activated this allows the GM to drag and drop and actor on to the character sheet and create a relationship between the two actors.<br /></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!7U9pKyQCsPrhgwnl.bfXTt8IYHlChzhqc"
+    }
+  ],
+  "folder": null,
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..2-game-settings-both",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.7U9pKyQCsPrhgwnl",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1719597783187,
+    "modifiedTime": 1749770116653,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": -50000,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!7U9pKyQCsPrhgwnl"
+}

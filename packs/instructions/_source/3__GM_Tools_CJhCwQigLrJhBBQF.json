@@ -1,0 +1,230 @@
+{
+  "folder": null,
+  "name": "3) GM Tools",
+  "_id": "CJhCwQigLrJhBBQF",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Create a Scene",
+      "type": "text",
+      "_id": "IeRRwtptKGvZCG1f",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>First things, first - create a Scene. You need to this for the GM Tools scene tool to be visible on the top left of the screen (the spanner and screwdriver icon). The current tools are:</p><ul><li><p>Winter Phase</p></li><li><p>Development Phase</p></li></ul><p></p><p>Restarting the game (including F5) will turn off the phases. If Winter Phase was active and you restart the game it will be turned off but the Game Year will not be advanced. You can always correct the year manually in the game settings.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!CJhCwQigLrJhBBQF.IeRRwtptKGvZCG1f"
+    },
+    {
+      "sort": 200000,
+      "name": "Winter Phase",
+      "type": "text",
+      "_id": "dXya6WfqQm63rD9C",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Clicking on this will toggle the Winter Phase off or on (you will get a message at the top of the screen saying what the status is).</p><p></p><p>Opening the Winter Phase does several things:</p><ul><li><p>It creates a new History event for each character adding their passive Glory Total. The event is called \"Winter Phase\" and has the current Game Year shown (i.e. before the increase)</p></li><li><p>Activates the <strong>Winter Tab</strong> for all characters allowing them to carry out development (See @UUID[Compendium.Pendragon.instructions.JournalEntry.NKQVeB00DO4RfHEj.JournalEntryPage.JClE8n4rcuXssKLs]{Winter Phase} for more details).</p></li></ul><p>Closing the Winter Phase</p><ul><li><p>The Game Year is increased by 1 (which in turn adds 1 to the characters' ages)</p></li><li><p>Winter Phase is turned off for all actors and so they lose access to the <strong>Winter Tab</strong> on their character sheets</p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": 1749772283322,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!CJhCwQigLrJhBBQF.dXya6WfqQm63rD9C"
+    },
+    {
+      "sort": 300000,
+      "name": "Development Phase",
+      "type": "text",
+      "_id": "H1y6R0ISSwpuKuMt",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This toggles the <strong>Winter Tab</strong> on and off for characters but without changing their age, the Game Year or adding a history event.</p><p></p><p>It will however reset the training status and will allow characters to improve skills, characteristics, passions and traits.</p><p></p><p>See @UUID[Compendium.Pendragon.instructions.JournalEntry.NKQVeB00DO4RfHEj]{Winter Phase} for more details of how to advance your character.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": 1749775279912,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!CJhCwQigLrJhBBQF.H1y6R0ISSwpuKuMt"
+    },
+    {
+      "sort": 400000,
+      "name": "Creation Phase",
+      "type": "text",
+      "_id": "OmYmAHWltBg0sVQO",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Toggling this on activates the character generation wizard. You can see more detail about this in @UUID[Compendium.Pendragon.instructions.JournalEntry.6oeGiTDZUL8cyL0t]{Character Creation}</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": 1749775189758,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!CJhCwQigLrJhBBQF.OmYmAHWltBg0sVQO"
+    },
+    {
+      "sort": 500000,
+      "name": "GM Roll",
+      "type": "text",
+      "_id": "33Wr4vXpMPVT85tz",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This tool allows the GM to make a roll without having an actor.  You'll be asked to:</p><ul><li><p>Select the Roll Type</p></li><li><p>Enter a participant name (which appears on the chat card)</p></li><li><p>Enter the score you are rolling against</p></li></ul><p></p><p>The system will then follow the normal roll procedures.</p><p></p><p>There is also a macro included so the GM can add this to their hotbar.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!CJhCwQigLrJhBBQF.33Wr4vXpMPVT85tz"
+    }
+  ],
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..gm-tools",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.CJhCwQigLrJhBBQF",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1719597783187,
+    "modifiedTime": 1749770111170,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!CJhCwQigLrJhBBQF"
+}

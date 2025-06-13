@@ -1,0 +1,113 @@
+{
+  "folder": null,
+  "name": "11) Damage Rolls (Both)",
+  "_id": "CJOK9y9zaz3G50kC",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Weapon Damage",
+      "type": "text",
+      "_id": "nAnfT3prxUcWuPAC",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>On the Combat Tab for Characters or under the weapons section for NPCs you will see a \"Damage\" score. Hover over this and you'll see the red glow.</p><p>Simply click on the damage score and the relevant dice will roll and a chat message appears showing the weapon, damage formula and the dice score.</p><p>By holding <strong>ALT</strong> whilst clicking you will roll Critical Damage (i.e. +4D6).</p><p></p><p>Alternatively, depending on the outcome of the combat roll you will be presented with a \"roll damage\" button which will make the roll, automatically adjusting for critical successes.</p><p></p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!CJOK9y9zaz3G50kC.nAnfT3prxUcWuPAC"
+    },
+    {
+      "sort": 200000,
+      "name": "Horse Damage",
+      "type": "text",
+      "_id": "HW6JQrGlDvPURzrF",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>If you need to roll horse damage separately then go to the Companions tab, choose the relevant horse from the list and then click on the Damage to make the roll.</p><p>To choose Charge Damage hold <strong>SHIFT + click</strong> on the damage formula. The tooltip will show you the Charge Damage value.</p><p>By holding <strong>ALT + click</strong> you will roll Critical Damage (i.e. +4D6).</p><p>Holding <strong>ALT + SHIFT + click</strong> you will roll Critical Charge Damage.</p><p>The dice will roll and the result will be displayed as a chat message.</p><p></p><p>Changing the SHIFT game setting does not change this - keep holding SHIFT for charge damage.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!CJOK9y9zaz3G50kC.HW6JQrGlDvPURzrF"
+    }
+  ],
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..damage-rolls-both",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.CJOK9y9zaz3G50kC",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1734462613625,
+    "modifiedTime": 1749770148769,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 98829,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!CJOK9y9zaz3G50kC"
+}

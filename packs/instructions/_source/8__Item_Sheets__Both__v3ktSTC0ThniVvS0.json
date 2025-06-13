@@ -1,0 +1,739 @@
+{
+  "folder": null,
+  "name": "8) Item Sheets (Both)",
+  "_id": "v3ktSTC0ThniVvS0",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Introduction",
+      "type": "text",
+      "_id": "VQ2hlqHKKBMBrsR3",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Whilst this section is predominantly aimed at the GM to allow them to create new items, there is also information the players will need to know.</p><p></p><p>Most of the item sheet have three tabs - Attributes, Description and GM Info, although the last table is only available to GMs.</p><p></p><p>The Description tab generally holds a cost/value of the item and a description box - both of which a player can edit when the item is on their character.  It is only mentioned in the following pages on items where the usage is different.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.VQ2hlqHKKBMBrsR3"
+    },
+    {
+      "sort": 200000,
+      "name": "Armour",
+      "type": "text",
+      "_id": "OaHOOGHbEYaGT19K",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attributes Tab</strong></p><p>Armour has a name and the following attributes</p><ul><li><p>Armour Points  (this can only be edited by a GM unless this is a shield in which case the player can make changes)</p></li><li><p>Armour and Shield checkboxes (A GM can double click on the relevant box to activate it - only one can be ticked). This choice determines whether the AP are added to the Armour Points or Shield Points for a character</p></li><li><p>Material -descriptive text only shown for Armour and can only be changed by a GM</p></li><li><p>Padding - descriptive text only shown for Armour and can only be changed by a GM</p></li><li><p>Missile Penalty - only shown for shields - enter a negative number (e.g. -10)</p></li><li><p>Disadvantages - descriptive text only show for Shields</p></li><li><p>Notes - any relevant notes</p></li></ul><p></p><p>The following options are only visible when the Item is on an actor</p><ul><li><p>Equipped - a toggle box which needs to be ticked for a character to gain the benefit of the armour</p></li><li><p>Degraded - a toggle box which shows the armour has lost Armour Points due to a poor standard of living in line with the Winter Phase rules</p></li></ul><p></p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.OaHOOGHbEYaGT19K"
+    },
+    {
+      "sort": 300000,
+      "name": "Horses",
+      "type": "text",
+      "_id": "yNvK6liVdFjpUzEf",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attributes Tab</strong></p><p>The following info is available although </p><ul><li><p>Name - you can give your horse a name</p></li><li><p>Statistics - SIZ, DEX, STR, CON</p></li><li><p>Max HP</p></li><li><p>Armour</p></li><li><p>Move</p></li><li><p>Damage - enter as xD6 (e.g. '3D6')</p></li><li><p>Charge Damage - enter as xD6 (e.g. '6D6')</p></li><li><p>HP (this can be edited by the player).</p></li><li><p>Combat Trained**</p></li><li><p>Special **</p></li></ul><p></p><p>If the horse in on a character sheet the following attributes are also available and can be edited by the player.</p><ul><li><p>Ridden - is the character currently using this horse</p></li><li><p>Age of the horse</p></li><li><p>Cost of the horse</p></li><li><p>Breed</p></li><li><p>Colour of the horse</p></li><li><p>Health - if the horse has suffered during the Winter Phase rolls this is reflected here</p></li><li><p>Care - if the horse has suffered from poor care it is noted here.</p></li><li><p>Degraded - horse has suffered from one or more years of a Poor standard of living (and won't degrade further from more years of such - although Impoverished will cause further downsides)</p></li></ul><p></p><p>** If either Combat Trained or Special are ticked a Horse Survival check is made during the Winter Phase.</p><p></p><p>All of these values need to be entered manually - they are not automatically calculated at this stage although some are updated by @UUID[JournalEntry.NKQVeB00DO4RfHEj]</p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.yNvK6liVdFjpUzEf"
+    },
+    {
+      "sort": 400000,
+      "name": "Passions",
+      "type": "text",
+      "_id": "1PHFyT02rR1MSfLi",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attributes tab</strong></p><p>The first item to select is the \"court\" the passion belongs to (or select Honour). This can only be selected by the GM.</p><p></p><p>Once a passion is on a character sheet the following are available and a player may change any of the values except the total which is calculated.</p><ul><li><p>Beginning Value - this is the base score from character creation</p></li><li><p>Inherited Value - if you inherited the passion from your parent</p></li><li><p>Homeland - the bonus to the passion from your Homeland</p></li><li><p>Standard of Living - this just applies to Honour but is (currently) on all passion - enter a negative score following lower standards of living</p></li><li><p>Winter - show any improvements from the Winter Phase here.</p></li><li><p>Total - the total of all the above</p></li></ul><p></p><p>There is also an XP Check box - you can toggle on and off to show if an improvement check is due during the Winter Phase.</p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.1PHFyT02rR1MSfLi"
+    },
+    {
+      "sort": 500000,
+      "name": "Skills",
+      "type": "text",
+      "_id": "MEUDEyxtD80VjQBo",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attribute Tab</strong></p><p>The basic information required is:</p><ul><li><p>Skill name (can be changed by the player if it's on the character sheet)</p></li><li><p>Family Characteristic - enter the name of the characteristic that relates to this skill (e.g. Perceptive for the Awareness skill).  </p></li><li><p>Non-knightly skills - if ticked then this skill will not automatically be added to a new character sheet since Knight's should not have such skills/</p></li><li><p>Combat Skill - toggle the checkbox on if this is Combat Skill (see below)</p></li><li><p>If the Combat Skill is toggled on there is an additional field of Weapon Type - and there is a drop down menu for the GM to select. This is important as it will be used to calculate the Value/Score for a weapon on the character sheet. So for a dagger skill make sure you select the Dagger option, as this score will be applied to all weapons which also have the Dagger weapon Type. Some combat skills (eg Battle) aren't related to a weapon and in these cases simple select \"None\" as the weapon type.  See @UUID[.GkuCim3YGnQZey5J] for more info.</p></li><li><p>Beginning Value - this determines the base value for the skill.  Some skills use stats for their base score (e.g. for DEX/2 select DEC and enter 0.5 as the multiplier).  For a fixed base score enter a Modifier.  You can put both in should you choose to.</p></li></ul><p></p><p>Once a skill has been added to a character sheet the following additional fields are available</p><ul><li><p>Beginning Value - the base value for the skill. </p></li><li><p>Culture - any bonus due to the character's culture</p></li><li><p>Family Characteristic - bonus to the family characteristic</p></li><li><p>Character Creation - points gained during the Character Creation Phase</p></li><li><p>Winter - points gained during the Winter Phase</p></li><li><p>Total - the calculated total of the above</p></li><li><p>XP Checkbox - toggle this to show whether an XP check is due or not during the Winter Phase</p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.MEUDEyxtD80VjQBo"
+    },
+    {
+      "sort": 600000,
+      "name": "Traits",
+      "type": "text",
+      "_id": "enK2HunQdRlqUxfG",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attributes Tab</strong></p><ul><li><p>The trait name is right at the top of the screen. </p></li><li><p>Opposing Trait Name - all traits are in pairs and this is the name of the opposing trait - only the GM can edit this. </p></li></ul><p>Once added to a character sheet the following fields are available</p><ul><li><p>Beginning value - this is the base score which defaults to 10.  This is the score of the main trait, not the opposing value</p></li><li><p>Religion - any bonus/penalty applied to the main trait.</p></li><li><p>Winter - any changes made during the Winter Phase</p></li><li><p>Total - this is the calculated total of the main Trait.  Although the total can go below zero it will only be displayed as zero.  The opposing value however is calculated based on this negative score and is displayed on the character sheet.</p></li><li><p>XP check boxes - there are two, one for the trait and one for the opposing trait. Tick these as appropriate to indicate a check during the Winter Phase.</p></li><li><p>Directed/obsessed - if the trait has a direction/obsession enter it here</p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.enK2HunQdRlqUxfG"
+    },
+    {
+      "sort": 700000,
+      "name": "Weapons",
+      "type": "text",
+      "_id": "GkuCim3YGnQZey5J",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attribute Tab</strong></p><p>There is a lot of information here. The name of the weapon is at the top of the sheet. After that there is:</p><ul><li><p>Melee Weapon check-box. Tick this for a melee weapon, untick it for a missile/thrown weapon</p></li><li><p>Improvised check-box. Tick this for improvised weapons. This will automatically add a -5 skill penalty</p></li><li><p>Skill - select the relevant skill type for this weapon. It is very important that this matches the Skill Type on the relevant skill as this is used to calculate the chance of success. E.g. a Dagger uses the dagger skill, and the Dagger skill should also have dagger selected as the skill type. This way the two items are linked even if you choose to name the weapon and skill something different.</p></li><li><p>Mounted - can this weapon be used mounted, on foot or in both situations</p></li><li><p>Damage Source - this again is important as the choice determines the damage done - character uses the Damage Score as D6, Brawling uses the Damage Score as a flat modifier, Horse uses the horses damage and None adds nothing</p></li><li><p>Additional Damage D6 - this is an bonus (positive value) or penalty (negative value) number of dice. Just enter the number (e.g. 3 or -2 not 3D6 or -2D6).</p></li><li><p>Bonus D6 vs No Armor - this is the bonus(positive value) or penalty (negative value) number of dice vs an unarmoured opponent. Just enter the number (e.g. 3 or -2 not 3D6 or -2D6). </p></li><li><p>Bonus D6 vs Mail - as above but for an opponent wearing Mail</p></li><li><p>Bonus D6 vs Plate - as above but for an opponent wearing Plate</p></li><li><p>Damage Bonus - this is a flat modifier, not a number of dice.</p></li></ul><p>As an example if a weapon does character damage plus 2D6+3 this would be entered as Damage Source = \"Character\", Additional Damage D6 = \"2\" and Damage Bonus = 3</p><ul><li><p>Max Damage D6 - this is relevant to some missile weapons and is the maximum number of D6 for the overall damage</p></li><li><p>Advantage - for melee weapons only - this is free text</p></li><li><p>Disadvantage - free text to show are disadvantages for the weapon</p></li><li><p>Range - for missile weapons - select the range</p></li><li><p>Rate of Fire - for missile weapons only</p></li></ul><p>When added to a character sheet the weapon has the following fields available</p><ul><li><p>Quantity - You may want to edit this (eg if carrying four javelins) rather than adding multiple items to the character sheet.</p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.GkuCim3YGnQZey5J"
+    },
+    {
+      "sort": 800000,
+      "name": "Wound",
+      "type": "text",
+      "_id": "AQOtZIKRbPfsZOgT",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>A wound doesn't have a Description or GM Info tab.  </p><p>It is made up on the following information</p><ul><li><p>Damage - this the amount of the wound</p></li><li><p>Wound Type - see @UUID[JournalEntry.nK2HPwEm6y15GqKh.JournalEntryPage.F6sWns3Q5TtIXhy6] for more info</p></li><li><p>When the wound is first created a description/status is added to show the severity of the wound - it is not visible on the Wound Item sheet, but is on the character sheet.</p></li></ul><p></p><p>Whether the wound has been (or can be) treated or not is shown on the combat tab of the character sheet rather than here.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.AQOtZIKRbPfsZOgT"
+    },
+    {
+      "sort": 290625,
+      "name": "History",
+      "type": "text",
+      "_id": "IT5gIMMOASwNIJsA",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>A history event has the following info</p><ul><li><p>Description</p></li><li><p>Favour - a toggle box to say if this is a favour (or not).  If a Favour then enter the other party and level of the favour in the description</p></li><li><p>Year - year of the event</p></li><li><p>Glory - this is automatically added to the character's glory</p></li></ul><p></p><p>Some automation in the system will automatically add History Events</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.IT5gIMMOASwNIJsA"
+    },
+    {
+      "sort": 550000,
+      "name": "Squire",
+      "type": "text",
+      "_id": "tPuc34LTZbqYr3Xr",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attribute Tabs</strong></p><p>Aside from a name, a squire has the following information</p><ul><li><p>Age - this will automatically update when the Winter Phase is turned off</p></li><li><p>Type - select Squire, Maiden (in waiting) or Other.  Squires appear on the @UUID[JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.sEG9oOq3L4kqF5uB] and Maiden/Other on the @UUID[JournalEntry.b5d7Ha8LOeLSNvul.JournalEntryPage.fRLDTfqAgmiltXyr]</p></li><li><p>Skill - this is the generic squire skill rating. Currently you can't add more skills to the squire</p></li><li><p>Glory - you need to manually enter the amount of glory the squire has, it is not calculated automatically.</p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.tPuc34LTZbqYr3Xr"
+    },
+    {
+      "sort": 287500,
+      "name": "Equipment",
+      "type": "text",
+      "_id": "AdxFFDanX0vPdGsz",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This is for miscellaneous equipment on the character sheet and is made up of</p><ul><li><p>Name</p></li><li><p>Quantity</p></li><li><p>Price in Libra/denarii</p></li></ul><p></p><p>Unlike other items the price is on the main sheet and not under the description tab.</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.AdxFFDanX0vPdGsz"
+    },
+    {
+      "sort": 250000,
+      "name": "Class",
+      "type": "text",
+      "_id": "YDcsoUMtocn1i2oV",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attributes Tab</strong></p><p>This sets out the benefits a Knight gets depending on the Class of Knight they are. There are four parts of the tab</p><p></p><p>Passions - primary</p><p>Passions - secondary</p><p>Passions - tertiary</p><p>Starting Equipment</p><p></p><p>Drag passions to one of the passions sections adds the item to the Class. Dragging equipment to the last box adds starting equipment.</p><p>Items can be deleted by clicking the \"trash can\" icon.</p><p>The item does not need to exist in the world, it can exist in compendia. The systems looks for the item based on @UUID[Compendium.Pendragon.instructions.JournalEntry.gOCGw5hx6CoGK3h1]{Pendragon IDs} and if it can't subsequently locate an item then this will be shown as a green item with \"Invalid\" after the name.</p><p></p><p>When the Class is added to a character then the characters starting values for the passions are set in line with the rules depending on whether they were primary, secondary or tertiary passions. The starting equipment is added to the character as well.</p><p>If the class is deleted from a Character then the starting equipment are also removed and the relevant passion base values are set to zero.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749776878221,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.YDcsoUMtocn1i2oV"
+    },
+    {
+      "sort": 275000,
+      "name": "Culture",
+      "type": "text",
+      "_id": "8vT1WUtEwnQdUuIJ",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attributes Tab</strong></p><p>The first part list the Pendragon characteristics for this culture, the dice to roll to generate the base value, any cultural bonus and the maximum characteristic value.</p><p></p><p>When added to a Character Sheet this determines the stat values when \"rolled\".</p><p></p><p>The second part lists skills that the relevant Culture gets a bonus to. <span style=\"font-family:Roboto, sans-serif\">Drag skills to the </span>Culture and it will be added to the \"Skills section\"</p><p>Items can be deleted by clicking the \"trash can\" icon.</p><p>The skill does not need to exist in the world, it can exist in compendia. The systems looks for the skill based on @UUID[Compendium.Pendragon.instructions.JournalEntry.gOCGw5hx6CoGK3h1]{Pendragon IDs} and if it can't subsequently locate one then this will be shown as a green skill with \"Invalid\" after the name.</p><p></p><p>When the Culture is added to a character then the relevant skills get a bonus .</p><p>If the class is deleted from a Character then the skills loose their bonus.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749776983435,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.8vT1WUtEwnQdUuIJ"
+    },
+    {
+      "sort": 293750,
+      "name": "Homeland",
+      "type": "text",
+      "_id": "Sq8o028TQ8CgBBs3",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attributes Tab</strong></p><p>A homeland gives a bonus to Passions.</p><p>Dragging a passion to the relevant section adds it the item to the Homeland.</p><p>Items can be deleted by clicking the \"trash can\" icon.</p><p>The item does not need to exist in the world, it can exist in compendia. The systems looks for the item based on @UUID[Compendium.Pendragon.instructions.JournalEntry.gOCGw5hx6CoGK3h1]{Pendragon IDs} and if it can't subsequently locate an item then this will be shown as a green item with \"Invalid\" after the name.</p><p>When the Homeland is added to a character then the characters gets a bonus on the passion</p><p>If the Homeland is deleted from a Character then the relevant passion bonus is removed..</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": 1749776955503,
+        "lastModifiedBy": "GZ095uUOkPOdZjd3",
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.Sq8o028TQ8CgBBs3"
+    },
+    {
+      "sort": 350000,
+      "name": "Ideals",
+      "type": "text",
+      "_id": "6PXWabBjFDfqTR6T",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attributes Tab</strong></p><p>There are three sections to the \"Ideals\" tab.</p><ul><li><p>Trait Group - add the traits that a Knight needs to meet this ideal and the total required score across all those traits</p></li><li><p>Individual Requirements - you can add skills, traits and passions and the scores you need in each item.  Dragging an item to the requirements opens up a dialogue box to enter the score.  If you want to change the score later you will need to delete the item and then add it again.</p></li><li><p>Benefits - enter the benefits you gain if the Ideal is active (i.e. you still meet the requirements</p></li></ul><p></p><p>Not all benefits are automated (e.g. the protection from Magic and Miracles - these should be noted in the description tab and players will need to adjust for these manually).</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.6PXWabBjFDfqTR6T"
+    },
+    {
+      "sort": 450000,
+      "name": "Religion",
+      "type": "text",
+      "_id": "r9Q9fqumya9xiGq6",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attributes Tab</strong></p><p>There are two sections that a GM can drag Traits to:</p><ul><li><p>Virtues - add Traits here if the main Trait is a positive (e.g. Christians see the Chaste trait as a benefit)</p></li><li><p>Vices - add Traits here is the opposing Trait is seen as a positive (e.g. Pagans see Lustful as a benefit - therefore drag the Chaste trait to the vices section)</p></li></ul><p>When added to a character sheet the character gets bonuses to the relevant Trait increasing the appropriate score (for Christians Chaste Increases and Lustful Decreases whereas Pagans get the opposite).</p><p></p><p>Deleting the Religion from the character sheet removes these bonuses.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.r9Q9fqumya9xiGq6"
+    },
+    {
+      "sort": 289063,
+      "name": "Family",
+      "type": "text",
+      "_id": "scuWjbrKRAIf06o2",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Attribute Tab</strong></p><p>The following information should be entered</p><ul><li><p>Gender - of the person</p></li><li><p>Born - year they were born</p></li><li><p>Died - year they died. Leave blank if they are alive</p></li><li><p>Glory - the amount of Glory they have</p></li><li><p>Blessed Birth - toggle this on if they were the result of a Blessed Birth. This prevents children having to make family survival roles</p></li><li><p>Person - select the type of relationship to the character - Parent, Spouse, Child or Other.  Spouse and Children are impacted during the winter Phase.</p></li></ul>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.scuWjbrKRAIf06o2"
+    },
+    {
+      "sort": 900000,
+      "name": "Relationship",
+      "type": "text",
+      "_id": "VVD3NyOd4jlHttpF",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>The GM will need to set @UUID[JournalEntry.7U9pKyQCsPrhgwnl.JournalEntryPage.bfXTt8IYHlChzhqc]{Use Relationships} in the Game Settings to allow this feature.</p><p></p><p>Currently a GM can drag another actor (Character, NPC or Follower) from the Actors list to the Character sheet to create a relatioship between two actors.  This only works for Characters (you can't drag and drop an Actor on to a NPC or Follower).</p><p></p><p>Once created the player can then view/edit the relationship or delete it from the \"Followers\" tab on the character sheet.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.16",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!v3ktSTC0ThniVvS0.VVD3NyOd4jlHttpF"
+    }
+  ],
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..6-item-sheets-both",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.v3ktSTC0ThniVvS0",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1734462613625,
+    "modifiedTime": 1749770141086,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 90625,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!v3ktSTC0ThniVvS0"
+}

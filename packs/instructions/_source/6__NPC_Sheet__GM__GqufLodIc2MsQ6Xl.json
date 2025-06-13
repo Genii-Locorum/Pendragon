@@ -1,0 +1,75 @@
+{
+  "folder": null,
+  "name": "6) NPC Sheet (GM)",
+  "_id": "GqufLodIc2MsQ6Xl",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "NPC Sheet",
+      "type": "text",
+      "_id": "t9u8GHl6vk0RGgre",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This is a cut-down character sheet but operates in the same way as a character sheet for the most part.</p><p>There are three icons at the top right of the screen (just to the right of the NPC image).</p><p>The first icon (and x in a circle) will close the NPC sheet as sometime the \"Close\" option on the title bar can get hidden.</p><p>The third icon is a padlock - toggling it with Double Click makes more of the sheet editable and adds View/Delete icons (these are hidden when locked to give a cleaner appearance).<br /><br />The middle icon is only visible when the NPC sheet is unlocked and is a pair of dice.  When this is double clicked the NPCs scores (e.g. Max HP, Knockdown) etc will be automatically derived from the stats.  You can then edit any or all of the values to override the calculated score whils the sheet is unlocked.  You can double click the dice icon to return <strong>ALL</strong> these scores to the calculated defaults,</p><p>You <strong>can not</strong> make dice rolls whilst the NPC sheet is unlocked</p><p>Some differences to note:</p><ul><li><p>There is a Glory Award entry for you to record how much is granted to the characters</p></li><li><p>There is a valorous modifier - to record an adjustment that a character would need to apply when making a valorous roll</p></li><li><p>Rather than a list of wounds there is one Wound Stat that should simply be updated. Major Wound statuses are not shown - you should track this accordingly.</p></li><li><p>Whilst weapons etc can be dragged to the character sheet they can be added manually with the \"+\" icon to allow you to add one off or bespoke skills, weapons etc.</p></li><li><p>Weapon score and Damage should be added manually - they are not derived from the interaction of skills and weapon. This is to allow for the potential in the future to import NPCs from blocks of text</p></li><li><p>Armour has an \"Arm\" toggle box. Toggle this on for armour and off for Shields.  Remember you can override the armour values manually when the NPC sheet is unlocked.</p></li><li><p>Traits only show and roll the main trait (not the opposed trait). If you need this for an NPC add a new trait using the Opposed details.</p></li></ul><p></p><p>When creating a token for an NPC there are two attributes shown on the icon. The top attribute is the \"Total Wounds\" and can be updated on the token. The bottom number is the Current HP and can't be edited. Changing the \"Total Wounds\" updates the Current HP and the health bar.</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "5mHEPLk9BC8jn18S": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "13.345",
+        "systemId": "Pendragon",
+        "systemVersion": "12.1.11",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "exportSource": null
+      },
+      "category": null,
+      "_key": "!journal.pages!GqufLodIc2MsQ6Xl.t9u8GHl6vk0RGgre"
+    }
+  ],
+  "flags": {
+    "Pendragon": {
+      "pidFlag": {
+        "id": "je..npc-sheet-gm",
+        "lang": "en",
+        "priority": 0
+      }
+    },
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.Pendragon.instructions.JournalEntry.GqufLodIc2MsQ6Xl",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "Pendragon",
+    "systemVersion": "12.1.16",
+    "createdTime": 1719597783187,
+    "modifiedTime": 1749770135120,
+    "lastModifiedBy": "GZ095uUOkPOdZjd3",
+    "exportSource": null
+  },
+  "sort": 62500,
+  "ownership": {
+    "default": 0,
+    "5mHEPLk9BC8jn18S": 3
+  },
+  "categories": [],
+  "_key": "!journal!GqufLodIc2MsQ6Xl"
+}
