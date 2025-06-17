@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 13.1.30-dev
+## 13.1.30
 - Complete migration of item sheets to V2 Application
 - Ensure all V2 item sheets can be resized like their V1 counterparts
 - Bump verified compatibility version to 13.345
