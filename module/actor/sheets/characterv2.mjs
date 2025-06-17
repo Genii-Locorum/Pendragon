@@ -30,7 +30,7 @@ export class PendragonActorSheet extends api.HandlebarsApplicationMixin(
     const noId = (typeof sheetPID === 'undefined' || typeof sheetPID.id === 'undefined' || sheetPID.id === '')
     //add button
     const label = game.i18n.localize("PEN.PIDFlag.id");
-    const pidEditor = `<button type="button" class="header-control fa-solid fa-fingerprint ${noId ? 'edit-pid-warning' : 'edit-pid-exisiting'}"
+    const pidEditor = `<button type="button" class="header-control fa-solid fa-fingerprint icon ${noId ? 'edit-pid-warning' : 'edit-pid-exisiting'}"
         data-action="editPid" data-tooltip="${label}" aria-label="${label}"></button>`;
     let el = this.window.close;
     while(el.previousElementSibling.localName === 'button') {
@@ -79,7 +79,7 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
   static DEFAULT_OPTIONS = {
     classes: ['Pendragon', 'sheet', 'actor', 'character2'],
     position: {
-      width: 840,
+      width: 850,
       height: 1000,
     },
     tag: "form",
@@ -95,7 +95,6 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     window: {
       resizeable: true,
     }
-
   }
 
   static PARTS = {
@@ -121,6 +120,24 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     equipment: {
       template: 'systems/Pendragon/templates/actor/character/equipment.hbs'
     },
+    // squires: { //todo: stable
+    //   template: 'systems/Pendragon/templates/actor/character/stable.hbs'
+    // },
+    // events: { //todo: history
+    //   template: 'systems/Pendragon/templates/actor/character/events.hbs'
+    // },
+    // house: { //todo: family
+    //   template: 'systems/Pendragon/templates/actor/character/family.hbs'
+    // },
+    // bio: {
+    //   template: 'systems/Pendragon/templates/actor/character/bio.hbs'
+    // },
+    // holdings: { //todo: family
+    //   template: 'systems/Pendragon/templates/actor/character/holdings.hbs'
+    // },
+    // effects: { //todo: new; active effects
+    //   template: 'systems/Pendragon/templates/actor/character/effects.hbs'
+    // },
   }
   // this does the minimum currently, just sets the tab
   // could also prepare tab-specific fields
