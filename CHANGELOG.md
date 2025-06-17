@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 13.1.30-dev
+- Complete migration of item sheets to V2 Application
+- Ensure all V2 item sheets can be resized like their V1 counterparts
+- Bump verified compatibility version to 13.345
+- Rebuilds the instructions compendium, fixing all the broken links and ordering of journals
+- Empty droppable areas on item sheets now have an instruction and slightly larger drop target
+- To align with the core rules, the default grid size is now 1 yard. As always, you can adjust this in the scene settings
+
 ## 13.1.29
 - Adjusting selectivity of Dark Mode overrid (we are effectively ignoring Dark Mode and trying not to affect things that aren't part of the Pendragon system)
 - Adjusted svg files to have an explicit height and width
