@@ -3,20 +3,19 @@ import { PENCheck, RollType, CardType, RollResult } from "../apps/checks.mjs";
 export class PendragonCombat extends Combat {
   // for now we use 'skirmish' for standard Combat
   // and 'feast' for feast rules
-  encounterType = "skirmish";
-
   isFeast() {
-    return this.encounterType == "feast";
+    return this.getFlag("Pendragon", "encounterType") == "feast";
   }
 
   switchEncounterType() {
     if (this.isFeast()) {
-      this.encounterType = "skirmish";
+      this.setFlag("Pendragon", "encounterType", "skirmish");
     }
     else{
-      this.encounterType = "feast";
+      this.setFlag("Pendragon", "encounterType", "feast");
     }
     ui.combat.initialize();
+    //if ( ui.combat.viewed === this ) ui.combat.render();
   }
 
   async rollInitiative(
@@ -82,5 +81,21 @@ export class PendragonCombat extends Combat {
     // Update multiple combatants
     await this.updateEmbeddedDocuments("Combatant", updates);
     return this;
+  }
+
+  async startCombat()
+  {
+    // set combatants to initial geniality
+    this.combatants.forEach(c => c.initGeniality());
+    // update on next round / previous round
+    super.startCombat();
+  }
+
+  nextRound()
+  {
+    if(this.isFeast()) {
+      this.combatants.forEach(c => c.addGeniality(Math.floor(c.initiative) - 1));
+    }
+    super.nextRound();
   }
 }

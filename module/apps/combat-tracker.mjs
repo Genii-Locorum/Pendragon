@@ -28,7 +28,10 @@ export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs
         const combatantId = row.dataset.combatantId ?? "";
         const combatant = this.viewed.combatants.get(combatantId, { strict: true });
         const init = row.querySelector(".token-initiative span");
-        if (init) init.innerText = combatant.actor.system.glory.toLocaleString();
+        if (init) {
+          init.innerText = combatant.actor.system.glory.toLocaleString();
+          this.#addGenialityVal(init, combatant);
+        }
         // Adjust controls with system extensions
         for (const controlIcon of row.querySelectorAll(".combatant-control.icon")) {
 
@@ -42,6 +45,14 @@ export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs
         }
       }
     }
+  }
+
+  #addGenialityVal(selectedElement, combatant) {
+    const d = document.createElement("div");
+    const geniality = combatant.getGeniality();
+    d.classList.add("token-geniality");
+    d.innerHTML = `<span>${geniality}</span>`;
+    selectedElement.insertAdjacentElement("afterend", d);
   }
 
   #addSeating(list, label, combatants, rollNeeded) {
@@ -60,22 +71,22 @@ export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs
     const a = document.createElement("a");
     a.classList.add("combat-control", "center");
     a.setAttribute("role", "button");
-    a.dataset.control = "switchEncounterType";
+    a.dataset.action = "switchEncounterType";
     if (encounter.isFeast()) {
       a.innerText = game.i18n.localize("PEN.encounterSwitchSkirmish");
     }
     else {
       a.innerText = game.i18n.localize("PEN.encounterSwitchFeast");
     }
-    a.addEventListener("click", event => {
-      encounter.switchEncounterType();
-      if (encounter.isFeast()) {
-        event.target.innerText = game.i18n.localize("PEN.encounterSwitchSkirmish");
-      }
-      else {
-        event.target.innerText = game.i18n.localize("PEN.encounterSwitchFeast");
-      }
-    });
+    // a.addEventListener("click", event => {
+    //   encounter.switchEncounterType();
+    //   if (encounter.isFeast()) {
+    //     event.target.innerText = game.i18n.localize("PEN.encounterSwitchSkirmish");
+    //   }
+    //   else {
+    //     event.target.innerText = game.i18n.localize("PEN.encounterSwitchFeast");
+    //   }
+    // });
     nav.append(a);
     return nav;
   }

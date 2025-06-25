@@ -1395,7 +1395,8 @@ height: inherit;
 
 /*  combat tracker for seating */
 .system-Pendragon h3.combat-tracker-header {
-  margin: 0;
+  margin: 0 0 0.5em;
+  font-size: larger;
 }
 .system-Pendragon .seating {
   display: list-item;
@@ -1405,17 +1406,18 @@ height: inherit;
   list-style: none;
   margin: 0;
   padding: 0;
-  border-bottom: 2px groove var(--color-border-dark-4);
+  border-bottom: 2px groove var(--color-dark-4);
 }
 
 .system-Pendragon .pendragon-combat-extras {
   margin: 0;
-  border-top: 2px groove var(--color-border-dark-4);
+  border-block: 2px groove var(--color-dark-4);
   & a.center {
     flex:3;
     font-size: var(--font-size-20);
     text-align: center;
     line-height: var(--sidebar-header-height);
+    color: var(--color-text-primary);
   }
 }
 
