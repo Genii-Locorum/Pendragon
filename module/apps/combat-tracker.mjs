@@ -1,18 +1,25 @@
 import { RollResult } from "./checks.mjs";
 
 export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs?.CombatTracker ?? CombatTracker) {
+
+  /** @override */
+  static PARTS = {
+    header: {
+      template: "templates/sidebar/tabs/combat/header.hbs"
+    },
+    tracker: {
+      template: "templates/sidebar/tabs/combat/tracker.hbs"
+    },
+    footer: {
+      template: "systems/Pendragon/templates/sidebar/combat/footer.hbs"
+    }
+  };
+
   // override the render for customization
   renderTracker(html) {
     // actual combat - do the standard thing
     if (!this.viewed) return;
 
-    // V12 = data-control / V13 data-action
-    const combatControl = html.querySelector("[data-action='startCombat']");
-    const combatControlNav = html.querySelector("nav.combat-controls");
-    const hasextraControl = html.querySelector(".pendragon-combat-extras");
-    if(combatControl && combatControlNav && !hasextraControl) {
-      combatControlNav.before(this.#addEncounterTypeControl(this.viewed));
-    }
     // TODO: allow GM to drag and drop actors to reflect new seats
     const combatants = this.viewed.combatants;
     // feast - add the seating areas
@@ -30,7 +37,7 @@ export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs
         const init = row.querySelector(".token-initiative span");
         if (init) {
           init.innerText = combatant.actor.system.glory.toLocaleString();
-          this.#addGenialityVal(init, combatant);
+          this.#addGenialityVal(row.querySelector(".token-initiative"), combatant);
         }
         // Adjust controls with system extensions
         for (const controlIcon of row.querySelectorAll(".combatant-control.icon")) {
@@ -46,13 +53,32 @@ export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs
       }
     }
   }
-
+  _onChangeInput(event) {
+    const input = event.target;
+    if ( input.classList.contains("geniality-input") ) {
+      return this.#onUpdateGeniality(event);
+    }
+    return super._onChangeInput(event);
+  }
   #addGenialityVal(selectedElement, combatant) {
     const d = document.createElement("div");
     const geniality = combatant.getGeniality();
     d.classList.add("token-geniality");
-    d.innerHTML = `<span>${geniality}</span>`;
+    d.innerHTML = `<input type="text" class="geniality-input" inputmode="numeric" pattern="^[+=\\-]?\\d*" value="${geniality}"
+                   aria-label="${game.i18n.localize("PEN.geniality")}" title="${game.i18n.localize("PEN.geniality")}" />`;
     selectedElement.insertAdjacentElement("afterend", d);
+  }
+  #onUpdateGeniality(event) {
+    const { combatantId } = event.target.closest("[data-combatant-id]")?.dataset ?? {};
+    const combatant = this.viewed.combatants.get(combatantId);
+    if ( !combatant ) return;
+    const raw = event.target.value;
+    const isDelta = /^[+-]/.test(raw);
+    if ( !isDelta || (raw[0] === "=") ) {
+      return combatant.update({ "flags.Pendragon.geniality": raw ? Number(raw.replace(/^=/, "")) : null });
+    }
+    const delta = parseInt(raw);
+    if ( !isNaN(delta) ) return combatant.addGeniality(delta);
   }
 
   #addSeating(list, label, combatants, rollNeeded) {
@@ -78,16 +104,35 @@ export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs
     else {
       a.innerText = game.i18n.localize("PEN.encounterSwitchFeast");
     }
-    // a.addEventListener("click", event => {
-    //   encounter.switchEncounterType();
-    //   if (encounter.isFeast()) {
-    //     event.target.innerText = game.i18n.localize("PEN.encounterSwitchSkirmish");
-    //   }
-    //   else {
-    //     event.target.innerText = game.i18n.localize("PEN.encounterSwitchFeast");
-    //   }
-    // });
+
     nav.append(a);
     return nav;
+  }
+  _getEntryContextOptions() {
+    const getCombatant = li => this.viewed.combatants.get(li.dataset.combatantId);
+    let options = [...super._getEntryContextOptions()];
+    if (this.viewed.isFeast()) {
+      options.push({
+        name: "PEN.feast.moveCloser",
+        icon: '<i class="fa-solid fa-chevron-up"></i>',
+        condition: li => game.user.isGM && this.viewed.isFeast() && getCombatant(li)?.initiative < RollResult.CRITICAL,
+        callback: li => {
+          const combatant = getCombatant(li);
+          if ( !combatant ) return;
+          combatant.update({ initiative: combatant.initiative + 1 })
+        }
+      },
+      {
+        name: "PEN.feast.moveFurther",
+        icon: '<i class="fa-solid fa-chevron-down"></i>',
+        condition: li => game.user.isGM && this.viewed.isFeast() && getCombatant(li)?.initiative >= RollResult.FAIL,
+        callback: li => {
+          const combatant = getCombatant(li);
+          if ( !combatant ) return;
+          combatant.update({ initiative: combatant.initiative - 1 })
+        }
+      });
+    }
+    return options;
   }
 }

@@ -1,6 +1,7 @@
 import { PENCheck, RollType, CardType, RollResult } from "../apps/checks.mjs";
 
 export class PendragonCombat extends Combat {
+
   // for now we use 'skirmish' for standard Combat
   // and 'feast' for feast rules
   isFeast() {

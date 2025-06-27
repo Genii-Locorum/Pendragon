@@ -1421,6 +1421,10 @@ height: inherit;
   }
 }
 
+.system-Pendragon .token-geniality {
+  max-width: 3em;
+}
+
 /* v13 tweaks */
 .Pendragon.item .sheet-header {
   display: flex;
