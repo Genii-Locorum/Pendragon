@@ -1423,6 +1423,10 @@ height: inherit;
 
 .system-Pendragon .token-geniality {
   max-width: 3em;
+  input{
+    color: var(--color-text-primary);
+    text-align: end;
+  }
 }
 
 /* v13 tweaks */

@@ -2,8 +2,8 @@
 
 ## 13.1.31-dev
 - Remember if an encounter is a skirmish or a feast
-- V13: track geniality via the combat tracker during a feast
-- V13: allow GM to move feast participant seating via context menu
+- Allow GM to move feast participant seating via context menu
+- Track geniality via the combat tracker during a feast
 
 ## 13.1.30
 - Complete migration of item sheets to V2 Application
