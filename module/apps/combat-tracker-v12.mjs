@@ -2,6 +2,12 @@ import { RollResult } from "./checks.mjs";
 
 export class PendragonCombatTrackerV12 extends (foundry.applications?.sidebar?.tabs
   ?.CombatTracker ?? CombatTracker) {
+  activateListeners(html) {
+    super.activateListeners(html);
+    const tracker = html.find("#combat-tracker");
+    const combatants = tracker.find(".combatant");
+    combatants.on("change", this._onChangeInput.bind(this));
+  }
   // override the render for customization
   renderTracker(html) {
     // actual combat - do the standard thing
@@ -26,6 +32,8 @@ export class PendragonCombatTrackerV12 extends (foundry.applications?.sidebar?.t
         const combatant = this.viewed.combatants.get(combatantId, { strict: true });
         const init = row.querySelector(".initiative");
         if (init) init.innerText = combatant.actor.system.glory.toLocaleString();
+
+        this.#addGenialityVal(row.querySelector(".token-initiative"), combatant);
         // Adjust controls with system extensions
         for (const control of row.querySelectorAll("a.combatant-control")) {
           const controlIcon = control.querySelector("i");
@@ -43,6 +51,34 @@ export class PendragonCombatTrackerV12 extends (foundry.applications?.sidebar?.t
         }
       }
     }
+  }
+
+  _onChangeInput(event) {
+    const input = event.target;
+    if ( input.classList.contains("geniality-input") ) {
+      return this.#onUpdateGeniality(event);
+    }
+    //return super._onChangeInput(event);
+  }
+  #addGenialityVal(selectedElement, combatant) {
+    const d = document.createElement("div");
+    const geniality = combatant.getGeniality();
+    d.classList.add("token-geniality");
+    d.innerHTML = `<input type="text" class="geniality-input" inputmode="numeric" pattern="^[+=\\-]?\\d*" value="${geniality}"
+                   aria-label="${game.i18n.localize("PEN.geniality")}" title="${game.i18n.localize("PEN.geniality")}" />`;
+    selectedElement.insertAdjacentElement("afterend", d);
+  }
+  #onUpdateGeniality(event) {
+    const { combatantId } = event.target.closest("[data-combatant-id]")?.dataset ?? {};
+    const combatant = this.viewed.combatants.get(combatantId);
+    if ( !combatant ) return;
+    const raw = event.target.value;
+    const isDelta = /^[+-]/.test(raw);
+    if ( !isDelta || (raw[0] === "=") ) {
+      return combatant.update({ "flags.Pendragon.geniality": raw ? Number(raw.replace(/^=/, "")) : null });
+    }
+    const delta = parseInt(raw);
+    if ( !isNaN(delta) ) return combatant.addGeniality(delta);
   }
 
   #addSeating(list, label, combatants, rollNeeded) {
@@ -73,5 +109,33 @@ export class PendragonCombatTrackerV12 extends (foundry.applications?.sidebar?.t
     });
     nav.append(a);
     return nav;
+  }
+
+  _getEntryContextOptions() {
+    const getCombatant = li => this.viewed.combatants.get(li.data("combatant-id"));
+    let options = [...super._getEntryContextOptions()];
+    if (this.viewed.isFeast()) {
+      options.push({
+        name: "PEN.feast.moveCloser",
+        icon: '<i class="fa-solid fa-chevron-up"></i>',
+        condition: li => game.user.isGM && this.viewed.isFeast() && getCombatant(li)?.initiative < RollResult.CRITICAL,
+        callback: li => {
+          const combatant = getCombatant(li);
+          if ( !combatant ) return;
+          combatant.update({ initiative: combatant.initiative + 1 })
+        }
+      },
+      {
+        name: "PEN.feast.moveFurther",
+        icon: '<i class="fa-solid fa-chevron-down"></i>',
+        condition: li => game.user.isGM && this.viewed.isFeast() && getCombatant(li)?.initiative >= RollResult.FAIL,
+        callback: li => {
+          const combatant = getCombatant(li);
+          if ( !combatant ) return;
+          combatant.update({ initiative: combatant.initiative - 1 })
+        }
+      });
+    }
+    return options;
   }
 }

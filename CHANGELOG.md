@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 13.1.31-dev
+- Remember if an encounter is a skirmish or a feast
+- Show the initiative roll for feast seating in the chat
+- Allow GM to move feast participant seating via context menu
+- Track geniality via the combat tracker during a feast
+
 ## 13.1.30
 - Complete migration of item sheets to V2 Application
 - Ensure all V2 item sheets can be resized like their V1 counterparts
