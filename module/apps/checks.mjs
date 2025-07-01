@@ -42,32 +42,34 @@ export class PENCheck {
   }
 
   // shortcut to make direct roll (no dialog)
+  // use just output.resultLevel for success/failure
+  // or use full output structure to populate chat template
   static async makeDirectRoll(actor, rollType, cardType) {
     const options = {
       actor,
       rollType,
       cardType,
     };
-    const config = await this.normaliseRequest(options);
+    const output = await this.normaliseRequest(options);
     //Adjust target Score for check Bonus, reflexive Modifier and calculate critBonus where target score > 20 or <0
-    config.targetScore =
-      Number(config.targetScore) +
-      Number(config.flatMod) +
-      Number(config.reflexMod);
-    config.grossTarget = config.targetScore;
-    if (config.targetScore > 20) {
-      config.critBonus = config.targetScore - 20;
-      config.targetScore = 20;
-    } else if (config.targetScore < 0) {
-      config.critBonus = -config.targetScore;
-      config.targetScore = 0;
+    output.targetScore =
+      Number(output.targetScore) +
+      Number(output.flatMod) +
+      Number(output.reflexMod);
+    output.grossTarget = output.targetScore;
+    if (output.targetScore > 20) {
+      output.critBonus = output.targetScore - 20;
+      output.targetScore = 20;
+    } else if (output.targetScore < 0) {
+      output.critBonus = -output.targetScore;
+      output.targetScore = 0;
     }
 
     // make the roll (which updates the config result values)
-    await PENCheck.makeRoll(config);
+    await PENCheck.makeRoll(output);
     // TODO: we need a lot more if we're showing the result
     // which we almost definitely need for player-initiated rolls
-    return config.resultLevel;
+    return output;
   }
 
   //Check the request and build out the config

@@ -233,7 +233,12 @@
       "onFloor": "On the Floor",
       "moveCloser": "Move to higher seat",
       "moveFurther": "Move to lower seat",
-      "begin": "Start Feast"
+      "begin": "Start Feast",
+      "reroll": "Fumble: rolling again and shifting result down a level",
+      "resultLevel.0": "Seated on the floor with the squires",
+      "resultLevel.1": "Seated further from the salt",
+      "resultLevel.2": "Seated closer to the salt",
+      "resultLevel.3": "Seated above the salt"
     },
     "features": "Features",
     "female": "Female",

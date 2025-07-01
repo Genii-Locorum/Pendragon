@@ -2,6 +2,7 @@
 
 ## 13.1.31-dev
 - Remember if an encounter is a skirmish or a feast
+- Show the initiative roll for feast seating in the chat
 - Allow GM to move feast participant seating via context menu
 - Track geniality via the combat tracker during a feast
 
