@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 13.1.31-dev
+## 13.1.31
 - Remember if an encounter is a skirmish or a feast
 - Show the initiative roll for feast seating in the chat
 - Allow GM to move feast participant seating via context menu
