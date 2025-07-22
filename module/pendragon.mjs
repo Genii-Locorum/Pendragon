@@ -50,6 +50,8 @@ Hooks.once("init", async function () {
   if (V13) {
     CONFIG.ui.combat = PendragonCombatTracker;
     CONFIG.Canvas.layers.pendragonmenu = {group: 'interface', layerClass: PENLayer};
+    // hides the dummy menu item
+    Hooks.on("renderSceneControls", PENLayer.renderControls);
   } else {
     CONFIG.ui.combat = PendragonCombatTrackerV12;
     // v12 Add GM Tool Layer

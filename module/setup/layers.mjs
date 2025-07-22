@@ -3,27 +3,32 @@ import { PENCharCreate } from "../apps/charCreate.mjs";
 import { PENRollType } from "../cards/rollType.mjs";
 
 
-export class PENLayer extends PlaceablesLayer {
+export class PENLayer extends InteractionLayer {
 
   constructor () {
     super()
-    this.objects = {}
   }
 
   static get layerOptions () {
     return foundry.utils.mergeObject(super.layerOptions, {
-      name: 'pendragonmenu',
-      zIndex: 60
+      name: 'pendragonmenu'
     })
   }
 
-  static get documentName () {
-    return 'Token'
+  // hide the dummy tool
+  static renderControls (app, html, data) {
+    const dummy_item = html.querySelector('[data-tool="pendummy"]');
+    if(dummy_item) {
+      dummy_item.parentElement.remove();
+    }
   }
 
-  get placeables () {
-    return []
+  // we don't have any interactive children for this layer
+  // so turn this flag back off when activated
+  _activate() {
+    this.interactiveChildren = false;
   }
+
   static prepareSceneControls() {
     return {
       icon: "fas fa-tools",
@@ -32,13 +37,20 @@ export class PENLayer extends PlaceablesLayer {
       title: 'PEN.GMTools',
       visible: game.user.isGM,
       order: 11,
-      activeTool: '',
-      onChange: (event, active) => {
-        if ( active )
-        canvas.pendragonmenu.activate();
-      },
-      onToolChange: () => canvas.pendragonmenu.setAllRenderFlags({refreshState: true}),
+      activeTool: 'pendummy',
+      onChange: () => {},
+      onToolChange: () => {},
       tools: {
+        // this dummy tool exists because we have no sensible default tool when switching to this layer
+        // it is hidden by the "PENLayer.renderControls" hook
+        pendummy: {
+          name: "pendummy",
+          order: 0,
+          icon: "",
+          title:  '',
+          button: true,
+          onChange: async (event, toggle) => {},
+        },
         winter: {
           name: "winter",
           order: 1,
