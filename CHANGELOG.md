@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.32
+- Fixed issue with GM Tools menu cuasing tokens not to drag properly on the canvas
+
 ## 13.1.31
 - Remember if an encounter is a skirmish or a feast
 - Show the initiative roll for feast seating in the chat
