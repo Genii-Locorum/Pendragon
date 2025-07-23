@@ -91,27 +91,10 @@ export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs
     seatingArea.querySelector("ol").replaceChildren(...children);
   }
 
-  #addEncounterTypeControl(encounter) {
-    const nav = document.createElement("nav");
-    nav.classList.add("directory-footer", "flexrow", "pendragon-combat-extras");
-    const a = document.createElement("a");
-    a.classList.add("combat-control", "center");
-    a.setAttribute("role", "button");
-    a.dataset.action = "switchEncounterType";
-    if (encounter.isFeast()) {
-      a.innerText = game.i18n.localize("PEN.encounterSwitchSkirmish");
-    }
-    else {
-      a.innerText = game.i18n.localize("PEN.encounterSwitchFeast");
-    }
-
-    nav.append(a);
-    return nav;
-  }
   _getEntryContextOptions() {
     const getCombatant = li => this.viewed.combatants.get(li.dataset.combatantId);
     let options = [...super._getEntryContextOptions()];
-    if (this.viewed.isFeast()) {
+    if (this.viewed?.isFeast()) {
       options.push({
         name: "PEN.feast.moveCloser",
         icon: '<i class="fa-solid fa-chevron-up"></i>',

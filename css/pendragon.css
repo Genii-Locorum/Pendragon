@@ -61,7 +61,8 @@
 .Pendragon .window-content {
   background-image:url("../assets/parchment.jpg");
   background-size: cover;
-  padding: 8px;
+  padding: 0.5em;
+  font-size: var(--font-size-16);
 }
 
 .chat-message {
@@ -1376,6 +1377,16 @@ height: inherit;
   color: black;
   text-transform: capitalize;
 }
+/* skill training - assign skill points */
+.Pendragon .skill-point-grid {
+  columns: 2;
+  column-gap: 1lh;
+  li {
+    display: grid;
+    gap: 2px;
+    grid-template-columns: 30ch 40px 4ch 40px;
+  }
+}
 
 .Pendragon .dice-roll .dice-tooltip {
   display: none;
@@ -1436,5 +1447,14 @@ height: inherit;
   align-items: center;
   & img {
     height: 64px;
+  }
+}
+
+.Pendragon .form-footer {
+  display: flex;
+  margin-top: 1em;
+  gap: 1em;
+  button {
+    width: 100%;
   }
 }

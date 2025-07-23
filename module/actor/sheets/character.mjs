@@ -402,10 +402,11 @@ export class PendragonCharacterSheet extends ActorSheet {
     html.find(".prestige-trait").click(PENWinter.winterImproveTrait.bind(this,"prestige")); // Spend prestige on a trait
     html.find(".prestige-passion").click(PENWinter.winterImprovePassion.bind(this,"prestige")); // Spend prestige on a passion
     html.find(".prestige-check").click(PENWinter.winterImprov.bind(this,"prestige"));       // Spend prestige on a characteristic or skill
+    html.find(".prestige-skill").click(PENWinter.winterImproveSkill.bind(this,"prestige")); // Spend prestige on a characteristic or skill
     html.find(".train-trait").click(PENWinter.winterImproveTrait.bind(this,"single"));      // Spend training on a trait
     html.find(".train-passion").click(PENWinter.winterImprovePassion.bind(this,"single"));  // Spend training on a passion
     html.find(".train-single").click(PENWinter.winterImprov.bind(this,"single"));           // Spend training as a single point
-    html.find(".train-multiple").click(PENWinter.winterImprov.bind(this,"multiple"));       // Spend training spread across multiple skills
+    html.find(".train-multiple").click(PENWinter.winterImproveSkill.bind(this,"multiple"));       // Spend training spread across multiple skills
     html.find(".familyRoll").click(PENWinter.familyRoll.bind(this,"single"));               // Family Rolls
     html.find(".charcreate").click(PENCharCreate.startCreate.bind(this));                   // Start Character Creation
     html.find(".addWound").click(PENCombat.addWound.bind(this));                            // Add a Wound/Damage

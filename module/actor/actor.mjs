@@ -415,7 +415,7 @@ export class PendragonActor extends Actor {
 
   /** @override */
   static async create (data, options = {}) {
-    let vision = game.settings.get('Pendragon' , 'tokenVision')
+    let vision = game.settings.get('Pendragon' , 'tokenVision');
     //When creating an actor set basics including tokenlink, bars, displays sight
     if (data.type === 'character') {
       data.prototypeToken = foundry.utils.mergeObject( {
@@ -509,6 +509,26 @@ export class PendragonActor extends Actor {
   removeStatus(statusId) {
     const existing = this.effects.getName(statusId);
     if ( existing ) return existing.delete();
+  }
+
+  async addHistoryEvent(name, desc, glory = 0) {
+        const itemData = {
+          name: name,
+          type: 'history',
+          system: {
+            "libra": 0,
+            "denarii": 0,
+            "description": desc,
+            "year": game.settings.get('Pendragon',"gameYear"),
+            "glory": glory
+          }
+        }
+        let newHist = await Item.create(itemData, {parent: this});
+        // do history event really need a PID?
+        let key = await game.system.api.pid.guessId(newHist);
+        await newHist.update({'flags.Pendragon.pidFlag.id': key,
+                             'flags.Pendragon.pidFlag.lang': game.i18n.lang,
+                             'flags.Pendragon.pidFlag.priority': 0});
   }
 
 }

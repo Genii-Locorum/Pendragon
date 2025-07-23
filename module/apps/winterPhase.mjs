@@ -5,7 +5,7 @@ import { PassionsSelectDialog } from "./passion-selection.mjs";
 import { PENSelectLists } from "./select-lists.mjs";
 import { PENCheck } from '../apps/checks.mjs';
 import { PENCharCreate } from "./charCreate.mjs";
-import { PendragonStatusEffects } from "./status-effects.mjs";
+import { SkillTrainingDialog } from "./skill-training-selection.mjs";
 
 export class PENWinter {
 
@@ -162,7 +162,7 @@ export class PENWinter {
       speaker: ChatMessage.getSpeaker({ actor: actorName }),
       success: success
     }
-      const messageTemplate = 'systems/Pendragon/templates/chat/XP-result.html'
+      const messageTemplate = 'systems/Pendragon/templates/chat/XP-result.hbs'
       let html = await renderTemplate (messageTemplate, messageData);
 
      return html;
@@ -188,10 +188,7 @@ export class PENWinter {
     return
   }
 
-  //
-  // Spend prestige - put together a list of all items that can be chose.  Add two variables selected
-  // and choice.  Selected indicates the stat picked and choice is increase or decrease +1/-1
-  //
+  // Used just for characteristics (everything else has been split off)
   static async winterImprov(route, event) {
 
     if (route === 'prestige' && this.actor.system.gloryPrestige < 1) {
@@ -200,11 +197,14 @@ export class PENWinter {
     if (route != 'prestige' && !this.actor.system.status.train) {
       return
     }
-    let options = [];
-    for (let [key, stat] of Object.entries(this.actor.system.stats)) {
-      //For prestige choice add all characteristics, for single training add all except for Size and only if value <20
-      if (route === 'prestige' || (route === 'single' && key != 'siz' && stat.total<20 && this.actor.system.age<35) || (route === 'single' && key === 'siz' && stat.total<20 && stat.growth<3 && this.actor.system.age<35) ) {
-        let option = {
+    const options = [];
+    for (const [key, stat] of Object.entries(this.actor.system.stats)) {
+      // for prestige choice add all characteristics
+      // for single training add all except for Size and only if value <20
+      if (route === 'prestige'
+          || (route === 'single' && key != 'siz' && stat.total<20)
+          || (route === 'single' && key === 'siz' && stat.total<20 && stat.growth<3) ) {
+        const option = {
           'type': 'stat',
           'label': game.i18n.localize("PEN.characteristic"),
           'itemID': key,
@@ -216,37 +216,6 @@ export class PENWinter {
         }
       if (route === 'prestige') {option.max = 999}
       options.push(option);
-      }
-    }
-
-    for (let i of this.actor.items) {
-      if (i.type === 'skill') {
-        //If route is prestige add all, if single train add all where skill > 14, for multiple train only add skill where <15
-        if ((route === 'prestige') || (route === 'single' && i.type != 'skill') || (route === 'single' && i.type === 'skill' && i.system.value > 14 && i.system.value < 20) ||(route === 'multiple' && i.type === 'skill' && i.system.value < 15)){
-          let option = {
-            'type': i.type,
-            'label': game.i18n.localize("PEN."+i.type),
-            'itemID': i._id,
-            'name' : i.name + " (" + i.system.value +")",
-            'value': i.system.value,
-            'choice': "",
-            'max': 20,
-            'min': 1
-          }
-
-          //If a skill and prestige award no maximum. If multiple then max = 15.  Otherwise single training and max is the default of 20
-          //Can't decrease skills so the minimum is skill value
-          if (i.type === 'skill') {
-            option.min = i.system.value;
-            if (route === 'prestige') {
-              option.max = 999;
-            } else if (route === 'multiple') {
-              option.max = 15;
-            }
-          }
-
-          options.push(option);
-        }
       }
     }
 
@@ -263,9 +232,7 @@ export class PENWinter {
       return 0;
     });
 
-    //If prestige or single training point then amount = 1, otherwise can choose 6 points
-    let amount = 1;
-    if (route === 'multiple') {amount = 6};
+    const amount = 1;
     let title = game.i18n.localize('PEN.prestigeAward');
     if (route != 'prestige') {title = game.i18n.localize('PEN.training')}
 
@@ -281,24 +248,15 @@ export class PENWinter {
           pickedName = pickedName + ", ";
         }
         //If a stat then increase by 1
-        if (picked.type === 'stat') {
-          let target = 'system.stats.' + picked.itemID + '.winter';
-          pickedName = pickedName + this.actor.system.stats[picked.itemID].label +"(1)";
-          await this.actor.update({[target] : this.actor.system.stats[picked.itemID].winter + 1});
-          if (picked.itemID === 'siz' && route !='prestige') {
-            let conLoss = Math.max(this.actor.system.stats.siz.growth -1,0)
-            await this.actor.update({'system.stats.siz.growth' : this.actor.system.stats.siz.growth + 1,
-                                     'system.stats.dex.winter' : this.actor.system.stats.dex.winter - 1,
-                                     'system.stats.con.winter' : this.actor.system.stats.con.winter - conLoss,
-                                     });
-          }
-
-
-          //Otherwise change the item value the value of .choice
-        } else {
-          let item = this.actor.items.get(picked.itemID);
-          pickedName = pickedName + item.name +"(" + picked.choice + ")";
-          await item.update({'system.value': Number(item.system.value) + Number(picked.choice)});
+        let target = 'system.stats.' + picked.itemID + '.winter';
+        pickedName = pickedName + this.actor.system.stats[picked.itemID].label +"(1)";
+        await this.actor.update({[target] : this.actor.system.stats[picked.itemID].winter + 1});
+        if (picked.itemID === 'siz' && route !='prestige') {
+          let conLoss = Math.max(this.actor.system.stats.siz.growth -1,0)
+          await this.actor.update({'system.stats.siz.growth' : this.actor.system.stats.siz.growth + 1,
+                                    'system.stats.dex.winter' : this.actor.system.stats.dex.winter - 1,
+                                    'system.stats.con.winter' : this.actor.system.stats.con.winter - conLoss,
+                                    });
         }
       }
 
@@ -333,6 +291,66 @@ export class PENWinter {
 
   }
 
+  static async winterImproveSkill(route, event) {
+
+    if (route === 'prestige' && this.actor.system.gloryPrestige < 1) {
+      return;
+    }
+    if (route != 'prestige' && !this.actor.system.status.train) {
+      return;
+    }
+    const skills = [];
+
+    for (let i of this.actor.items) {
+      if (i.type === 'skill') {
+        const option = {
+            'type': i.type,
+            'itemID': i._id,
+            'name' : i.name,
+            'value': i.system.total,
+            'orig': i.system.total,
+            'choice': "",
+            'cost': 1,
+            'max': 20,
+            'min': i.system.total
+          }
+
+        //If prestige award no maximum.
+        if (route === 'prestige') {
+          option.max = 999;
+        } else {
+          // standard training:
+          //   skills under 15 cost one point to raise
+          //   if you're reaching 15 by spending points,
+          //   there's not enough points left to keep raising
+          if(i.system.total < 15) {
+            option.max = 15;
+          } else {
+            // skills already at 15+ cost all six training points
+            option.cost = 6;
+          }
+        }
+        skills.push(option);
+      }
+    }
+
+    // Sort Options
+    // in theory we could group combat skills together
+    // in practice not worth it unless we redesign the dialog
+    skills.sort(function(a, b){
+      return a.name.localeCompare(b.name);
+    });
+
+    //If prestige then amount = 1, else 6 training points
+    let amount = route === 'prestige' ? 1 : 6;
+
+    let title = 'PEN.prestigeAward';
+    if (route != 'prestige') {title = 'PEN.training'};
+
+    const dlg = new SkillTrainingDialog(this.actor, skills, route, amount, {window: {title: title}});
+    dlg.render(true);
+  }
+
   static async winterImprovePassion(route, event) {
 
     if (route === 'prestige' && this.actor.system.gloryPrestige < 1) {
@@ -341,10 +359,10 @@ export class PENWinter {
     if (route != 'prestige' && !this.actor.system.status.train) {
       return
     }
-    let options = [];
+    const options = [];
     for (let i of this.actor.items) {
       if (i.type === "passion" && i.system.value > 0) {
-        let option = {
+        const option = {
           'type': i.type,
           'label': game.i18n.localize("PEN."+i.type),
           'itemID': i._id,
