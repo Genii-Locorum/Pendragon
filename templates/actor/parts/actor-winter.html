@@ -51,12 +51,14 @@
           <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
         {{/unless}}
       </li>
-      <li class="stat-name left bold train-single clickable">{{localize 'PEN.singleTrain'}}
+      {{#if (lt system.age 35)}}
+      <li class="stat-name left bold train-single clickable">{{localize 'PEN.characteristicTrain'}}
         {{#unless system.status.train}}
           <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
         {{/unless}}
       </li>
-      <li class="stat-name left bold train-multiple clickable">{{localize 'PEN.spreadTrain'}}
+      {{/if}}
+      <li class="stat-name left bold train-multiple clickable">{{localize 'PEN.skillTrain'}}
         {{#unless system.status.train}}
           <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
         {{/unless}}
@@ -76,7 +78,12 @@
             <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
           {{/if}}
         </li>
-        <li class="stat-name left bold prestige-check clickable">{{localize 'PEN.prestigeSkill'}}
+        <li class="stat-name left bold prestige-check clickable">{{localize 'PEN.prestigeCharacteristic'}}
+          {{#if (eq system.gloryPrestige 0)}}
+            <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
+          {{/if}}
+        </li>
+        <li class="stat-name left bold prestige-skill clickable">{{localize 'PEN.prestigeSkill'}}
           {{#if (eq system.gloryPrestige 0)}}
             <a class="large-icon" title="{{localize 'PEN.completed'}}"><i class="fas fa-check"></i></a>
           {{/if}}

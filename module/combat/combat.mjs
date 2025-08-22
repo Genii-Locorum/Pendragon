@@ -16,7 +16,6 @@ export class PendragonCombat extends Combat {
       this.setFlag("Pendragon", "encounterType", "feast");
     }
     ui.combat.initialize();
-    //if ( ui.combat.viewed === this ) ui.combat.render();
   }
 
   async rollInitiative(

@@ -1,0 +1,22 @@
+<div>
+    {{#unless prestige}}
+    <p>{{localize 'PEN.skillTrainHint'}}</p>
+    {{/unless}}
+    <p class="bold centre">
+      <span>{{localize 'PEN.pointsSpent'}}: </span>
+      <span class="count">{{amount.spent}}</span>
+      <span class="sep">/</span>
+      <span>{{amount.points}}</span>
+    </p>
+    <ul class="items-list skill-point-grid">
+    {{#each options as | skill key|}}
+    <li>
+      <div class="bold stat-name">{{skill.name}}</div>
+      <div class="centre"><a class="large-icon darkred down rollable dec-{{key}}" data-set="{{key}}" data-action="refundPoint">{{#if (gt skill.value skill.min)}}<i class="fas fa-circle-down"></i>{{/if}}</a></div>
+      <div class="stat-name centre item-{{key}}">{{skill.value}}</div>
+      <div><a class="large-icon darkred up rollable inc-{{key}}" data-set="{{key}}" data-action="spendPoint">{{#if (lte skill.cost ../amount.remaining)}}{{#if (lt skill.value skill.max)}}<i class="fas fa-circle-up"></i>{{/if}}{{/if}}</a></div>
+    </li>
+    {{/each}}
+    </ul>
+</div>
+
