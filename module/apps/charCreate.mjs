@@ -1230,34 +1230,39 @@ export class PENCharCreate {
         ui.notifications.error(game.i18n.format('PEN.notTableDoc',{name: name}))
         return false
       }
-      for (let res of results) {
-        let rUUID=""
-        switch (res.type) {
-        case CONST.TABLE_RESULT_TYPES.DOCUMENT:
-          rUUID = `${res.documentCollection}.${res.documentId}`;
-          break
-        case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
-          rUUID = `Compendium.${res.documentCollection}.Item.${res.documentId}`;
-          break
-        case CONST.TABLE_RESULT_TYPES.TEXT:
-          rUUID = "bypass"
-        break
-        default:
-          ui.notifications.error(actor.name + ": " + game.i18n.localize('PEN.notReligDoc'))
-          return false
-        }
-        if (rUUID !="bypass") {
-          const doc = await fromUuidSync(rUUID)
-          if (!doc) {
-            ui.notifications.error(game.i18n.format('PEN.religDocGone',{doc:rUUID, table:name}))
-          return false
-          }
-        }
-      }
+      if(!PENCharCreate.documentReferencesExist(name, results)) return false;
     }
     return true
   }
 
+  static async documentReferencesExist(name, results) {
+    const V13 = game.release.generation >= 13;
+    for (const res of results) {
+      let rUUID="";
+      switch (res.type) {
+      case CONST.TABLE_RESULT_TYPES.DOCUMENT:
+        rUUID = V13 ? res.documentUuid : `${res.documentCollection}.${res.documentId}`;
+        break;
+      case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
+        rUUID = V13 ? res.documentUuid : `Compendium.${res.documentCollection}.Item.${res.documentId}`;
+        break;
+      case CONST.TABLE_RESULT_TYPES.TEXT:
+        rUUID = "bypass"
+      break;
+      default:
+        ui.notifications.error(actor.name + ": " + game.i18n.localize('PEN.notReligDoc'))
+        return false;
+      }
+      if (rUUID !="bypass") {
+        const doc = await fromUuidSync(rUUID);
+        if (!doc) {
+          ui.notifications.error(game.i18n.format('PEN.religDocGone',{doc:rUUID, table:name}))
+        return false;
+        }
+      }
+    }
+    return true;
+  }
 
 
   //Choose Item Dialog
