@@ -1,7 +1,11 @@
 # CHANGELOG
 
+## 13.1.33-rc
+- Reworked winter skill training dialog
+- Clarified wording around winter characteristic training
+
 ## 13.1.32
-- Fixed issue with GM Tools menu cuasing tokens not to drag properly on the canvas
+- Fixed issue with GM Tools menu causing tokens not to drag properly on the canvas
 
 ## 13.1.31
 - Remember if an encounter is a skirmish or a feast
@@ -18,7 +22,7 @@
 - To align with the core rules, the default grid size is now 1 yard. As always, you can adjust this in the scene settings
 
 ## 13.1.29
-- Adjusting selectivity of Dark Mode overrid (we are effectively ignoring Dark Mode and trying not to affect things that aren't part of the Pendragon system)
+- Adjusting selectivity of Dark Mode override (we are effectively ignoring Dark Mode and trying not to affect things that aren't part of the Pendragon system)
 - Adjusted svg files to have an explicit height and width
 
 ## 13.1.28
