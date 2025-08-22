@@ -145,4 +145,33 @@ export class PIDEditor extends FormApplication {
     this.render()
   }
 
+  static addPIDSheetHeaderButton (application, element) {
+    if (typeof application.options.actions.editPid !== 'undefined') return
+    application.options.actions.editPid = {
+      handler: (event, element) => {
+        event.preventDefault()
+        event.stopPropagation()
+        if (event.detail > 1) return // Ignore repeated clicks
+        if (event.button === 2 && (application.document.flags.Pendragon?.pidFlag?.id ?? false)) {
+          game.clipboard.copyPlainText(application.document.flags.Pendragon.pidFlag.id)
+          //ui.notifications.info('AOV.WhatCopiedClipboard', { format: { what: game.i18n.localize('AOV.CIDFlag.key') }, console: false })
+        } else {
+          new PIDEditor(application.document, {}).render(true, { focus: true })
+        }
+      },
+      buttons: [0, 2]
+    }
+    const copyUuid = element.querySelector('button.header-control.fa-solid.fa-passport')
+    if (copyUuid) {
+      const button = document.createElement('button')
+      button.type = 'button'
+      button.classList = 'header-control fa-solid fa-fingerprint icon'
+      if (!(application.document.flags.Pendragon?.pidFlag?.id ?? false)) {
+        button.classList.add('edit-pid-warning')
+      }
+      button.dataset.action = 'editPid'
+      button.dataset.tooltip = 'PEN.PIDFlag.id'
+      copyUuid.after(button)
+    }
+  }
 }  
