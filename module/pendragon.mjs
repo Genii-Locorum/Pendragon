@@ -16,6 +16,7 @@ import { migrateWorld } from "./setup/migrations.mjs";
 import { PendragonCombatTracker } from "./apps/combat-tracker.mjs";
 import { PendragonCombatTrackerV12 } from "./apps/combat-tracker-v12.mjs";
 import { PendragonStatusEffects } from "./apps/status-effects.mjs";
+import { PIDEditor } from "./pid/pid-editor.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -114,7 +115,10 @@ Hooks.on("renderSettingsConfig", (app, html, options) => {
 
 PendragonHooks.listen();
 
-
+// Add PID to roll tables (for v13)
+Hooks.on('renderRollTableSheet', (application, element) =>
+  PIDEditor.addPIDSheetHeaderButton(application, element)
+);
 
 // Customize combat tracker
 Hooks.on("renderCombatTracker", async (combatTracker, html, combatData) =>

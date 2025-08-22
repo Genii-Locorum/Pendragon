@@ -3,6 +3,7 @@
 ## 13.1.33-rc
 - Reworked winter skill training dialog
 - Clarified wording around winter characteristic training
+- Fix missing PID editor on rollable tables
 - French translation provided by Kyllianm85
 
 ## 13.1.32
