@@ -3,6 +3,7 @@
 ## 13.1.33-rc
 - Reworked winter skill training dialog
 - Clarified wording around winter characteristic training
+- French translation provided by Kyllianm85
 
 ## 13.1.32
 - Fixed issue with GM Tools menu causing tokens not to drag properly on the canvas
