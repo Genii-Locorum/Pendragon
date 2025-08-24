@@ -79,7 +79,7 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
   static DEFAULT_OPTIONS = {
     classes: ['Pendragon', 'sheet', 'actor', 'character2'],
     position: {
-      width: 850,
+      width: 900,
       height: 1000,
     },
     tag: "form",
@@ -126,9 +126,9 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     // followers: { //todo
     //   template: 'systems/Pendragon/templates/actor/character/stable.hbs'
     // },
-    // events: { //todo: history
-    //   template: 'systems/Pendragon/templates/actor/character/events.hbs'
-    // },
+    events: { //todo: history
+      template: 'systems/Pendragon/templates/actor/character/events.hbs'
+    },
     // house: { //todo: family
     //   template: 'systems/Pendragon/templates/actor/character/family.hbs'
     // },
@@ -187,7 +187,7 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       useRelation: game.settings.get('Pendragon' , 'useRelation'),
       items: this.actor.items,
     };
-    sheetData.tabs = this._initTabs("primary", ["combat", "traits", "passions", "skills", "equipment", "stable"]);
+    sheetData.tabs = this._initTabs("primary", ["combat", "traits", "passions", "skills", "equipment", "stable", "events"]);
     // now organize the items belonging to the character
     this._prepareItems(sheetData);
     return sheetData;
