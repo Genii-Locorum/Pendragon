@@ -495,22 +495,9 @@ export class PENCharCreate {
       let results=[]
       let table= (await game.system.api.pid.fromPIDBest({pid:'rt..religion'}))[0]
       const religResults = await PENUtilities.tableDiceRoll (table)
-      const res = religResults.results[0]
-      let rUUID=""
-      switch (res.type) {
-      case CONST.TABLE_RESULT_TYPES.DOCUMENT:
-        rUUID = `${res.documentCollection}.${res.documentId}`;
-        break
-      case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
-        rUUID = `Compendium.${res.documentCollection}.Item.${res.documentId}`;
-        break
-      default:
-        ui.notifications.error(actor.name + ": " + game.i18n.localize('PEN.notReligDoc'))
-        return false
-      }
-      const doc = await fromUuidSync(rUUID)
+      const doc = await PENCharCreate.documentFromResult(religResults.results[0])
+      if (!doc) {return}
       itemData = await game.system.api.pid.fromPIDBest({pid:doc.flags.Pendragon.pidFlag.id})
-
       results.push({
         name: doc.name,
         rollVal: religResults.roll.total,
@@ -663,10 +650,12 @@ export class PENCharCreate {
 
   //Get Family Characteristic - step 11-------------------------------------------------------------
   static async step11(actor) {
+    const V13 = game.release.generation >= 13;
     let results=[]
     let table= (await game.system.api.pid.fromPIDBest({pid:'rt..family-characteristic'}))[0]
     let selected = ""
     let fUUID= []
+    let rUUID = ""
     let beauty = 0
     //If random rolls
     if (actor.system.create.random) {
@@ -702,6 +691,7 @@ export class PENCharCreate {
         }
       } else {
         fUUID.push(fRoll)
+
       }
     //Else if constructed
 
@@ -713,18 +703,22 @@ export class PENCharCreate {
     } else {
       let results =  await Promise.all(table.results.toObject(false).filter (itm=>(itm.type != 'text')).map(async itm=> {
         const doclookup = await PENCharCreate.documentFromResult(itm);
+        console.log(doclookup)
         const itemlookup = await actor.items.find(itm2 => (itm2.flags.Pendragon.pidFlag.id === doclookup.flags.Pendragon.pidFlag.id));
         return { name: `${itemlookup.system.familyChar} (${itm.text})`, pid: itm._id}
       }));
-      console.log(results);
+      console.log(results)
       selected = await PENCharCreate.selectFromRadio ('list',false,results)
       let res = table.results.toObject(false).filter (itm=>(itm._id === selected))[0]
+      console.log(res)
       switch (res.type) {
         case CONST.TABLE_RESULT_TYPES.DOCUMENT:
-          fUUID.push(`${res.documentCollection}.${res.documentId}`)
+          rUUID = V13 ? res.documentUuid : `${res.documentCollection}.${res.documentId}`; 
+          fUUID.push(rUUID)
           break
         case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
-          fUUID.push(`Compendium.${res.documentCollection}.Item.${res.documentId}`)
+          rUUID = V13 ? res.documentUuid : `Compendium.${res.documentCollection}.Item.${res.documentId}`;
+          fUUID.push(rUUID)
           break
         default:
           ui.notifications.error(game.i18n.localize('PEN.religDocGone'))
@@ -922,6 +916,7 @@ export class PENCharCreate {
 
   //Luck Benefit - step 14-------------------------------------------------------------
   static async step14(actor) {
+    const V13 = game.release.generation >= 13;
     let data = {msg: game.i18n.localize('PEN.luckBenItem'),
                 title: game.i18n.localize("PEN.luckBen"),
                 button1: {label:game.i18n.localize("PEN.yes"),
@@ -939,10 +934,10 @@ export class PENCharCreate {
     let rUUID=""
     switch (res.type) {
     case CONST.TABLE_RESULT_TYPES.DOCUMENT:
-      rUUID = `${res.documentCollection}.${res.documentId}`;
+      rUUID = V13 ? res.documentUuid : `${res.documentCollection}.${res.documentId}`; ;
       break
     case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
-      rUUID = `Compendium.${res.documentCollection}.Item.${res.documentId}`;
+      rUUID = V13 ? res.documentUuid : `Compendium.${res.documentCollection}.Item.${res.documentId}`;;
       break
     default:
       ui.notifications.error(actor.name + ": " + game.i18n.format('PEN.notTableDoc',{name: game.i18n.localize('PEN.luckBen')}))
@@ -1285,9 +1280,10 @@ export class PENCharCreate {
 
     //If there's only one item on the list then return it
     let itemPID = ""
+    console.log(newList)
     if (newList.length <1) {return false}
     if (newList.length === 1) {
-      itemPID = newList[0].flags.Pendragon.pidFlag.id
+      itemPID = newList[0].flags?.Pendragon?.pidFlag?.id ?? newList[0].pid
 
     //Otherwise call the dialog selection
     } else {
@@ -1393,17 +1389,21 @@ export class PENCharCreate {
 
   //Family table roll
   static async makeTableRoll(table) {
+    const V13 = game.release.generation >= 13;
+    let uuid = "";
     const tableResults = await PENUtilities.tableDiceRoll(table)
     //const tableResults = await table.roll()
     //if (game.modules.get('dice-so-nice')?.active) {
     //  game.dice3d.showForRoll(tableResults.roll)
     //}
     const res = tableResults.results[0]
-  switch (res.type) {
+    switch (res.type) {
     case CONST.TABLE_RESULT_TYPES.DOCUMENT:
-      return ({res:`${res.documentCollection}.${res.documentId}`, tableResults: tableResults}) ;
+      uuid = V13 ? res.documentUuid : `${res.documentCollection}.${res.documentId}`;  
+      return ({res:uuid, tableResults: tableResults}) ;
     case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
-      return ({res:`Compendium.${res.documentCollection}.Item.${res.documentId}`, tableResults: tableResults})
+      uuid = V13 ? res.documentUuid : `Compendium.${res.documentCollection}.Item.${res.documentId}`;
+      return ({res:uuid, tableResults: tableResults}) ;
     default:
       return ({res: res.text, tableResults: tableResults})
     }
@@ -1937,20 +1937,22 @@ export class PENCharCreate {
     return
   }
 
- static async documentFromResult(res){
-      let uuid = "";
+  //Return a Document from a Roll Table result
+  static async documentFromResult(res){
+    let uuid = "";
+    const V13 = game.release.generation >= 13;
       switch (res.type) {
         case CONST.TABLE_RESULT_TYPES.DOCUMENT:
-          uuid =`${res.documentCollection}.${res.documentId}`;
+          uuid = V13 ? res.documentUuid : `${res.documentCollection}.${res.documentId}`;  
           break
         case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
-          uuid = `Compendium.${res.documentCollection}.Item.${res.documentId}`;
+          uuid = V13 ? res.documentUuid : `Compendium.${res.documentCollection}.Item.${res.documentId}`;
           break
         default:
-          ui.notifications.error(game.i18n.localize('PEN.religDocGone'))
+          ui.notifications.error(actor.name + ": " + game.i18n.localize('PEN.notReligDoc'))
           return false
       }
-      return await fromUuidSync(uuid)
+      return await fromUuidSync(uuid)    
     }
 }
 
