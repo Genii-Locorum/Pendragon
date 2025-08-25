@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 13.1.33-rc
+## 13.1.33
 - Reworked winter skill training dialog
 - Clarified wording around winter characteristic training
 - Fix missing PID editor on rollable tables
