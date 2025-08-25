@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.34
+- Update character creation for Foundry V13 roll tables
+
 ## 13.1.33
 - Reworked winter skill training dialog
 - Clarified wording around winter characteristic training
