@@ -662,27 +662,36 @@ export class PENCharCreate {
       //Make first roll
       let tableOut = await PENCharCreate.makeTableRoll(table)
       let fRoll = tableOut.res
+      console.log(fRoll)
       let dRoll = tableOut.tableResults
+      let resName = dRoll.results[0].name
+      if (fRoll.substring(0,6).toLowerCase() === 'gifted') {
+        resName = fRoll
+      }
       results.push({
-        name: game.i18n.localize('PEN.roll'),
+        name: resName,
         rollVal: dRoll.roll.total,
         form: dRoll.roll.formula,
         dice: dRoll.roll.dice[0].results[0].result
       })
 
-      if (fRoll.toLowerCase() === 'gifted') {
+      if (fRoll.substring(0,6).toLowerCase() === 'gifted') {
         //If roll is gifted make two more rolls
         for (let rCount = 1; rCount<3; rCount++) {
           let stableOut = await PENCharCreate.makeTableRoll(table)
           let sRoll = stableOut.res
           let d2Roll = stableOut.tableResults
+          resName = d2Roll.results[0].name
+          if (sRoll.substring(0, 6).toLowerCase() === 'gifted') {
+            resName = game.i18n.localize('PEN.beauty')
+          }  
           results.push({
-            name: game.i18n.localize('PEN.roll'),
+            name: resName,
             rollVal: d2Roll.roll.total,
             form: d2Roll.roll.formula,
             dice: d2Roll.roll.dice[0].results[0].result
           })
-          if (sRoll.toLowerCase() != 'gifted') {
+          if (sRoll.substring(0, 6).toLowerCase() != 'gifted') {
             fUUID.push(sRoll)
           } else {
             //If second or third rolls are gifted then become Transcendent Beauty
@@ -707,10 +716,8 @@ export class PENCharCreate {
         const itemlookup = await actor.items.find(itm2 => (itm2.flags.Pendragon.pidFlag.id === doclookup.flags.Pendragon.pidFlag.id));
         return { name: `${itemlookup.system.familyChar} (${itm.text})`, pid: itm._id}
       }));
-      console.log(results)
       selected = await PENCharCreate.selectFromRadio ('list',false,results)
       let res = table.results.toObject(false).filter (itm=>(itm._id === selected))[0]
-      console.log(res)
       switch (res.type) {
         case CONST.TABLE_RESULT_TYPES.DOCUMENT:
           rUUID = V13 ? res.documentUuid : `${res.documentCollection}.${res.documentId}`; 
@@ -747,7 +754,7 @@ export class PENCharCreate {
       }
     }
     await actor.update({'system.beauty': beauty})
-    return true
+    return false
   }
 
 

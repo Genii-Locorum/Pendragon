@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.35
+- Fixed an issue with Family Characterstic rolls in character creation not displaying results properly
+
 ## 13.1.34
 - Update character creation for Foundry V13 roll tables
 
