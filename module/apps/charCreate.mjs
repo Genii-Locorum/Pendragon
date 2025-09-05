@@ -754,7 +754,7 @@ export class PENCharCreate {
       }
     }
     await actor.update({'system.beauty': beauty})
-    return false
+    return true
   }
 
 
