@@ -1485,6 +1485,7 @@ export class PENCharCreate {
   static async addReligion (actor,religion) {
     //Set trait religious modifier to +3/-3
     let theseTraits = []
+    let addSkills = []
     let adj = 3
     for (let tCount =0; tCount<2; tCount++) {
       if (tCount === 0) {
@@ -1499,6 +1500,21 @@ export class PENCharCreate {
         let changes = traits.filter(rTrait=> list.includes(rTrait.flags.Pendragon.pidFlag.id)).map(rTrait => {return { _id: rTrait.id, 'system.religious': adj}})
         await Item.updateDocuments(changes, {parent: actor})
       }
+      //Add relevant religious skill from the Religion item if one is there
+      if (religion.system.deity.length > 0) {
+        //Check to see if actor has the religion skill already
+        let existSkill = await actor.items.filter(itm=>itm.flags?.Pendragon?.pidFlag?.id===religion.system.deity[0].pid)
+        if (existSkill.length>0) {return} 
+        //If not then add it
+        let newSkills = await game.system.api.pid.fromPIDBest({pid:religion.system.deity[0].pid})
+        if (newSkills.length <1) {
+          ui.notifications.warn(religion.system.deity[0] + " : " +   game.i18n.localize('PEN.invalidPID')); 
+          return
+        }
+        addSkills.push(newSkills[0])
+        await Item.createDocuments(addSkills, {parent: actor})
+      }
+
     return
   }
 

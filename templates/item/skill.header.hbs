@@ -1,0 +1,14 @@
+  <header class="sheet-header">
+    <div class="header-fields">
+      {{#if item.system.specialisation}}
+        <div class="skill-header">
+          <div class="charname-input" title='{{localize "PEN.mainName" }}'><input  class="changeName" name='system.mainName' type='text' value='{{item.system.mainName}}'/></div>
+          <div class="centre charname" style="font-size: 25px;">/</div>
+          <div class="charname-input centre" title='{{localize "PEN.specialism" }}'><input class="centre changeName" name='system.specName' type='text' value='{{item.system.specName}}'/></div>
+        </div>
+      {{else}}
+        <div class="charname-input" title='{{localize "PEN.mainName" }}'><input class="changeName" name='system.mainName' type='text' value='{{item.system.mainName}}'/></div>
+      {{/if}}
+    </div>
+    <img class="profile-img" src="{{item.img}}" data-edit="img" data-action='onEditImage' height="100" width="100"title="{{item.name}}"/>
+  </header>

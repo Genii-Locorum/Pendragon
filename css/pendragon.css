@@ -54,7 +54,12 @@
 }
 
 .journal-entry-content{
-  background-image:url("../assets/parchment.jpg") !important;
+  background-image:url("../assets/KAP Background.jpg") !important;
+  background-size: cover !important;
+}
+
+.journal-entry-page .window-content{
+  background-image:url("../assets/KAP Background.jpg") !important;
   background-size: cover !important;
 }
 
@@ -69,8 +74,6 @@
   background-image:url("../assets/parchment.jpg") !important;
   background-size: auto;
 }
-
-
 
 .chat-message .message-sender {
   color: black;
@@ -111,6 +114,10 @@
 
 .Pendragon .underlined {
   text-decoration-line: underline;
+}
+
+.Pendragon .upper {
+  text-transform: uppercase;
 }
 
 
@@ -199,6 +206,7 @@ height: inherit;
   border: 0px;
   border-radius: 0px;
   background: none;
+  box-shadow: none;
 }
 
 .Pendragon .charname {
@@ -244,6 +252,7 @@ height: inherit;
   border: 0px;
   border-radius: 0px;
   background: none;
+  box-shadow: none;
 }
 
 .Pendragon .event-input input{
@@ -260,6 +269,9 @@ height: inherit;
   border: 0px;
   border-radius: 0px;
   background: none;
+}
+.Pendragon .rotate {
+  transform: rotate(180deg);
 }
 
 .Pendragon .history-input input{
@@ -717,8 +729,9 @@ height: inherit;
 
 .Pendragon .npc-name {
   font-family: "Garamond";
-  font-size: 16px;
+  font-size: 16px !important;
   color: black;
+  padding-left: 0px !important;
 }
 
 .Pendragon .follower-type {
@@ -1023,6 +1036,7 @@ height: inherit;
   border: 0px;
   border-radius: 0px;
   background: none;
+  box-shadow: none;
 }
 
 .Pendragon .lock-result  {
@@ -1197,7 +1211,11 @@ height: inherit;
   font-family: "Garamond";
   font-size: 18px;
   color: black;
-  margin: 0px !important;
+  margin: 0px;
+}
+
+.Pendragon .jnl-text p{
+  margin: 0px;
 }
 
 .Pendragon .jnl-text li p {
@@ -1205,9 +1223,15 @@ height: inherit;
   text-indent: 0px;
 }
 
-.Pendragon .jnl-text p {
+.Pendragon .jnl-text .indent {
   margin: 0px;
   text-indent: 20px;
+  padding-left: 0px;
+}
+
+.Pendragon .jnl-text .redbox {
+  color: cornsilk;
+  background-color: darkred;
 }
 
 .Pendragon .jnl-hdr {
@@ -1229,6 +1253,17 @@ height: inherit;
   border: none;
   margin:0px !important;
 }
+
+.Pendragon .jnl-text h2.charname{
+  font-family: "Herb";
+  font-size: 30px;
+  color: darkred;
+  text-indent: 0px !important;
+  text-transform:none;
+  border: none;
+  margin:0px !important;
+}
+
 
 .Pendragon .jnl-text h3{
   font-family: "Garamond";
@@ -1299,12 +1334,40 @@ height: inherit;
   font-weight: bold;
 }
 
+.Pendragon .jnl-text .redbox a.content-link {
+  background: none;
+  border: none;
+  white-space: pre-wrap;
+  word-break: normal;
+  color: #6594cb;
+  font-weight: bold;
+}
+
 .Pendragon .jnl-text a.content-link i{
   display: none;
 }
 
+.Pendragon .jnl-text img {
+  border: none;
+}
+
+.Pendragon .jnl-text img.centre {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Pendragon .jnl-text .secindent {
+  padding-left: 20px;
+  text-indent: -20px;
+}
+
 .Pendragon .blue {
   color: #034694;
+}
+
+.Pendragon .red {
+  color: darkred;
 }
 
 .Pendragon .purple {
@@ -1312,18 +1375,26 @@ height: inherit;
 }
 
 .Pendragon .speech {
-  border: 1px solid black;
+  text-align: center;
   padding-left:7px;
   padding-right:7px;
-  background-color: rgba(128,128,128,0.5);
 }
 
 .Pendragon .redbox {
-  border: 1px solid black;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;    
   padding-left:7px;
   padding-right:7px;
   background-color: darkred;
   color: cornsilk;
+  max-width: 636px;
+}
+
+.Pendragon .yellowbox {
+  max-width: 636px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .Pendragon .follower-grid {
@@ -1457,4 +1528,29 @@ height: inherit;
   button {
     width: 100%;
   }
+}
+
+.Pendragon .skill-cat-grid {
+  display: grid;
+  grid-template-columns: 150px 150px 150px;
+  column-gap: 20px;
+  row-gap: 5px;
+  padding-left: 10px;
+}
+
+.Pendragon .skillcat {
+  border: 1px solid black;
+  border-radius: 4px;
+  text-align: center;
+  font-family: Garamond;
+}
+
+.Pendragon .activeskillcat{
+  background-color: darkred;
+  color: cornsilk;
+}
+
+.Pendragon .skill-header {
+  display: grid;
+   grid-template-columns: 230px 20px 150px;
 }

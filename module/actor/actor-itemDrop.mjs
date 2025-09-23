@@ -1,4 +1,5 @@
 import { PENCharCreate } from "../apps/charCreate.mjs";
+import { PENUtilities } from "../apps/utilities.mjs"
 
 export class PENactorItemDrop {
 
@@ -9,6 +10,7 @@ export class PENactorItemDrop {
     //TODO: Consider adding a bypass to just create the items with no checks
     //      return actor.createEmbeddedDocuments("Item", itemData);
     for (let dropItm of itemData) {
+      let dropItmPID = dropItm.flags.Pendragon?.pidFlag?.id
       let reqResult = 1;
       let errMsg = "";
     //Automatically allow items in this list to be added
@@ -21,6 +23,13 @@ export class PENactorItemDrop {
           errMsg = game.i18n.format('PEN.dupItemType', {name: game.i18n.localize('PEN.Entities.'+ `${dropItm.type.capitalize()}`)})
         }
       }
+
+      //Check Dropped item has a PID, if not then don't add it
+      if (!dropItmPID) {
+        console.log("PING")
+        ui.notifications.warn(game.i18n.format('PEN.PIDFlag.noPIDFlag', { itemName: dropItm.name }));
+        continue;
+      }      
 
       //Test for a duplicate named item for certain types
       if (["skill","trait","passion"].includes(dropItm.type)){
@@ -48,13 +57,20 @@ export class PENactorItemDrop {
         //If a skill calculate the base score
         if (dropItm.type === 'skill') {
           let score = dropItm.system.base.mod
-          if (dropItm.system.base.stat != 'none') {
+          if (dropItm.system.base.stat != 'none' && dropItm.system.base.stat != "" ) {
             score = Number(score) + Number(Math.round((actor.system[dropItm.system.base.stat].value + actor.system[dropItm.system.base.stat].culture)  * dropItm.system.base.multi))
           }
           score = Math.max(score,0)
           dropItm.system.value = score
         }
 
+        //If a specialised skill or passion with no specName or the default, then ask for name.
+        if (['skill','passion'].includes(dropItm.type)){
+          let specify = game.i18n.localize('PEN.specify')
+          if (dropItm.system.specName === "" || dropItm.system.specName === specify ) {
+            dropItm = await this._getSpecialism(foundry.utils.duplicate(dropItm), actor)
+          }
+        }
 
         newItemData.push(dropItm);
         //If succesfully pushed are there any special rules needed to be applied
@@ -104,6 +120,37 @@ export class PENactorItemDrop {
     }  
     return ({outcome: true,
     msg : ""})
+  }
+
+  static async _getSpecialism(newSkill) {
+    let title = game.i18n.format('PEN.getSpecialism', { entity: newSkill.name })
+    let specName = await new Promise(resolve => {
+      const dlg = new Dialog({
+        title: title,
+        content: `<input class="centre" type="text" name="entry">`,
+        buttons: {
+          roll: {
+            label: game.i18n.localize("PEN.confirm"),
+            callback: html => {
+              let inpB = html.find('[name="entry"]').val()
+              resolve(inpB)
+            }
+          }
+        },
+        default: 'roll',
+        close: () => { }
+      }, { classes: ["Pendragon", "sheet"] })
+      dlg.render(true);
+    })
+
+    if (specName === "") {
+      specName = game.i18n.localize('PEN.specify')
+    }
+
+    newSkill.system.specName = specName
+    newSkill.name = newSkill.system.mainName + ' (' + specName + ')'
+    newSkill.flags.Pendragon.pidFlag.id = "i.skill." + await PENUtilities.toKebabCase(newSkill.name)
+    return newSkill
   }
 
 }

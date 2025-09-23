@@ -1,5 +1,4 @@
 /* global Actor, Card, CONFIG, foundry, game, Item, JournalEntry, Macro, Playlist, RollTable, Scene, SceneNavigation, ui */
-import { PENDRAGON } from '../setup/config.mjs'
 import { PENUtilities } from '../apps/utilities.mjs'
 
 export class PID {
@@ -9,11 +8,29 @@ export class PID {
     CONFIG.JournalEntry.compendiumIndexFields.push('flags.Pendragon.pidFlag')
     // CONFIG.Macro.compendiumIndexFields.push('flags.Pendragon.pidFlag')
     CONFIG.RollTable.compendiumIndexFields.push('flags.Pendragon.pidFlag')
-    game.system.api = {
-      pid: PID
-    }
+    game.system.api = { pid:PID }
   }
 
+
+
+  
+  static #newProgressBar () {
+    /* // FoundryVTT V12 */
+    if (foundry.utils.isNewerVersion(game.version, '13')) {
+      return ui.notifications.notify('SETUP.PackagesLoading', null, { localize: true, progress: true })
+    }
+    SceneNavigation.displayProgressBar({ label: game.i18n.localize('SETUP.PackagesLoading'), pct: 0 })
+    return true
+  }
+
+  static #setProgressBar (bar, current, max) {
+    /* // FoundryVTT V12 */
+    if (bar === true) {
+      SceneNavigation.displayProgressBar({ label: game.i18n.localize('SETUP.PackagesLoading'), pct: Math.floor(current * 100 / max) })
+    } else if (bar !== false) {
+      bar.update({ pct: current / max })
+    }
+  }
 
   /**
    * Returns RegExp for valid type and format
@@ -37,7 +54,7 @@ export class PID {
     return ''
   }
 
-  /**
+ /**
    * Get PID type.subtype.name based on document
    * @param document
    * @returns string
@@ -71,7 +88,7 @@ export class PID {
   }
 
   /**
-   * Returns all items with matching PIDs, and language
+   * Returns all items with matching PIDs and language
    * ui.notifications.warn for missing keys
    * @param itemList array of PIDs
    * @param lang the language to match against ('en', 'es', ...)
@@ -98,7 +115,7 @@ export class PID {
         for (const doc of all) {
           notmissing.push(doc.flags.Pendragon.pidFlag.id)
         }
-        ui.notifications.warn(game.i18n.format('PEEN.PIDFlag.error.documents-not-found', { pids: pids.filter(x => !notmissing.includes(x)).join(', '), lang}))
+        ui.notifications.warn(game.i18n.format('PEN.PIDFlag.error.documents-not-found', { pids: pids.filter(x => !notmissing.includes(x)).join(', '), lang}))
       }
       items = items.concat(all)
     }
@@ -114,7 +131,7 @@ export class PID {
    */
   static findPIdInList (pid, list) {
     let itemName = ''
-    const PIDKeys = foundry.utils.flattenObject(game.i18n.translations.PEN.PIDFlag.keys)
+    const PIDKeys = Object.assign(foundry.utils.flattenObject(game.i18n._fallback.PEN?.PIDFlag?.keys ?? {}), foundry.utils.flattenObject(game.i18n.translations.PEN?.PIDFlag?.keys ?? {}))
     if (typeof PIDKeys[pid] !== 'undefined') {
       itemName = PIDKeys[pid]
     }
@@ -172,58 +189,34 @@ export class PID {
   }
 
   /**
-   * Returns all documents with an PID matching the regex and matching the document type
-   * and language, from the specified scope.
+   * Returns all documents with an PID matching the regex and matching the document type and language.
    * Empty array return for no matches
    * @param pidRegExp regex used on the PID
    * @param type the first part of the wanted PID, for example 'i', 'a', 'je'
    * @param lang the language to match against ('en', 'es', ...)
+   * @param langFallback should the system fall back to en incase there is no translation 
    * @param scope defines where it will look:
-   * **match** same logic as fromPID function,
    * **all**: find in both world & compendia,
    * **world**: only search in world,
    * **compendiums**: only search in compendiums
-   * @param langFallback should the system fall back to en incase there is no translation
    * @param showLoading Show loading bar
    * @returns array
    */
-  static async fromPIDRegexAll ({ pidRegExp, type, lang = game.i18n.lang, scope = 'match', langFallback = true, showLoading = false } = {}) {
-    if (!pidRegExp) {
-      return []
-    }
-    const result = []
-
-    let count = 0
+  static async fromPIDRegexAll ({ pidRegExp, type, lang = game.i18n.lang, langFallback = true, scope = 'all', showLoading = false } = {}) {
+    let progressBar = false
+    let progressCurrent = 0
+    let progressMax = (1 + game.packs.size) * 2 // Guess at how far bar goes
     if (showLoading) {
-      if (['match', 'all', 'world'].includes(scope)) {
-        count++
-      }
-      if (['match', 'all', 'compendiums'].includes(scope)) {
-        count = count + game.packs.size
-      }
+      progressBar = PID.#newProgressBar()
     }
-
-    if (['match', 'all', 'world'].includes(scope)) {
-      const worldDocuments = await PID.documentsFromWorld({ pidRegExp, type, lang, langFallback, progressBar: count })
-      if (scope === 'match' && worldDocuments.length) {
-        if (showLoading) {
-          SceneNavigation.displayProgressBar({ label: game.i18n.localize('SETUP.PackagesLoading'), pct: 100 })
-        }
-        return this.filterAllPID(worldDocuments, langFallback && lang !== 'en')
-      }
-      result.splice(0, 0, ...worldDocuments)
+    let candidates = await PID.#getDataFromScopes({ pidRegExp, type, lang, langFallback, progressBar, progressCurrent, progressMax, scope })
+    if (langFallback && lang !== 'en') {
+      candidates = PID.#filterByLanguage(candidates, lang)
     }
-
-    if (['match', 'all', 'compendiums'].includes(scope)) {
-      const compendiaDocuments = await PID.documentsFromCompendia({ pidRegExp, type, lang, langFallback, progressBar: count })
-      result.splice(result.length, 0, ...compendiaDocuments)
-    }
-
-    if (showLoading) {
-      SceneNavigation.displayProgressBar({ label: game.i18n.localize('SETUP.PackagesLoading'), pct: 100 })
-    }
-
-    return this.filterAllPID(result, langFallback && lang !== 'en')
+    candidates.sort(PID.comparePIDPrio)
+    const results = await PID.#onlyDocuments(candidates, progressBar, progressCurrent, progressMax)
+    PID.#setProgressBar(progressBar, 1, 1)
+    return results
   }
 
   /**
@@ -232,7 +225,6 @@ export class PID {
    * @param pid a single pid
    * @param lang the language to match against ('en', 'es', ...)
    * @param scope defines where it will look:
-   * **match** same logic as fromPID function,
    * **all**: find in both world & compendia,
    * **world**: only search in world,
    * **compendiums**: only search in compendiums
@@ -240,7 +232,7 @@ export class PID {
    * @param showLoading Show loading bar
    * @returns array
    */
-  static async fromPIDAll ({ pid, lang = game.i18n.lang, scope = 'match', langFallback = true, showLoading = false } = {}) {
+  static async fromPIDAll ({ pid, lang = game.i18n.lang, langFallback = true, scope = 'all', showLoading = false } = {}) {
     if (!pid || typeof pid !== 'string') {
       return []
     }
@@ -251,13 +243,11 @@ export class PID {
     if (lang === '') {
       lang = game.i18n.lang
     }
-    return PID.fromPIDRegexAll({ pidRegExp: new RegExp('^' + PENUtilities.quoteRegExp(pid) + '$'), type: parts[1], lang, scope, langFallback, showLoading })
+    return PID.fromPIDRegexAll({ pidRegExp: new RegExp('^' + PENUtilities.quoteRegExp(pid) + '$'), type: parts[1], lang, langFallback, scope, showLoading })
   }
 
   /**
-   * Gets only the highest priority documents for each PID that matches the RegExp and
-   * language, with the highest priority documents in the World taking precedence over
-   * any documents in compendium packs.
+   * Gets only the highest priority documents for each PID that matches the RegExp and language
    * Empty array return for no matches
    * @param pidRegExp regex used on the PID
    * @param type the first part of the wanted PID, for example 'i', 'a', 'je'
@@ -266,10 +256,29 @@ export class PID {
    * @param showLoading Show loading bar
    */
   static async fromPIDRegexBest ({ pidRegExp, type, lang = game.i18n.lang, langFallback = true, showLoading = false } = {}) {
-
-    const allDocuments = await this.fromPIDRegexAll({ pidRegExp, type, lang, scope: 'all', langFallback, showLoading })
-    const bestDocuments = this.filterBestPID(allDocuments)
-    return bestDocuments
+    let progressBar = false
+    let progressCurrent = 0
+    let progressMax = (1 + game.packs.size) * 2 // Guess at how far bar goes
+    if (showLoading) {
+      progressBar = PID.#newProgressBar()
+    }
+    let candidates = await this.#getDataFromScopes({ pidRegExp, type, lang, langFallback, progressBar, progressCurrent, progressMax })
+    if (langFallback && lang !== 'en') {
+      candidates = PID.#filterByLanguage(candidates, lang)
+    }
+    candidates.sort(PID.#comparePIDPrio)
+    const ids = {}
+    for (const candidate of candidates) {
+      if (!Object.prototype.hasOwnProperty.call(ids, candidate.flags.Pendragon.pidFlag.id)) {
+        ids[candidate.flags.Pendragon.pidFlag.id] = candidate
+      }
+    }
+    const candidateIds = Object.values(ids)
+    progressCurrent = candidateIds.length
+    progressMax = progressCurrent * 2 // readjust max to give to leave progress at 50%
+    const results = await PID.#onlyDocuments(candidateIds, progressBar, progressCurrent, progressMax)
+    PID.#setProgressBar(progressBar, 1, 1)
+    return results
   }
 
   /**
@@ -286,10 +295,7 @@ export class PID {
   }
 
   /**
-   * Gets only the highest priority document for PID that matches the language,
-   * with the highest priority documents in the World taking precedence over
-   * any documents
-   * in compendium packs.
+   * Gets only the highest priority document for PID that matches the language
    * @param pid string PID
    * @param lang the language to match against ("en", "es", ...)
    * @param langFallback should the system fall back to en incase there is no translation
@@ -305,99 +311,55 @@ export class PID {
   }
 
   /**
-   * For an array of documents already processed by filterAllPID, returns only those that are the "best" version of their PID
-   * @param documents
-   * @returns
+   * Returns all documents or indexes with an PID matching the regex and matching the document type and language.
+   * Empty array return for no matches
+   * @param pidRegExp regex used on the PID
+   * @param type the first part of the wanted PID, for example 'i', 'a', 'je'
+   * @param lang the language to match against ('en', 'es', ...)
+   * @param langFallback should the system fall back to en incase there is no translation
+   * @param progressBar If true show v12 progress bar, if not false show v13 progress bar
+   * @param progressCurrent Current Progress
+   * @param progressMax Max Progress
+   * @param scope defines where it will look:
+   * **all**: find in both world & compendia,
+   * **world**: only search in world,
+   * **compendiums**: only search in compendiums
+   * @returns array
    */
-  static filterBestPID (documents) {
-    const bestMatchDocuments = new Map()
-    for (const doc of documents) {
-      const docPID = doc.getFlag('Pendragon', 'pidFlag')?.id
-      if (docPID) {
-        const currentDoc = bestMatchDocuments.get(docPID)
-        if (typeof currentDoc === 'undefined') {
-          bestMatchDocuments.set(docPID, doc)
-          continue
-        }
-
-        // Prefer pack === '' if possible
-        const docPack = (doc.pack ?? '')
-        const existingPack = (currentDoc?.pack ?? '')
-        const preferWorld = docPack === '' || existingPack !== ''
-        if (!preferWorld) {
-          continue
-        }
-
-        // Prefer highest priority
-        let docPriority = parseInt(doc.getFlag('Pendragon', 'pidFlag')?.priority ?? Number.MIN_SAFE_INTEGER, 10)
-        docPriority = isNaN(docPriority) ? Number.MIN_SAFE_INTEGER : docPriority
-        let existingPriority = parseInt(currentDoc.getFlag('Pendragon', 'pidFlag')?.priority ?? Number.MIN_SAFE_INTEGER, 10)
-        existingPriority = isNaN(existingPriority) ? Number.MIN_SAFE_INTEGER : existingPriority
-        const preferPriority = docPriority >= existingPriority
-        if (!preferPriority) {
-          continue
-        }
-
-        bestMatchDocuments.set(docPID, doc)
-      }
+  static async #getDataFromScopes ({ pidRegExp, type, lang, langFallback, progressBar, progressCurrent, progressMax, scope = 'all' } = {}) {
+    if (!pidRegExp) {
+      return []
     }
-    return [...bestMatchDocuments.values()]
+
+    let results = []
+    if (['all', 'world'].includes(scope)) {
+      results = results.concat(await PID.#docsFromWorld({ pidRegExp, type, lang, langFallback, progressBar, progressCurrent: 0, progressMax }))
+    }
+    if (['all', 'compendiums'].includes(scope)) {
+      results = results.concat(await PID.#indexesFromCompendia({ pidRegExp, type, lang, langFallback, progressBar, progressCurrent: 1, progressMax }))
+    }
+
+    return results
   }
 
-  /**
-   * For an array of documents, returns filter out en documents if a translated one exists
-   * @param documents
-   * @param langFallback should the system fall back to en in case there is no translation
-   * @returns
-   */
-  static filterAllPID (documents, langFallback) {
-    if (!langFallback) {
-      return documents
-    }
-    const bestMatchDocuments = new Map()
-    for (const doc of documents) {
-      const docPID = doc.getFlag('Pendragon', 'pidFlag')?.id
-      if (docPID) {
-        let docPriority = parseInt(doc.getFlag('Pendragon', 'pidFlag')?.priority ?? Number.MIN_SAFE_INTEGER, 10)
-        docPriority = isNaN(docPriority) ? Number.MIN_SAFE_INTEGER : docPriority
-        const key = docPID + '/' + (isNaN(docPriority) ? Number.MIN_SAFE_INTEGER : docPriority)
-
-        const currentDoc = bestMatchDocuments.get(key)
-        if (typeof currentDoc === 'undefined') {
-          bestMatchDocuments.set(key, doc)
-          continue
-        }
-
-        const docLang = doc.getFlag('Pendragon', 'pidFlag')?.lang ?? 'en'
-        const existingLang = currentDoc?.getFlag('Pendragon', 'pidFlag')?.lang ?? 'en'
-        if (existingLang === 'en' && existingLang !== docLang) {
-          bestMatchDocuments.set(key, doc)
-        }
-      }
-    }
-    return [...bestMatchDocuments.values()]
-  }
-
-  /**
-   * Get a list of all documents matching the PID regex, and language.
+ /**
+   * Get a list of all documents matching the PID regex and language from the world.
    * The document list is sorted with the highest priority first.
    * @param pidRegExp regex used on the PID
    * @param type the first part of the wanted PID, for example 'i', 'a', 'je'
    * @param lang the language to match against ('en', 'es', ...)
    * @param langFallback should the system fall back to en incase there is no translation
-   * @param progressBar If greater than zero show percentage
+   * @param progressBar If true show v12 progress bar, if not false show v13 progress bar
+   * @param progressCurrent Current Progress
+   * @param progressMax Max Progress
    * @returns array
    */
-  static async documentsFromWorld ({ pidRegExp, type, lang = game.i18n.lang, langFallback = true, progressBar = 0 } = {}) {
+  static async #docsFromWorld ({ pidRegExp, type, lang, langFallback, progressBar, progressCurrent, progressMax } = {}) {
     if (!pidRegExp) {
       return []
     }
     if (lang === '') {
       lang = game.i18n.lang
-    }
-
-    if (progressBar > 0) {
-      SceneNavigation.displayProgressBar({ label: game.i18n.localize('SETUP.PackagesLoading'), pct: Math.floor(100 / progressBar) })
     }
 
     const gameProperty = PID.getGameProperty(`${type}..`)
@@ -410,24 +372,28 @@ export class PID {
       return pidRegExp.test(pidFlag.id) && [lang, (langFallback ? 'en' : '-')].includes(pidFlag.lang)
     })
 
+    progressCurrent++
+    PID.#setProgressBar(progressBar, progressCurrent, progressMax)
+
     if (candidateDocuments === undefined) {
       return []
     }
 
-    return candidateDocuments.sort(PID.comparePIDPrio)
+    return candidateDocuments
   }
-  
+
   /**
-   * Get a list of all documents matching the PID regex, and language from the compendiums.
-   * The document list is sorted with the highest priority first.
+   * Get a list of all indexes matching the PID regex and language from the compendiums.
    * @param pidRegExp regex used on the PID
    * @param type the first part of the wanted PID, for example 'i', 'a', 'je'
    * @param lang the language to match against ('en', 'es', ...)
    * @param langFallback should the system fall back to en incase there is no translation
-   * @param progressBar If greater than zero show percentage
+   * @param progressBar If true show v12 progress bar, if not false show v13 progress bar
+   * @param progressCurrent Current Progress
+   * @param progressMax Max Progress
    * @returns array
    */
-  static async documentsFromCompendia ({ pidRegExp, type, lang = game.i18n.lang, langFallback = true, progressBar = 0 }) {
+  static async #indexesFromCompendia ({ pidRegExp, type, lang, langFallback, progressBar, progressCurrent, progressMax }) {
     if (!pidRegExp) {
       return []
     }
@@ -436,54 +402,44 @@ export class PID {
     }
 
     const documentType = PID.getDocumentType(type).name
-    const candidateDocuments = []
+    let indexDocuments = []
 
-    let count = 1
     for (const pack of game.packs) {
-      if (progressBar > 0) {
-        SceneNavigation.displayProgressBar({ label: game.i18n.localize('SETUP.PackagesLoading'), pct: Math.floor(count * 100 / progressBar) })
-        count++
-      }
       if (pack.documentName === documentType) {
         if (!pack.indexed) {
           await pack.getIndex()
         }
-        const indexInstances = pack.index.filter((i) => {
-          const pidFlag = i.flags?.Pendragon?.pidFlag
-          if (typeof pidFlag === 'undefined') {
+        indexDocuments = indexDocuments.concat(pack.index.filter((i) => {
+          if (typeof i.flags?.Pendragon?.pidFlag?.id !== 'string') {
             return false
           }
-          return pidRegExp.test(pidFlag.id) && [lang, (langFallback ? 'en' : '-')].includes(pidFlag.lang)
-        })
-        for (const index of indexInstances) {
-          const document = await pack.getDocument(index._id)
-          if (!document) {
-            const msg = game.i18n.format('PEN.PIDFlag.error.document-not-found', {
-              pid: pidRegExp,
-              lang,
-            })
-            ui.notifications.error(msg)
-            console.log('Pendragon |', msg, index)
-            throw new Error()
-          } else {
-            candidateDocuments.push(document)
-          }
-        }
+          return pidRegExp.test(i.flags.Pendragon.pidFlag.id) && [lang, (langFallback ? 'en' : '-')].includes(i.flags.Pendragon.pidFlag.lang)
+        }))
       }
+      progressCurrent++
+      PID.#setProgressBar(progressBar, progressCurrent, progressMax)
     }
-    return candidateDocuments.sort(PID.comparePIDPrio)
-  }  
+    return indexDocuments
+  }
 
   /**
    * Sort a list of document on PID priority - the highest first.
    * @example
    * aListOfDocuments.sort(PID.comparePIDPrio)
    */
-  static comparePIDPrio (a, b) {
-    return (
-      b.getFlag('Pendragon', 'pidFlag')?.priority -
-      a.getFlag('Pendragon', 'pidFlag')?.priority
-    )
+  static #comparePIDPrio (a, b) {
+    const ap = parseInt(a.flags.Pendragon.pidFlag.priority, 10)
+    const bp = parseInt(b.flags.Pendragon.pidFlag.priority, 10)
+    if (ap === bp) {
+      const ao = a instanceof foundry.abstract.DataModel
+      const bo = b instanceof foundry.abstract.DataModel
+      if (ao === bo) {
+        return 0
+      } else {
+        return (ao ? -1 : 1)
+      }
+    }
+    return bp - ap
   }
 
   /**
@@ -541,4 +497,34 @@ export class PID {
       s: Scene
     }
   }
+
+  /**
+   * Replace indexes with their documents
+   */
+  static async #onlyDocuments (candidates, progressBar, progressCurrent, progressMax) {
+    const len = candidates.length
+    if (len > 0) {
+      for (const offset in candidates) {
+        if (!(candidates[offset] instanceof foundry.abstract.DataModel)) {
+          candidates[offset] = await fromUuid(candidates[offset].uuid)
+        }
+        progressCurrent++
+        PID.#setProgressBar(progressBar, progressCurrent, progressMax)
+      }
+    }
+    return candidates
+  }
+
+  /**
+   * Filter an array of index or documents.
+   * If a PID has a version lang then remove the en versions
+   */
+  static #filterByLanguage (indexes, lang) {
+    const ids = indexes.reduce((c, i) => {
+      c[i.flags.Pendragon.pidFlag.id] = c[i.flags.Pendragon.pidFlag.id] || i.flags.Pendragon.pidFlag.lang === lang
+      return c
+    }, {})
+    return indexes.filter(i => i.flags.Pendragon.pidFlag.lang !== 'en' || !ids[i.flags.Pendragon.pidFlag.id])
+  }  
+
 }  

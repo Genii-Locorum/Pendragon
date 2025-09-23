@@ -87,4 +87,29 @@ export class PendragonItemSheet extends api.HandlebarsApplicationMixin(
     });
     return tabs;
   }
+
+  //Update Skill/Passion Name
+  static async skillChangeName(skill) {
+    let newName = ""
+    let specialName = skill.system.specName
+    if (skill.system.mainName === "") {
+      await skill.update({
+      'system.mainName': skill.name
+    })
+    }
+    if (skill.system.specialisation) {
+      if (specialName === "") {
+        specialName = game.i18n.localize('PEN.specify')
+      }
+      newName = skill.system.mainName + " (" + specialName + ")"
+    } else {
+      newName = skill.system.mainName
+    }
+    if (skill.name != newName || skill.system.specName != specialName) {
+      await skill.update({
+        'name': newName,
+        'system.specName': specialName
+      })
+    }
+  }
 }

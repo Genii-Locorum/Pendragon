@@ -31,6 +31,9 @@ Hooks.once("init", async function () {
     rollItemMacro,
     GMRollMacro,
   };
+  //Add skill categories
+  game.Pendragon.skillCategories = ["combat", "courtly", "minsterly", "knightly","nonknightly","ladies","woodcraft" ]
+
   const V13 = game.release.generation >= 13;
 
   // Add custom constants for configuration.
@@ -158,13 +161,13 @@ Hooks.once("ready", async function () {
   });
 
   if (!game.user.isGM) return;
-  // determine if a migration is necessary and feasible
+  // Determine if a system update has occured
   const currentVersion = game.settings.get(
     "Pendragon",
     "systemMigrationVersion",
   );
   const needsMigration =
-    !currentVersion || foundry.utils.isNewerVersion("12.1.21", currentVersion);
+    !currentVersion || foundry.utils.isNewerVersion(game.system.version, currentVersion);
   if (needsMigration) {
     migrateWorld();
   }

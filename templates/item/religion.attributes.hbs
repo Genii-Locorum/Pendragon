@@ -1,4 +1,28 @@
 <section class="tab attributes {{tab.cssClass}}" data-group="primary" data-tab="attributes">
+
+  {{!-- Related Religion Skill --}}
+    <div class="horizontalboxed {{#if isGM}} droppable {{/if}} deities" data-collection = "deity">
+    <div class="stat-name">{{ localize "PEN.religiousSkill"}}</div>
+    <ol class="item-list">
+      {{#each deities as |deity|}}
+        <li class="item flexrow" data-item-id="{{deity.uuid}}" >
+          <div class="item-name flexrow">
+            {{#if deity.valid}}
+              <div class="stat-name">{{deity.name}}</div>
+            {{else}}
+              <div class="stat-name result-success">{{deity.name}} [{{localize 'PEN.invalid'}}]</div>
+            {{/if}}
+          </div>
+          <div class="item-controls">
+            {{#if ../isGM}}
+              <a class="item-control item-delete" title="{{localize 'PEN.deleteItem'}}" data-action="deleteItem"><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+    </div>
+
   {{!-- Positive Traits --}}
     <div class="horizontalboxed {{#if isGM}} droppable {{/if}} virtues" data-collection = "positive">
     <div class="stat-name">{{ localize "PEN.virtues"}}</div>

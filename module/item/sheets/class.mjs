@@ -102,7 +102,7 @@ export class PendragonClassSheet extends PendragonItemSheet {
     sheetData.gearsisEmpty = sheetData.gears.length ===0;
 
     // these two values could be set during _preparePartContext
-    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
+    sheetData.enrichedDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.item.system.description,
       {
         async: true,
@@ -110,7 +110,7 @@ export class PendragonClassSheet extends PendragonItemSheet {
         relativeTo: this.item
       }
     )
-    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
+    sheetData.enrichedGMDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.item.system.GMdescription,
       {
         async: true,
@@ -166,8 +166,10 @@ export class PendragonClassSheet extends PendragonItemSheet {
     event.stopPropagation()
     let type = ['passion'];
     const collectionName = event.currentTarget.dataset.collection ?? 'passions';
+    let subType = event.currentTarget.dataset.section ?? "primary";
     if(collectionName == 'gear') {
       type=["weapon","armour","horse","gear"]
+      subType = 'gear'
     }
     const dataList = await PENUtilities.getDataFromDropEvent(event, 'Item')
     const collection = this.item.system[collectionName] ? foundry.utils.duplicate(this.item.system[collectionName]) : []
@@ -183,13 +185,13 @@ export class PendragonClassSheet extends PendragonItemSheet {
       }
 
       //If Duplicate item then give warning and move to next item
-      if (collection.find(el => el.pid === item.flags?.Pendragon?.pidFlag?.id)) {
+      if (collectionName != 'gear' && collection.find(el => el.pid === item.flags?.Pendragon?.pidFlag?.id)) {
         ui.notifications.warn(item.name + " : " +   game.i18n.localize('PEN.dupItem'));
         continue;
       }
 
       //Add item to collection
-      collection.push({name: item.name, oppName: item.system.oppName, uuid: item.uuid, pid:item.flags.Pendragon.pidFlag.id, subType: collectionName})
+      collection.push({name: item.name, oppName: item.system.oppName, uuid: item.uuid, pid:item.flags.Pendragon.pidFlag.id, subType: subType})
     }
     await this.item.update({ [`system.${collectionName}`]: collection })
   }

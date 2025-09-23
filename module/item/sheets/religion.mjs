@@ -59,6 +59,7 @@ export class PendragonReligionSheet extends PendragonItemSheet {
     }
     const virtues = [];
     const vices = [];
+    const deities = [];
     const itemData = sheetData.item;
     for (let vItm of itemData.system.positive){
       let valid = true
@@ -86,10 +87,17 @@ export class PendragonReligionSheet extends PendragonItemSheet {
     return 0;
     });
 
+   for (let vItm of itemData.system.deity){
+      let valid = true
+      if ((await game.system.api.pid.fromPIDBest({pid:vItm.pid})).length <1) {valid = false}
+        deities.push({name: vItm.name, uuid: vItm.uuid, pid: vItm.pid, valid: valid})
+    }
+
     sheetData.virtues = virtues
     sheetData.vices = vices
+    sheetData.deities = deities
     // these two values could be set during _preparePartContext
-    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
+    sheetData.enrichedDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.item.system.description,
       {
         async: true,
@@ -97,7 +105,7 @@ export class PendragonReligionSheet extends PendragonItemSheet {
         relativeTo: this.item
       }
     )
-    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
+    sheetData.enrichedGMDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.item.system.GMdescription,
       {
         async: true,
@@ -151,8 +159,11 @@ export class PendragonReligionSheet extends PendragonItemSheet {
   async _onDrop (event) {
     event.preventDefault()
     event.stopPropagation()
-    const type = 'trait';
+    let type = 'trait';
     const collectionName = event.currentTarget.dataset.collection ?? 'positive';
+    if(collectionName === 'deity') {
+      type = "skill"
+    }
     const dataList = await PENUtilities.getDataFromDropEvent(event, 'Item')
     const collection = this.item.system[collectionName] ? foundry.utils.duplicate(this.item.system[collectionName]) : []
 
@@ -166,9 +177,21 @@ export class PendragonReligionSheet extends PendragonItemSheet {
         continue
       }
 
+      //Only allow one religion skill
+      if (collectionName === 'deity' && collection.length > 0) {
+        ui.notifications.warn(item.name + " : " +   game.i18n.localize('PEN.hasReligion')); 
+        continue      
+      }  
+
+      //Only allow skills with 'i.skill.religion' to be added
+      if (collectionName === 'deity' && !item.flags?.Pendragon?.pidFlag?.id.startsWith('i.skill.religion')) {
+        ui.notifications.warn(item.name + " : " +   game.i18n.localize('PEN.notReligion')); 
+        continue      
+      }       
+
       //If Duplicate item then give warning and move to next item
       if (collection.find(el => el.pid === item.flags?.Pendragon?.pidFlag?.id)) {
-        if (collectionName === 'positive') {
+        if (['positive','deity'].includes(collectionName)) {
           ui.notifications.warn(item.name + " : " +   game.i18n.localize('PEN.dupItem'));
         } else {
           ui.notifications.warn(item.system.oppName + " : " +   game.i18n.localize('PEN.dupItem'));
@@ -177,7 +200,7 @@ export class PendragonReligionSheet extends PendragonItemSheet {
       }
 
       //Add item to collection
-      collection.push({name: item.name, oppName: item.system.oppName, uuid: item.uuid, pid:item.flags.Pendragon.pidFlag.id})
+      collection.push({name: item.name, oppName: item.system.oppName??"" , uuid: item.uuid, pid:item.flags.Pendragon.pidFlag.id})
     }
     await this.item.update({ [`system.${collectionName}`]: collection })
   }

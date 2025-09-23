@@ -29,7 +29,7 @@ export class PendragonPassionSheet extends PendragonItemSheet {
 
   static PARTS = {
     header: {
-      template: "systems/Pendragon/templates/item/header.hbs"
+      template: "systems/Pendragon/templates/item/skill.header.hbs"
     },
     tabs: {
       template: 'templates/generic/tab-navigation.hbs',
@@ -58,7 +58,7 @@ export class PendragonPassionSheet extends PendragonItemSheet {
     sheetData.court = sheetData.courtType[this.item.system.court]
 
     // these two values could be set during _preparePartContext
-    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
+    sheetData.enrichedDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.item.system.description,
       {
         async: true,
@@ -66,7 +66,7 @@ export class PendragonPassionSheet extends PendragonItemSheet {
         relativeTo: this.item
       }
     )
-    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
+    sheetData.enrichedGMDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.item.system.GMdescription,
       {
         async: true,
@@ -101,6 +101,7 @@ export class PendragonPassionSheet extends PendragonItemSheet {
 
     // pure Javascript, no jQuery
     this.element.querySelectorAll('.item-toggle').forEach(n => n.addEventListener("dblclick", this.#onItemToggle.bind(this)));
+    this.element.querySelectorAll('.changeName').forEach(n => n.addEventListener("change", PendragonItemSheet.skillChangeName(this.item)))
   }
 
   /* -------------------------------------------- */
@@ -109,7 +110,7 @@ export class PendragonPassionSheet extends PendragonItemSheet {
     event.preventDefault();
     const prop=event.currentTarget.closest('.item-toggle').dataset.property;
     let checkProp="";
-    if(['XP'].includes(prop)){
+    if(['XP',"specialisation"].includes(prop)){
       checkProp = {[`system.${prop}`]: !this.item.system[prop]}
     } else {return}
       await this.item.update(checkProp)

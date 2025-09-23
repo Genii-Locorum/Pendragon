@@ -1,5 +1,5 @@
 <section class="tab attributes {{tab.cssClass}}" data-group="primary" data-tab="attributes">
-
+<br>
   <div class="item-trait-grid">
     <div class="stat-name left bold">{{localize 'PEN.court'}}</div>
     {{#if isGM}}
@@ -11,6 +11,9 @@
     {{else}}
       <div class="stat-name centre">{{court}}</div>
     {{/if}}
+    <br>
+    <div class="stat-name left bold new-row">{{localize 'PEN.specialisation'}}</div>
+    <div class="centre"><a class="item-control item-toggle large-icon" data-property = "specialisation" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.specialisation}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>    
     <br>
 
     {{#if hasOwner}}

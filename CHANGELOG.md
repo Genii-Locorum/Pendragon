@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 13.1.36
+- Fixed an issue with classes and passions not showing properly when added
+- You can now add multiple pieces of equipment with the same name to a class
+- Skills now have a series of toggle boxes for skill categories, replacing the Combat and Non-Knightly tick-boxes. Data will be migrated automatically.
+- Skills also have a "Starter Skill" tickbox - if ticked the skill will be added to new actors (this will be based off the skill with the highest priority in its PID)
+- Skills and Passions now have a "Specialised" toggle.  When activated you enter the item in two parts - the first is the main name (e.g. Hate) and the second is the specialism (e.g. Saxons)
+- If the Skill or Passion is specialised but doesn't have a specialism (or has the default of 'specify') then you will be asked to name it when dropping it on the character sheet
+- Religions (the item) can now have a religion skill added (PID must start with i.skill.religion for example i.skill.religion-pagan)
+- When adding a religion to the Character the relevant skill will be added if it doesn't already exist on the character.  This also occurs during character creation
+- PID code updated so that best PID is now selected purely on priority irrespective of whether this is a game world or compendium document
+- With the exception of equipment, weapons and armour an item needs to have a PID to be added to a character sheet (to prevent other errors occurring)
+
 ## 13.1.35
 - Fixed an issue with Family Characterstic rolls in character creation not displaying results properly
 

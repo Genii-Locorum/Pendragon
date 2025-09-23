@@ -12,7 +12,7 @@ import { PendragonStatusEffects } from "../../apps/status-effects.mjs";
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class PendragonCharacterSheet extends ActorSheet {
+export class PendragonCharacterSheet extends foundry.appv1.sheets.ActorSheet {
 
   //Add PID buttons to sheet
   _getHeaderButtons () {
@@ -67,7 +67,7 @@ export class PendragonCharacterSheet extends ActorSheet {
     context.statTotal = actorData.system.statTotal    
     context.solLabel = game.i18n.localize('PEN.'+actorData.system.sol)
     context.sizLabel = game.i18n.localize('PEN.sizInc.'+actorData.system.stats.siz.growth)
-    context.enrichedBackgroundValue = await TextEditor.enrichHTML(
+    context.enrichedBackgroundValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       context.system.background,
       {
         async: true,
@@ -141,6 +141,12 @@ export class PendragonCharacterSheet extends ActorSheet {
       } else if (i.type === 'trait') {
         traits.push(i);
       } else if (i.type === 'skill'){
+        if (i.system.categories.includes('combat')) {
+          i.combat = true
+        }
+        else {
+          i.combat = false
+        } 
         skills.push(i);
       } else if (i.type === 'wound' && i.system.value >0) {
         wounds.push(i);
@@ -158,7 +164,7 @@ export class PendragonCharacterSheet extends ActorSheet {
         } else {
           i.system.isHonour = false
         }
-          i.system.level = 1
+        i.system.level = 1
         passions.push(i);
       } else if (i.type === 'horse') {
         i.system.careName = game.i18n.localize('PEN.horseHealth.'+i.system.horseCare)
@@ -249,8 +255,8 @@ export class PendragonCharacterSheet extends ActorSheet {
     skills.sort(function(a, b){
       let x = a.name.toLowerCase();
       let y = b.name.toLowerCase();
-      let p = a.system.combat;
-      let q = b.system.combat;
+      let p = a.combat;
+      let q = b.combat;
       if (p < q) {return -1};
       if (p > q) {return 1};
       if (x < y) {return -1};

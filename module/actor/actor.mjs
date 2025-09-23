@@ -482,7 +482,7 @@ export class PendragonActor extends Actor {
       //If an actor now add all skills to the sheet
         //Get list of skills and add to actor
         let skillList = await game.system.api.pid.fromPIDRegexBest({ pidRegExp: /^i.skill\./, type: 'i' })
-        let knightSkillList = await skillList.filter(itm=>!itm.system.nonknightly)
+        let knightSkillList = await skillList.filter(itm=>(itm.system.starter))
         await actor.createEmbeddedDocuments("Item", knightSkillList);
 
         //Get list of traits and add to actor

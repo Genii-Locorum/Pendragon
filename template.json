@@ -198,8 +198,13 @@
     },
     "skill": {
       "templates": ["base"],
+      "specName": "",
+      "mainName": "",
+      "specialisation": false,
       "combat": false,
       "nonknightly": false,
+      "starter": false,
+      "categories": [],
       "weaponType": "",
       "value": 0,
       "culture": 0,
@@ -239,6 +244,9 @@
     },
     "passion": {
       "templates": ["base"],
+      "specName": "",
+      "mainName": "",
+      "specialisation": false,      
       "court": "",
       "value": 0,
       "homeland": 0,
@@ -364,7 +372,8 @@
     "religion": {
       "templates": ["base"],
       "positive": [],
-      "negative": []
+      "negative": [],
+      "deity": []
     },
     "class": {
       "templates": ["base"],

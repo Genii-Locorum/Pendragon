@@ -7,12 +7,21 @@
     <div class="stat-name left bold" title="{{localize 'PEN.familyCharHint'}}">{{localize 'PEN.familyChar'}}</div>
     <div class="stat-name centre">{{item.system.familyChar}}</div>
     {{/if}}
-    <div class="stat-name left bold new-row">{{localize 'PEN.nonknightly'}}</div>
-    <div class="centre"><a class="item-control {{#if isGM}}item-toggle{{/if}} large-icon" data-property = "nonknightly" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.nonknightly}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
-    <div class="stat-name left bold new-row">{{localize 'PEN.combatSkill'}}</div>
-    <div class="centre"><a class="item-control {{#if isGM}}item-toggle{{/if}} large-icon" data-property = "combat" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.combat}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+    <div class="stat-name left bold">{{localize 'PEN.specialisation'}}</div>
+    <div class="centre"><a class="item-control item-toggle large-icon" data-property = "specialisation" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.specialisation}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
+    <div class="stat-name left bold">{{localize 'PEN.starterSkill'}}</div>
+    <div class="centre"><a class="item-control item-toggle large-icon" data-property = "starter" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.starter}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>    
+    <div class="stat-name left bold new-row">{{localize 'PEN.skillGroup'}}</div>
+  </div>  
 
-    {{#if item.system.combat}}
+  <div class="skill-cat-grid">
+    {{#each skillcat as |category key|}}
+    <div class="skillcat skillcat-toggle {{#if category.status}}activeskillcat{{/if}}" data-property = {{category.cat}} >{{category.label}}</div>
+    {{/each}}
+  </div>
+
+  <div class="item-trait-grid">
+    {{#if combat}} 
       <br>
       <div></div>
       <div class="stat-name left bold">{{localize 'PEN.weaponType'}}</div>
