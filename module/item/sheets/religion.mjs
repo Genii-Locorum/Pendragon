@@ -97,7 +97,7 @@ export class PendragonReligionSheet extends PendragonItemSheet {
     sheetData.vices = vices
     sheetData.deities = deities
     // these two values could be set during _preparePartContext
-    sheetData.enrichedDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
       this.item.system.description,
       {
         async: true,
@@ -105,7 +105,7 @@ export class PendragonReligionSheet extends PendragonItemSheet {
         relativeTo: this.item
       }
     )
-    sheetData.enrichedGMDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
       this.item.system.GMdescription,
       {
         async: true,

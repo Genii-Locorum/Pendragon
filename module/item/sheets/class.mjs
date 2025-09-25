@@ -102,7 +102,7 @@ export class PendragonClassSheet extends PendragonItemSheet {
     sheetData.gearsisEmpty = sheetData.gears.length ===0;
 
     // these two values could be set during _preparePartContext
-    sheetData.enrichedDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
       this.item.system.description,
       {
         async: true,
@@ -110,7 +110,7 @@ export class PendragonClassSheet extends PendragonItemSheet {
         relativeTo: this.item
       }
     )
-    sheetData.enrichedGMDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
       this.item.system.GMdescription,
       {
         async: true,

@@ -1,7 +1,7 @@
 // Actor template paths
 
  export const preloadHandlebarsTemplates = async function() {
-  return foundry.applications.handlebars.loadTemplates([
+  return loadTemplates([
 
     // Actor partials.
     "systems/Pendragon/templates/actor/parts/actor-traits.html",

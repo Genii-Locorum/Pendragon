@@ -10,7 +10,7 @@ export class PendragonWeaponSheet extends PendragonItemSheet {
     classes: ['Pendragon', 'sheet', 'item'],
     position: {
       width: 520,
-      height: 700
+      height: 760
     },
     tag: "form",
     // automatically updates the item
@@ -65,7 +65,7 @@ export class PendragonWeaponSheet extends PendragonItemSheet {
     sheetData.range = sheetData.rangeType[this.item.system.range]
 
     // these two values could be set during _preparePartContext
-    sheetData.enrichedDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
       this.item.system.description,
       {
         async: true,
@@ -73,7 +73,7 @@ export class PendragonWeaponSheet extends PendragonItemSheet {
         relativeTo: this.item
       }
     )
-    sheetData.enrichedGMDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
       this.item.system.GMdescription,
       {
         async: true,

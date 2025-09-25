@@ -12,7 +12,7 @@ import { PendragonStatusEffects } from "../../apps/status-effects.mjs";
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class PendragonCharacterSheet extends foundry.appv1.sheets.ActorSheet {
+export class PendragonCharacterSheet extends ActorSheet {
 
   //Add PID buttons to sheet
   _getHeaderButtons () {
@@ -26,7 +26,7 @@ export class PendragonCharacterSheet extends foundry.appv1.sheets.ActorSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["Pendragon", "sheet", "actor","character"],
       template: "systems/Pendragon/templates/actor/character-sheet.html",
-      width: 840,
+      width: 855,
       height: 655,
       scrollY: ['.bottom-panel'],
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "combat" }]
@@ -67,7 +67,7 @@ export class PendragonCharacterSheet extends foundry.appv1.sheets.ActorSheet {
     context.statTotal = actorData.system.statTotal    
     context.solLabel = game.i18n.localize('PEN.'+actorData.system.sol)
     context.sizLabel = game.i18n.localize('PEN.sizInc.'+actorData.system.stats.siz.growth)
-    context.enrichedBackgroundValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+    context.enrichedBackgroundValue = await TextEditor.enrichHTML(
       context.system.background,
       {
         async: true,

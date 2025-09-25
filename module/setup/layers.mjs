@@ -3,7 +3,7 @@ import { PENCharCreate } from "../apps/charCreate.mjs";
 import { PENRollType } from "../cards/rollType.mjs";
 
 
-export class PENLayer extends foundry.canvas.layers.InteractionLayer {
+export class PENLayer extends InteractionLayer {
 
   constructor () {
     super()

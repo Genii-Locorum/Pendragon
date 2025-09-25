@@ -6,7 +6,7 @@ import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class PendragonFollowerSheet extends foundry.appv1.sheets.ActorSheet {
+export class PendragonFollowerSheet extends ActorSheet {
 
   //Add PID buttons to sheet
   _getHeaderButtons () {
@@ -47,7 +47,7 @@ export class PendragonFollowerSheet extends foundry.appv1.sheets.ActorSheet {
     context.follower = context.followerType[actorData.system.subType];
     context.solType = await PENSelectLists.getSOLType();
     context.solLabel = context.solType[actorData.system.sol];
-    context.enrichedDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+    context.enrichedDescriptionValue = await TextEditor.enrichHTML(
       context.system.description,
       {
         async: true,

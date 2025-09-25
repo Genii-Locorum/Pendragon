@@ -1,7 +1,7 @@
 /* global RollTableConfig */
 import { addPIDSheetHeaderButton } from '../pid/pid-button.mjs'
 
-export class PENRollTableConfig extends foundry.applications.sheets.RollTableSheet {
+export class PENRollTableConfig extends RollTableConfig {
   constructor (data, context) {
     data.img = 'icons/svg/d20.svg'
     super(data, context)

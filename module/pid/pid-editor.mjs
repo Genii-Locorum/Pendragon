@@ -56,7 +56,7 @@ export class PIDEditor extends FormApplication {
         return {
           priority: d.flags.Pendragon.pidFlag.priority,
           lang: d.flags.Pendragon.pidFlag.lang ?? 'en',
-          link: await foundry.applications.ux.TextEditor.implementation.enrichHTML(d.link, { async: true }),
+          link: await TextEditor.enrichHTML(d.link, { async: true }),
           folder: d?.folder?.name
         }
       }))
@@ -76,7 +76,7 @@ export class PIDEditor extends FormApplication {
         return {
           priority: d.flags.Pendragon.pidFlag.priority,
           lang: d.flags.Pendragon.pidFlag.lang ?? 'en',
-          link: await foundry.applications.ux.TextEditor.implementation.enrichHTML(d.link, { async: true }),
+          link: await TextEditor.enrichHTML(d.link, { async: true }),
           folder: d?.folder?.name ?? ''
         }
       }))

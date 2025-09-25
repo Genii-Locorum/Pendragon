@@ -415,6 +415,13 @@ export class PendragonActor extends Actor {
 
   /** @override */
   static async create (data, options = {}) {
+
+    //If dropping from compendium check to see if the actor already exists in game.actors and if it does then get the game.actors details rather than create a copy
+    if (options.fromCompendium) {
+      let tempActor = await (game.actors.filter(actr => actr.flags?.Pendragon?.pidFlag?.id === data.flags?.Pendragon?.pidFlag?.id))[0]
+      if (tempActor) { return tempActor }
+    }
+
     let vision = game.settings.get('Pendragon' , 'tokenVision');
     //When creating an actor set basics including tokenlink, bars, displays sight
     if (data.type === 'character') {
@@ -481,17 +488,29 @@ export class PendragonActor extends Actor {
     if (data.type === 'character') {
       //If an actor now add all skills to the sheet
         //Get list of skills and add to actor
+        let newItems = []
         let skillList = await game.system.api.pid.fromPIDRegexBest({ pidRegExp: /^i.skill\./, type: 'i' })
         let knightSkillList = await skillList.filter(itm=>(itm.system.starter))
-        await actor.createEmbeddedDocuments("Item", knightSkillList);
+        for (let itm of knightSkillList) {
+          let existing = actor.items.filter(citm=>citm.flags?.Pendragon?.pidFlag?.id === itm.flags?.Pendragon?.pidFlag?.id)
+          if (existing.length < 1) {newItems.push(itm)}
+        }
 
         //Get list of traits and add to actor
         let traitList = await game.system.api.pid.fromPIDRegexBest({ pidRegExp: /^i.trait\./, type: 'i' })
-        await actor.createEmbeddedDocuments("Item", traitList);
+        for (let itm of traitList) {
+          let existing = actor.items.filter(citm=>citm.flags?.Pendragon?.pidFlag?.id === itm.flags?.Pendragon?.pidFlag?.id)
+          if (existing.length < 1) {newItems.push(itm)}
+        }
 
         //Get list of passions and add to actor
         let passionList = await game.system.api.pid.fromPIDRegexBest({ pidRegExp: /^i.passion\./, type: 'i' })
-        await actor.createEmbeddedDocuments("Item", passionList);
+        for (let itm of passionList) {
+          let existing = actor.items.filter(citm=>citm.flags?.Pendragon?.pidFlag?.id === itm.flags?.Pendragon?.pidFlag?.id)
+          if (existing.length < 1) {newItems.push(itm)}
+        }
+
+        await actor.createEmbeddedDocuments("Item", newItems);
     }
     return actor
   }

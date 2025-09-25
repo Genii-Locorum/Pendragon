@@ -23,115 +23,115 @@ import { PENJournalSheet } from '../sheets/pen-journal-sheet.mjs'
 //const {Actors, Items, Journal} = foundry.documents.collections;
 
 export function registerSheets () {
-  foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
-    foundry.documents.collections.Actors.registerSheet('Pendragon', PendragonCharacterSheet, {
+  Actors.unregisterSheet("core", ActorSheet);
+    Actors.registerSheet('Pendragon', PendragonCharacterSheet, {
       types: ['character'],
       makeDefault: true
     })
 
-    foundry.documents.collections.Actors.registerSheet('Pendragon', PendragonNPCSheet, {
+    Actors.registerSheet('Pendragon', PendragonNPCSheet, {
       types: ['npc'],
       makeDefault: true
     })
 
-    foundry.documents.collections.Actors.registerSheet('Pendragon', PendragonFollowerSheet, {
+    Actors.registerSheet('Pendragon', PendragonFollowerSheet, {
       types: ['follower'],
       makeDefault: true
     })
 
-  foundry.documents.collections.Items.unregisterSheet('core', foundry.appv1.sheets.ItemSheet)
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonSkillSheet, {
+  Items.unregisterSheet('core', ItemSheet)
+    Items.registerSheet('Pendragon', PendragonSkillSheet, {
       types: ['skill'],
       makeDefault: true
     })    
 
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonTraitSheet, {
+    Items.registerSheet('Pendragon', PendragonTraitSheet, {
       types: ['trait'],
       makeDefault: true
     })   
 
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonHistorySheet, {
+    Items.registerSheet('Pendragon', PendragonHistorySheet, {
       types: ['history'],
       makeDefault: true
     })  
 
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonWoundSheet, {
+    Items.registerSheet('Pendragon', PendragonWoundSheet, {
       types: ['wound'],
       makeDefault: true
     })
     
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonPassionSheet, {
+    Items.registerSheet('Pendragon', PendragonPassionSheet, {
       types: ['passion'],
       makeDefault: true
     })  
     
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonHorseSheet, {
+    Items.registerSheet('Pendragon', PendragonHorseSheet, {
       types: ['horse'],
       makeDefault: true
     }) 
     
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonSquireSheet, {
+    Items.registerSheet('Pendragon', PendragonSquireSheet, {
       types: ['squire'],
       makeDefault: true
     }) 
     
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonArmourSheet, {
+    Items.registerSheet('Pendragon', PendragonArmourSheet, {
       types: ['armour'],
       makeDefault: true
     }) 
 
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonWeaponSheet, {
+    Items.registerSheet('Pendragon', PendragonWeaponSheet, {
       types: ['weapon'],
       makeDefault: true
     }) 
 
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonGearSheet, {
+    Items.registerSheet('Pendragon', PendragonGearSheet, {
       types: ['gear'],
       makeDefault: true
     }) 
     
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonFamilySheet, {
+    Items.registerSheet('Pendragon', PendragonFamilySheet, {
       types: ['family'],
       makeDefault: true
     }) 
 
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonCultureSheet, {
+    Items.registerSheet('Pendragon', PendragonCultureSheet, {
       types: ['culture'],
       makeDefault: true
     }) 
 
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonReligionSheet, {
+    Items.registerSheet('Pendragon', PendragonReligionSheet, {
       types: ['religion'],
       makeDefault: true
     }) 
 
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonClassSheet, {
+    Items.registerSheet('Pendragon', PendragonClassSheet, {
       types: ['class'],
       makeDefault: true
     }) 
 
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonHomelandSheet, {
+    Items.registerSheet('Pendragon', PendragonHomelandSheet, {
       types: ['homeland'],
       makeDefault: true
     }) 
     
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonIdealSheet, {
+    Items.registerSheet('Pendragon', PendragonIdealSheet, {
       types: ['ideal'],
       makeDefault: true
     }) 
 
-    foundry.documents.collections.Items.registerSheet('Pendragon', PendragonRelationshipSheet, {
+    Items.registerSheet('Pendragon', PendragonRelationshipSheet, {
       types: ['relationship'],
       makeDefault: true
     }) 
 
-    foundry.documents.collections.RollTables.unregisterSheet('core', foundry.applications.sheets.RollTableSheet)
-    foundry.documents.collections.RollTables.registerSheet('Pendragon', PENRollTableConfig, {
+    RollTables.unregisterSheet('core', RollTableConfig)
+    RollTables.registerSheet('Pendragon', PENRollTableConfig, {
       makeDefault: true
     })
 
-    foundry.documents.collections.Journal.unregisterSheet('core', foundry.appv1.sheets.JournalSheet)
-    foundry.documents.collections.Journal.registerSheet('Pendragon', PENJournalSheet, {
+    Journal.unregisterSheet('core', JournalSheet)
+    Journal.registerSheet('Pendragon', PENJournalSheet, {
       makeDefault: true
     })
 

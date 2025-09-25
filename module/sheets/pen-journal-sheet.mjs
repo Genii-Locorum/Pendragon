@@ -1,7 +1,7 @@
 /* global RollTableConfig */
 import { addPIDSheetHeaderButton } from '../pid/pid-button.mjs'
 
-export class PENJournalSheet extends foundry.appv1.sheets.JournalSheet {
+export class PENJournalSheet extends JournalSheet {
 
   _getHeaderButtons () {
     const headerButtons = super._getHeaderButtons()

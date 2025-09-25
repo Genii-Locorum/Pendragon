@@ -269,6 +269,7 @@ height: inherit;
   border: 0px;
   border-radius: 0px;
   background: none;
+  box-shadow: none;
 }
 .Pendragon .rotate {
   transform: rotate(180deg);
@@ -283,6 +284,7 @@ height: inherit;
   border: 1px gray solid;
   border-radius: 0px;
   background: none;
+  box-shadow: none;
 }
 
 .Pendragon .equestrian-input input{
@@ -292,6 +294,7 @@ height: inherit;
   border: 1px gray solid;
   border-radius: 0px;
   background: none;
+  box-shadow: none;  
 }
 
 .Pendragon .trait-input {
@@ -1366,6 +1369,10 @@ height: inherit;
   color: #034694;
 }
 
+.Pendragon .black {
+  color: black;
+}
+
 .Pendragon .red {
   color: darkred;
 }
@@ -1384,8 +1391,7 @@ height: inherit;
   border-top: 1px solid black;
   border-left: 1px solid black;
   border-right: 1px solid black;    
-  padding-left:7px;
-  padding-right:7px;
+  padding: 10px 7px 10px 7px;
   background-color: darkred;
   color: cornsilk;
   max-width: 636px;
@@ -1395,6 +1401,7 @@ height: inherit;
   max-width: 636px;
   margin-left: 0px;
   margin-right: 0px;
+  border-radius: 0px;
 }
 
 .Pendragon .follower-grid {

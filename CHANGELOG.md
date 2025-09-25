@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 13.1.38
+- In my enthusiasm I added some changes which broke the system for V12 on Foundry.  I have backed the changes out
+- This doesn't impact any game functionality
+- My apologies, Dangermouse.
+
+## 13.1.37
+- Duplicating a character no longer adds skills, passions and traits a second time
+- Increased the default height of some items so that they show all the contents
+
 ## 13.1.36
 - Fixed an issue with classes and passions not showing properly when added
 - You can now add multiple pieces of equipment with the same name to a class
