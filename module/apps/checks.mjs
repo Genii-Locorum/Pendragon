@@ -340,7 +340,7 @@ export class PENCheck {
           config.reflex = true;
         } else {
           let targetMsg = await game.messages.get(config.checkMsgId);
-          config.reflexMod = -targetMsg.flags.Pendragon.chatCard[0].reflexMod;
+          config.reflexMod = -targetMsg.flags.Pendragon.chatCard[0].reflexMod ?? 0;
         }
         if (!foundry.utils.isNewerVersion(game.version, "11")) {
           config.chatType = CONST.CHAT_MESSAGE_STYLES.OTHER;

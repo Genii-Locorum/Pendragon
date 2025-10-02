@@ -330,6 +330,7 @@
     "male": "Mâle",
     "manual": "(manuel)",
     "major": "Majeure",
+    "mapNoteNoBackground": "Masquer l'arrière-plan",
     "marries": "Épouse",
     "material": "Matériel",
     "max": "Max",
@@ -781,7 +782,99 @@
       "nonknightly": "Non-Chevaleresque",
       "ladies": "Dames",
       "woodcraft": "Travail Du Bois"      
-    }
+    },
+"ChaosiumCanvasInterface": {
+      "MapPinToggle": {
+        "Toggle": {
+          "Title": "Montrer",
+          "Hint": "Cela devrait-il afficher ou masquer l'épingle de carte et les documents"
+        },
+        "Document": {
+          "Title": "Sélectionner des documents",
+          "Hint": ""
+        },
+        "Note": {
+          "Title": "Notes de scène",
+          "Hint": ""
+        },
+        "PermissionShow": {
+          "Title": "Afficher la permission",
+          "Hint": ""
+        },
+        "PermissionHide": {
+          "Title": "Masquer la permission",
+          "Hint": ""
+        }
+      },
+      "OpenDocument": {
+        "Permission": {
+          "Title": "Peut cliquer si",
+          "Hint": ""
+        },
+        "Document": {
+          "Title": "Sélectionner le document",
+          "Hint": ""
+        },
+        "Anchor": {
+          "Title": "Ancre facultative",
+          "Hint": "Si le chargement d'une page d'entrée de journal se produit, passer à l'ancre"
+        }
+      },
+      "Permission": {
+        "Always": "Toujours",
+        "Document": "Voir le document",
+        "GM": "MJ",
+        "SeeTile": "Voir la tuile"
+      },
+      "ToScene": {
+        "Permission": {
+          "Title": "Peut cliquer si",
+          "Hint": ""
+        },
+        "Scene": {
+          "Title": "Sélectionner la scène",
+          "Hint": ""
+        },
+        "Tile": {
+          "Title": "Sélectionner la tuile",
+          "Hint": "Sélectionnez la tuile qui doit être visible"
+        }
+      },
+      "TileToggle": {
+        "Toggle": {
+          "Title": "Montrer",
+          "Hint": "Cela devrait-il afficher ou masquer l'épingle de carte et les documents"
+        },
+        "Tile": {
+          "Title": "Sélectionner la tuile",
+          "Hint": ""
+        },
+        "JournalEntry": {
+          "Title": "Sélectionner les écritures comptables",
+          "Hint": ""
+        },
+        "JournalEntryPage": {
+          "Title": "Sélectionner les pages de saisie de journal",
+          "Hint": ""
+        },
+        "RegionBehavior": {
+          "Title": "Sélectionner les comportements de la région",
+          "Hint": ""
+        },
+        "PermissionDocument": {
+          "Title": "Autorisation pour les documents",
+          "Hint": ""
+        },
+        "PermissionPage": {
+          "Title": "Autorisation pour les pages de saisie du journal",
+          "Hint": ""
+        },
+        "RegionUuids": {
+          "Title": "Ensuite, déclenchez ces régions CCI avec un clic droit",
+          "Hint": ""
+        }
+      }
+    }    
   },
   "TYPES": {
     "Actor": {
@@ -803,6 +896,12 @@
       "skill": "Compétence",
       "trait": "Trait",
       "weapon": "Arme"
+    },
+    "RegionBehavior": {
+      "ChaosiumCanvasInterfaceMapPinToggle": "CCI: Basculer la note de la carte",
+      "ChaosiumCanvasInterfaceOpenDocument": "CCI: Ouvrir le document",
+      "ChaosiumCanvasInterfaceToScene": "CCI: À la scène",
+      "ChaosiumCanvasInterfaceTileToggle": "CCI: Basculer la tuile"
     }
   }
 }

@@ -17,6 +17,10 @@ import { PendragonCombatTracker } from "./apps/combat-tracker.mjs";
 import { PendragonCombatTrackerV12 } from "./apps/combat-tracker-v12.mjs";
 import { PendragonStatusEffects } from "./apps/status-effects.mjs";
 import { PIDEditor } from "./pid/pid-editor.mjs";
+import drawNote from "./hooks/draw-note.mjs";
+import RenderNoteConfig from './hooks/render-note-config.mjs'
+import ChaosiumCanvasInterfaceInit from './apps/chaosium-canvas-interface-init.mjs'
+
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -30,6 +34,8 @@ Hooks.once("init", async function () {
     PendragonItem,
     rollItemMacro,
     GMRollMacro,
+    ClickRegionLeftUuid: ChaosiumCanvasInterfaceInit.ClickRegionLeftUuid,
+    ClickRegionRightUuid: ChaosiumCanvasInterfaceInit.ClickRegionRightUuid
   };
   //Add skill categories
   game.Pendragon.skillCategories = ["combat", "courtly", "minsterly", "knightly","nonknightly","ladies","woodcraft" ]
@@ -65,7 +71,11 @@ Hooks.once("init", async function () {
     Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
     //Remove certain Items types from the list of options to create under the items menu
     Hooks.on("renderDialog", (dialog, html) => {
-      let deprecatedTypes = ["wound", "squire", "family", "relationship"]; //
+      let deprecatedTypes = ["wound", "squire", "family", "relationship",
+                             "ChaosiumCanvasInterfaceMapPinToggle",
+                             "ChaosiumCanvasInterfaceOpenDocument",
+                             "ChaosiumCanvasInterfaceToScene",
+                             "ChaosiumCanvasInterfaceTileToggle"]; //TODO Remove the CCI items when we move to V13 only
       Array.from(html.find("#document-create option")).forEach((i) => {
         if (deprecatedTypes.includes(i.value)) {
           i.remove();
@@ -83,6 +93,11 @@ Hooks.on("ready", async () => {
     PENSystemSocket.callSocket(data);
   });
 });
+
+if (foundry.utils.isNewerVersion(game.version, '13')) {
+  Hooks.on('drawNote', drawNote)
+  Hooks.on('renderNoteConfig', RenderNoteConfig)
+}
 
 //Add sub-titles in Config Settings for Pendragon Game Settings
 Hooks.on("renderSettingsConfig", (app, html, options) => {
@@ -175,31 +190,66 @@ Hooks.once("ready", async function () {
 
 //  Hotbar Macros
 async function createItemMacro(data, slot) {
-  // First, determine if this is a valid owned item.
-  if (data.type !== "Item") return;
-  if (!data.uuid.includes("Actor.") && !data.uuid.includes("Token.")) {
-    return ui.notifications.warn(game.i18n.localize("PEN.noMacroItemOwner"));
-  }
-  // If it is, retrieve it based on the uuid.
-  const item = await Item.fromDropData(data);
+  let command=""
+  console.log(data)
+  let macro = ""
+  switch (data.type) {
+    case "Item":
+      // First, determine if this is a valid owned item.
+      if (!data.uuid.includes("Actor.") && !data.uuid.includes("Token.")) {
+        return ui.notifications.warn(game.i18n.localize("PEN.noMacroItemOwner"));
+      }
+      // If it is, retrieve it based on the uuid.
+      const item = await Item.fromDropData(data);
 
-  // Create the macro command using the uuid.
-  const command = `game.Pendragon.rollItemMacro("${data.uuid}");`;
-  let macro = game.macros.find(
-    (m) => m.name === item.name && m.command === command,
-  );
-  if (!macro) {
-    macro = await Macro.create({
-      name: item.name,
-      type: "script",
-      img: item.img,
-      command: command,
-      flags: { "Pendragon.itemMacro": true },
-    });
-  }
-  game.user.assignHotbarMacro(macro, slot);
-  return false;
-}
+      // Create the macro command using the uuid.
+      command = `game.Pendragon.rollItemMacro("${data.uuid}");`;
+      macro = game.macros.find(
+        (m) => m.name === item.name && m.command === command,
+      );
+      if (!macro) {
+        macro = await Macro.create({
+          name: item.name,
+          type: "script",
+          img: item.img,
+          command: command,
+          flags: { "Pendragon.itemMacro": true },
+        });
+      }
+      game.user.assignHotbarMacro(macro, slot);
+      return false;
+      break;
+
+    case "JournalEntry":
+    case "JournalEntryPage":      
+      command = `await Hotbar.toggleDocumentSheet("${data.uuid}");`;
+      const journal = await fromUuid(data.uuid)
+      macro = game.macros.find(
+        (m) => m.name === journal.name && m.command === command,
+      );
+      if (!macro) {
+        macro = await Macro.create({
+          name: journal.name,
+          type: "script",
+          img: "systems/Pendragon/assets/Icons/bookmarklet.svg",
+          command: command,
+        });
+      }
+      game.user.assignHotbarMacro(macro, slot);
+      return false;
+      break;  
+
+    case "Macro":
+      macro = await fromUuid(data.uuid)
+      game.user.assignHotbarMacro(macro, slot);
+      break;
+      return false;
+
+    default:
+      return;
+      break;
+  }  
+ }
 
 //Create a Macro from an Item drop.
 function rollItemMacro(itemUuid) {

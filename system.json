@@ -2,7 +2,7 @@
   "id": "Pendragon",
   "title": "Pendragon",
   "description": "Pendragon system for FoundryVTT!",
-  "version": "13.1.37",
+  "version": "13.1.38",
   "compatibility": {
     "minimum": 12,
     "verified": "13.348",
@@ -13,9 +13,22 @@
     {"name": "Dangermouse"}
 
 ],
-  "esmodules": ["module/pendragon.mjs"],
+  "esmodules": ["module/pendragon.mjs",
+                "module/setup/load.mjs"],
   "styles": ["css/pendragon.css"],
   "scripts": [],
+  "packFolders": [
+    {
+      "name": "Pendragon System",
+      "sorting": "m",
+      "color": "#156aaa",
+      "packs": [
+        "instructions",
+        "macro"
+      ],
+      "folders": []
+    }
+  ],
   "packs": [
     {
       "label": "Instructions",
@@ -48,6 +61,7 @@
       "path": "lang/fr.json"
     }
   ],
+  "background": "systems/Pendragon/assets/KnightPendragon.jpg",
   "media": [
     {
       "type": "setup",
@@ -61,9 +75,19 @@
   }, 
   "primaryTokenAttribute": "hp",
   "secondaryTokenAttribute": "",
+
+  "documentTypes": {
+    "RegionBehavior": {
+      "ChaosiumCanvasInterfaceMapPinToggle": {},
+      "ChaosiumCanvasInterfaceOpenDocument": {},
+      "ChaosiumCanvasInterfaceToScene": {},
+      "ChaosiumCanvasInterfaceTileToggle": {}
+    }
+  },
+
   "url": "https://github.com/Genii-Locorum/Pendragon",
   "manifest": "https://github.com/Genii-Locorum/Pendragon/releases/latest/download/system.json",
-  "download": "https://github.com/Genii-Locorum/Pendragon/releases/download/v37/system.zip",
+  "download": "https://github.com/Genii-Locorum/Pendragon/releases/download/v38/system.zip",
   "socket": true,
   "license": "LICENSE.txt",
   "changelog": "CHANGELOG.md"

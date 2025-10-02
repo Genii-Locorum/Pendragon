@@ -67,7 +67,7 @@ export class PENactorItemDrop {
         //If a specialised skill or passion with no specName or the default, then ask for name.
         if (['skill','passion'].includes(dropItm.type)){
           let specify = game.i18n.localize('PEN.specify')
-          if (dropItm.system.specName === "" || dropItm.system.specName === specify ) {
+          if (dropItm.system.specialisation && (dropItm.system.specName === "" || dropItm.system.specName === specify) ) {
             dropItm = await this._getSpecialism(foundry.utils.duplicate(dropItm), actor)
           }
         }
