@@ -191,7 +191,6 @@ Hooks.once("ready", async function () {
 //  Hotbar Macros
 async function createItemMacro(data, slot) {
   let command=""
-  console.log(data)
   let macro = ""
   switch (data.type) {
     case "Item":
@@ -240,10 +239,21 @@ async function createItemMacro(data, slot) {
       break;  
 
     case "Macro":
-      macro = await fromUuid(data.uuid)
+      let tempMacro = await fromUuid(data.uuid)
+      macro = game.macros.find(
+        (m) => m.name === tempMacro.name && m.command === command,
+      );
+      if (!macro) {
+        macro = await Macro.create({
+          name: tempMacro.name,
+          type: "script",
+          img: "icons/svg/d20.svg",
+          command: tempMacro.command,
+        });
+      }
       game.user.assignHotbarMacro(macro, slot);
-      break;
       return false;
+      break;
 
     default:
       return;

@@ -2,9 +2,9 @@
 
 ## 13.1.38
 - Dropping non-specialised skills on to an actor no longer asks you to add a speciality
-- You can now drag Journals and Macros to the hotbar
+- You can now drag Journals and Macros to the hotbar. 
 - Game instructions tweaked to highlight you change a characters age by altering their year of birth
-- Chaosium Canvas Interface (CCI) added for Foundry Version 13 users - code is courtesy of James B
+- Chaosium Canvas Interface (CCI) added for Foundry Version 13 users - code is courtesy of James B - user guide at https://github.com/Genii-Locorum/aov/wiki/Chaosium-Canvas-Interface-%E2%80%90CCI
 - Loading art has changed and if you create a new world a default scene is created and activated
 
 ## 13.1.37
