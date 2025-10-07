@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.39
+- CCI has now been added for Version 12 users, massive thanks to james for this.
+
 ## 13.1.38
 - Dropping non-specialised skills on to an actor no longer asks you to add a speciality
 - You can now drag Journals and Macros to the hotbar. 

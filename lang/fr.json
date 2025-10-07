@@ -847,7 +847,7 @@
         },
         "Tile": {
           "Title": "Sélectionner la tuile",
-          "Hint": ""
+          "Hint": "Définir la visibilité de ces tuiles"
         },
         "JournalEntry": {
           "Title": "Sélectionner les écritures comptables",
@@ -859,15 +859,15 @@
         },
         "RegionBehavior": {
           "Title": "Sélectionner les comportements de la région",
-          "Hint": ""
+          "Hint": "Activer/Désactiver ces comportements de région"
         },
         "PermissionDocument": {
           "Title": "Autorisation pour les documents",
-          "Hint": ""
+          "Hint": "Lorsqu'il est défini pour afficher, définissez la propriété du document à ce niveau"
         },
         "PermissionPage": {
           "Title": "Autorisation pour les pages de saisie du journal",
-          "Hint": ""
+          "Hint": "Lorsqu'il est configuré pour afficher, définir la propriété de la page d'écriture du journal à ce niveau"
         },
         "RegionUuids": {
           "Title": "Ensuite, déclenchez ces régions CCI avec un clic droit",
