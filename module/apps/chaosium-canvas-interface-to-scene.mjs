@@ -25,13 +25,11 @@ export default class ChaosiumCanvasInterfaceToScene extends ChaosiumCanvasInterf
         required: true
       }),
       sceneUuid: new fields.DocumentUUIDField({
-        initial: undefined,
         label: 'PEN.ChaosiumCanvasInterface.ToScene.Scene.Title',
         hint: 'PEN.ChaosiumCanvasInterface.ToScene.Scene.Hint',
         type: 'Scene'
       }),
       tileUuid: new fields.DocumentUUIDField({
-        initial: undefined,
         label: 'PEN.ChaosiumCanvasInterface.ToScene.Tile.Title',
         hint: 'PEN.ChaosiumCanvasInterface.ToScene.Tile.Hint',
         type: 'Tile'

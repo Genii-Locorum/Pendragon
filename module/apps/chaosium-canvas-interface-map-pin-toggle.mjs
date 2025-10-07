@@ -24,9 +24,7 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
         hint: 'PEN.ChaosiumCanvasInterface.MapPinToggle.Toggle.Hint'
       }),
       documentUuids: new fields.SetField(
-        new fields.DocumentUUIDField({
-          initial: undefined
-        }),
+        new fields.DocumentUUIDField(),
         {
           label: 'PEN.ChaosiumCanvasInterface.MapPinToggle.Document.Title',
           hint: 'PEN.ChaosiumCanvasInterface.MapPinToggle.Document.Hint'
@@ -34,7 +32,6 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
       ),
       noteUuids: new fields.SetField(
         new fields.DocumentUUIDField({
-          initial: undefined,
           type: 'Note'
         }),
         {
@@ -65,7 +62,8 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
 
   async _handleLeftClickEvent () {
     game.socket.emit('system.Pendragon', { type: 'toggleMapNotes', toggle: true })
-    game.settings.set('core', foundry.canvas.layers.NotesLayer.TOGGLE_SETTING, true)
+    // TODO Remove with v12 support
+    game.settings.set('core', (foundry.canvas.layers?.NotesLayer ?? NotesLayer).TOGGLE_SETTING, true)
     for (const uuid of this.documentUuids) {
       const doc = await fromUuid(uuid)
       if (doc) {

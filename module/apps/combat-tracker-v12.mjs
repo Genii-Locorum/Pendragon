@@ -114,7 +114,7 @@ export class PendragonCombatTrackerV12 extends (foundry.applications?.sidebar?.t
   _getEntryContextOptions() {
     const getCombatant = li => this.viewed.combatants.get(li.data("combatant-id"));
     let options = [...super._getEntryContextOptions()];
-    if (this.viewed.isFeast()) {
+    if (this.viewed?.isFeast()) {
       options.push({
         name: "PEN.feast.moveCloser",
         icon: '<i class="fa-solid fa-chevron-up"></i>',
