@@ -873,7 +873,7 @@
         },
         "Tile": {
           "Title": "Select Tile",
-          "Hint": ""
+          "Hint": "Set visibility of these tiles"
         },
         "JournalEntry": {
           "Title": "Select Journal Entries",
@@ -885,15 +885,15 @@
         },
         "RegionBehavior": {
           "Title": "Select Region Behaviors",
-          "Hint": ""
+          "Hint": "Enable/Disable these Region Behaviors"
         },
         "PermissionDocument": {
           "Title": "Permission for Documents",
-          "Hint": ""
+          "Hint": "When set to show set Document ownership to this level"
         },
         "PermissionPage": {
           "Title": "Permission for Journal Entry Pages",
-          "Hint": ""
+          "Hint": "When set to show set Journal Entry Page ownership to this level"
         },
         "RegionUuids": {
           "Title": "Then trigger these CCI Regions on Right Click",
