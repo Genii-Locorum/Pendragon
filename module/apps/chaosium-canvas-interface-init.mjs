@@ -6,12 +6,6 @@ import ChaosiumCanvasInterface from "./chaosium-canvas-interface.mjs";
 
 export default class ChaosiumCanvasInterfaceInit extends ChaosiumCanvasInterface {
   static initSelf () {
-
-
-    if (!foundry.utils.isNewerVersion(game.version, '13')) {
-      return
-    }
-
     const known = [
       ChaosiumCanvasInterfaceMapPinToggle,
       ChaosiumCanvasInterfaceOpenDocument,
@@ -34,7 +28,8 @@ export default class ChaosiumCanvasInterfaceInit extends ChaosiumCanvasInterface
 
     Object.assign(CONFIG.RegionBehavior.typeIcons, typeIcons)
 
-    foundry.applications.apps.DocumentSheetConfig.registerSheet(
+    // TODO Remove with v12 support
+    ;(foundry.applications.apps?.DocumentSheetConfig ?? DocumentSheetConfig).registerSheet(
       RegionBehavior,
       'Pendragon',
       foundry.applications.sheets.RegionBehaviorConfig,

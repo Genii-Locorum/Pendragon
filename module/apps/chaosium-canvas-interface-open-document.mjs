@@ -25,12 +25,10 @@ export default class ChaosiumCanvasInterfaceOpenDocument extends ChaosiumCanvasI
         required: true
       }),
       documentUuid: new fields.DocumentUUIDField({
-        initial: undefined,
         label: 'PEN.ChaosiumCanvasInterface.OpenDocument.Document.Title',
         hint: 'PEN.ChaosiumCanvasInterface.OpenDocument.Document.Hint'
       }),
       anchor: new fields.StringField({
-        initial: '',
         label: 'PEN.ChaosiumCanvasInterface.OpenDocument.Anchor.Title',
         hint: 'PEN.ChaosiumCanvasInterface.OpenDocument.Anchor.Hint'
       })

@@ -71,11 +71,7 @@ Hooks.once("init", async function () {
     Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
     //Remove certain Items types from the list of options to create under the items menu
     Hooks.on("renderDialog", (dialog, html) => {
-      let deprecatedTypes = ["wound", "squire", "family", "relationship",
-                             "ChaosiumCanvasInterfaceMapPinToggle",
-                             "ChaosiumCanvasInterfaceOpenDocument",
-                             "ChaosiumCanvasInterfaceToScene",
-                             "ChaosiumCanvasInterfaceTileToggle"]; //TODO Remove the CCI items when we move to V13 only
+      let deprecatedTypes = ["wound", "squire", "family", "relationship"];
       Array.from(html.find("#document-create option")).forEach((i) => {
         if (deprecatedTypes.includes(i.value)) {
           i.remove();

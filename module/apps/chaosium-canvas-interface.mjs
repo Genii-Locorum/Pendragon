@@ -1,28 +1,49 @@
 export default class ChaosiumCanvasInterface extends foundry.data.regionBehaviors.RegionBehaviorType {
   static initSelf () {
-    if (!foundry.utils.isNewerVersion(game.version, '13')) {
-      return
+    // TODO Remove with v12 support
+    if (game.release.generation === 12) {
+      class NoteDocumentPolyfill extends CONFIG.Note.documentClass {
+        get name () {
+          return (this.text.length ? this.text : this.label)
+        }
+      }
+      CONFIG.Note.documentClass = NoteDocumentPolyfill
+      class TileDocumentPolyfill extends CONFIG.Tile.documentClass {
+        get name () {
+          return (this.id)
+        }
+      }
+      CONFIG.Tile.documentClass = TileDocumentPolyfill
     }
-    const oldOnClickLeft = foundry.canvas.layers.TokenLayer.prototype._onClickLeft
-    foundry.canvas.layers.TokenLayer.prototype._onClickLeft = function (event) {
+
+    // TODO Remove with v12 support
+    const oldOnClickLeft = (foundry.canvas?.layers?.TokenLayer ?? TokenLayer).prototype._onClickLeft
+    // TODO Remove with v12 support
+    ;(foundry.canvas?.layers?.TokenLayer ?? TokenLayer).prototype._onClickLeft = function (event) {
       oldOnClickLeft.call(this, event)
-      if (canvas.activeLayer instanceof foundry.canvas.layers.TokenLayer) {
+      // TODO Remove with v12 support
+      if (canvas.activeLayer instanceof (foundry.canvas?.layers?.TokenLayer ?? TokenLayer)) {
         const destination = canvas.activeLayer.toLocal(event)
         for (const region of canvas.scene.regions.contents) {
-          if (region.behaviors.filter(b => !b.disabled).find(b => b.system instanceof ChaosiumCanvasInterface) && region.object.document.polygonTree.testPoint(destination)) {
+          // TODO Remove with v12 support
+          if (region.behaviors.filter(b => !b.disabled).find(b => b.system instanceof ChaosiumCanvasInterface) && (region.object?.document.polygonTree ?? region.object.polygonTree).testPoint(destination)) {
             region.behaviors.filter(b => !b.disabled).map(async (b) => { if (await b.system._handleMouseOverEvent() === true && typeof b.system._handleLeftClickEvent === 'function') { await b.system._handleLeftClickEvent() } })
           }
         }
       }
     }
 
-    const oldOnClickRight = foundry.canvas.layers.TokenLayer.prototype._onClickRight
-    foundry.canvas.layers.TokenLayer.prototype._onClickRight = function (event) {
+    // TODO Remove with v12 support
+    const oldOnClickRight = (foundry.canvas?.layers?.TokenLayer ?? TokenLayer).prototype._onClickRight
+    // TODO Remove with v12 support
+    ;(foundry.canvas?.layers?.TokenLayer ?? TokenLayer).prototype._onClickRight = function (event) {
       oldOnClickRight.call(this, event)
-      if (canvas.activeLayer instanceof foundry.canvas.layers.TokenLayer) {
+      // TODO Remove with v12 support
+      if (canvas.activeLayer instanceof (foundry.canvas?.layers?.TokenLayer ?? TokenLayer)) {
         const destination = canvas.activeLayer.toLocal(event)
         for (const region of canvas.scene.regions.contents) {
-          if (region.behaviors.filter(b => !b.disabled).find(b => b.system instanceof ChaosiumCanvasInterface) && region.object.document.polygonTree.testPoint(destination)) {
+          // TODO Remove with v12 support
+          if (region.behaviors.filter(b => !b.disabled).find(b => b.system instanceof ChaosiumCanvasInterface) && (region.object?.document.polygonTree ?? region.object.polygonTree).testPoint(destination)) {
             region.behaviors.filter(b => !b.disabled).map(async (b) => { if (await b.system._handleMouseOverEvent() === true && typeof b.system._handleRightClickEvent === 'function') { await b.system._handleRightClickEvent() } })
           }
         }
@@ -30,7 +51,8 @@ export default class ChaosiumCanvasInterface extends foundry.data.regionBehavior
     }
 
     document.body.addEventListener('mousemove', async function (event) {
-      if (canvas.activeLayer instanceof foundry.canvas.layers.TokenLayer) {
+      // TODO Remove with v12 support
+      if (canvas.activeLayer instanceof (foundry.canvas?.layers?.TokenLayer ?? TokenLayer)) {
         const pointer = canvas?.app?.renderer?.events?.pointer
         if (!pointer) {
           return
@@ -38,7 +60,8 @@ export default class ChaosiumCanvasInterface extends foundry.data.regionBehavior
         const destination = canvas.activeLayer.toLocal(event)
         let setPointer = false
         for (const region of canvas.scene.regions.contents) {
-          if (region.behaviors.filter(b => !b.disabled).find(b => b.system instanceof ChaosiumCanvasInterface) && region.object.document.polygonTree.testPoint(destination)) {
+          // TODO Remove with v12 support
+          if (region.behaviors.filter(b => !b.disabled).find(b => b.system instanceof ChaosiumCanvasInterface) && (region.object?.document.polygonTree ?? region.object.polygonTree).testPoint(destination)) {
             setPointer = await region.behaviors.filter(b => !b.disabled).reduce(async (c, b) => {
               const r = await b.system._handleMouseOverEvent()
               if (r !== false && r !== true) {

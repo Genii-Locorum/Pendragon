@@ -25,7 +25,6 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
       }),
       tileUuids: new fields.SetField(
         new fields.DocumentUUIDField({
-          initial: undefined,
           type: 'Tile'
         }),
         {
@@ -35,32 +34,11 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
       ),
       journalEntryUuids: new fields.SetField(
         new fields.DocumentUUIDField({
-          initial: undefined,
           type: 'JournalEntry'
         }),
         {
           label: 'PEN.ChaosiumCanvasInterface.TileToggle.JournalEntry.Title',
           hint: 'PEN.ChaosiumCanvasInterface.TileToggle.JournalEntry.Hint'
-        }
-      ),
-      journalEntryPageUuids: new fields.SetField(
-        new fields.DocumentUUIDField({
-          initial: undefined,
-          type: 'JournalEntryPage'
-        }),
-        {
-          label: 'PEN.ChaosiumCanvasInterface.TileToggle.JournalEntryPage.Title',
-          hint: 'PEN.ChaosiumCanvasInterface.TileToggle.JournalEntryPage.Hint'
-        }
-      ),
-      regionBehaviorUuids: new fields.SetField(
-        new fields.DocumentUUIDField({
-          initial: undefined,
-          type: 'RegionBehavior'
-        }),
-        {
-          label: 'PEN.ChaosiumCanvasInterface.TileToggle.RegionBehavior.Title',
-          hint: 'PEN.ChaosiumCanvasInterface.TileToggle.RegionBehavior.Hint'
         }
       ),
       permissionDocument: new fields.NumberField({
@@ -70,6 +48,15 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
         hint: 'PEN.ChaosiumCanvasInterface.TileToggle.PermissionDocument.Hint',
         required: true
       }),
+      journalEntryPageUuids: new fields.SetField(
+        new fields.DocumentUUIDField({
+          type: 'JournalEntryPage'
+        }),
+        {
+          label: 'PEN.ChaosiumCanvasInterface.TileToggle.JournalEntryPage.Title',
+          hint: 'PEN.ChaosiumCanvasInterface.TileToggle.JournalEntryPage.Hint'
+        }
+      ),
       permissionPage: new fields.NumberField({
         choices: Object.keys(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS).reduce((c, k) => { c[k] = game.i18n.localize(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS[k]); return c }, {}),
         initial: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
@@ -77,9 +64,17 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
         hint: 'PEN.ChaosiumCanvasInterface.TileToggle.PermissionPage.Hint',
         required: true
       }),
+      regionBehaviorUuids: new fields.SetField(
+        new fields.DocumentUUIDField({
+          type: 'RegionBehavior'
+        }),
+        {
+          label: 'PEN.ChaosiumCanvasInterface.TileToggle.RegionBehavior.Title',
+          hint: 'PEN.ChaosiumCanvasInterface.TileToggle.RegionBehavior.Hint'
+        }
+      ),
       regionUuids: new fields.SetField(
         new fields.DocumentUUIDField({
-          initial: undefined,
           type: 'Region'
         }),
         {
@@ -134,7 +129,9 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
   async _handleRightClickEvent () {
     await this._handleLeftClickEvent()
     for (const uuid of this.regionUuids) {
-      game.Pendragon.ClickRegionLeftUuid(uuid)
+      setTimeout(() => {
+        game.Pendragon.ClickRegionLeftUuid(uuid)
+      }, 100)
     }
   }
 }
