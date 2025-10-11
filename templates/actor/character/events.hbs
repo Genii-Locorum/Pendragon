@@ -1,0 +1,19 @@
+<section class="tab combat {{tab.cssClass}}" data-group="primary" data-tab="events">
+    <p><strong>Born:</strong> {{system.born}}  Knighted: xxx  Married: xxx  Died: {{system.died}}</p>
+<table>
+    <tbody>
+        <tr>
+            <th>{{localize 'PEN.year'}}</th>
+            <th>{{localize 'PEN.event'}}</th>
+            <th>{{localize 'PEN.glory'}}</th>
+        </tr>
+        {{#each history as |historical key|}}
+        <tr>
+        <td>{{historical.system.year}}</td>
+        <td>{{historical.name}}: {{historical.label}}</td>
+        <td>{{historical.system.glory}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+</section>
