@@ -12,7 +12,7 @@ export default class ChaosiumCanvasInterfaceDrawingToggle extends ChaosiumCanvas
   }
 
   static get icon () {
-    return 'fa-solid fa-cubes'
+    return 'fa-solid fa-pencil'
   }
 
   static defineSchema () {
