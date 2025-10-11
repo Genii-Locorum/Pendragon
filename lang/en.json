@@ -797,7 +797,7 @@
       "noPIDFlag": "Can't add {itemName} as it does not have a PID",      
       "others": "Other documents with this PID and language (excluding documents in other actors and items)",
       "priority": "System ID Priority",
-      "summary": "Set a group identifier that can be used to find the the most up to date version of this {type}. The System ID should use the English translation of the {type} to support localization across all languages.",
+      "summary": "Set a group identifier that can be used to find the most up to date version of this {type}. The System ID should use the English translation of the {type} to support localization across all languages.",
       "title": "Edit System ID (PID)"
     },
     "skillcat": {
@@ -809,11 +809,45 @@
       "ladies": "Ladies",
       "woodcraft": "Woodcraft"      
     },
-"ChaosiumCanvasInterface": {
+    "ChaosiumCanvasInterface": {
+      "DrawingToggle": {
+        "Toggle": {
+          "Title": "Show",
+          "Hint": "Should this show or hide the drawings and documents"
+        },
+        "Drawing": {
+          "Title": "Select Drawing",
+          "Hint": "Set visibility of these drawings"
+        },
+        "JournalEntry": {
+          "Title": "Select Journal Entries",
+          "Hint": ""
+        },
+        "JournalEntryPage": {
+          "Title": "Select Journal Entry Pages",
+          "Hint": ""
+        },
+        "RegionBehavior": {
+          "Title": "Select Region Behaviors",
+          "Hint": "Enable/Disable these Region Behaviors"
+        },
+        "PermissionDocument": {
+          "Title": "Permission for Documents",
+          "Hint": "When set to show set Document ownership to this level"
+        },
+        "PermissionPage": {
+          "Title": "Permission for Journal Entry Pages",
+          "Hint": "When set to show set Journal Entry Page ownership to this level"
+        },
+        "RegionUuids": {
+          "Title": "Then trigger these CCI Regions on Right Click",
+          "Hint": ""
+        }
+      },
       "MapPinToggle": {
         "Toggle": {
           "Title": "Show",
-          "Hint": "Should this show or hide the the map pin and documents"
+          "Hint": "Should this show or hide the map pin and documents"
         },
         "Document": {
           "Title": "Select Documents",
@@ -869,7 +903,7 @@
       "TileToggle": {
         "Toggle": {
           "Title": "Show",
-          "Hint": "Should this show or hide the the map pin and documents"
+          "Hint": "Should this show or hide the tile and documents"
         },
         "Tile": {
           "Title": "Select Tile",
@@ -927,6 +961,7 @@
       "wound": "Wound"
     },
     "RegionBehavior": {
+      "ChaosiumCanvasInterfaceDrawingToggle": "CCI: Drawing Toggle",
       "ChaosiumCanvasInterfaceMapPinToggle": "CCI: Map Note Toggle",
       "ChaosiumCanvasInterfaceOpenDocument": "CCI: Open Document",
       "ChaosiumCanvasInterfaceToScene": "CCI: To Scene",
