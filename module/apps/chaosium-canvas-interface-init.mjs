@@ -1,3 +1,4 @@
+import ChaosiumCanvasInterfaceDrawingToggle from "./chaosium-canvas-interface-drawing-toggle.mjs";
 import ChaosiumCanvasInterfaceMapPinToggle from "./chaosium-canvas-interface-map-pin-toggle.mjs";
 import ChaosiumCanvasInterfaceOpenDocument from "./chaosium-canvas-interface-open-document.mjs";
 import ChaosiumCanvasInterfaceToScene from "./chaosium-canvas-interface-to-scene.mjs";
@@ -7,6 +8,7 @@ import ChaosiumCanvasInterface from "./chaosium-canvas-interface.mjs";
 export default class ChaosiumCanvasInterfaceInit extends ChaosiumCanvasInterface {
   static initSelf () {
     const known = [
+      ChaosiumCanvasInterfaceDrawingToggle,
       ChaosiumCanvasInterfaceMapPinToggle,
       ChaosiumCanvasInterfaceOpenDocument,
       ChaosiumCanvasInterfaceToScene,
