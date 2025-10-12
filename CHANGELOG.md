@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.40
+- New CCI: Drawing Toggle option added, again thanks to James.
+
 ## 13.1.39
 - CCI has now been added for Version 12 users, massive thanks to james for this.
 
