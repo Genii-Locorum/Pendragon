@@ -1,0 +1,32 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="stable">
+<h2>Readied {{localize 'PEN.horses'}}</h2>
+<p>Horses currently in use by you and your squires.</p>
+  {{#each horses as |horse key|}}
+    <div class="horse">
+      <h3>
+        <span>{{#if (eq horse.system.label horse.name)}}Unnamed {{/if}}{{horse.system.label}}</span>
+        <span>{{horse.name}}{{#if horse.system.combat}} - War-Trained{{/if}}</span>
+      </h3>
+      <div style="display:flex; gap: 0.5lh;">
+    <img class="horse-img" src="{{horse.img}}" title="{{horse.name}}" style="width:64px;height:auto;background-color: #0004;"/>
+    <div style="flex:auto;">
+      <div class="flexrow">
+        <p>Hit Points: {{horse.system.hp}} / {{horse.system.maxHP}}</p>
+        <p>Move: {{horse.system.move}}</p>
+        <p>Armour: {{horse.system.armour}}</p>
+      </div>
+      <div class="flexrow">
+        <p>Age: {{horse.system.age}}</p>
+        <p>Colour: {{horse.system.colour}}</p>
+        <p>Breed: {{horse.system.breed}}</p>
+      </div>
+      <p>Personality: {{horse.system.personality}}</p>
+      {{#if horse.system.equipped}}<p>CURRENT HORSE</p>{{/if}}
+      </div>
+    </div>
+
+    </div>
+  {{/each}}
+<h2>Available {{localize 'PEN.horses'}}</h2>
+<p>Other horses available to you, obtained by gift, battle, or purchase.</p>
+</section>
