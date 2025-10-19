@@ -20,7 +20,8 @@ import { PIDEditor } from "./pid/pid-editor.mjs";
 import drawNote from "./hooks/draw-note.mjs";
 import RenderNoteConfig from './hooks/render-note-config.mjs'
 import ChaosiumCanvasInterfaceInit from './apps/chaosium-canvas-interface-init.mjs'
-
+import RenderRegionBehaviorConfig from './hooks/render-region-behavior-config.mjs'
+import RenderRegionConfig from './hooks/render-region-config.mjs'
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -78,6 +79,7 @@ Hooks.once("init", async function () {
         }
       });
     });
+    Hooks.on("renderRegionBehaviorConfig", RenderRegionBehaviorConfig);
   }
 
   // Preload Handlebars templates.
@@ -126,6 +128,8 @@ Hooks.on("renderSettingsConfig", (app, html, options) => {
         "</h3>",
     );
 });
+
+Hooks.on('renderRegionConfig', RenderRegionConfig);
 
 PendragonHooks.listen();
 
