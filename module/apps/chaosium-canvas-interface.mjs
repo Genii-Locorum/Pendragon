@@ -1,4 +1,18 @@
 export default class ChaosiumCanvasInterface extends foundry.data.regionBehaviors.RegionBehaviorType {
+  static get triggerButtons () {
+    return {
+      [ChaosiumCanvasInterface.triggerButton.Left]: 'PEN.ChaosiumCanvasInterface.Buttons.Left',
+      [ChaosiumCanvasInterface.triggerButton.Right]: 'PEN.ChaosiumCanvasInterface.Buttons.Right'
+    }
+  }
+
+  static get triggerButton () {
+    return {
+      Left: 0,
+      Right: 2
+    }
+  }
+
   static initSelf () {
     // TODO Remove with v12 support
     if (game.release.generation === 12) {
@@ -10,10 +24,16 @@ export default class ChaosiumCanvasInterface extends foundry.data.regionBehavior
       CONFIG.Note.documentClass = NoteDocumentPolyfill
       class TileDocumentPolyfill extends CONFIG.Tile.documentClass {
         get name () {
-          return (this.id)
+          return this.id
         }
       }
       CONFIG.Tile.documentClass = TileDocumentPolyfill
+      class DrawingDocumentPolyfill extends CONFIG.Drawing.documentClass {
+        get name () {
+          return this.id
+        }
+      }
+      CONFIG.Drawing.documentClass = DrawingDocumentPolyfill
     }
 
     // TODO Remove with v12 support
