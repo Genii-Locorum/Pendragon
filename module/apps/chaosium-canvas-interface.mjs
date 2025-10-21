@@ -18,19 +18,19 @@ export default class ChaosiumCanvasInterface extends foundry.data.regionBehavior
     if (game.release.generation === 12) {
       class NoteDocumentPolyfill extends CONFIG.Note.documentClass {
         get name () {
-          return (this.text.length ? this.text : this.label)
+          return (this.text?.length ? this.text : this.label)
         }
       }
       CONFIG.Note.documentClass = NoteDocumentPolyfill
       class TileDocumentPolyfill extends CONFIG.Tile.documentClass {
         get name () {
-          return this.id
+          return this.collectionName + ': ' + this.id
         }
       }
       CONFIG.Tile.documentClass = TileDocumentPolyfill
       class DrawingDocumentPolyfill extends CONFIG.Drawing.documentClass {
         get name () {
-          return this.id
+          return this.collectionName + ': ' + this.id
         }
       }
       CONFIG.Drawing.documentClass = DrawingDocumentPolyfill
