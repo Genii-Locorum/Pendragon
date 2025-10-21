@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.41
+- Chaosium Canvas Interface update with more options
+
 ## 13.1.40
 - New CCI: Drawing Toggle option added, again thanks to James.
 
