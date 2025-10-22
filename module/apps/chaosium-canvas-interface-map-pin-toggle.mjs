@@ -24,10 +24,12 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
         label: 'PEN.ChaosiumCanvasInterface.MapPinToggle.Button.Title',
         hint: 'PEN.ChaosiumCanvasInterface.MapPinToggle.Button.Hint'
       }),
-      toggle: new fields.BooleanField({
-        initial: false,
-        label: 'PEN.ChaosiumCanvasInterface.MapPinToggle.Toggle.Title',
-        hint: 'PEN.ChaosiumCanvasInterface.MapPinToggle.Toggle.Hint'
+      action: new fields.NumberField({
+        choices: ChaosiumCanvasInterface.actionToggles,
+        initial: ChaosiumCanvasInterface.actionToggle.Off,
+        label: 'PEN.ChaosiumCanvasInterface.MapPinToggle.Action.Title',
+        hint: 'PEN.ChaosiumCanvasInterface.MapPinToggle.Action.Hint',
+        required: true
       }),
       documentUuids: new fields.SetField(
         new fields.DocumentUUIDField(),
@@ -62,18 +64,40 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
     }
   }
 
+  static migrateData (source) {
+    if (typeof source.toggle !== 'undefined' && typeof source.action === 'undefined') {
+      source.action = (source.toggle ? ChaosiumCanvasInterface.actionToggle.On : ChaosiumCanvasInterface.actionToggle.Off)
+    }
+    return source
+  }
+
   async _handleMouseOverEvent () {
     return game.user.isGM
   }
 
   async #handleClickEvent () {
     game.socket.emit('system.Pendragon', { type: 'toggleMapNotes', toggle: true })
-    // TODO Remove with v12 support
+    // TODO Replace with v12 support
     game.settings.set('core', (foundry.canvas.layers?.NotesLayer ?? NotesLayer).TOGGLE_SETTING, true)
+    let toggle = false
+    switch (this.action) {
+      case ChaosiumCanvasInterface.actionToggle.On:
+        toggle = true
+        break
+      case ChaosiumCanvasInterface.actionToggle.Toggle:
+        {
+          const firstUuid = this.documentUuids.first()
+          if (firstUuid) {
+            const doc = await fromUuid(firstUuid)
+            toggle = doc.ownership.default === this.permissionHide
+          }
+        }
+        break
+    }
     for (const uuid of this.documentUuids) {
       const doc = await fromUuid(uuid)
       if (doc) {
-        const permission = (this.toggle ? this.permissionShow : this.permissionHide)
+        const permission = (toggle ? this.permissionShow : this.permissionHide)
         await doc.update({ 'ownership.default': permission })
       } else {
         console.error('Document ' + uuid + ' not loaded')
@@ -82,7 +106,7 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
     for (const uuid of this.noteUuids) {
       const doc = await fromUuid(uuid)
       if (doc) {
-        const texture = (this.toggle ? 'systems/Pendragon/assets/map-pin.svg' : 'systems/Pendragon/assets/map-pin-dark.svg')
+        const texture = (toggle ? 'systems/Pendragon/assets/map-pin.svg' : 'systems/Pendragon/assets/map-pin-dark.svg')
         await doc.update({ 'texture.src': texture })
       } else {
         console.error('Note ' + uuid + ' not loaded')
