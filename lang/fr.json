@@ -783,30 +783,119 @@
       "ladies": "Dames",
       "woodcraft": "Travail Du Bois"      
     },
-"ChaosiumCanvasInterface": {
+    
+    "ChaosiumCanvasInterface": {
+      "Actions": {
+        "Hide": "Cacher",
+        "Show": "Montrer",
+        "Toggle": "Basculer"
+      },
+      "AmbientLightToggle": {
+        "Button": {
+          "Title": "Bouton de la souris",
+          "Hint": "Quel bouton devrait déclencher ce comportement"
+        },
+        "Action": {
+          "Title": "Action",
+          "Hint": "Cela devrait-il allumer/éteindre ou basculer les lumières",
+          "Off": "Éteint",
+          "On": "Allumé"
+        },
+        "Light": {
+          "Title": "Sélectionner les sources lumineuses",
+          "Hint": ""
+        }
+      },
+      "Buttons": {
+        "Both": "Les deux boutons de la souris",
+        "Left": "Bouton gauche de la souris",
+        "Right": "Bouton droit de la souris"
+      },
+      "DrawingToggle": {
+        "Button": {
+          "Title": "Bouton de la souris",
+          "Hint": "Quel bouton devrait déclencher ce comportement"
+        },
+        "Action": {
+          "Title": "Action",
+          "Hint": "Cela doit-il afficher, masquer ou basculer le dessin et les documents"
+        },
+        "Drawing": {
+          "Title": "Sélectionner le dessin",
+          "Hint": "Définir la visibilité de ces dessins"
+        },
+        "JournalEntry": {
+          "Title": "Sélectionner les entrées de journal",
+          "Hint": ""
+        },
+        "JournalEntryPage": {
+          "Title": "Sélectionner les pages d'entrée de journal",
+          "Hint": ""
+        },
+        "RegionBehavior": {
+          "Title": "Sélectionner les comportements de région",
+          "Hint": "Activer/Désactiver ces comportements de région"
+        },
+        "PermissionDocument": {
+          "Title": "Permission pour les écritures comptables",
+          "Hint": "Lorsqu'il est défini pour afficher, définissez la propriété du document à ce niveau"
+        },
+        "PermissionDocumentHide": {
+          "Title": "Masquer l'autorisation pour les écritures de journal",
+          "Hint": "Lorsque réglé sur masquer, définir la propriété du document à ce niveau"
+        },
+        "PermissionPage": {
+          "Title": "Permission pour les pages d'entrée de journal",
+          "Hint": "Lorsqu'il est réglé pour afficher, définir la propriété de la page d'écriture du journal à ce niveau"
+        },
+        "PermissionPageHide": {
+          "Title": "Masquer l'autorisation pour les pages de saisie de journal",
+          "Hint": "Lorsqu'il est réglé sur masquer, définir la propriété de la page de saisie du journal à ce niveau"
+        },
+        "TriggerButton": {
+          "Title": "Bouton de région de déclenchement",
+          "Hint": "Si le bouton de la souris est les deux, et que ce bouton est utilisé pour déclencher la région suivante"
+        },
+        "TriggerRegionUuids": {
+          "Title": "Déclencher cette région",
+          "Hint": ""
+        },
+        "TriggerAsButton": {
+          "Title": "Avec un clic de bouton",
+          "Hint": ""
+        }
+      },
       "MapPinToggle": {
-        "Toggle": {
-          "Title": "Montrer",
-          "Hint": "Cela devrait-il afficher ou masquer l'épingle de carte et les documents"
+        "Button": {
+          "Title": "Bouton de la souris",
+          "Hint": "Quel bouton devrait déclencher ce comportement"
+        },
+        "Action": {
+          "Title": "Action",
+          "Hint": "Cela doit-il afficher, masquer ou basculer l'icône de la carte et les documents"
         },
         "Document": {
-          "Title": "Sélectionner des documents",
+          "Title": "Sélectionner les documents",
           "Hint": ""
         },
         "Note": {
-          "Title": "Notes de scène",
+          "Title": "Notes de carte",
           "Hint": ""
         },
         "PermissionShow": {
-          "Title": "Afficher la permission",
+          "Title": "Permission d'affichage",
           "Hint": ""
         },
         "PermissionHide": {
-          "Title": "Masquer la permission",
+          "Title": "Permission de masquage",
           "Hint": ""
         }
       },
       "OpenDocument": {
+        "Button": {
+          "Title": "Bouton de la souris",
+          "Hint": "Quel bouton devrait déclencher ce comportement"
+        },
         "Permission": {
           "Title": "Peut cliquer si",
           "Hint": ""
@@ -816,8 +905,8 @@
           "Hint": ""
         },
         "Anchor": {
-          "Title": "Ancre facultative",
-          "Hint": "Si le chargement d'une page d'entrée de journal se produit, passer à l'ancre"
+          "Title": "Ancre optionnelle",
+          "Hint": "Si une page de journal est chargée, sauter à l'ancre"
         }
       },
       "Permission": {
@@ -826,7 +915,31 @@
         "GM": "MJ",
         "SeeTile": "Voir la tuile"
       },
+      "PlaySound": {
+        "Button": {
+          "Title": "Bouton de la souris",
+          "Hint": "Quel bouton devrait déclencher ce comportement"
+        },
+        "Playlist": {
+          "Title": "Sélectionner la liste de lecture",
+          "Hint": ""
+        },
+        "Sound": {
+          "Title": "Sélectionner le son de la playlist",
+          "Hint": ""
+        },
+        "Action": {
+          "Title": "Action",
+          "Hint": "Cela devrait-il jouer, s'arrêter ou basculer la lecture",
+          "Play": "Jouer",
+          "Stop": "Arrête"
+        }
+      },
       "ToScene": {
+        "Button": {
+          "Title": "Bouton de la souris",
+          "Hint": "Quel bouton devrait déclencher ce comportement"
+        },
         "Permission": {
           "Title": "Peut cliquer si",
           "Hint": ""
@@ -837,44 +950,64 @@
         },
         "Tile": {
           "Title": "Sélectionner la tuile",
-          "Hint": "Sélectionnez la tuile qui doit être visible"
+          "Hint": "Sélectionner la tuile qui doit être visible"
         }
       },
       "TileToggle": {
-        "Toggle": {
-          "Title": "Montrer",
-          "Hint": "Cela devrait-il afficher ou masquer l'épingle de carte et les documents"
+        "Button": {
+          "Title": "Bouton de la souris",
+          "Hint": "Quel bouton devrait déclencher ce comportement"
+        },
+        "Action": {
+          "Title": "Action",
+          "Hint": "Cela doit-il afficher, masquer ou basculer la tuile et les documents"
         },
         "Tile": {
           "Title": "Sélectionner la tuile",
           "Hint": "Définir la visibilité de ces tuiles"
         },
         "JournalEntry": {
-          "Title": "Sélectionner les écritures comptables",
+          "Title": "Sélectionner les entrées de journal",
           "Hint": ""
         },
         "JournalEntryPage": {
-          "Title": "Sélectionner les pages de saisie de journal",
+          "Title": "Sélectionner les pages d'entrée de journal",
           "Hint": ""
         },
         "RegionBehavior": {
-          "Title": "Sélectionner les comportements de la région",
+          "Title": "Sélectionner les comportements de région",
           "Hint": "Activer/Désactiver ces comportements de région"
         },
         "PermissionDocument": {
-          "Title": "Autorisation pour les documents",
+          "Title": "Permission pour les entrées de journal",
           "Hint": "Lorsqu'il est défini pour afficher, définissez la propriété du document à ce niveau"
         },
-        "PermissionPage": {
-          "Title": "Autorisation pour les pages de saisie du journal",
-          "Hint": "Lorsqu'il est configuré pour afficher, définir la propriété de la page d'écriture du journal à ce niveau"
+        "PermissionDocumentHide": {
+          "Title": "Masquer permission pour les entrées de journal",
+          "Hint": "When set to hide set Document ownership to this level"
         },
-        "RegionUuids": {
-          "Title": "Ensuite, déclenchez ces régions CCI avec un clic droit",
+        "PermissionPage": {
+          "Title": "Permission for Journal Entry Pages",
+          "Hint": "When set to show set Journal Entry Page ownership to this level"
+        },
+        "PermissionPageHide": {
+          "Title": "Hide Permission for Journal Entry Pages",
+          "Hint": "Lorsque défini sur masquer, attribuez la propriété du document à ce niveau"
+        },
+        "TriggerButton": {
+          "Title": "Bouton de la région de déclenchement",
+          "Hint": "Si le bouton de la souris est les deux, et que ce bouton est utilisé pour déclencher la région suivante"
+        },
+        "TriggerRegionUuids": {
+          "Title": "Déclencher cette région",
+          "Hint": ""
+        },
+        "TriggerAsButton": {
+          "Title": "Avec un clic de bouton",
           "Hint": ""
         }
       }
-    }    
+    }   
   },
   "TYPES": {
     "Actor": {
@@ -898,10 +1031,13 @@
       "weapon": "Arme"
     },
     "RegionBehavior": {
-      "ChaosiumCanvasInterfaceMapPinToggle": "CCI: Basculer la note de la carte",
-      "ChaosiumCanvasInterfaceOpenDocument": "CCI: Ouvrir le document",
-      "ChaosiumCanvasInterfaceToScene": "CCI: À la scène",
-      "ChaosiumCanvasInterfaceTileToggle": "CCI: Basculer la tuile"
+      "ChaosiumCanvasInterfaceAmbientLightToggle": "CCI: Basculer le lumière",
+      "ChaosiumCanvasInterfaceDrawingToggle": "CCI : Basculer le dessin",
+      "ChaosiumCanvasInterfaceMapPinToggle": "CCI : Basculer l'épingle de carte",
+      "ChaosiumCanvasInterfaceOpenDocument": "CCI : Ouvrir le document",
+      "ChaosiumCanvasInterfacePlaySound": "CCI: Jouer le son",
+      "ChaosiumCanvasInterfaceToScene": "CCI : Vers la scène",
+      "ChaosiumCanvasInterfaceTileToggle": "CCI : Basculer la tuile"
     }
   }
 }

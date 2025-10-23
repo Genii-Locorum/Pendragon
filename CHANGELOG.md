@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 13.1.42
+- Additional CCI option, Ambient Light toggle added
+- All CCI show/hide options have become show/hide/toggle
+
 ## 13.1.41
 - Chaosium Canvas Interface update with more options
 
