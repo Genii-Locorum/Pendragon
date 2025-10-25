@@ -135,26 +135,45 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       template: "systems/Pendragon/templates/actor/character/bio.hbs",
     },
     effects: {
-      //todo: new; active effects
       template: "systems/Pendragon/templates/actor/character/effects.hbs",
+    },
+  };
+  static TABS = {
+    primary: {
+      tabs: [
+        { id: "combat" },
+        { id: "traits" },
+        { id: "passions" },
+        { id: "skills" },
+        { id: "equipment" },
+        { id: "stable" },
+        { id: "events" },
+        { id: "house" },
+        { id: "biography" },
+        { id: "effects" },
+      ],
+      labelPrefix: "PEN",
+      initial: "combat",
     },
   };
   // this does the minimum currently, just sets the tab
   // could also prepare tab-specific fields
   async _preparePartContext(partId, context) {
+    //context = super._preparePartContext(partId, context, options);
     switch (partId) {
       case "combat":
       case "traits":
       case "passions":
       case "skills":
-      case "squires":
+      case "equipment":
       case "stable":
       case "events":
       case "house":
       case "biography":
-      case "effects":
         context.tab = context.tabs[partId];
         break;
+      case "effects":
+        return this._prepareEffects(context);
       default:
     }
     return context;
@@ -182,19 +201,8 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       isCreation: game.settings.get("Pendragon", "creation"),
       useRelation: game.settings.get("Pendragon", "useRelation"),
       items: this.actor.items,
+      tabs: this._prepareTabs("primary"),
     };
-    sheetData.tabs = this._initTabs("primary", [
-      "combat",
-      "traits",
-      "passions",
-      "skills",
-      "equipment",
-      "stable",
-      "events",
-      "house",
-      "biography",
-      "effects",
-    ]);
     // now organize the items belonging to the character
     this._prepareItems(sheetData);
     return sheetData;
@@ -410,17 +418,7 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     });
 
     // Sort Horses with Warhorse at top
-    horses.sort(function (a, b) {
-      let x = a.system.chargeDmg;
-      let y = b.system.chargeDmg;
-      if (x < y) {
-        return 1;
-      }
-      if (x > y) {
-        return -1;
-      }
-      return 0;
-    });
+    horses.sort((a, b) => a.system.chargeDmg - b.system.chargeDmg);
 
     // Sort Squires by age
     squires.sort((a, b) => a.system.age - b.system.age);
@@ -429,25 +427,9 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     wounds.sort((a, b) => a.system.value - b.system.value);
 
     // Sort Weapons by melee/missile and name
-    weapons.sort(function (a, b) {
-      let x = a.name.toLowerCase();
-      let y = b.name.toLowerCase();
-      let p = a.system.melee;
-      let q = b.system.melee;
-      if (p < q) {
-        return 1;
-      }
-      if (p > q) {
-        return -1;
-      }
-      if (x < y) {
-        return -1;
-      }
-      if (x > y) {
-        return 1;
-      }
-      return 0;
-    });
+    weapons.sort(
+      (a, b) => a.system.melee - b.system.melee || a.name.localeCompare(b.name),
+    );
 
     // Sort Ideals
     ideals.sort((a, b) => a.name.localeCompare(b.name));
@@ -551,5 +533,15 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       }
     }
     return { family: familyv2, station: station };
+  }
+
+  async _prepareEffects(context) {
+    context.tab = context.tabs.effects;
+    const effectList = await this.actor.allApplicableEffects();
+    const effects = [];
+    for (const e of effectList) effects.push(e);
+    context.effects = effects;
+    console.log(effects);
+    return context;
   }
 }

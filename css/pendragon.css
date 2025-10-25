@@ -1771,6 +1771,9 @@
             background-color: var(--pd-light-row);
         }
     }
+    & [data-tab="traits"] ol.trait-grid2 {
+        grid-template-columns: 2em 2em 1fr min-content 1fr 2em 2em;
+    }
 
     & .trait.religious {
         text-decoration-line: underline;
