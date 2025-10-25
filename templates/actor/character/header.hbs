@@ -1,0 +1,30 @@
+  <header class="sheet-header" style="display:flex;gap:0.5em;">
+    <div style="max-width: 125px;text-align:center;">
+      <img src="{{actor.prototypeToken.texture.src}}" title="{{actor.name}}" style="width:100%;height:auto;"/>
+      <div>{{system.reputation}}</div>
+      <div>{{formatNumber system.glory}}</div>
+    </div>
+    <div class="header-fields" style="display:flex;flex-direction:column;gap:0.25em;">
+      <div class="charname-input"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></div>
+
+      <div class="flexrow">
+      <label class="bold" style="display:flex;gap:0.5rem;padding:0 0.5rem;align-items:center;"><span>{{localize 'PEN.culture'}}:</span><input style="flex:1;" type="text" value="{{system.cultureName}}"/></label>
+      <label class="bold" style="display:flex;gap:0.5rem;padding:0 0.5rem;align-items:center;"><span>{{localize 'PEN.religion'}}:</span><input style="flex:1;" type="text" value="{{system.religionName}}"/></label>
+      </div>
+      <div class="flexrow">
+      <label class="bold" style="display:flex;gap:0.5rem;padding:0 0.5rem;align-items:center;"><span>{{localize 'PEN.homeland'}}:</span><input style="flex:1;" type="text" value="{{system.homelandName}}"/></label>
+      <label class="bold" style="display:flex;gap:0.5rem;padding:0 0.5rem;align-items:center;"><span>{{localize 'PEN.familyChar'}}:</span><input style="flex:1;" type="text" value="{{system.family}}"/></label>
+      </div>
+      <label class="bold" style="display:flex;gap:0.5rem;padding:0 0.5rem;align-items:center;"><span>{{localize 'PEN.distFeat'}}:</span><input style="flex:1;" name="system.features" type="text" value="{{system.features}}"/></label>
+      <div style="display:flex;gap:1rem;">
+            {{#each system.stats as |stat key|}}
+        <div style="text-align:center;font-size:1.6em;flex:1;"><div style="font-family:Messiri;">{{stat.labelShort}}</div><div>{{stat.total}}</div></div>
+            {{/each}}
+      </div>
+    </div>
+    <div style="max-width: 125px;text-align:center;">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" data-action="onEditImage" title="{{actor.name}}" style="width:100%;height:auto;"/>
+    <div>Hit Points</div>
+    <div>{{system.hp.value}} / {{system.hp.max}}</div>
+    </div>
+  </header>
