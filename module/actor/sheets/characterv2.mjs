@@ -1,4 +1,3 @@
-import { PENRollType } from "../../cards/rollType.mjs";
 import { PENCombat } from "../../apps/combat.mjs";
 import { PENWinter } from "../../apps/winterPhase.mjs";
 import { PENCharCreate } from "../../apps/charCreate.mjs";
@@ -25,13 +24,16 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       submitOnChange: true,
     },
     actions: {
-      // probably should be implemented on a base class
       onEditImage: this._onEditImage,
       editPid: this._onEditPid,
       rollStat: this._onRollStat,
       rollTrait: this._onRollTrait,
+      rollDecision: this._onRollDecision,
       rollPassion: this._onRollPassion,
       rollSkill: this._onRollSkill,
+      rollGlory: this._onRollGlory,
+      toggleXP: this._onToggleXP,
+      toggleOpposingXP: this._onToggleOpposingXP,
     },
     window: {
       resizable: true,
@@ -101,7 +103,6 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     //context = super._preparePartContext(partId, context, options);
     switch (partId) {
       case "combat":
-      case "traits":
       case "passions":
       case "skills":
       case "equipment":
@@ -111,6 +112,8 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       case "biography":
         context.tab = context.tabs[partId];
         break;
+      case "traits":
+        return this._prepareTraitTab(context);
       case "effects":
         return this._prepareEffects(context);
       default:
@@ -286,25 +289,10 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     traits.sort((a, b) => a.name.localeCompare(b.name));
 
     // Sort Skills
-    skills.sort(function (a, b) {
-      let x = a.name.toLowerCase();
-      let y = b.name.toLowerCase();
-      let p = a.system.combat;
-      let q = b.system.combat;
-      if (p < q) {
-        return -1;
-      }
-      if (p > q) {
-        return 1;
-      }
-      if (x < y) {
-        return -1;
-      }
-      if (x > y) {
-        return 1;
-      }
-      return 0;
-    });
+    skills.sort(
+      (a, b) =>
+        a.system.combat - b.system.combat || a.name.localeCompare(b.name),
+    );
 
     // Sort History
     history.sort(function (a, b) {
@@ -480,8 +468,33 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     const effects = [];
     for (const e of effectList) effects.push(e);
     context.effects = effects;
-    console.log(effects);
     return context;
+  }
+
+  async _prepareTraitTab(context) {
+    // trait tab has ideals which has special prep steps
+    context.tab = context.tabs.traits;
+    for (const i of context.ideals) {
+      i.description = await TextEditor.enrichHTML(i.system.description, {
+        async: true,
+        secrets: false,
+        relativeTo: i,
+      });
+    }
+    return context;
+  }
+
+  static async _onToggleXP(event, target) {
+    const { itemid } = target.closest("[data-itemid]")?.dataset ?? {};
+    const item = this.actor.items.get(itemid);
+    await item.update({ 'system.XP': !item.system.XP });
+  }
+
+  // used for opposing traits
+  static async _onToggleOpposingXP(event, target) {
+    const { itemid } = target.closest("[data-itemid]")?.dataset ?? {};
+    const item = this.actor.items.get(itemid);
+    await item.update({ 'system.oppXP': !item.system.oppXP });
   }
 
   static #selectCardType(event) {
@@ -504,10 +517,22 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     });
   }
 
-  static async _onRollStat(event, target) {}
+  static async _onRollGlory(event, target) {
+    PendragonCharacterSheetv2.#triggerRoll(RollType.GLORY, event, {
+      actor: this.actor,
+      token: this.token,
+    });
+  }
+  static async _onRollStat(event, target) {
+    const { itemid } = target.closest("[data-itemid]")?.dataset ?? {};
+    PendragonCharacterSheetv2.#triggerRoll(RollType.CHARACTERISTIC, event, {
+      characteristic: itemid,
+      actor: this.actor,
+      token: this.token,
+    });
+  }
   static async _onRollTrait(event, target) {
     const { itemid, type } = target.closest("[data-itemid]")?.dataset ?? {};
-    //const cardType = PendragonCharacterSheetv2.#selectCardType(event);
     PendragonCharacterSheetv2.#triggerRoll(RollType.TRAIT, event, {
       subType: type,
       skillId: itemid,
@@ -515,6 +540,18 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       token: this.token,
     });
   }
-  static async _onRollPassion(event, target) {}
-  static async _onRollSkill(event, target) {}
+  static async _onRollDecision(event, target) {
+    const { itemid } = target.closest("[data-itemid]")?.dataset ?? {};
+    PENCheck._trigger({
+      rollType: RollType.DECISION,
+      cardType: CardType.UNOPPOSED,
+      shiftKey: event.shiftKey,
+      skillId: itemid,
+      actor: this.actor,
+      token: this.token,
+    });
+  }
+
+  static async _onRollPassion(event, target) { }
+  static async _onRollSkill(event, target) { }
 }
