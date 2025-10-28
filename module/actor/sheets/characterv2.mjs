@@ -4,74 +4,9 @@ import { PENWinter } from "../../apps/winterPhase.mjs";
 import { PENCharCreate } from "../../apps/charCreate.mjs";
 import { PENactorItemDrop } from "../actor-itemDrop.mjs";
 import { PENUtilities } from "../../apps/utilities.mjs";
-import { PIDEditor } from "../../pid/pid-editor.mjs";
-
-const { api, sheets } = foundry.applications;
-
-export class PendragonActorSheet extends api.HandlebarsApplicationMixin(
-  sheets.ActorSheetV2,
-) {
-  constructor(options = {}) {
-    super(options);
-  }
-  // handle editPid action
-  static _onEditPid(event) {
-    event.stopPropagation(); // Don't trigger other events
-    if (event.detail > 1) return; // Ignore repeated clicks
-    new PIDEditor(this.actor, {}).render(true, { focus: true });
-  }
-
-  // adds the PID editor to the sheet frame
-  async _renderFrame(options) {
-    const frame = await super._renderFrame(options);
-    //define button
-    const sheetPID = this.actor.flags?.Pendragon?.pidFlag;
-    const noId =
-      typeof sheetPID === "undefined" ||
-      typeof sheetPID.id === "undefined" ||
-      sheetPID.id === "";
-    //add button
-    const label = game.i18n.localize("PEN.PIDFlag.id");
-    const pidEditor = `<button type="button" class="header-control fa-solid fa-fingerprint icon ${noId ? "edit-pid-warning" : "edit-pid-exisiting"}"
-        data-action="editPid" data-tooltip="${label}" aria-label="${label}"></button>`;
-    let el = this.window.close;
-    while (el.previousElementSibling.localName === "button") {
-      el = el.previousElementSibling;
-    }
-    el.insertAdjacentHTML("beforebegin", pidEditor);
-    return frame;
-  }
-  static async _onEditImage(event, target) {
-    const attr = target.dataset.edit;
-    const current = foundry.utils.getProperty(this.document, attr);
-    const { img } =
-      this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
-      {};
-    const fp = new FilePicker({
-      current,
-      type: "image",
-      redirectToRoot: img ? [img] : [],
-      callback: (path) => {
-        this.document.update({ [attr]: path });
-      },
-      top: this.position.top + 40,
-      left: this.position.left + 10,
-    });
-    return fp.browse();
-  }
-  _initTabs(group, tabNames) {
-    const tabs = {};
-    tabNames.forEach((name) => {
-      tabs[name] = {
-        cssClass: this.tabGroups[group] === name ? "active" : "",
-        group,
-        id: name,
-        label: `PEN.${name}`,
-      };
-    });
-    return tabs;
-  }
-}
+import { isCtrlKey } from "../../apps/helper.mjs";
+import { PendragonActorSheet } from "./actor-sheet.mjs";
+import { CardType, PENCheck, RollType } from "../../apps/checks.mjs";
 
 export class PendragonCharacterSheetv2 extends PendragonActorSheet {
   constructor(options = {}) {
@@ -93,9 +28,13 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       // probably should be implemented on a base class
       onEditImage: this._onEditImage,
       editPid: this._onEditPid,
+      rollStat: this._onRollStat,
+      rollTrait: this._onRollTrait,
+      rollPassion: this._onRollPassion,
+      rollSkill: this._onRollSkill,
     },
     window: {
-      resizeable: true,
+      resizable: true,
     },
   };
 
@@ -544,4 +483,38 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     console.log(effects);
     return context;
   }
+
+  static #selectCardType(event) {
+    const ctrlKey = isCtrlKey(event ?? false);
+    let cardType = CardType.UNOPPOSED;
+    if (event.altKey) {
+      cardType = CardType.OPPOSED;
+    } else if (ctrlKey) {
+      cardType = CardType.FIXED;
+    }
+    return cardType;
+  }
+
+  static #triggerRoll(rollType, event, options = {}) {
+    PENCheck._trigger({
+      rollType,
+      cardType: PendragonCharacterSheetv2.#selectCardType(event),
+      shiftKey: event.shiftKey,
+      ...options,
+    });
+  }
+
+  static async _onRollStat(event, target) {}
+  static async _onRollTrait(event, target) {
+    const { itemid, type } = target.closest("[data-itemid]")?.dataset ?? {};
+    //const cardType = PendragonCharacterSheetv2.#selectCardType(event);
+    PendragonCharacterSheetv2.#triggerRoll(RollType.TRAIT, event, {
+      subType: type,
+      skillId: itemid,
+      actor: this.actor,
+      token: this.token,
+    });
+  }
+  static async _onRollPassion(event, target) {}
+  static async _onRollSkill(event, target) {}
 }
