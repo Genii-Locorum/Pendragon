@@ -1702,6 +1702,19 @@
     --font-h2: Messiri, Signika, sans-serif;
     --pd-light-row: #e5dbd488;
 
+    & [data-action][data-itemid] {
+        cursor: pointer;
+        transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+        transform: scale(1);
+        border-radius: 0.5em;
+        border: 1px solid transparent;
+        &:hover {
+            background-color: var(--pendragon-gold);
+            transform: scale(1.2);
+            padding-inline: 0.25rem;
+            border-color: var(--color-text-primary);
+        }
+    }
     & h2 {
         color: var(--pendragon-red);
         text-shadow: none;
