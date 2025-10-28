@@ -5,9 +5,9 @@
     {{#each traits as |trait key|}}
       <li>
         <span class="right {{#if (gt trait.system.total 15)}}famous{{/if}} {{#if (gt trait.system.total 20)}}exalted{{/if}}">{{trait.system.total}}</span>
-        <span class="trait right {{#if (gt trait.system.religious 0)}}religious {{/if}}{{#if (gt trait.system.total 15)}}famous{{/if}} {{#if (gt trait.system.total 20)}}exalted{{/if}}" data-type ="trait" data-itemid="{{trait._id}}">{{trait.name}}</span>
+        <span class="trait right {{#if (gt trait.system.religious 0)}}religious {{/if}}{{#if (gt trait.system.total 15)}}famous{{/if}} {{#if (gt trait.system.total 20)}}exalted{{/if}}" data-type ="trait" data-itemid="{{trait._id}}" data-action="rollTrait">{{trait.name}}</span>
         <span><i class="fa-regular fa-scale-balanced"></i></span>
-        <span class="trait {{#if (lt trait.system.religious 0)}}religious {{/if}}{{#if (gt trait.system.oppvalue 15)}}famous{{/if}} {{#if (gt trait.system.oppvalue 20)}}exalted{{/if}}" data-type ="opptrait" data-itemid="{{trait._id}}">{{trait.system.oppName}}</span>
+        <span class="trait {{#if (lt trait.system.religious 0)}}religious {{/if}}{{#if (gt trait.system.oppvalue 15)}}famous{{/if}} {{#if (gt trait.system.oppvalue 20)}}exalted{{/if}}" data-type ="opptrait" data-itemid="{{trait._id}}" data-action="rollTrait">{{trait.system.oppName}}</span>
         <span class="right {{#if (gt trait.system.oppvalue 15)}}famous{{/if}} {{#if (gt trait.system.oppvalue 20)}}exalted{{/if}}">{{trait.system.oppvalue}}</span>
       </li>
     {{/each}}
@@ -16,7 +16,7 @@
 
 
   <div>
-    <div style="display: grid;gap: 0.5rem;grid-template-columns: 1fr 120px 1fr;align-items:stretch;"> 
+    <div style="display: grid;gap: 0.5rem;grid-template-columns: 1fr 120px 1fr;align-items:stretch;">
       <div>
       <div style="border-radius: 0.25rem;padding: 0.5rem;background-color: var(--pd-light-row);">
         <p><i class= "fa-solid fa-horse-head"></i>Alexander</p>
