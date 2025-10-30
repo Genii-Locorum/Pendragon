@@ -5,6 +5,7 @@ export default class ChaosiumCanvasInterfaceOpenDocument extends ChaosiumCanvasI
     return {
       ALWAYS: 'PEN.ChaosiumCanvasInterface.Permission.Always',
       DOCUMENT: 'PEN.ChaosiumCanvasInterface.Permission.Document',
+      SEE_TILE: 'PEN.ChaosiumCanvasInterface.Permission.SeeTile',
       GM: 'PEN.ChaosiumCanvasInterface.Permission.GM'
     }
   }
@@ -37,6 +38,11 @@ export default class ChaosiumCanvasInterfaceOpenDocument extends ChaosiumCanvasI
       anchor: new fields.StringField({
         label: 'PEN.ChaosiumCanvasInterface.OpenDocument.Anchor.Title',
         hint: 'PEN.ChaosiumCanvasInterface.OpenDocument.Anchor.Hint'
+      }),
+      tileUuid: new fields.DocumentUUIDField({
+        label: 'PEN.ChaosiumCanvasInterface.OpenDocument.Tile.Title',
+        hint: 'PEN.ChaosiumCanvasInterface.OpenDocument.Tile.Hint',
+        type: 'Tile'
       })
     }
   }
@@ -52,15 +58,24 @@ export default class ChaosiumCanvasInterfaceOpenDocument extends ChaosiumCanvasI
           return true
         }
         if (this.documentUuid) {
-          return (await fromUuid(this.documentUuid)).testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER) ?? false
+          return (await fromUuid(this.documentUuid)).testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED) ?? false
         }
+        break
+      case 'SEE_TILE':
+        if (game.user.isGM) {
+          return true
+        }
+        if (this.tileUuid && this.documentUuid) {
+          return !(await fromUuid(this.tileUuid)).hidden && ((await fromUuid(this.documentUuid)).testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED) ?? false)
+        }
+        break
     }
     return false
   }
 
   async #handleClickEvent () {
     const doc = await fromUuid(this.documentUuid)
-    if (doc?.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER)) {
+    if (doc?.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED)) {
       if (doc instanceof JournalEntryPage) {
         doc.parent.sheet.render(true, { pageId: doc.id, anchor: this.anchor })
       } else {
