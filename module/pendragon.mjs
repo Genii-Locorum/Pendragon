@@ -22,6 +22,7 @@ import RenderNoteConfig from './hooks/render-note-config.mjs'
 import ChaosiumCanvasInterfaceInit from './apps/chaosium-canvas-interface-init.mjs'
 import RenderRegionBehaviorConfig from './hooks/render-region-behavior-config.mjs'
 import RenderRegionConfig from './hooks/render-region-config.mjs'
+import { PendragonCalendarWidget } from "./apps/pendragon-calendar.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -39,8 +40,7 @@ Hooks.once("init", async function () {
     ClickRegionRightUuid: ChaosiumCanvasInterfaceInit.ClickRegionRightUuid
   };
   //Add skill categories
-  game.Pendragon.skillCategories = ["combat", "courtly", "minsterly", "knightly","nonknightly","ladies","woodcraft" ]
-
+  game.Pendragon.skillCategories = ["combat", "courtly", "minsterly", "knightly", "nonknightly", "ladies", "woodcraft"]
   const V13 = game.release.generation >= 13;
 
   // Add custom constants for configuration.
@@ -60,9 +60,10 @@ Hooks.once("init", async function () {
 
   if (V13) {
     CONFIG.ui.combat = PendragonCombatTracker;
-    CONFIG.Canvas.layers.pendragonmenu = {group: 'interface', layerClass: PENLayer};
+    CONFIG.Canvas.layers.pendragonmenu = { group: 'interface', layerClass: PENLayer };
     // hides the dummy menu item
     Hooks.on("renderSceneControls", PENLayer.renderControls);
+    game.Pendragon.ui = { calendar: new PendragonCalendarWidget() };
   } else {
     CONFIG.ui.combat = PendragonCombatTrackerV12;
     // v12 Add GM Tool Layer
@@ -106,8 +107,8 @@ Hooks.on("renderSettingsConfig", (app, html, options) => {
     .closest("div.form-group")
     .before(
       '<h3 class="setting-header">' +
-        game.i18n.localize("PEN.Settings.xpCheck") +
-        "</h3>",
+      game.i18n.localize("PEN.Settings.xpCheck") +
+      "</h3>",
     );
 
   systemTab
@@ -115,8 +116,8 @@ Hooks.on("renderSettingsConfig", (app, html, options) => {
     .closest("div.form-group")
     .before(
       '<h3 class="setting-header">' +
-        game.i18n.localize("PEN.Settings.diceRolls") +
-        "</h3>",
+      game.i18n.localize("PEN.Settings.diceRolls") +
+      "</h3>",
     );
 
   systemTab
@@ -124,8 +125,8 @@ Hooks.on("renderSettingsConfig", (app, html, options) => {
     .closest("div.form-group")
     .before(
       '<h3 class="setting-header">' +
-        game.i18n.localize("PEN.Settings.other") +
-        "</h3>",
+      game.i18n.localize("PEN.Settings.other") +
+      "</h3>",
     );
 });
 
@@ -174,6 +175,8 @@ Hooks.once("ready", async function () {
       return false;
     }
   });
+  console.log(game.Pendragon.ui);
+  game.Pendragon.ui?.calendar.render({ force: true });
 
   if (!game.user.isGM) return;
   // Determine if a system update has occured
@@ -190,7 +193,7 @@ Hooks.once("ready", async function () {
 
 //  Hotbar Macros
 async function createItemMacro(data, slot) {
-  let command=""
+  let command = ""
   let macro = ""
   switch (data.type) {
     case "Item":
@@ -220,7 +223,7 @@ async function createItemMacro(data, slot) {
       break;
 
     case "JournalEntry":
-    case "JournalEntryPage":      
+    case "JournalEntryPage":
       command = `await Hotbar.toggleDocumentSheet("${data.uuid}");`;
       const journal = await fromUuid(data.uuid)
       macro = game.macros.find(
@@ -236,7 +239,7 @@ async function createItemMacro(data, slot) {
       }
       game.user.assignHotbarMacro(macro, slot);
       return false;
-      break;  
+      break;
 
     case "Macro":
       let tempMacro = await fromUuid(data.uuid)
@@ -258,8 +261,8 @@ async function createItemMacro(data, slot) {
     default:
       return;
       break;
-  }  
- }
+  }
+}
 
 //Create a Macro from an Item drop.
 function rollItemMacro(itemUuid) {
