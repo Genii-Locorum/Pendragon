@@ -1,21 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 /* Global styles */
 .window-app {
-  font-family: "Roboto", sans-serif; 
+  font-family: "Roboto", sans-serif;
 }
 
 @font-face {
-  font-family: 'Herb';
+  font-family: "Herb";
   font-style: normal;
   font-weight: 400;
-  src: url('../assets/jaf-herb-regular.ttf') format('woff2');
+  src: url("../assets/jaf-herb-regular.ttf") format("woff2");
 }
 
 @font-face {
-  font-family: 'Garamond';
+  font-family: "Garamond";
   font-style: normal;
   font-weight: 400;
-  src: url('../assets/garamond-premier-pro.otf') format('woff2');
+  src: url("../assets/garamond-premier-pro.otf") format("woff2");
 }
 
 .app .header-button.edit-pid-warning,
@@ -47,31 +47,34 @@
   }
 }
 
-.rollable:hover, .rollable:focus, .clickable:hover, .clickable:focus {
+.rollable:hover,
+.rollable:focus,
+.clickable:hover,
+.clickable:focus {
   color: #000;
   text-shadow: 0 0 10px red;
   cursor: pointer;
 }
 
-.journal-entry-content{
-  background-image:url("../assets/KAP Background.jpg") !important;
+.journal-entry-content {
+  background-image: url("../assets/KAP Background.jpg") !important;
   background-size: cover !important;
 }
 
-.journal-entry-page .window-content{
-  background-image:url("../assets/KAP Background.jpg") !important;
+.journal-entry-page .window-content {
+  background-image: url("../assets/KAP Background.jpg") !important;
   background-size: cover !important;
 }
 
 .Pendragon .window-content {
-  background-image:url("../assets/parchment.jpg");
+  background-image: url("../assets/parchment.jpg");
   background-size: cover;
   padding: 0.5em;
   font-size: var(--font-size-16);
 }
 
 .chat-message {
-  background-image:url("../assets/parchment.jpg") !important;
+  background-image: url("../assets/parchment.jpg") !important;
   background-size: auto;
 }
 
@@ -105,7 +108,7 @@
 
 .Pendragon .bottom {
   display: grid;
-  align-items:end;
+  align-items: end;
 }
 
 .Pendragon .italics {
@@ -119,7 +122,6 @@
 .Pendragon .upper {
   text-transform: uppercase;
 }
-
 
 .Pendragon .fade {
   opacity: 0.5;
@@ -143,7 +145,7 @@
 }
 
 .Pendragon .main-sheet {
-height: inherit;
+  height: inherit;
 }
 
 .Pendragon .border {
@@ -158,13 +160,12 @@ height: inherit;
   grid-column-start: 1;
 }
 
-
 .Pendragon .sheet-tabs {
-  border-top:1px gray solid !important;
-  border-bottom:1px gray solid !important;
+  border-top: 1px gray solid !important;
+  border-bottom: 1px gray solid !important;
   height: 45px;
   background-color: rgba(128, 128, 128, 0.3);
-  font-family:"Herb";
+  font-family: "Herb";
   font-size: 20px;
   color: black;
 }
@@ -187,22 +188,22 @@ height: inherit;
 .Pendragon .sheet-body .tab .editor {
   height: 100%;
   font-family: Garamond;
-  font-size:14px;
+  font-size: 14px;
 }
 .Pendragon .tox .tox-editor-container {
   background: #fff;
   font-family: Garamond;
-  font-size:14px;
+  font-size: 14px;
 }
 .Pendragon .tox .tox-edit-area {
   padding: 0 8px;
 }
 
 .Pendragon .charname-input input {
-  font-family:"Herb";
+  font-family: "Herb";
   font-size: 30px;
-  height:fit-content;
-  color:darkred;
+  height: fit-content;
+  color: darkred;
   border: 0px;
   border-radius: 0px;
   background: none;
@@ -210,12 +211,12 @@ height: inherit;
 }
 
 .Pendragon .charname {
-  font-family:"Herb";
+  font-family: "Herb";
   font-size: 30px;
 }
 
 .Pendragon .tab-name {
-  font-family:"Herb";
+  font-family: "Herb";
   font-size: 20px;
   padding: 8px 0px !important;
 }
@@ -241,13 +242,13 @@ height: inherit;
   border-bottom: 1px darkred solid;
 }
 
-.Pendragon .stat-name-input input{
+.Pendragon .stat-name-input input {
   font-family: "Garamond";
   font-size: 20px;
   font-weight: bold;
   margin-top: 3px;
   padding: 0px;
-  color:darkred;
+  color: darkred;
   height: 20px;
   border: 0px;
   border-radius: 0px;
@@ -255,17 +256,17 @@ height: inherit;
   box-shadow: none;
 }
 
-.Pendragon .event-input input{
+.Pendragon .event-input input {
   height: 26px !important;
 }
 
-.Pendragon .dam-name-input input{
+.Pendragon .dam-name-input input {
   font-family: "Garamond";
   font-size: 20px;
   font-weight: bold;
   height: 26px;
   padding: 0px;
-  color:darkred;
+  color: darkred;
   border: 0px;
   border-radius: 0px;
   background: none;
@@ -275,11 +276,11 @@ height: inherit;
   transform: rotate(180deg);
 }
 
-.Pendragon .history-input input{
+.Pendragon .history-input input {
   font-family: "Garamond";
   font-size: 20px;
   color: black;
-  height:fit-content;
+  height: fit-content;
   width: 395px;
   border: 1px gray solid;
   border-radius: 0px;
@@ -287,23 +288,23 @@ height: inherit;
   box-shadow: none;
 }
 
-.Pendragon .equestrian-input input{
+.Pendragon .equestrian-input input {
   font-family: "Garamond";
   font-size: 20px;
   color: black;
   border: 1px gray solid;
   border-radius: 0px;
   background: none;
-  box-shadow: none;  
+  box-shadow: none;
 }
 
 .Pendragon .trait-input {
-  padding-top:3px;
+  padding-top: 3px;
 }
 
-.Pendragon .title-section{
+.Pendragon .title-section {
   display: grid;
-  grid-template-columns: auto 150px ;
+  grid-template-columns: auto 150px;
   column-gap: 10px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -317,7 +318,7 @@ height: inherit;
   column-gap: 10px;
   padding: 0;
   margin: 0px;
-  height:100%;
+  height: 100%;
 }
 
 .Pendragon .weapon-list {
@@ -327,10 +328,9 @@ height: inherit;
   border-bottom: 1px gray solid;
 }
 
-
 .Pendragon .char-grid {
   display: grid;
-  grid-template-columns: 100px 200px 250px ;
+  grid-template-columns: 100px 200px 250px;
   column-gap: 50px;
   padding-top: 10px;
 }
@@ -341,34 +341,34 @@ height: inherit;
   column-gap: 10px;
 }
 
-.Pendragon .stat-grid{
+.Pendragon .stat-grid {
   display: grid;
-  grid-template-columns: 50px 50px ;
+  grid-template-columns: 50px 50px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.Pendragon .hp-grid{
+.Pendragon .hp-grid {
   display: grid;
-  grid-template-columns: 160px 90px ;
+  grid-template-columns: 160px 90px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.Pendragon .hp2-grid{
+.Pendragon .hp2-grid {
   display: grid;
-  grid-template-columns: 180px 60px 180px 60px ;
+  grid-template-columns: 180px 60px 180px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.Pendragon .passive-grid{
+.Pendragon .passive-grid {
   display: grid;
   width: 251px;
-  grid-template-columns: 180px 70px ;
+  grid-template-columns: 180px 70px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -376,7 +376,7 @@ height: inherit;
   border-left: 1px gray solid;
 }
 
-.Pendragon .cash-grid{
+.Pendragon .cash-grid {
   display: grid;
   grid-template-columns: 160px 45px 10px 40px;
   gap: 0px;
@@ -384,26 +384,26 @@ height: inherit;
   margin-bottom: 0px;
 }
 
-.Pendragon .status-grid{
+.Pendragon .status-grid {
   display: grid;
-  grid-template-columns: 30px 170px ;
+  grid-template-columns: 30px 170px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.Pendragon .warhorse-grid{
+.Pendragon .warhorse-grid {
   display: grid;
-  grid-template-columns: 70px 50px 30px 100px 50px ;
+  grid-template-columns: 70px 50px 30px 100px 50px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.Pendragon .weapon-grid{
+.Pendragon .weapon-grid {
   display: grid;
-  width:501px;
-  grid-template-columns: 150px 100px 50px 90px 50px 60px ;
+  width: 501px;
+  grid-template-columns: 150px 100px 50px 90px 50px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -413,7 +413,7 @@ height: inherit;
 
 .Pendragon .history-grid {
   display: grid;
-  grid-template-columns: 70px 550px 70px 60px ;
+  grid-template-columns: 70px 550px 70px 60px;
   gap: 0px;
   width: 751px;
   margin-top: 0px;
@@ -425,7 +425,7 @@ height: inherit;
 .Pendragon .ideal-grid {
   display: grid;
   width: 681px;
-  grid-template-columns: 550px 70px 60px ;
+  grid-template-columns: 550px 70px 60px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -433,7 +433,7 @@ height: inherit;
   border-left: 1px gray solid;
 }
 
-.Pendragon .wound-grid{
+.Pendragon .wound-grid {
   display: grid;
   width: 301px;
   grid-template-columns: 30px 120px 60px 30px 60px;
@@ -444,7 +444,7 @@ height: inherit;
   border-left: 1px gray solid;
 }
 
-.Pendragon .companion-grid{
+.Pendragon .companion-grid {
   display: grid;
   width: 801px;
   grid-template-columns: 50px 180px 60px 60px 80px 80px 80px 75px 75px 60px;
@@ -455,7 +455,7 @@ height: inherit;
   border-left: 1px gray solid;
 }
 
-.Pendragon .squire-grid{
+.Pendragon .squire-grid {
   display: grid;
   width: 691px;
   grid-template-columns: 250px 100px 60px 60px 60px 100px 60px;
@@ -466,7 +466,7 @@ height: inherit;
   border-left: 1px gray solid;
 }
 
-.Pendragon .retainer-grid{
+.Pendragon .retainer-grid {
   display: grid;
   width: 471px;
   grid-template-columns: 250px 100px 60px 60px;
@@ -477,7 +477,7 @@ height: inherit;
   border-left: 1px gray solid;
 }
 
-.Pendragon .armour-grid{
+.Pendragon .armour-grid {
   display: grid;
   width: 791px;
   grid-template-columns: 30px 200px 50px 50px 200px 200px 60px;
@@ -488,7 +488,7 @@ height: inherit;
   border-left: 1px gray solid;
 }
 
-.Pendragon .gear-grid{
+.Pendragon .gear-grid {
   display: grid;
   width: 791px;
   grid-template-columns: 200px 50px 480px 60px;
@@ -499,7 +499,7 @@ height: inherit;
   border-left: 1px gray solid;
 }
 
-.Pendragon .GMItem-grid{
+.Pendragon .GMItem-grid {
   display: grid;
   width: 661px;
   grid-template-columns: 250px 150px 230px 30px;
@@ -510,8 +510,7 @@ height: inherit;
   border-left: 1px gray solid;
 }
 
-
-.Pendragon .family-grid{
+.Pendragon .family-grid {
   display: grid;
   width: 641px;
   grid-template-columns: 150px 100px 70px 80px 90px 90px 60px;
@@ -522,7 +521,7 @@ height: inherit;
   border-left: 1px gray solid;
 }
 
-.Pendragon .follower-list-grid{
+.Pendragon .follower-list-grid {
   display: grid;
   width: 641px;
   grid-template-columns: 150px 100px 200px 70px 70px 50px;
@@ -558,39 +557,39 @@ height: inherit;
   overflow: hidden;
 }
 
-.Pendragon .item-trait-grid{
+.Pendragon .item-trait-grid {
   display: grid;
-  grid-template-columns: 180px 190px ;
+  grid-template-columns: 180px 190px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.Pendragon .item-culture-grid{
+.Pendragon .item-culture-grid {
   display: grid;
-  grid-template-columns: 150px 100px 75px 75px ;
+  grid-template-columns: 150px 100px 75px 75px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.Pendragon .money-grid{
+.Pendragon .money-grid {
   display: grid;
-  grid-template-columns: 180px 30px 30px 30px ;
+  grid-template-columns: 180px 30px 30px 30px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.Pendragon .item-armour-grid{
+.Pendragon .item-armour-grid {
   display: grid;
-  grid-template-columns: 180px 390px ;
+  grid-template-columns: 180px 390px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.Pendragon .item-horse-grid{
+.Pendragon .item-horse-grid {
   display: grid;
   grid-template-columns: 140px 120px 10px 140px 120px;
   gap: 0px;
@@ -598,23 +597,23 @@ height: inherit;
   margin-bottom: 0px;
 }
 
-.Pendragon .history-item-grid{
+.Pendragon .history-item-grid {
   display: grid;
-  grid-template-columns: 100px 400px ;
+  grid-template-columns: 100px 400px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.Pendragon .history-small-grid{
+.Pendragon .history-small-grid {
   display: grid;
-  grid-template-columns: 150px 50px ;
+  grid-template-columns: 150px 50px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.Pendragon .trait-grid{
+.Pendragon .trait-grid {
   display: grid;
   grid-template-columns: 50px 30px 150px 70px 150px 30px 50px 60px 230px;
   gap: 0px;
@@ -622,7 +621,7 @@ height: inherit;
   margin-bottom: 0px;
 }
 
-.Pendragon .skill-grid{
+.Pendragon .skill-grid {
   display: grid;
   grid-template-columns: 25px 145px 35px 60px;
   gap: 0px;
@@ -630,15 +629,15 @@ height: inherit;
   margin-bottom: 0px;
 }
 
-.Pendragon .biog-grid{
+.Pendragon .biog-grid {
   display: grid;
-  grid-template-columns: 200px 200px 10px 130px 250px ;
+  grid-template-columns: 200px 200px 10px 130px 250px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.Pendragon .passion-grid{
+.Pendragon .passion-grid {
   display: grid;
   grid-template-columns: 30px 250px 50px 60px;
   gap: 0px;
@@ -646,7 +645,7 @@ height: inherit;
   margin-bottom: 0px;
 }
 
-.Pendragon .joust-grid{
+.Pendragon .joust-grid {
   display: grid;
   grid-template-columns: 100px 50px 100px 50px;
   gap: 0px;
@@ -662,24 +661,24 @@ height: inherit;
   margin-bottom: 0px;
 }
 
-.Pendragon .large-icon{
+.Pendragon .large-icon {
   font-size: 20px;
-  text-align:center;
-  color:black;
+  text-align: center;
+  color: black;
 }
 
-.Pendragon .xlarge-icon{
+.Pendragon .xlarge-icon {
   font-size: 40px;
-  text-align:center;
+  text-align: center;
 }
 
-.Pendragon .middle-icon{
+.Pendragon .middle-icon {
   padding-bottom: 5px;
 }
 
-.Pendragon .background-doc{
+.Pendragon .background-doc {
   background-image: none;
-  font-size:16px;
+  font-size: 16px;
   padding-left: 10px;
   padding-right: 10px;
   min-height: 200px;
@@ -690,12 +689,12 @@ height: inherit;
 .Pendragon .history-doc input {
   font-family: Garamond;
   background-image: none;
-  font-size:20px;
+  font-size: 20px;
   font-weight: bold;
   padding-left: 10px;
   padding-right: 10px;
-  white-space:pre-wrap !important;
-  height:fit-content;
+  white-space: pre-wrap !important;
+  height: fit-content;
   border: 1px gray solid;
   border-radius: 0px;
 }
@@ -704,9 +703,9 @@ height: inherit;
   height: 100px !important;
 }
 
-.Pendragon .background-doc p{
+.Pendragon .background-doc p {
   font-family: Garamond;
-  font-size:20px !important;
+  font-size: 20px !important;
 }
 
 .Pendragon .bottom-panel {
@@ -715,15 +714,15 @@ height: inherit;
   height: calc(100% - 245px);
   border-top: 0px;
   width: 100%;
-  overflow-y:auto;
+  overflow-y: auto;
   scrollbar-width: none;
- }
+}
 
- .Pendragon .npc-title-section{
+.Pendragon .npc-title-section {
   display: grid;
   width: 320px;
   grid-template-columns: 250px 80px 20px;
-  column-gap:5px;
+  column-gap: 5px;
   margin-top: 0px;
   margin-bottom: 0px;
   height: 75px;
@@ -744,27 +743,27 @@ height: inherit;
   padding-top: 3px;
 }
 
-.Pendragon .follower-type select{
+.Pendragon .follower-type select {
   height: calc(100% - 6px);
   background: rgba(53, 119, 53, 0.3);
 }
 
 .Pendragon .npcname-input input {
-  font-family:"Herb";
+  font-family: "Herb";
   font-size: 20px;
-  height:fit-content;
-  color:darkred;
+  height: fit-content;
+  color: darkred;
   border: 0px;
   border-radius: 0px;
   background: none;
 }
 
-.Pendragon .npc-name-input input{
+.Pendragon .npc-name-input input {
   font-family: "Garamond";
   font-size: 16px;
   font-weight: bold;
   padding: 0px;
-  color:darkred;
+  color: darkred;
   height: 16px;
   border: 0px;
   border-radius: 0px;
@@ -826,14 +825,14 @@ height: inherit;
 
 .Pendragon .npc-notes-doc {
   background-image: none;
-  font-size:14px;
+  font-size: 14px;
   padding-left: 10px;
   padding-right: 10px;
   height: 200px !important;
   width: 360px;
   border: 1px gray solid;
   font-family: Garamond;
-  font-size:16px !important;
+  font-size: 16px !important;
 }
 
 .Pendragon .result-success {
@@ -845,7 +844,7 @@ height: inherit;
 }
 
 .Pendragon .result-yellow {
-  color:rgb(255, 145, 0);
+  color: rgb(255, 145, 0);
 }
 
 .Pendragon .prestige-result {
@@ -857,16 +856,16 @@ height: inherit;
 }
 
 .Pendragon .cardbutton {
-  background-color:rgba(105, 105, 105, 0.6);
+  background-color: rgba(105, 105, 105, 0.6);
 }
 
-.Pendragon .img-bottom{
+.Pendragon .img-bottom {
   display: flex;
   align-items: flex-end;
   padding-bottom: 5px;
 }
 
-.Pendragon .op-list{
+.Pendragon .op-list {
   padding: 0px;
   margin: 0px;
   list-style: none;
@@ -899,14 +898,14 @@ height: inherit;
   flex-direction: row;
 }
 
-.Pendragon .actor-roll .roll-details .header .name{
+.Pendragon .actor-roll .roll-details .header .name {
   flex: 1;
   font-size: 14px;
   font-weight: bold;
   padding-left: 2px;
 }
 
-.Pendragon .actor-roll .roll-details .header .a{
+.Pendragon .actor-roll .roll-details .header .a {
   height: 16px;
   line-height: 16px;
 }
@@ -945,23 +944,22 @@ height: inherit;
 .Pendragon .truncate {
   overflow: hidden;
   white-space: nowrap;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
 }
 
 .Pendragon .familyCreate {
   display: grid;
   width: 380px;
   margin-left: 5px;
-  grid-template-columns: 100px 130px 5px 130px ;
+  grid-template-columns: 100px 130px 5px 130px;
 }
 
 .Pendragon .statsCreate {
   display: grid;
   width: 305px;
   margin-left: 5px;
-  grid-template-columns: 150px 50px 50px 50px ;
+  grid-template-columns: 150px 50px 50px 50px;
 }
-
 
 #help-tooltip {
   z-index: 509;
@@ -1000,7 +998,7 @@ height: inherit;
 .Pendragon .rollWrite-grid {
   display: grid;
   margin-left: 5px;
-  grid-template-columns: 150px 150px; 
+  grid-template-columns: 150px 150px;
 }
 
 .Pendragon .stats-list {
@@ -1028,13 +1026,13 @@ height: inherit;
   color: black;
 }
 
-.Pendragon .stat-item input{
+.Pendragon .stat-item input {
   font-family: "Garamond";
   font-size: 20px;
   font-weight: bold;
   margin-top: 1px;
   padding: 0px;
-  color:darkred;
+  color: darkred;
   height: 20px;
   border: 0px;
   border-radius: 0px;
@@ -1042,21 +1040,21 @@ height: inherit;
   box-shadow: none;
 }
 
-.Pendragon .lock-result  {
-  color: black !important; 
+.Pendragon .lock-result {
+  color: black !important;
 }
 
-.Pendragon  .pm-dropdown{
+.Pendragon .pm-dropdown {
   background-color: #af8c62c2 !important;
-  color: black !important; 
+  color: black !important;
 }
 
-.Pendragon  .prosemirror .fa-chevron-down{
-  color: black !important; 
+.Pendragon .prosemirror .fa-chevron-down {
+  color: black !important;
 }
 
 .Pendragon .prosemirror .editor-content {
-  position:relative;
+  position: relative;
   padding-left: 5px;
   padding-right: 5px;
   color: black;
@@ -1098,15 +1096,15 @@ height: inherit;
   color: cornsilk;
 }
 
-.Pendragon .check-lower{
-  padding-top:2px;
+.Pendragon .check-lower {
+  padding-top: 2px;
 }
 
 .Pendragon .darkredreset {
-  float:right;
+  float: right;
   font-size: 14px;
-  padding-top:5px;
-  color:darkred;
+  padding-top: 5px;
+  color: darkred;
 }
 
 .Pendragon .skill-dev-list {
@@ -1140,7 +1138,6 @@ height: inherit;
   max-width: 265px;
 }
 
-
 .Pendragon .stat-name .item-controls {
   display: flex;
   flex: 0 0 50px;
@@ -1160,7 +1157,7 @@ height: inherit;
 }
 
 .tjg {
-  width:160px;
+  width: 160px;
   padding-right: 5px;
   background: rgb(50, 25, 0);
   color: cornsilk;
@@ -1193,21 +1190,21 @@ height: inherit;
 }
 
 .Pendragon ul.p6e li::marker {
-  content: '✠ ';
-  font-size:15px;
-  color:darkred
+  content: "✠ ";
+  font-size: 15px;
+  color: darkred;
 }
 
 .Pendragon .redbox ul.p6e li::marker {
-  content: '✠ ';
-  font-size:15px;
-  color:cornsilk
+  content: "✠ ";
+  font-size: 15px;
+  color: cornsilk;
 }
 
 .Pendragon ul.norm li::marker {
-  content: '• ';
-  font-size:15px;
-  color:darkred
+  content: "• ";
+  font-size: 15px;
+  color: darkred;
 }
 
 .Pendragon .jnl-text {
@@ -1217,7 +1214,7 @@ height: inherit;
   margin: 0px;
 }
 
-.Pendragon .jnl-text p{
+.Pendragon .jnl-text p {
   margin: 0px;
 }
 
@@ -1247,85 +1244,85 @@ height: inherit;
   text-indent: 0px !important;
 }
 
-.Pendragon .jnl-text h2{
+.Pendragon .jnl-text h2 {
   font-family: "Garamond";
   font-size: 20px;
-  text-transform:uppercase;
+  text-transform: uppercase;
   color: #034694;
   text-indent: 0px !important;
   border: none;
-  margin:0px !important;
+  margin: 0px !important;
 }
 
-.Pendragon .jnl-text h2.charname{
+.Pendragon .jnl-text h2.charname {
   font-family: "Herb";
   font-size: 30px;
   color: darkred;
   text-indent: 0px !important;
-  text-transform:none;
+  text-transform: none;
   border: none;
-  margin:0px !important;
+  margin: 0px !important;
 }
 
-
-.Pendragon .jnl-text h3{
+.Pendragon .jnl-text h3 {
   font-family: "Garamond";
   font-size: 20px;
   color: #034694;
   text-indent: 0px !important;
   border: none;
-  margin:0px !important;
+  margin: 0px !important;
 }
 
-.Pendragon .white-title{
+.Pendragon .white-title {
   font-family: "Garamond";
-  font-weight:bold;
+  font-weight: bold;
   font-size: 20px;
   color: cornsilk;
 }
 
-.Pendragon .blue-title{
+.Pendragon .blue-title {
   font-family: "Garamond";
-  font-weight:bold;
+  font-weight: bold;
   font-size: 20px;
   color: #034694;
 }
 
-.Pendragon .red-title{
+.Pendragon .red-title {
   font-family: "Garamond";
-  font-weight:bold;
+  font-weight: bold;
   font-size: 20px;
   color: darkred;
 }
 
-.Pendragon .jnl-text h4{
+.Pendragon .jnl-text h4 {
   font-family: "Garamond";
   font-size: 18px;
-  font-style:italic;
+  font-style: italic;
   font-weight: bold;
   text-indent: 0px !important;
-  margin:0px !important;
+  margin: 0px !important;
   border-bottom: 1px black solid;
 }
 
-.Pendragon .jnl-text h5, .Pendragon .jnl-text h1{
-  font-family:"Herb";
+.Pendragon .jnl-text h5,
+.Pendragon .jnl-text h1 {
+  font-family: "Herb";
   font-size: 30px;
   text-indent: 0px !important;
-  font-weight:normal;
-  color:darkred;
+  font-weight: normal;
+  color: darkred;
   border: none;
-  margin:0px !important;
+  margin: 0px !important;
 }
 
-.Pendragon .jnl-text h6{
+.Pendragon .jnl-text h6 {
   font-family: "Garamond";
   font-size: 18px;
   text-indent: 0px !important;
   border-bottom: none;
   margin: 0px;
   font-weight: normal;
-  margin:0px !important;
+  margin: 0px !important;
 }
 
 .Pendragon .jnl-text a.content-link {
@@ -1346,7 +1343,7 @@ height: inherit;
   font-weight: bold;
 }
 
-.Pendragon .jnl-text a.content-link i{
+.Pendragon .jnl-text a.content-link i {
   display: none;
 }
 
@@ -1383,14 +1380,14 @@ height: inherit;
 
 .Pendragon .speech {
   text-align: center;
-  padding-left:7px;
-  padding-right:7px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
 
 .Pendragon .redbox {
   border-top: 1px solid black;
   border-left: 1px solid black;
-  border-right: 1px solid black;    
+  border-right: 1px solid black;
   padding: 10px 7px 10px 7px;
   background-color: darkred;
   color: cornsilk;
@@ -1424,7 +1421,7 @@ height: inherit;
 
 /* step six - pick a famous trait */
 .Pendragon .trait.radioList {
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   & .stat-name {
@@ -1476,9 +1473,9 @@ height: inherit;
 /* Dark theme */
 .system-Pendragon.theme-dark {
   .Pendragon {
-  --color-text-primary: #000;
-  --color-text-emphatic: #000;
-  --color-text-secondary: #333;
+    --color-text-primary: #000;
+    --color-text-emphatic: #000;
+    --color-text-secondary: #333;
   }
 }
 
@@ -1502,7 +1499,7 @@ height: inherit;
   margin: 0;
   border-block: 2px groove var(--color-dark-4);
   & a.center {
-    flex:3;
+    flex: 3;
     font-size: var(--font-size-20);
     text-align: center;
     line-height: var(--sidebar-header-height);
@@ -1512,7 +1509,7 @@ height: inherit;
 
 .system-Pendragon .token-geniality {
   max-width: 3em;
-  input{
+  input {
     color: var(--color-text-primary);
     text-align: end;
   }
@@ -1552,12 +1549,27 @@ height: inherit;
   font-family: Garamond;
 }
 
-.Pendragon .activeskillcat{
+.Pendragon .activeskillcat {
   background-color: darkred;
   color: cornsilk;
 }
 
 .Pendragon .skill-header {
   display: grid;
-   grid-template-columns: 230px 20px 150px;
+  grid-template-columns: 230px 20px 150px;
+}
+
+#pendragon-calendar {
+  width: 600px;
+}
+#pendragon-calendar nav {
+  display: flex;
+  width: 100%;
+  background: var(--control-bg-color);
+  color: var(--color-text-primary);
+  border-radius: 0 0 40px 40px;
+  height: 1.5em;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
 }
