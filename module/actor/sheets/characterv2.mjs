@@ -103,7 +103,6 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     //context = super._preparePartContext(partId, context, options);
     switch (partId) {
       case "combat":
-      case "passions":
       case "skills":
       case "equipment":
       case "stable":
@@ -112,6 +111,8 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       case "biography":
         context.tab = context.tabs[partId];
         break;
+      case "passions":
+        return this._preparePassionsTab(context);
       case "traits":
         return this._prepareTraitTab(context);
       case "effects":
@@ -126,7 +127,7 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     if (!this.tabGroups.primary) this.tabGroups.primary = "combat";
     // if we had a base class, do this then mergeObject
     // let sheetData = await super._prepareContext(options);
-    let sheetData = {
+    const sheetData = {
       editable: this.isEditable,
       owner: this.document.isOwner,
       limited: this.document.limited,
@@ -316,33 +317,10 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     });
 
     // Sort Passions by Court, level and name
-    passions.sort(function (a, b) {
-      let x = a.name;
-      let y = b.name;
-      let p = a.system.court;
-      let q = b.system.court;
-      let r = a.system.level;
-      let s = b.system.level;
-      if (p < q) {
-        return -1;
-      }
-      if (p > q) {
-        return 1;
-      }
-      if (r < s) {
-        return -1;
-      }
-      if (r > s) {
-        return 1;
-      }
-      if (x < y) {
-        return -1;
-      }
-      if (x > y) {
-        return 1;
-      }
-      return 0;
-    });
+    passions.sort(
+      (a, b) =>
+        a.system.court.localeCompare(b.system.court) || a.system.level - b.system.level || a.name.localeCompare(b.name),
+    );
 
     // Sort Horses with Warhorse at top
     horses.sort((a, b) => a.system.chargeDmg - b.system.chargeDmg);
@@ -484,6 +462,21 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     return context;
   }
 
+  async _preparePassionsTab(context) {
+    context.tab = context.tabs.passions;
+    const passions = context.items.filter(i => i.type == "passion").map(p => ({ _id: p._id, name: p.name, critical: p.system.total - 20, system: p.system, flags: p.flags }));
+    passions.sort(
+      (a, b) =>
+        a.system.court.localeCompare(b.system.court) || a.name.localeCompare(b.name),
+    );
+    const courts = Object.groupBy(passions, i => i.system.court);
+    for (const [k, v] of Object.entries(courts)) {
+      courts[k] = { name: game.i18n.localize(`PEN.${k}`), items: v };
+    }
+    context.courts = courts;
+    return context;
+  }
+
   static async _onToggleXP(event, target) {
     const { itemid } = target.closest("[data-itemid]")?.dataset ?? {};
     const item = this.actor.items.get(itemid);
@@ -552,6 +545,14 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     });
   }
 
-  static async _onRollPassion(event, target) { }
+  static async _onRollPassion(event, target) {
+    const { itemid, dishonour } = target.closest("[data-itemid]")?.dataset ?? {};
+    PendragonCharacterSheetv2.#triggerRoll(RollType.PASSION, event, {
+      skillId: itemid,
+      flatMod: Number(dishonour || 0),
+      actor: this.actor,
+      token: this.token,
+    });
+  }
   static async _onRollSkill(event, target) { }
 }

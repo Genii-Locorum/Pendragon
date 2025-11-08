@@ -1739,6 +1739,21 @@
     color: var(--pendragon-red);
     font-family: "Messiri";
   }
+  & .sheet-header {
+    display: flex;
+    gap: 0.5em;
+    & .header-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25em;
+      & label {
+        display: flex;
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+        align-items: center;
+      }
+    }
+  }
   & .sheet-tabs {
     font-family: Messiri, Signika, sans-serif;
     background-color: var(--pendragon-blue);
@@ -1788,7 +1803,6 @@
   & [data-tab="traits"] ol.trait-grid2 {
     grid-template-columns: 2em 2em 1fr min-content 1fr 2em 2em;
   }
-
   & .trait.religious {
     text-decoration-line: underline;
   }
@@ -1809,7 +1823,7 @@
     gap: 0.25rem;
   }
   & .pill {
-    font-size: var(--font-size-11);
+    font-size: 9px;
     font-weight: bold;
     text-transform: uppercase;
     border: 1px solid grey;
@@ -1843,12 +1857,61 @@
       height: 100%;
     }
   }
+  & .passions-layout {
+    display: grid;
+    grid-template-columns: [court-start] 1fr 1fr [court-end cond-start] 1fr [cond-end];
+    gap: 0 1em;
+    & [data-court="honor"] {
+      grid-column-start: court-start;
+      grid-column-end: court-end;
+      text-align: center;
+      & ol {
+        max-width: 50%;
+        margin: auto;
+        border-bottom: 1px solid var(--pendragon-red);
+      }
+    }
+    & .afflictions {
+      grid-column-start: cond-start;
+      grid-column-end: cond-end;
+      grid-row: span 3;
+    }
+    & ol {
+      display: grid;
+      list-style: none;
+      padding: 0;
+      grid-template-columns: 2em 1fr min-content;
+      gap: 0em 0.5em;
+      font-size: 1.2em;
+      margin: 0 0 1em;
+      li {
+        display: grid;
+        grid-column: 1/-1;
+        grid-template-columns: subgrid;
+        padding: 0.5em 0.5em 0.5em 0;
+      }
+      li:nth-child(even) {
+        background-color: var(--pd-light-row);
+      }
+      & .right {
+        text-align: right;
+        justify-self: end;
+      }
+    }
+  }
 
   & .family-layout,
   & .col-equal {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+  }
+  & .family-layout label {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+    align-items: center;
+    margin-bottom: 0.25em;
   }
 
   & tr:has(th) {
