@@ -17,9 +17,9 @@
             <span class="right">{{#if (gt passion.system.total 20)}}20(+{{passion.critical}}){{else}}{{passion.system.total}}{{/if}}</span>
           </li>
           {{#if (ne passion.system.dishonour 0)}}
-            <li>
+            <li data-tooltip="{{localize 'PEN.dishonourTitle'}}">
               <a class="large-icon"><i class="fa-regular fa-award"></i></a>
-              <span>Personal Honour</span>
+              <span>{{localize 'PEN.dishonour'}}</span>
               <span class="right">{{passion.system.dishonour}}</span>
             </li>
           {{/if}}
@@ -30,7 +30,7 @@
   {{#each courts as |court ckey|}}
   {{#unless (eq ckey 'honor')}}
     <div data-court="{{ckey}}">
-    <h2>{{court.name}}</h2>
+    <h3>{{court.name}}</h3>
     <ol>
     {{#each court.items as |passion key|}}
       {{#if (ne passion.system.total 0)}}
