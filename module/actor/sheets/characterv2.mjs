@@ -108,9 +108,10 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       case "stable":
       case "events":
       case "house":
-      case "biography":
         context.tab = context.tabs[partId];
         break;
+      case "biography":
+        return this._prepareBioTab(context);
       case "passions":
         return this._preparePassionsTab(context);
       case "traits":
@@ -198,6 +199,7 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
           i.system.label = i.system.description;
         }
         i.system.label = i.system.label.replace(/(<([^>]+)>)/gi, "");
+        i.system.glory = Number(i.system.glory) || 0
         history.push(i);
       } else if (i.type === "passion") {
         if (i.flags.Pendragon?.pidFlag.id === "i.passion.honour") {
@@ -446,6 +448,16 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     const effects = [];
     for (const e of effectList) effects.push(e);
     context.effects = effects;
+    context.conditions = CONFIG.statusEffects.map(c => {
+      // check to see if the status effect has been applied to the actor
+      const hasCondition = this.actor.statuses.has(c.id);
+      return {
+        id: c.id,
+        name: c.name,
+        img: c.img,
+        active: hasCondition
+      }
+    }).sort((a, b) => a.name.localeCompare(b.name));
     return context;
   }
 
@@ -474,6 +486,23 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       courts[k] = { name: game.i18n.localize(`PEN.${k}`), items: v };
     }
     context.courts = courts;
+    return context;
+  }
+
+  async _prepareBioTab(context) {
+    context.tab = context.tabs.biography;
+    context.enrichedBackgroundValue = await TextEditor.enrichHTML(
+      this.actor.system.background,
+      {
+        async: true,
+        secrets: context.editable,
+        relativeTo: this.actor
+      }
+    )
+
+    context.age = this.actor.system.died > 0
+      ? this.actor.system.died - this.actor.system.born
+      : game.settings.get("Pendragon", "gameYear") - this.actor.system.born;
     return context;
   }
 
