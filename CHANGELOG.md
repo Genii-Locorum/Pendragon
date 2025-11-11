@@ -3,7 +3,7 @@
 ## 13.1.43
 - Add Can See Tile permission to CCI: Open Document (James B)
 - Reduce minimum allowed Document permission to limited in CCI: Open Document (JamesB)
-- Added a widget to show Game Year and corresponding Period (JohnnyB)
+- Added a widget to show Game Year and corresponding Period at the top of the scene (JohnnyB)
 - Two handed Lances now get the +2D6 bonus from "additional damage"
 - Charactersand NPCs can add an image of their Coat of Arms on the top part of the sheet to the left of the stats.
 - The image to the right is for the character/npc portrait.
