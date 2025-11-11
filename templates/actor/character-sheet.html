@@ -4,8 +4,15 @@
 
     <section class="title-section">
       {{!-- Characteristics Header --}}
+        <div class="charname-input" style="grid-column: 1 / span 2"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></div>
+        <div class="right">
+            <a class="xlarge-icon charcreate {{#if system.create.complete}}fade{{else}}darkred{{/if}} rollable"> <i class="{{#if isCreation}}fas fa-shield-quartered{{else}}fas fa-none{{/if}}"></i> </a>
+        </div>        
+        <div class="new-row">
+          <img class="profile-img" src="{{actor.system.coatOfArms}}" data-edit="system.coatOfArms" title="{{actor.system.heraldry}}" height="140" width="140"/>
+        </div>
       <section class="sheet-header">
-        <div class="charname-input"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></div>
+
         <div class="char-grid">
           <div class="stat-grid">
             {{#each system.stats as |stat key|}}
@@ -56,11 +63,8 @@
 
       {{!-- Image Section --}}
       <section class="sheet-header">
-        <div class="right">
-            <a class="xlarge-icon charcreate {{#if system.create.complete}}fade{{else}}darkred{{/if}} rollable"> <i class="{{#if isCreation}}fas fa-shield-quartered{{else}}fas fa-none{{/if}}"></i> </a>
-        </div>
-        <div class="img-bottom">
-          <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="150" width="150"/>
+        <div class="">
+          <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="140" width="140"/>
         </div>
       </section>  
     </section>

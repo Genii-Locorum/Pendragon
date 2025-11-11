@@ -303,7 +303,7 @@ height: inherit;
 
 .Pendragon .title-section{
   display: grid;
-  grid-template-columns: auto 150px ;
+  grid-template-columns: 140px auto 140px ;
   column-gap: 10px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -330,9 +330,8 @@ height: inherit;
 
 .Pendragon .char-grid {
   display: grid;
-  grid-template-columns: 100px 200px 250px ;
-  column-gap: 50px;
-  padding-top: 10px;
+  grid-template-columns: 100px 160px 250px ;
+  column-gap: 10px;
 }
 
 .Pendragon .combat-grid {
@@ -352,6 +351,7 @@ height: inherit;
 .Pendragon .hp-grid{
   display: grid;
   grid-template-columns: 160px 90px ;
+  grid-template-rows: repeat(5, 23px);
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -359,7 +359,7 @@ height: inherit;
 
 .Pendragon .hp2-grid{
   display: grid;
-  grid-template-columns: 180px 60px 180px 60px ;
+  grid-template-columns: 180px 60px 160px 60px ;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -379,6 +379,7 @@ height: inherit;
 .Pendragon .cash-grid{
   display: grid;
   grid-template-columns: 160px 45px 10px 40px;
+  grid-template-rows: 23px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -386,7 +387,8 @@ height: inherit;
 
 .Pendragon .status-grid{
   display: grid;
-  grid-template-columns: 30px 170px ;
+  grid-template-columns: 30px 130px ;
+  grid-template-rows: repeat(6, 23px);
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -722,7 +724,7 @@ height: inherit;
  .Pendragon .npc-title-section{
   display: grid;
   width: 320px;
-  grid-template-columns: 250px 80px 20px;
+  grid-template-columns: 70px 190px 70px 20px;
   column-gap:5px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -751,7 +753,7 @@ height: inherit;
 
 .Pendragon .npcname-input input {
   font-family:"Herb";
-  font-size: 20px;
+  font-size: 16px;
   height:fit-content;
   color:darkred;
   border: 0px;
@@ -773,7 +775,7 @@ height: inherit;
 
 .Pendragon .npc-grid {
   display: grid;
-  grid-template-columns: 50px 50px 50px 50px 50px;
+  grid-template-columns: repeat(5, 38px);
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -1404,6 +1406,16 @@ height: inherit;
   border-radius: 0px;
 }
 
+.Pendragon .bluebox {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  padding: 10px 7px 10px 7px;
+  background-color: rgb(64, 101, 221);
+  color: cornsilk;
+  max-width: 636px;
+}
+
 .Pendragon .follower-grid {
   display: grid;
   margin: 0px;
@@ -1560,4 +1572,102 @@ height: inherit;
 .Pendragon .skill-header {
   display: grid;
    grid-template-columns: 230px 20px 150px;
+}
+
+.Pendragon.party {
+  background-image: none;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.Pendragon .party{
+  overflow-y: auto;
+}
+
+
+
+.Pendragon.party.app .window-content {
+  padding: 5px;
+  background-image: none;  
+}
+
+.Pendragon .party-list {
+  list-style: none;
+  display: block;
+  padding: 0;
+  margin: 0;
+  background-image: none;
+    width: inherit;
+}
+
+
+.Pendragon .party-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap:wrap;
+  gap: .5rem;
+  overflow: visible;
+  margin: 0 auto;
+}
+
+.Pendragon .party-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 10px;
+  justify-content: center;
+}
+
+.Pendragon .party-member {
+  border: 1px solid cornsilk;
+  padding: 2px;
+  width: 283px;
+  height: 106px;
+}
+
+.Pendragon .party-member-name {
+  display: grid;
+  grid-template-columns: 230px 40px;
+  column-gap: 5px;
+  color: cornsilk;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.Pendragon .party-member-grid {
+  display: grid;
+  grid-template-columns: 80px 200px;
+  column-gap: 5px;
+  row-gap: 10px;
+  height: 80px;
+}
+
+.Pendragon .partybars-multi {
+  height: 80px;
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Pendragon .partybar {
+  width: 190px;
+  height: 20px;
+  background-color: darkgrey;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.Pendragon .partybar .hpbar{
+  background-color: rgba(68, 111, 94, 0.5);
+  height: 100%;
+  white-space: nowrap;
+}
+
+.Pendragon .party .high-score {
+  color: cornsilk;
+  font-size: 15px;
+  overflow: hidden;
+  white-space: wrap;
+  text-overflow:ellipsis;
 }

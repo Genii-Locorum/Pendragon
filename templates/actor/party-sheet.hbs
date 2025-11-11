@@ -1,0 +1,37 @@
+<form class='party'>
+  <section class="main-sheet">
+    <div class="party-form">
+      <ol class='party-list'>
+        <div class="party-grid">      
+          {{#each members as |member id|}}
+            <li class="party-member" data-item-id='{{member.uuid}}' data-drag='true' data-document-class='Actor'>
+              <div class='party-member-name'>
+                <div>{{member.name}}</div>
+                <div>
+                  {{#if ../isGM}}
+                    <a class='deleteMember centre' style="float: right;" title='{{localize "PEN.deleteDoc" type=(localize "PEN.partyMember")}}'>
+                      <i class='fas fa-trash'></i>
+                    </a>
+                  {{/if}}
+                </div>
+              </div>
+
+              <div class="party-member-grid">
+                <img class='viewFromUuid' title='{{localize "PEN.viewDoc" type=(localize "PEN.partyMember")}}' src='{{member.image}}' height='80' width='80'/>
+                <div class="partybars-multi">
+                  <div class="partybar" >
+                    <span class="hpbar" style="width:{{member.hpPerc}};" >&nbsp{{localize 'PEN.hpShort'}}{{#if ../showHPVal}}: {{hpLabel}}{{/if}}</span>
+                  </div>
+                  {{#if ../showHPVal}}
+                    <div class="high-score" title="{{highScoreLabel}}">{{highScoreLabel}}</div>
+                  {{/if}}  
+                </div>
+              </div>
+
+            </li>
+          {{/each}}
+        </div>
+      </ol>
+    </div>
+  </section>
+</form>

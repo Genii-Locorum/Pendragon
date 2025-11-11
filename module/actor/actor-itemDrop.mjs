@@ -10,6 +10,13 @@ export class PENactorItemDrop {
     //TODO: Consider adding a bypass to just create the items with no checks
     //      return actor.createEmbeddedDocuments("Item", itemData);
     for (let dropItm of itemData) {
+
+      //Don't allow items to be added to a party Actor
+      if (actor.type === 'party') {
+        console.log("PONG")
+        continue
+      };
+
       let dropItmPID = dropItm.flags.Pendragon?.pidFlag?.id
       let reqResult = 1;
       let errMsg = "";
@@ -26,7 +33,6 @@ export class PENactorItemDrop {
 
       //Check Dropped item has a PID, if not then don't add it
       if (!dropItmPID) {
-        console.log("PING")
         ui.notifications.warn(game.i18n.format('PEN.PIDFlag.noPIDFlag', { itemName: dropItm.name }));
         continue;
       }      

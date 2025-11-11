@@ -225,7 +225,10 @@ export class PendragonActor extends Actor {
         let damageFlatMod = 0;
         let damageFormula = "";
         if(i.system.damageChar === 'h') {                   //If damage source is horse use the horse's charge damage
-          damageFormula = systemData.horseChgDam
+          damageFormula = systemData.horseChgDam 
+          if (i.system.damageMod != 0) {
+            damageFormula = damageFormula + "+" + i.system.damageMod + "D6"
+          }
         } else {
 
           if(i.system.damageChar === 'c') {                 //If damage source is character use the character Dam as number of D6
@@ -258,6 +261,9 @@ export class PendragonActor extends Actor {
       this.removeStatus(PendragonStatusEffects.DEBILITATED);
       systemData.status.chirurgery = false;
     }
+    //Check to see if Actor is in a visible party and if so re-render the party sheet
+    await this._updateParty(actorData)
+
 
   }
 
@@ -275,11 +281,6 @@ export class PendragonActor extends Actor {
         i.system.total =i.system.value
       }
     }
-
-
-
-
-
   }
 
   // Prepare Common type specific data.
@@ -481,6 +482,16 @@ export class PendragonActor extends Actor {
           enabled: true
         }]
       },data.prototypeToken || {})
+    } else if (data.type === 'party') {
+      data.prototypeToken = foundry.utils.mergeObject({
+        actorLink: true,
+        detectionModes: [{
+          enabled: false
+        }]
+      })
+      data.ownership = foundry.utils.mergeObject({
+        default: 2
+      })
     }
 
     let actor = await super.create(data, options)
@@ -549,5 +560,25 @@ export class PendragonActor extends Actor {
                              'flags.Pendragon.pidFlag.lang': game.i18n.lang,
                              'flags.Pendragon.pidFlag.priority': 0});
   }
+
+
+  //Rerender Party Sheet if actor is in it
+  async _updateParty(actorData) {
+    let parties = await game.actors.filter(actr=>actr.type==='party')
+    if (parties.length === 0) return
+    for (let party of parties) {
+      if (!party.sheet.rendered) continue  
+      let update = false
+      for (let member of party.system.members) {
+        if (member.uuid === actorData.uuid) {
+          update = true
+        }
+        if (update) {
+          await party.render()
+        }
+      }
+    }
+  }
+
 
 }
