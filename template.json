@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character", "npc", "follower"],
+    "types": ["character", "npc", "follower","party"],
     "templates": {
       "base": {
         "hp": {
@@ -91,6 +91,7 @@
     "equestrian": "",
     "heir": true,
     "heraldry": "",
+    "coatOfArms" : "systems/Pendragon/assets/Icons/checked-shield.svg",
     "impoverished": 0,
     "motto": "",
     "lock": true,
@@ -150,7 +151,8 @@
     "manMjrWnd": 0,
     "manDmg": 0,
     "manHealRate": 0,
-    "manUnconscious": 0
+    "manUnconscious": 0,
+    "coatOfArms" : "systems/Pendragon/assets/Icons/checked-shield.svg"
   },
   "follower": {
     "templates": ["base"],
@@ -178,6 +180,9 @@
     "manHealRate": 0,
     "manUnconscious": 0,
     "manMove":0
+  },
+  "party": {
+    "members": []
   }
   },
   "Item": {

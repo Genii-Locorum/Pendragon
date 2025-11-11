@@ -34,7 +34,7 @@
         <div class="item grid-item centre" data-itemid ="{{wound._id}}">
           <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
           {{#unless ../system.lock}}
-            <a class="fade large-icon" title="{{localize 'PEN.delete'}}"><i class="item-control fas fa-broom-wide"></i></a>
+            <a class="item-control item-delete large-icon fade" title="{{localize 'PEN.delete'}}"><i class="item-control fas fa-broom-wide"></i></a>
           {{/unless}}
         </div>  
       {{/each}}

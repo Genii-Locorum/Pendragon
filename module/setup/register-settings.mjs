@@ -87,6 +87,16 @@ export function registerSettings () {
     default: false
   });
     
+  game.settings.register('Pendragon', "showParty", {
+    name: "PEN.Settings.showParty",
+    hint: "PEN.Settings.showPartyHint",
+    scope: "world",
+    requiresReload: true,
+    config: true,
+    type: Boolean,
+    default: true
+  });
+  
   //Invisible Game Settings 
 
   game.settings.register('Pendragon', "winter", {

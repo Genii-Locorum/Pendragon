@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 13.1.43
+- Add Can See Tile permission to CCI: Open Document (James B)
+- Reduce minimum allowed Document permission to limited in CCI: Open Document (JamesB)
+- Added a widget to show Game Year and corresponding Period (JohnnyB)
+- Two handed Lances now get the +2D6 bonus from "additional damage"
+- Charactersand NPCs can add an image of their Coat of Arms on the top part of the sheet to the left of the stats.
+- The image to the right is for the character/npc portrait.
+- There is a new actor type "Party".  The GM can add and remove characters (not other actor types or items).
+- Players can open their character sheets from the party
+- By default players have observer status and both GM and players see a health bar for each character along with traits, passions and skill with a score of 16+
+- There is a Game Setting that allows HP values and highscores to be visible to all players (turn it off and only GM can see the them, but players see the HP bar)
+- You can once again delete wounds using the broom icon.
+
 ## 13.1.42
 - Additional CCI option, Ambient Light toggle added
 - All CCI show/hide options have become show/hide/toggle

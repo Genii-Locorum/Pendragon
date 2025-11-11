@@ -1,6 +1,7 @@
 import { PendragonCharacterSheet } from '../actor/sheets/character.mjs';
 import { PendragonNPCSheet } from '../actor/sheets/npc.mjs';
 import { PendragonFollowerSheet } from '../actor/sheets/follower.mjs';
+import { PendragonPartySheet } from '../actor/sheets/party.mjs';
 import { PendragonSkillSheet } from '../item/sheets/skill.mjs';
 import { PendragonTraitSheet } from '../item/sheets/trait.mjs';
 import { PendragonHistorySheet } from '../item/sheets/history.mjs';
@@ -38,6 +39,11 @@ export function registerSheets () {
       types: ['follower'],
       makeDefault: true
     })
+
+    Actors.registerSheet('Pendragon', PendragonPartySheet, {
+      types: ['party'],
+      makeDefault: true
+    })    
 
   Items.unregisterSheet('core', ItemSheet)
     Items.registerSheet('Pendragon', PendragonSkillSheet, {
