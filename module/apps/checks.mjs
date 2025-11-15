@@ -480,7 +480,8 @@ export class PENCheck {
     //If Damage Roll then adjust formula for DamMod if there is one
     if (
       config.rollType === RollType.DAMAGE &&
-      config.damMod != "0"
+      config.damMod != "0" &&
+      config.damMod != ""
     ) {
       if (['+', '-'].includes(config.damMod.charAt(0))) {
         config.rollFormula = config.rollFormula + config.damMod.toUpperCase()
