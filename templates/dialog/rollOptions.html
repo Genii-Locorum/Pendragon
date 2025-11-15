@@ -61,13 +61,15 @@
     {{/isAnd}}    
 
     {{#unless (eq rollType 'DC')}}
-      <div class="flexrow">
-        <label title = "{{ localize 'PEN.checkBonusHint' }}" >{{localize "PEN.checkBonus"}}</label>   
-          <input data-handle-change class="centre" type="number" value="{{flatMod}}" name="checkBonus">
-      </div>
-      <br>
+      {{#unless (eq rollType 'DM')}}
+        <div class="flexrow">
+          <label title = "{{ localize 'PEN.checkBonusHint' }}" >{{localize "PEN.checkBonus"}}</label>   
+            <input data-handle-change class="centre" type="number" value="{{flatMod}}" name="checkBonus">
+        </div>
+        <br>
+      {{/unless}}
     {{/unless}}
-    
+
     {{#if (eq cardType 'RE')}}
       <div class="flexrow">
         <label title = "{{ localize 'PEN.resistHint' }}" >{{localize "PEN.resist"}}</label>   
@@ -75,5 +77,13 @@
       </div>
       <br>      
     {{/if}}
+
+    {{#isOr (eq rollType 'CM') (eq rollType 'DM')}}
+      <div class="flexrow">
+        <label title = "{{ localize 'PEN.dmgModHint' }}" >{{localize "PEN.dmgMod"}}</label>   
+          <input data-handle-change class="centre" type="text" value="{{formData.dmgMod}}" name="dmgMod">
+      </div>
+      <br>      
+    {{/isOr}}
     <br>  
   </form>

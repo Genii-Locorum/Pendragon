@@ -226,8 +226,8 @@ export class PendragonActor extends Actor {
         let damageFormula = "";
         if(i.system.damageChar === 'h') {                   //If damage source is horse use the horse's charge damage
           damageFormula = systemData.horseChgDam 
-          if (i.system.damageMod != 0) {
-            damageFormula = damageFormula + "+" + i.system.damageMod + "D6"
+          if (Number(i.system.damageMod) != 0 ) {
+            damageFormula = damageFormula + "+" + Number(i.system.damageMod) + "D6"
           }
         } else {
 

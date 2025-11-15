@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 13.1.44
+- Fixed Lance where Additional Damage is blank
+- If a roll formula is blank it will now default to "0"
+- When making a combat roll or a damage roll the dialog box gives you an option to enter a damage modifier which will be applied when/if damage is rolled
+
 ## 13.1.43
 - Add Can See Tile permission to CCI: Open Document (James B)
 - Reduce minimum allowed Document permission to limited in CCI: Open Document (JamesB)

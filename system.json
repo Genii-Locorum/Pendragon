@@ -2,10 +2,10 @@
   "id": "Pendragon",
   "title": "Pendragon",
   "description": "Pendragon system for FoundryVTT!",
-  "version": "13.1.43",
+  "version": "13.1.44",
   "compatibility": {
     "minimum": 12,
-    "verified": "13.350",
+    "verified": "13.351",
     "maximum": 13
   },
   "authors": [
@@ -90,7 +90,7 @@
 
   "url": "https://github.com/Genii-Locorum/Pendragon",
   "manifest": "https://github.com/Genii-Locorum/Pendragon/releases/latest/download/system.json",
-  "download": "https://github.com/Genii-Locorum/Pendragon/releases/download/v13.1.43/system.zip",
+  "download": "https://github.com/Genii-Locorum/Pendragon/releases/download/v13.1.44/system.zip",
   "socket": true,
   "license": "LICENSE.txt",
   "changelog": "CHANGELOG.md"

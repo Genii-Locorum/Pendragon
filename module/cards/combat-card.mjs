@@ -152,6 +152,7 @@ export class COCard {
       shiftKey: true,
       damCrit: targetMsg.flags.Pendragon.chatCard[rank].damCrit,
       itemId: targetMsg.flags.Pendragon.chatCard[rank].itemId,
+      damMod: targetMsg.flags.Pendragon.chatCard[rank].damMod,
       actor: actor,
       token: token
       });    

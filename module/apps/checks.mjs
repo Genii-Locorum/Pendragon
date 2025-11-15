@@ -138,6 +138,7 @@ export class PENCheck {
       damRoll: options.damRoll ?? false,
       damCrit: options.damCrit ?? false,
       damShield: options.damShield ?? false,
+      damMod: options.damMod ?? "0",
       fixedOpp: options.fixedOpp ?? 0,
       inquiry: options.inquiry ?? "no",
       action: "attack",
@@ -280,7 +281,6 @@ export class PENCheck {
             config.rollFormula = config.rollFormula + "+4D6";
           }
         }
-        config.shiftKey = true;
         break;
       case RollType.COMBAT:
         if (config.neutralRoll) {
@@ -401,6 +401,11 @@ export class PENCheck {
           config.targetScore = config.rawScore;
         }
         config.action = usage.get("action");
+        config.damMod = usage.get("dmgMod")
+        if (config.damMod && !Roll.validate(config.damMod)) {
+          ui.notifications.warn(game.i18n.localize("PEN.invalidDamageFormula"));
+          config.damMod = "0"
+        }
       }
     }
 
@@ -472,6 +477,19 @@ export class PENCheck {
       config.targetScore = 0;
     }
 
+    //If Damage Roll then adjust formula for DamMod if there is one
+    if (
+      config.rollType === RollType.DAMAGE &&
+      config.damMod != "0"
+    ) {
+      if (['+', '-'].includes(config.damMod.charAt(0))) {
+        config.rollFormula = config.rollFormula + config.damMod.toUpperCase()
+      } else {
+        config.rollFormula = config.rollFormula + "+" + config.damMod.toUpperCase()
+      }
+    }
+
+
     await PENCheck.makeRoll(config);
 
     //If this is an unopposed Combat Roll then set outcomes
@@ -539,6 +557,7 @@ export class PENCheck {
           damRoll: config.damRoll,
           damCrit: config.damCrit,
           damShield: config.damShield,
+          damMod: config.damMod,          
           subType: config.subType,
           fixedOpp: config.fixedOpp,
           action: config.action,
@@ -617,6 +636,7 @@ export class PENCheck {
 
   //Call Dice Roll, calculate Result and store original results in rollVal
   static async makeRoll(config) {
+    if (config.rollFormula === "") {config.rollFormula = "0"}
     let roll = new Roll(config.rollFormula);
     await roll.evaluate();
     config.roll = roll;

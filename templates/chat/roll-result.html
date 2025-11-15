@@ -14,7 +14,7 @@
               <div class="header">
                 <div class='name'>
                   {{#if (eq ../rollType 'DM')}}
-                  <span class="tag">{{c.label}} ({{c.rollFormula}})</span>
+                  <span class="tag truncate" title="{{c.rollFormula}}">{{c.label}} ({{c.rollFormula}})</span>
                   {{else}}
                     <span class="tag">{{c.label}} ({{c.targetScore}})</span>
                   {{/if}}  
