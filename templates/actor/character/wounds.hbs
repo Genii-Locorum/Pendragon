@@ -1,0 +1,32 @@
+<section class="wound-tracker">
+  <p class="center">HP: {{system.hp.value}} / {{system.hp.max}}</p>
+  <p>
+    <button data-action="directDamage">Direct damage</button>
+    <input name="dmg" type="number" data-dType="Number" placeholder="0" style="flex:1;text-align:right;" />
+    <button data-action="addWound">Create wound</button>
+  </p>
+  <div>
+  <h2>Wounds</h2>
+  <p>Major Wound: {{system.hp.majorWnd}}</p>
+  <ol class="wounds">
+  {{#each wounds as |wound key|}}
+    <li data-itemid="{{wound._id}}">
+      <span>{{wound.system.description}}</span>
+      <span class="right">{{wound.system.value}}</span>
+      {{#unless wound.system.treated}}<button data-action="applyFirstAid">First Aid</button>{{/unless}}
+    </li>
+  {{/each}}
+  <li>
+    <i>Aggravation</i>
+    <span class="right">{{system.aggravDam}}</span>
+  </li>
+  </ol>
+  </div>
+  <div>
+    <h2>Healing</h2>
+    <p>Healing Rate: {{system.healRate}}</p>
+    <button>One week</button>
+    <button>Multiple weeks</button>
+    <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Debilitated</p>
+  </div>
+</section>

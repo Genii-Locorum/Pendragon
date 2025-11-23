@@ -28,21 +28,21 @@
       </div>
       </div>
       <div>
-        <p>Knockdown: 14</p>
-        <p>Major Wound: 14</p>
-        <p>Unconscious: 7</p>
-        <p>Healing Rate: 3</p>
+        <p>Knockdown: {{system.hp.knockdown}}</p>
+        <p>Major Wound: {{system.hp.majorWnd}}</p>
+        <p>Unconscious: {{system.hp.unconscious}}</p>
         <p style="font-weight: bold;font-size:larger"><i class= "fa-solid fa-swords"></i> Weapon</p>
         <p>Arming Sword 15</p>
         <p>Damage: 4d6</p>
         <button>Change Weapon</button>
       </div>
       <div style="border-radius: 0.25rem;padding: 0.5rem;background-color: var(--pd-light-row);">
-        <p>Armour Points: 10 + 6 <i class="fa-solid fa-shield"></i></p>
-        <p>Move: 15</p>
+        <p>Armour Points: {{system.armour}} + {{system.shield}} <i class="fa-solid fa-shield"></i></p>
+        <p>Move: {{system.move}}</p>
         <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Debilitated</p>
         <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Unconscious</p>
         <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Near Death</p>
+        <button data-action="showWounds">Wounds and Healing</button>
       </div>
     </div>
     <h2>Combat Actions</h2>

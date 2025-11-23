@@ -5,6 +5,7 @@ import { PENactorItemDrop } from "../actor-itemDrop.mjs";
 import { PENUtilities } from "../../apps/utilities.mjs";
 import { isCtrlKey } from "../../apps/helper.mjs";
 import { PendragonActorSheet } from "./actor-sheet.mjs";
+import { WoundTrackerDialog } from "./actor-wound-tracker.mjs";
 import { CardType, PENCheck, RollType } from "../../apps/checks.mjs";
 
 export class PendragonCharacterSheetv2 extends PendragonActorSheet {
@@ -32,6 +33,7 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       rollPassion: this._onRollPassion,
       rollSkill: this._onRollSkill,
       rollGlory: this._onRollGlory,
+      showWounds: this._onShowWounds,
       toggleXP: this._onToggleXP,
       toggleOpposingXP: this._onToggleOpposingXP,
     },
@@ -584,4 +586,8 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     });
   }
   static async _onRollSkill(event, target) { }
+  static async _onShowWounds(event, target) {
+    const dlg = new WoundTrackerDialog(this.actor);
+    dlg.render(true);
+  }
 }
