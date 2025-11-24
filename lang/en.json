@@ -39,7 +39,7 @@
   "PENDRAGON.OppTraitTrusting": "Suspicious",
   "PENDRAGON.OppTraitValorous": "Cowardly",
 
-  "PEN" : {
+  "PEN": {
     "active": "Active",
     "add": "Add",
     "addArmour": "Add Armour",
@@ -63,7 +63,7 @@
     "ageMin": "You must be at least 14 years old",
     "aging": "Aging",
     "agro": "Aggravation Dmg",
-    "ap":"AP",
+    "ap": "AP",
     "app": {
       "deathdoor": "At death's door",
       "2neg": "Two negative features",
@@ -74,7 +74,7 @@
       "4pos": "Four positive features"
     },
     "appeal": "Fair Appeal",
-    "arm":"Arm",
+    "arm": "Arm",
     "armour": "Armour",
     "armourAdj": "Armour Adjustment",
     "armourHint": "Ticked is Armour, unticked is Shield",
@@ -82,6 +82,7 @@
     "armourPoints": "Armour Points",
     "attack": "Attack",
     "attributes": "Attributes",
+    "available": "Available",
     "barren": "Barren",
     "barrenMarriage": "Barren Marriage",
     "base": "Base",
@@ -93,6 +94,7 @@
     "beKnighted": "Are you willing and able to be knighted?",
     "benefits": "Benefits",
     "biography": "Bio",
+    "biographyHeading": "Biography",
     "blessedBirth": "Blessed Birth",
     "bonus": "Bonus",
     "born": "Born",
@@ -106,7 +108,7 @@
     "characteristic": "Characteristic",
     "characteristicTrain": "Add a single point to a characteristic (until age 35)",
     "charge": "Charge",
-    "chargeDmg":"Charge Dmg",
+    "chargeDmg": "Charge Dmg",
     "chargeDmgHint": "Click here to roll damage.  Hold ALT to roll Critical Damage. Hold SHIFT to roll Charge Damage",
     "checkBonus": "Bonus to this roll",
     "checkBonusHint": "Enter bonus as a positive, and penalty as a negative",
@@ -151,7 +153,7 @@
     "cost": "Cost",
     "court": "Court",
     "creation": "Character Creation",
-    "creationMethod":"Select Character Creation Method",
+    "creationMethod": "Select Character Creation Method",
     "creationPhaseStart": "Character Creation Phase Started",
     "creationPhaseEnd": "Character Creation Phase Ended",
     "critBonus": "Critical Bonus",
@@ -164,8 +166,8 @@
     "damage": "Damage",
     "damAdj": "Damage Adj",
     "damageAmount": "Enter amount of damage taken",
-    "damageBonus":" Damage Bonus",
-    "damageMax":" Max Damage D6",
+    "damageBonus": " Damage Bonus",
+    "damageMax": " Max Damage D6",
     "damageMod": "Additional Damage D6",
     "damShield": "Shield Protection should be deducted from damage",
     "damType": "Damage Type",
@@ -209,6 +211,7 @@
     "dupParty": "{name} is already a member of this Party",
     "economicCirc": "Economic Circumstance",
     "economicConfirm": "This has a significant impact",
+    "effects": "Effects",
     "emptyList": "No Items",
     "encounterSwitchFeast": "Change to Feast",
     "encounterSwitchSkirmish": "Change to Skirmish",
@@ -263,19 +266,19 @@
     "genSkills": "Calculate Base Scores",
     "getSpecialism": "Enter the specialism for the skill/passion",
     "glory": "Glory",
-    "gloryAward":"Glory Award",
+    "gloryAward": "Glory Award",
     "gloryRoll": "Glory Roll",
     "GM": "GM",
     "gmNotes": "GM Notes",
     "gmRoll": "GM Roll",
     "gmTab": "GM Info",
     "GMTools": "GM Tools",
-    "good":"Good",
+    "good": "Good",
     "guarantee": "Guarantee",
     "hafted": "Hafted",
-    "hasReligion":"can not be added as this religion already has an assigned skill",
+    "hasReligion": "can not be added as this religion already has an assigned skill",
     "healPrompt": "Please enter the amount of damage healed",
-    "healRate":" Healing Rate",
+    "healRate": " Healing Rate",
     "health": "Health",
     "heir": "Heir",
     "heraldry": "Heraldry",
@@ -297,7 +300,7 @@
     "household": "Household",
     "houseLeave": "Household Departures",
     "hp": "Hit Points",
-    "hpAdj":"HP Adjustment",
+    "hpAdj": "HP Adjustment",
     "hpShort": "HP",
     "ideals": "Ideals",
     "illustrious": "Illustrious",
@@ -324,13 +327,13 @@
     "knighted": "Knighted",
     "knightlySkill": "Knightly Skill",
     "knightlyMod": "Knightly Skill Modifier",
-    "knockdown":" Knockdown",
+    "knockdown": " Knockdown",
     "language": "Language",
-    "leap":{
-        "0": "Fumbled the Leap",
-        "1": "Failed the Leap",
-        "2": "Leap was succesful",
-        "3": "Exceptional Leap"
+    "leap": {
+      "0": "Fumbled the Leap",
+      "1": "Failed the Leap",
+      "2": "Leap was succesful",
+      "3": "Exceptional Leap"
     },
     "leaves": "Leaves",
     "legendary": "Legendary",
@@ -406,7 +409,7 @@
     "noPrestige": "You have no prestige points to spend",
     "notable": "Notable",
     "noTableDocs": "No documents in the {name} table",
-    "notGM":"This function is only availble to GMs",
+    "notGM": "This function is only availble to GMs",
     "noReligions": "No Religions found in the world or the compendia",
     "noSelection": "No selection made",
     "noSOL": "Invalid Standard of Living",
@@ -439,14 +442,14 @@
     "parentPassion": "Enter parent's passion score",
     "parents": "Parents",
     "parry": "Parry",
-    "participant":"Participant Name",
-    "participantHint":"Enter the name of the participant, object etc",
+    "participant": "Participant Name",
+    "participantHint": "Enter the name of the participant, object etc",
     "partyMember": "Party Member",    
     "passion": "Passion",
     "passions": "Passions",
     "passionSpend": "Use the arrows to raise or lower your existing passions",
     "passive": "Passive Glory",
-    "pen":"Pen",
+    "pen": "Pen",
     "penalty": "Penalty",
     "pending": "Pending",
     "period": {
@@ -508,7 +511,7 @@
     "remove": "Remove",
     "renowned": "Renowned",
     "required": "Required Total",
-    "requirements":"Individial Requirements",
+    "requirements": "Individial Requirements",
     "resetClass": "Reset Class",
     "resetCulture": "Reset Culture",
     "resetHomeland": "Reset Homeland",
@@ -556,7 +559,7 @@
       "2": "Portly",
       "3": "Obese"
     },
-    "sizIncLabel":"SIZ Growth",
+    "sizIncLabel": "SIZ Growth",
     "skill": "Skill",
     "skillGroup": "Skill Group",
     "skills": "Skills",
@@ -583,6 +586,7 @@
     "squireVal": "Squire Score",
     "starterSkill": "Starting Skill",
     "startingEquip": "Starting Equipment",
+    "stable": "Stable",
     "stat": "Stat",
     "statLost": "CON/STR/SIZ lost",
     "statRoll": "Stat Roll",
@@ -631,7 +635,7 @@
     "transcendent": "Transcendent Beauty",
     "treat": "Treatment",
     "treatAmount": "Enter amount of damage healed",
-    "treatWound":  "Double click to treat this wound",
+    "treatWound": "Double click to treat this wound",
     "treated": "This wound has been treated",
     "tripletResult": "Triplets Result",
     "triplets": "Fraternal Triplets",
@@ -674,7 +678,7 @@
     "winterPhaseTrainTrait": "Training and Practice: changed personality trait",
     "winterPhaseTrainPassion": "Training and Practice: changed passion",
     "wound": "Wound",
-    "wounds":"Wounds",
+    "wounds": "Wounds",
     "xpCheck": "XP Check",
     "xpRoll": "Experience Rolls",
     "y": "Y",
@@ -689,8 +693,6 @@
       "RE": "Fixed Opposed",
       "IN": "Inquiry"
     },
-
-
 
     "create": {
       "step1": "Step 1 Completed - Creation method set",
@@ -708,7 +710,6 @@
       "step13": "Step 13 Completed - Training Points spent",
       "step14": "Step 14: Completed - Luck Benefit added",
       "step15": "Step 15: Completed - Knighted.  Character created finished."
-
     },
 
     "undo": {
@@ -804,7 +805,7 @@
       "info": "Info",
       "key": "System ID (PID)",
       "noPID": "{type} document requires a PID",
-      "noPIDFlag": "Can't add {itemName} as it does not have a PID",      
+      "noPIDFlag": "Can't add {itemName} as it does not have a PID",
       "others": "Other documents with this PID and language (excluding documents in other actors and items)",
       "priority": "System ID Priority",
       "summary": "Set a group identifier that can be used to find the most up to date version of this {type}. The System ID should use the English translation of the {type} to support localization across all languages.",
@@ -817,7 +818,7 @@
       "knightly": "Knightly",
       "nonknightly": "Non-Knightly",
       "ladies": "Ladies",
-      "woodcraft": "Woodcraft"      
+      "woodcraft": "Woodcraft"
     },
     "ChaosiumCanvasInterface": {
       "Actions": {

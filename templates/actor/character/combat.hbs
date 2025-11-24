@@ -1,0 +1,82 @@
+<section class="tab combat {{tab.cssClass}}" data-group="primary" data-tab="combat">
+<div class="combat-grid">
+  <div>
+    <ol class="trait-grid2">
+    {{#each traits as |trait key|}}
+      <li data-itemid="{{trait._id}}">
+        <span class="right {{#if (gt trait.system.total 15)}}famous{{/if}} {{#if (gt trait.system.total 20)}}exalted{{/if}}">{{trait.system.total}}</span>
+        <span class="trait right {{#if (gt trait.system.religious 0)}}religious {{/if}}{{#if (gt trait.system.total 15)}}famous{{/if}} {{#if (gt trait.system.total 20)}}exalted{{/if}}" data-type ="trait" data-itemid="{{trait._id}}" data-action="rollTrait">{{trait.name}}</span>
+        <span data-action="rollDecision"><i class="fa-regular fa-scale-balanced"></i></span>
+        <span class="trait {{#if (lt trait.system.religious 0)}}religious {{/if}}{{#if (gt trait.system.oppvalue 15)}}famous{{/if}} {{#if (gt trait.system.oppvalue 20)}}exalted{{/if}}" data-type ="opptrait" data-itemid="{{trait._id}}" data-action="rollTrait">{{trait.system.oppName}}</span>
+        <span class="right {{#if (gt trait.system.oppvalue 15)}}famous{{/if}} {{#if (gt trait.system.oppvalue 20)}}exalted{{/if}}">{{trait.system.oppvalue}}</span>
+      </li>
+    {{/each}}
+    </ol>
+  </div>
+
+
+  <div>
+    <div style="display: grid;gap: 0.5rem;grid-template-columns: 1fr 120px 1fr;align-items:stretch;">
+      <div>
+      <div style="border-radius: 0.25rem;padding: 0.5rem;background-color: var(--pd-light-row);">
+        <p><i class= "fa-solid fa-horse-head"></i>Alexander</p>
+        <p>Charger - War-Trained</p>
+        <p>Hit Points: 100 / 100</p>
+        <p>Move: 16 / Knockdown: 26</p>
+        <button>Change Horse</button>
+      <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Mounted</p>
+      </div>
+      </div>
+      <div>
+        <p>Knockdown: {{system.hp.knockdown}}</p>
+        <p>Major Wound: {{system.hp.majorWnd}}</p>
+        <p>Unconscious: {{system.hp.unconscious}}</p>
+        <p style="font-weight: bold;font-size:larger"><i class= "fa-solid fa-swords"></i> Weapon</p>
+        <p>Arming Sword 15</p>
+        <p>Damage: 4d6</p>
+        <button>Change Weapon</button>
+      </div>
+      <div style="border-radius: 0.25rem;padding: 0.5rem;background-color: var(--pd-light-row);">
+        <p>Armour Points: {{system.armour}} + {{system.shield}} <i class="fa-solid fa-shield"></i></p>
+        <p>Move: {{system.move}}</p>
+        <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Debilitated</p>
+        <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Unconscious</p>
+        <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Near Death</p>
+        <button data-action="showWounds">Wounds and Healing</button>
+      </div>
+    </div>
+    <h2>Combat Actions</h2>
+    <div class="actions">
+    <button>Attack</button>
+    <button>Reckless Attack</button>
+    <button>Call Squire (Ned)</button>
+    <button>Claim a Prisoner</button>
+    <button>Defend</button>
+    <button>Disarm</button>
+    <button>Evade</button>
+    <button>Pick Up</button>
+    <button>Self-sacrifice</button>
+    <button>Study</button>
+    <button>Withhold Damage</button>
+    <button>Zigzag</button>
+    </div>
+    <h3>Mounted</h3>
+    <div class="actions">
+    <button>Mounted Charge</button>
+    <button>Control Mount</button>
+    <button>Trample</button>
+    <button>Dismount</button>
+    <button>Emergency Dismount</button>
+    </div>
+    <h3>On Foot</h3>
+    <div class="actions">
+    <button>Dodge</button>
+    <button>Don Armour</button>
+    <button>Hook</button>
+    <button>Set Spear</button>
+    <button>Leap into Saddle</button>
+    <button>Mount Up</button>
+    </div>
+  </div>
+</div>
+</section>
