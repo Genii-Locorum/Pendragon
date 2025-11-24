@@ -12,24 +12,24 @@
 }
 
 @font-face {
-  font-family: 'AGaramondPro';
+  font-family: "AGaramondPro";
   font-style: normal;
   font-weight: 400;
-  src: url('../assets/AGaramondPro-Regular.otf') format('woff2');
+  src: url("../assets/AGaramondPro-Regular.otf") format("woff2");
 }
 
 @font-face {
-  font-family: 'Basteleur';
+  font-family: "Basteleur";
   font-style: normal;
   font-weight: 400;
-  src: url('../assets/Basteleur-Bold.otf') format('woff2');
+  src: url("../assets/Basteleur-Bold.otf") format("woff2");
 }
 
 @font-face {
-  font-family: 'IMFell';
+  font-family: "IMFell";
   font-style: normal;
   font-weight: 400;
-  src: url('../assets/IMFeGPrm29C.otf') format('woff2');
+  src: url("../assets/IMFeGPrm29C.otf") format("woff2");
 }
 
 @font-face {
@@ -325,7 +325,7 @@
 
 .Pendragon .title-section {
   display: grid;
-  grid-template-columns: auto 150px;
+  grid-template-columns: 140px auto 140px;
   column-gap: 10px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -351,9 +351,8 @@
 
 .Pendragon .char-grid {
   display: grid;
-  grid-template-columns: 100px 200px 250px;
-  column-gap: 50px;
-  padding-top: 10px;
+  grid-template-columns: 100px 160px 250px;
+  column-gap: 10px;
 }
 
 .Pendragon .combat-grid {
@@ -1503,13 +1502,13 @@
 }
 
 /* Dark theme */
-/*.system-Pendragon.theme-dark {
-  .Pendragon {
+.system-Pendragon.theme-dark {
+  .Pendragon:not(.character2) {
     --color-text-primary: #000;
     --color-text-emphatic: #000;
     --color-text-secondary: #333;
   }
-}*/
+}
 
 /*  combat tracker for seating */
 .system-Pendragon h3.combat-tracker-header {
@@ -1743,6 +1742,7 @@
     --pill-bg: #f8f4f1;
     --pd-light-row: #e5dbd488;
     --rollable-highlight: var(--pendragon-gold);
+    --char-background-image: url("../assets/backgrounds/arches.png");
   }
   &.theme-dark {
     --background-color: black;
@@ -1763,6 +1763,9 @@
     border: 1px solid var(--input-border-color);
     border-radius: 4px;
     box-shadow: var(--input-box-shadow);
+  }
+  & .prosemirror .editor-content {
+    color: var(--color-text-primary);
   }
   /* experiment with hover/focus for clickable actions */
   & [data-action^="roll"] {
