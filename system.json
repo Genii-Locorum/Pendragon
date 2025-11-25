@@ -27,7 +27,8 @@
       "color": "#1274bd",
       "packs": [
         "instructions",
-        "macro"
+        "macro",
+        "scenes"
       ],
       "folders": []
     }
@@ -37,7 +38,7 @@
       "label": "Instructions",
       "type": "JournalEntry",
       "name": "instructions",
-      "path": "packs/instructions.db",
+      "path": "packs/instructions",
       "system": "Pendragon",
       "private": false,
       "flags": {}
@@ -46,11 +47,20 @@
       "label": "Macros",
       "type": "Macro",
       "name": "macro",
-      "path": "packs/macro.db",
+      "path": "packs/macro",
       "system": "Pendragon",
       "private": false,
       "flags": {}
-    }
+    },
+    {
+      "label": "Scenes",
+      "type": "Scene",
+      "name": "Secenes",
+      "path": "packs/scenes",
+      "system": "Pendragon",
+      "private": false,
+      "flags": {}
+    }    
   ],
   "languages": [
     {

@@ -1,0 +1,8 @@
+2025/11/25-17:11:01.582 2b8c Recovering log #8
+2025/11/25-17:11:01.582 2b8c Delete type=0 #8
+2025/11/25-17:11:01.582 2b8c Delete type=3 #6
+2025/11/25-17:11:40.749 3608 Level-0 table #13: started
+2025/11/25-17:11:40.749 3608 Level-0 table #13: 0 bytes OK
+2025/11/25-17:11:40.749 3608 Delete type=0 #11
+2025/11/25-17:11:40.757 3608 Manual compaction at level-0 from '!scenes!qHEA9cs0gpSeUiTn' @ 72057594037927935 : 1 .. '!scenes.tokens.delta!qHEA9cs0gpSeUiTn.YRREl0jveeK8rVIN.YRREl0jveeK8rVIN' @ 0 : 0; will stop at (end)
+2025/11/25-17:11:40.757 3608 Manual compaction at level-1 from '!scenes!qHEA9cs0gpSeUiTn' @ 72057594037927935 : 1 .. '!scenes.tokens.delta!qHEA9cs0gpSeUiTn.YRREl0jveeK8rVIN.YRREl0jveeK8rVIN' @ 0 : 0; will stop at (end)
