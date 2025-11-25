@@ -52,7 +52,7 @@ export class StatsSelectDialog extends Dialog {
         pointsMax:60,
         added : 50
       }
-      const html = await renderTemplate(destination,data);
+      const html = await foundry.applications.handlebars.renderTemplate(destination,data);
       
       return new Promise(resolve => {
         const dlg = new StatsSelectDialog(

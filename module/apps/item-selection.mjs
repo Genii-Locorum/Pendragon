@@ -84,7 +84,7 @@ export class ItemsSelectDialog extends Dialog {
         added : 0,
         cap: cap
       }
-      const html = await renderTemplate(destination,data);
+      const html = await foundry.applications.handlebars.renderTemplate(destination,data);
       
       return new Promise(resolve => {
         const dlg = new ItemsSelectDialog(

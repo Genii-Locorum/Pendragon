@@ -6,13 +6,14 @@ import { addPIDSheetHeaderButton } from '../../pid/pid-button.mjs'
 import { PENactorItemDrop } from '../actor-itemDrop.mjs';
 import { PENUtilities } from "../../apps/utilities.mjs";
 import { PendragonStatusEffects } from "../../apps/status-effects.mjs";
+import { PENSelectLists } from "../../apps/select-lists.mjs";
 
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class PendragonCharacterSheet extends ActorSheet {
+export class PendragonCharacterSheet extends foundry.appv1.sheets.ActorSheet {
 
   //Add PID buttons to sheet
   _getHeaderButtons () {
@@ -65,9 +66,10 @@ export class PendragonCharacterSheet extends ActorSheet {
     context.isCreation = game.settings.get('Pendragon' , 'creation')
     context.useRelation = game.settings.get('Pendragon' , 'useRelation')
     context.statTotal = actorData.system.statTotal    
+    context.battlePosType = await PENSelectLists.getBattlePos();
     context.solLabel = game.i18n.localize('PEN.'+actorData.system.sol)
     context.sizLabel = game.i18n.localize('PEN.sizInc.'+actorData.system.stats.siz.growth)
-    context.enrichedBackgroundValue = await TextEditor.enrichHTML(
+    context.enrichedBackgroundValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       context.system.background,
       {
         async: true,

@@ -1,9 +1,10 @@
 import { PENWinter } from "../apps/winterPhase.mjs"
 import { PENCharCreate } from "../apps/charCreate.mjs";
 import { PENRollType } from "../cards/rollType.mjs";
+import { PendragonBattleSheet } from "../actor/sheets/battle.mjs";
 
 
-export class PENLayer extends InteractionLayer {
+export class PENLayer extends foundry.canvas.layers.InteractionLayer {
 
   constructor () {
     super()
@@ -90,66 +91,19 @@ export class PENLayer extends InteractionLayer {
             if ( active ) await PENRollType._onGMRoll(event)
           },
         },
+        resetEnc: {
+          name: "resetEnc",
+          order: 5,
+          icon: "fas fa-flag-pennant",
+          title: 'PEN.resetEnc',
+          button: true,
+          visible: true,
+          onChange: async (event, active) => {
+            if ( active ) await PendragonBattleSheet.resetEnc(event)
+          },
+        },                   
       }
     };
   }
 }
-
-// used for V12 registration
-export class PENMenu {
-  static getButtons (controls) {
-    canvas.pengmtools = new PENLayer()
-    const isGM = game.user.isGM
-    controls.push({
-      icon: "fas fa-tools",
-      layer: "pengmtools",
-      name: "pendragonmenu",
-      title: game.i18n.localize('PEN.GMTools'),
-      visible: isGM,
-      tools: [
-        {
-          name: "Session",
-          icon: "fas fa-snowflake",
-          title:  game.i18n.localize('PEN.winterPhase'),
-          active: game.settings.get('Pendragon','winter'),
-          toggle: true,
-          visible: true,
-          onClick: async toggle => {await PENWinter.winterPhase(toggle)}
-        },
-        {
-          name: "Development",
-          icon: "fas fa-helmet-battle",
-          title:  game.i18n.localize('PEN.developmentPhase'),
-          active: game.settings.get('Pendragon','development'),
-          toggle: true,
-          onClick: async toggle => await PENWinter.developmentPhase(toggle)
-        },
-        {
-          name: "Creation",
-          icon: "fas fa-wand-magic-sparkles",
-          title:  game.i18n.localize('PEN.creation'),
-          active: game.settings.get('Pendragon','creation'),
-          toggle: true,
-          onClick: async toggle => await PENCharCreate.creationPhase(toggle)
-        },
-        {
-          name: "GMRoll",
-          icon: "fas fa-dice-d20",
-          title: game.i18n.localize('PEN.gmRoll'),
-          button: true,
-          visible: true,
-          onClick: async (event) => await PENRollType._onGMRoll(event)
-        }
-      ]
-    })
-  }
-
-  static renderControls (app, html, data) {
-    const gmMenu = html.find('.fas-fa-tools').parent();
-    gmMenu.addClass('pendragon-menu');
-  }
-
-}
-
-
 

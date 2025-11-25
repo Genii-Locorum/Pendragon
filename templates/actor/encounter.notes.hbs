@@ -1,0 +1,14 @@
+<section class="enc-notes-section {{#unless displayNotes }}hide-enc-notes{{/unless}}">
+  {{!Notes Section}}
+  <div class="bold" style="margin: 10px 0px 0px 10px;">{{localize 'PEN.notes'}}</div>
+  <div class="enc-notes" style="margin: 10px 0px 0px 10px;">
+    {{#if editable}}
+      <prose-mirror name="system.notes" data-document-u-u-i-d="{{actor.uuid}}" value="{{system.notes}}"
+        collaborate="true" toggled="true">
+        {{{enrichedNotes}}}
+      </prose-mirror>
+    {{else}}
+      {{{enrichedNotes}}}
+    {{/if}}
+  </div>
+</section>

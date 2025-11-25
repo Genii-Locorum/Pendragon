@@ -79,8 +79,14 @@
         <div class="npc-name left bold rollable move" data-property="move">{{localize 'PEN.move'}}</div>
         <div class="npc-name centre">{{system.manMove}}</div>
         <div></div>
+        <div class="npc-name left bold">{{localize 'PEN.ransom'}}</div>
+        <div class="npc-name centre">{{system.ransom}}</div>
+
         <div class="npc-name left bold rollable move" data-property="altmove">{{system.altMoveTitle}}</div>
         <div class="npc-name centre">{{system.altMove}}</div>
+        <div></div>
+        <div class="npc-name left bold">{{localize 'PEN.knightVal'}}</div>
+        <div class="npc-name centre">{{system.kv}}</div>
 
       {{else}}
   
@@ -117,8 +123,14 @@
         <div class="npc-name left bold rollable move">{{localize 'PEN.move'}}</div>
         <div class="npc-name-input centre"><input name="system.manMove" type="text" value="{{system.manMove}}" data-dtype="Number"/></div>
         <div></div>
+        <div class="npc-name left bold">{{localize 'PEN.ransom'}}</div>
+        <div class="npc-name-input centre"><input name="system.ransom" type="text" value="{{system.ransom}}"/></div>
+
         <div class="npc-name-input left bold"><input name="system.altMoveTitle" type="text" value="{{system.altMoveTitle}}"/></div>
         <div class="npc-name-input centre"><input name="system.altMove" type="text" value="{{system.altMove}}" data-dtype="Number"/></div>
+        <div></div>
+        <div class="npc-name left bold">{{localize 'PEN.knightVal'}}</div>
+        <div class="npc-name-input centre"><input name="system.kv" type="text" value="{{system.kv}}"/></div>        
 
       {{/if}}
     </section>

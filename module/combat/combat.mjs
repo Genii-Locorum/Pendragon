@@ -99,7 +99,7 @@ export class PendragonCombat extends Combat {
     // Prepare chat data
       const chatData = foundry.utils.mergeObject({
         author: game.user.id,
-        content: await renderTemplate('systems/Pendragon/templates/chat/feast-seating.hbs', {chatCard: [rolldata]}),
+        content: await foundry.applications.handlebars.renderTemplate('systems/Pendragon/templates/chat/feast-seating.hbs', {chatCard: [rolldata]}),
         // Play 1 sound for the whole rolled set
         sound: i == 0 ? CONFIG.sounds.dice : null
       }, messageData);

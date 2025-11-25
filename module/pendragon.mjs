@@ -7,14 +7,14 @@ import { PENDRAGON } from "./setup/config.mjs";
 import { handlebarsHelper } from "./setup/handlebar-helper.mjs";
 import { PendragonHooks } from "./hooks/index.mjs";
 import { registerSettings } from "./setup/register-settings.mjs";
-import { PENMenu, PENLayer } from "./setup/layers.mjs";
+//import { PENMenu, PENLayer } from "./setup/layers.mjs";
+import { PENLayer } from "./setup/layers.mjs";
 import { PENSystemSocket } from "./apps/socket.mjs";
 import * as Chat from "./apps/chat.mjs";
 import { PENTooltips } from "./apps/tooltips.mjs";
 import { PENRollType } from "./cards/rollType.mjs";
 import { migrateWorld } from "./setup/migrations.mjs";
 import { PendragonCombatTracker } from "./apps/combat-tracker.mjs";
-import { PendragonCombatTrackerV12 } from "./apps/combat-tracker-v12.mjs";
 import { PendragonStatusEffects } from "./apps/status-effects.mjs";
 import { PIDEditor } from "./pid/pid-editor.mjs";
 import drawNote from "./hooks/draw-note.mjs";
@@ -41,7 +41,7 @@ Hooks.once("init", async function () {
   };
   //Add skill categories
   game.Pendragon.skillCategories = ["combat", "courtly", "minsterly", "knightly", "nonknightly", "ladies", "woodcraft"]
-  const V13 = game.release.generation >= 13;
+
 
   // Add custom constants for configuration.
   CONFIG.PENDRAGON = PENDRAGON;
@@ -57,31 +57,11 @@ Hooks.once("init", async function () {
   CONFIG.Combatant.documentClass = PendragonCombatant;
 
   CONFIG.statusEffects = PendragonStatusEffects.allStatusEffects;
-
-  if (V13) {
-    CONFIG.ui.combat = PendragonCombatTracker;
-    CONFIG.Canvas.layers.pendragonmenu = { group: 'interface', layerClass: PENLayer };
-    // hides the dummy menu item
-    Hooks.on("renderSceneControls", PENLayer.renderControls);
-    game.Pendragon.ui = { calendar: new PendragonCalendarWidget() };
-  } else {
-    CONFIG.ui.combat = PendragonCombatTrackerV12;
-    // v12 Add GM Tool Layer
-    Hooks.on("getSceneControlButtons", PENMenu.getButtons);
-    Hooks.on("renderSceneControls", PENMenu.renderControls);
-    //v12 Add Chat Log Hooks
-    Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
-    //Remove certain Items types from the list of options to create under the items menu
-    Hooks.on("renderDialog", (dialog, html) => {
-      let deprecatedTypes = ["wound", "squire", "family", "relationship"];
-      Array.from(html.find("#document-create option")).forEach((i) => {
-        if (deprecatedTypes.includes(i.value)) {
-          i.remove();
-        }
-      });
-    });
-    Hooks.on("renderRegionBehaviorConfig", RenderRegionBehaviorConfig);
-  }
+  CONFIG.ui.combat = PendragonCombatTracker;
+  CONFIG.Canvas.layers.pendragonmenu = { group: 'interface', layerClass: PENLayer };
+  // hides the dummy menu item
+  Hooks.on("renderSceneControls", PENLayer.renderControls);
+  game.Pendragon.ui = { calendar: new PendragonCalendarWidget() };
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();

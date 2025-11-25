@@ -33,7 +33,7 @@ export class PendragonActor extends Actor {
     this._prepareCommonData(actorData);
     this._prepareCharacterData(actorData);
     this._prepareNpcData(actorData);
-
+    this._prepareEncounterData(actorData);
   }
 
   // Prepare Character type specific data
@@ -249,7 +249,7 @@ export class PendragonActor extends Actor {
     systemData.hp.value = systemData.hp.max - systemData.totalWounds - systemData.aggravDam - systemData.deterDam;
     systemData.hp.unconscious = Math.round(systemData.hp.max/4);
     systemData.tap = Math.min(100,systemData.passion) + Math.min(100,systemData.trait)
-    systemData.passive = Number(systemData.tap) + Number(systemData.appeal) + Number(systemData.passglory.ideals) + Number(systemData.passglory.estate) + Number(systemData.passglory.other) + Number(systemData.solVal) + Number(systemData.obese)
+    systemData.passive = Number(systemData.tap) + Number(systemData.appeal) + Number(systemData.passglory.ideals) + Number(systemData.passglory.estate) + Number(systemData.passglory.other) + Number(systemData.solVal) + Number(systemData.obese) + Number(systemData.passglory.inyear)
 
     // If hp <=0 we probably should do something
     // code used to set DYING/DEBILITATED/UNCONSCIOUS etc here but creating effects during prepare can end up with duplicates or cycles
@@ -261,8 +261,9 @@ export class PendragonActor extends Actor {
       this.removeStatus(PendragonStatusEffects.DEBILITATED);
       systemData.status.chirurgery = false;
     }
-    //Check to see if Actor is in a visible party and if so re-render the party sheet
+    //Check to see if Actor is in a visible party or battle and if so re-render the party/battle sheet
     await this._updateParty(actorData)
+    await this._updateBattle(actorData)    
 
 
   }
@@ -281,6 +282,12 @@ export class PendragonActor extends Actor {
         i.system.total =i.system.value
       }
     }
+  }
+
+  //Prepare Encounter Dats
+  _prepareEncounterData(actorData) {
+    if (!['encounter'].includes(actorData.type)) return;    
+    this._updateBattle(actorData)      
   }
 
   // Prepare Common type specific data.
@@ -416,7 +423,6 @@ export class PendragonActor extends Actor {
 
   /** @override */
   static async create (data, options = {}) {
-
     //If dropping from compendium check to see if the actor already exists in game.actors and if it does then get the game.actors details rather than create a copy
     if (options.fromCompendium) {
       let tempActor = await (game.actors.filter(actr => actr.flags?.Pendragon?.pidFlag?.id === data.flags?.Pendragon?.pidFlag?.id))[0]
@@ -442,7 +448,7 @@ export class PendragonActor extends Actor {
       },data.prototypeToken || {})
     } else if (data.type === 'npc') {
       data.prototypeToken = foundry.utils.mergeObject( {
-        actorLink: true,
+        actorLink: false,
         disposition: 0,
         displayName: CONST.TOKEN_DISPLAY_MODES.ALWAYS,
         displayBars: CONST.TOKEN_DISPLAY_MODES.ALWAYS,
@@ -491,6 +497,22 @@ export class PendragonActor extends Actor {
       })
       data.ownership = foundry.utils.mergeObject({
         default: 2
+      })
+    } else if (data.type === 'encounter') {
+      data.img = "systems/Pendragon/assets/Icons/rally-the-troops.svg"      
+      data.prototypeToken = foundry.utils.mergeObject({
+        actorLink: true,
+        detectionModes: [{
+          enabled: false
+        }]
+      })
+    } else if (data.type === 'battle') {
+      data.img = "systems/Pendragon/assets/Icons/swords-emblem.svg"      
+      data.prototypeToken = foundry.utils.mergeObject({
+        actorLink: true,
+        detectionModes: [{
+          enabled: false
+        }]
       })
     }
 
@@ -576,6 +598,29 @@ export class PendragonActor extends Actor {
         if (update) {
           await party.render()
         }
+      }
+    }
+  }
+
+  //Rerender Battle Sheet if actor is in it
+  async _updateBattle(actorData) {
+    let parties = await game.actors.filter(actr=>actr.type==='battle')
+    if (parties.length === 0) return
+    for (let party of parties) {
+      if (!party.sheet.rendered) continue  
+      let update = false
+      for (let member of party.system.encounters) {
+        if (member.pid === actorData.flags.Pendragon?.pidFlag?.id) {
+          update = true
+        }
+      }
+      for (let member of party.system.knights) {
+        if (member.pid === actorData.flags.Pendragon?.pidFlag?.id) {
+          update = true
+        }
+      }      
+      if (update) {
+        await party.render()
       }
     }
   }

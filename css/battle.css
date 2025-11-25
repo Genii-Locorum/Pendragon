@@ -1,0 +1,236 @@
+.Pendragon.battle {
+
+  overflow: visible;
+  font-family: "Messiri";
+
+  & .window-content {
+    background-color: var(--background-color);
+    background-image: none;
+    background-size: auto;
+  }
+
+  .enc-title {
+    font-size: 1.5em; 
+    input {
+      max-height: 30px;
+      color: black;
+      text-align: center;
+      border: none;
+      box-shadow: none;
+      background-color: transparent;
+    }
+  }
+
+  .enc-back {
+    height: 133px;
+    padding-top: 5px;
+    color: black;
+    text-align: center;
+  }
+
+  .encBack {
+    background-color: var(--pendragon-gold);    
+  }
+  
+  .enc-main-sheet {
+   min-height: 410px;
+
+  }
+
+  .battle-enc {
+   min-height: 270px;
+   max-height: 270px;
+   overflow-y: auto;
+   scrollbar-width: thin;   
+  }
+
+  .enc-shortDesc {
+    padding: 0 0.5rem;
+  }
+
+  img.encline {
+    content: url("../assets/Sidebar Bottom Border Blue.webp");
+    background-size:contain; 
+    padding: 0;
+    border: none;
+  }
+
+  textarea.enc-shortDesc {
+    min-height: 96px;
+    width: 100%;
+    color: black;
+    text-align: center;
+    border: none;
+    padding: 0 0.5rem;
+    font-family: "Messiri";
+    font-size: 16px;
+    box-shadow: none;
+  }
+
+  .enc-notes-icon {
+    display: block;
+    position: absolute;
+    left: 13px;
+    top: 63px;
+    font-size: 1rem;
+  }
+
+  .enc-lock-icon {
+    display: block;
+    position: absolute;
+    right: 12px;
+    top: 63px;
+    font-size: 1rem;
+  }  
+
+  .enc-clear-icon {
+    display: block;
+    position: absolute;
+    right: 12px;
+    top: 170px;
+    font-size: 1rem;
+  } 
+  
+  .enc-res-icon {
+    display: block;
+    position: absolute;
+    left: 13px;
+    top: 170px;
+    font-size: 1rem;
+  } 
+
+  .enc-combat-icon {
+    display: block;
+    position: absolute;
+    left: 192px;
+    top: 170px;
+    font-size: 1rem;
+  } 
+
+  .battle-turn {
+    display: grid;
+    grid-template-columns: 125px auto 125px;
+    padding-top: 8px;
+    min-height: 86px
+  }
+
+  .battle-turn-grid {
+    display: grid;
+    grid-template-columns: 25px 30px 22px 30px 25px;
+  }
+
+  .battle-notes-section {
+    position: absolute;
+    min-width: 355px;
+    min-height: 674px;
+    border: 1px solid var(--pendragon-black);
+    color: var(--pendragon-black);
+    top: 35px;
+    left: -355px;
+    background-color: var(--notes-background);  
+    color: black;       
+  }  
+
+  .battle-turns {
+    display: grid;
+    grid-template-columns: 100px 85px 100px 85px;
+    column-gap: 4px;
+    padding-top: 5px;
+    height: 65px;
+    color: var(--pendragon-black);
+  }
+
+  .enc-display {
+    height: 1.2em;
+    border: 1px transparent solid;
+    font-weight: bold;
+  }
+
+  .black {
+    color: var(--pendragon-black);
+  }
+
+  .enc-input input{
+    height: 1.2em;
+    padding-top: 3px;
+    font-weight: bold;
+  }
+  
+  .enc-select {
+    height: 1.3em;
+    border: 1px transparent solid;
+    font-weight: bold;
+  }
+
+  .enc-select select {
+    height: 1.3em;
+    padding: 0px;
+    font-weight: bold;
+  }
+
+  .partic-grid {
+    display: grid;
+    grid-template-columns: 320px 30px;
+    column-gap: 6px;
+    max-height: 16px;
+    margin: 0px;
+  }
+
+  .partic-cell {
+    height: 16px;
+    padding-left: 10px;
+    color: var(--pendragon-black); 
+    }
+
+  .enc-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;    
+  }
+
+  ol.enc-list li:nth-child(odd){
+    background-color: var(--pd-dark-row);
+  }
+
+  ol.enc-list li:nth-child(even){
+    background-color: var(--pd-light-row);
+  }
+
+  .knights-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 60px);
+    column-gap: 4px;
+    min-height: 80px;
+  }
+
+  .knight-stat {
+    display: grid;
+    grid-template-columns: 30px 30px;
+    color: var(--pendragon-black);
+    margin-top: 1px;
+  }
+
+  .knight-item {
+    border: 1px solid var(--pendragon-black);
+  }
+
+
+  .battle-notes .prosemirror,
+  .battle-notes prose-mirror {
+    min-height: 623px;
+    height: 100%;
+    width: 335px;
+    color: black;
+  }
+
+  .battle-notes .prosemirror .editor-content,
+  .battle-notes prose-mirror .editor-content {
+    max-height: 620px;
+  }
+
+  .lowMorale {
+    color: var(--pendragon-darkred);
+    font-style: italic;
+  }
+
+}  

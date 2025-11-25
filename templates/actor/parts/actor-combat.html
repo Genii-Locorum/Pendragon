@@ -7,6 +7,12 @@
       <div class="stat-name centre">{{system.hp.majorWnd}}</div>
       <div class="stat-name left bold">{{localize 'PEN.unconscious'}}</div>
       <div class="stat-name centre">{{system.hp.unconscious}}</div>
+      <div class="stat-name left bold">{{localize 'PEN.battlePosture'}}</div>
+        <div class="stat-name">
+        <select class="centre" style="background-color: lightgrey;" data-handle-change name="system.battlePos">
+          {{selectOptions battlePosType selected=system.battlePos}}
+        </select>
+        </div>        
     </div>
     <br>
 

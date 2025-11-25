@@ -608,7 +608,7 @@ export class PENCheck {
       reflex: options.reflex,
       flatMod: options.flatMod,
     };
-    const html = await renderTemplate(options.dialogTemplate, data);
+    const html = await foundry.applications.handlebars.renderTemplate(options.dialogTemplate, data);
     return new Promise((resolve) => {
       let formData = null;
       const dlg = new Dialog(
@@ -697,7 +697,7 @@ export class PENCheck {
 
   // Prep the chat card
   static async startChat(chatMsgData) {
-    let html = await renderTemplate(chatMsgData.chatTemplate, chatMsgData);
+    let html = await foundry.applications.handlebars.renderTemplate(chatMsgData.chatTemplate, chatMsgData);
     return html;
   }
 

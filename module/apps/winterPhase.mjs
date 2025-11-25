@@ -27,7 +27,8 @@ export class PENWinter {
             'system.status.squireAge': false,
             'system.status.horseSurv': false,
             'system.status.familyRoll': false,
-            'system.status.xp': false
+            'system.status.xp': false,
+            'system.passglory.inyear': 0
           });
         }
         let squires = await actr.items.filter(itm => itm.type === 'squire').map(itm => { return { _id: itm.id, 'system.age': itm.system.age + 1 } })
@@ -42,6 +43,7 @@ export class PENWinter {
       game.Pendragon.ui?.calendar.updateDate();
 
       ui.notifications.warn(game.i18n.localize('PEN.winterPhaseEnd'))
+      return
     }
 
     //If Winter Phase toggled on
@@ -177,7 +179,7 @@ export class PENWinter {
       success: success
     }
     const messageTemplate = 'systems/Pendragon/templates/chat/XP-result.hbs'
-    let html = await renderTemplate(messageTemplate, messageData);
+    let html = await foundry.applications.handlebars.renderTemplate(messageTemplate, messageData);
 
     return html;
 
@@ -550,7 +552,7 @@ export class PENWinter {
       solType: standardList,
       selectType: this.actor.system.sol
     }
-    let html = await renderTemplate('systems/Pendragon/templates/dialog/economicOptions.html', messageData);
+    let html = await foundry.applications.handlebars.renderTemplate('systems/Pendragon/templates/dialog/economicOptions.html', messageData);
     let usage = await new Promise(resolve => {
       let formData = null
       const dlg = new Dialog({
@@ -801,7 +803,7 @@ export class PENWinter {
       decLabel: decLabel
     }
     const messageTemplate = 'systems/Pendragon/templates/chat/aging.html'
-    let html = await renderTemplate(messageTemplate, messageData);
+    let html = await foundry.applications.handlebars.renderTemplate(messageTemplate, messageData);
     return html;
   }
 
@@ -912,7 +914,7 @@ export class PENWinter {
       leavers: leavers,
     }
     const messageTemplate = 'systems/Pendragon/templates/chat/houseLeave.html'
-    let html = await renderTemplate(messageTemplate, messageData);
+    let html = await foundry.applications.handlebars.renderTemplate(messageTemplate, messageData);
     return html;
   }
 
@@ -923,7 +925,7 @@ export class PENWinter {
       squires: squires,
     }
     const messageTemplate = 'systems/Pendragon/templates/chat/squireImprove.html'
-    let html = await renderTemplate(messageTemplate, messageData);
+    let html = await foundry.applications.handlebars.renderTemplate(messageTemplate, messageData);
     return html;
   }
 
@@ -1059,7 +1061,7 @@ export class PENWinter {
       horses: horses,
     }
     const messageTemplate = 'systems/Pendragon/templates/chat/horseSurvival.html'
-    let html = await renderTemplate(messageTemplate, messageData);
+    let html = await foundry.applications.handlebars.renderTemplate(messageTemplate, messageData);
     return html;
   }
 
@@ -1545,7 +1547,7 @@ export class PENWinter {
       statLoss
     }
     const messageTemplate = 'systems/Pendragon/templates/chat/childBirth.html'
-    let html = await renderTemplate(messageTemplate, messageData);
+    let html = await foundry.applications.handlebars.renderTemplate(messageTemplate, messageData);
     return html;
   }
 
@@ -1558,7 +1560,7 @@ export class PENWinter {
       children: children,
     }
     const messageTemplate = 'systems/Pendragon/templates/chat/childSurvival.html'
-    let html = await renderTemplate(messageTemplate, messageData);
+    let html = await foundry.applications.handlebars.renderTemplate(messageTemplate, messageData);
     return html;
   }
 
@@ -1571,7 +1573,7 @@ export class PENWinter {
       decision,
       solType
     }
-    const html = await renderTemplate(destination, data);
+    const html = await foundry.applications.handlebars.renderTemplate(destination, data);
     let usage = await new Promise(resolve => {
       let formData = null
       const dlg = new Dialog({

@@ -286,7 +286,7 @@ export class PENRollType {
   //Function to call the GM Roll Dialog box
   static async GMRollDialog(options) {
     const data = {};
-    const html = await renderTemplate(
+    const html = await foundry.applications.handlebars.renderTemplate(
       "systems/Pendragon/templates/dialog/gmRollOptions.html",
       data,
     );

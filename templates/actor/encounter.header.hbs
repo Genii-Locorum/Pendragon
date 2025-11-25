@@ -1,0 +1,81 @@
+<header class='encounter'>
+  <section class="main-sheet">
+    <div class="enc-main-sheet">
+      <img class="img-centre encline">
+      <div class="enc-back {{#if actor.system.opportunity}}oppBack{{else}}encBack{{/if}}">
+        {{#if isLocked}}
+          <div class="enc-title {{#if actor.system.used}}strikethrough{{/if}}">{{actor.name}}
+        {{else}}
+          <div class="enc-title {{#if actor.system.opportunity}}oppBack{{else}}encBack{{/if}}"><input class="{{#if actor.system.used}}strikethrough{{/if}}" name='name' type='text' value='{{actor.name}}' />
+        {{/if}}  
+        <a class="enc-notes-icon" title="{{ localize 'PEN.toggleNotes' }}" data-action="noteView"><i class="fas fa-scroll-old"></i></a>
+        <a class="enc-opp-icon" title="{{ localize 'PEN.toggleOpp' }}" data-action="toggleActor" data-property="opportunity"><i class="fas fa-certificate"></i></a>
+        <a class="enc-used-icon" title="{{ localize 'PEN.toggleUsed' }}" data-action="toggleActor" data-property="used"><i class="fas fa-swords"></i></a>        
+        <a class="enc-lock-icon" title="{{ localize 'PEN.lock' }}" data-action="toggleActor" data-property="lock">
+          {{#if isLocked}}
+            <i class="fas fa-lock"></i></a></div>
+          {{else}}
+            <i class="fas fa-lock-open"></i></a></div>
+          {{/if}}
+          {{#if isLocked}}
+            <div class="enc-shortDesc">{{actor.system.shortDesc}}</div>
+          {{else}}
+            <textarea class="enc-shortDesc {{#if actor.system.opportunity}}oppBack{{else}}encBack{{/if}}" name='system.shortDesc'>{{actor.system.shortDesc}}</textarea>
+          {{/if}}
+      </div>
+      <img class="img-centre encline">
+
+      <div class="morale-loss">
+        <div class="enc-display">{{localize 'PEN.moraleLoss'}}</div>
+        {{#if isLocked}}
+          <div class="enc-display" style="padding-left: 8px;">{{system.moraleLoss}}</div>
+        {{else}}
+          <div class="enc-input"><input name='system.moraleLoss' type='text' value='{{actor.system.moraleLoss}}' /></div>
+        {{/if}}  
+        <div class="enc-display" title="{{localize 'PEN.numOppHint'}}">{{localize 'PEN.numOpp'}}</div>
+        {{#if isLocked}}
+          <div class="enc-display" style="padding-left: 8px;">{{system.numOpp}}</div>
+        {{else}}
+          <div class="enc-input"><input name='system.numOpp' type='number' value='{{actor.system.numOpp}}' /></div>
+        {{/if}}  
+      </div>
+
+      <div class="partic-grid">
+        {{#each npcs as |npc id|}}
+          <div class="partic-cell" data-property={{npc.uuid}} data-pid={{npc.pid}} data-index="{{@index}}">
+            <div class="bold darkred truncate" data-tooltip="{{npc.name}}">{{npc.name}}</div>
+            {{#if npc.actr}}
+              <div><span class="bold">Knight Value: </span><span>{{npc.actr.system.kv}}</span></div>
+              <div><span class="bold">Glory: </span><span>{{npc.actr.system.gloryAward}}</span></div>
+              <div><span class="bold">Hit Points: </span><span>{{npc.actr.system.hp.max}}</span></div>
+            {{/if}}
+              <div class="partic-cell-icons">
+                {{#if npc.actr}}  
+                  <div class="centre" data-tooltip="{{localize 'PEN.view'}}"><a data-action="viewNPC"><i class="fas fa-eye"></i></a></div>
+                  <div class="rollable centre" data-action="addToken" data-count = 1 data-tooltip="{{ localize 'PEN.createTokens' }}">+1</div>
+                  <div class="rollable centre" data-action="addToken" data-count = 3 data-tooltip="{{ localize 'PEN.createTokens' }}">+3</div>
+                  <div class="rollable centre" data-action="addToken" data-count = 5 data-tooltip="{{ localize 'PEN.createTokens' }}">+5</div>
+                {{/if}}
+                {{#unless ../isLocked}}
+                  <div class="centre" data-tooltip="{{localize 'PEN.deleteNPC'}}"><a data-action="deleteNPC"><i class="fas fa-broom"></i></a></div>
+                {{/unless}}
+              </div>
+              <div></div>
+          </div>  
+        {{/each}}
+      </div>
+    </div>
+    <div class="morale-min">
+      <img class="morale-img" src= "systems/Pendragon/assets/curled_dragon.webp" width="125"/>
+      <div class="darkred bold">
+        <div class="centre" style="padding-top: 19px;" >{{localize 'PEN.moraleMin'}}</div>
+        {{#if isLocked}}
+          <div class="enc-display darkred centre">{{system.moraleMin}}</div>
+        {{else}}
+          <div class="enc-input"><input class="centre darkred" name='system.moraleMin' type='text' value='{{actor.system.moraleMin}}' /></div>
+        {{/if}}          
+      </div>
+      <img class="morale-img img-flip" style="transform: scaleX(-1);" src= "systems/Pendragon/assets/curled_dragon.webp" width="125"/>
+    </div>
+  </section>
+</header>

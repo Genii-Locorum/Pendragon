@@ -42,7 +42,7 @@ export class WinterSelectDialog extends Dialog {
         amount: amount,
         added: 0
       }
-      const html = await renderTemplate(
+      const html = await foundry.applications.handlebars.renderTemplate(
         'systems/Pendragon/templates/dialog/winterOptions.html',
         data
       )       

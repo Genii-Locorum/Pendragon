@@ -1,0 +1,142 @@
+<header class='battle'>
+  <section class="main-sheet">
+    <div class="enc-main-sheet">
+      <img class="img-centre encline">
+      <div class="enc-back {{#if actor.system.opportunity}}oppBack{{else}}encBack{{/if}}">
+        {{#if isLocked}}
+          <div class="enc-title">{{actor.name}}
+        {{else}}
+          <div class="enc-title"><input name='name' type='text' value='{{actor.name}}' />
+        {{/if}}  
+        {{#if isGM}}
+          <a class="enc-notes-icon" title="{{ localize 'PEN.toggleNotes' }}" data-action="noteView"><i class="fas fa-scroll-old"></i></a>  
+          <a class="enc-res-icon" title="{{ localize 'PEN.resetPosture' }}" data-action="resetPosture"><i class="fas fa-horse-saddle"></i></a>         
+          <a class="enc-clear-icon" title="{{ localize 'PEN.clearBattleField' }}" data-action="clearBattle"><i class="fas fa-person-walking-arrow-right"></i></a>      
+          <a class="enc-combat-icon" title="{{ localize 'PEN.addToCombat' }}" data-action="addTokensCombat"><i class="fas fa-swords"></i></a>                                      
+          <a class="enc-lock-icon" title="{{ localize 'PEN.lock' }}" data-action="toggleActor" data-property="lock">
+            {{#if isLocked}}
+              <i class="fas fa-lock"></i></a></div>
+            {{else}}
+              <i class="fas fa-lock-open"></i></a></div>
+            {{/if}}
+        {{else}}    
+          </div>
+        {{/if}}    
+      {{#if isLocked}}
+        <div class="enc-shortDesc">{{actor.system.shortDesc}}</div>
+      {{else}}
+        <textarea class="enc-shortDesc {{#if actor.system.opportunity}}oppBack{{else}}encBack{{/if}}" name='system.shortDesc'>{{actor.system.shortDesc}}</textarea>
+      {{/if}}
+    </div>
+    <img class="img-centre encline">
+
+    <div class="battle-turns">
+      {{#if isGM}}
+        <div class="enc-display rollable" data-tooltip="{{localize 'PEN.intensityHint'}}" data-action="gmRoll" data-property="intensity">{{localize 'PEN.intensity'}}</div>
+        <div class="enc-input"><input class="centre" name='system.intensity' type='number' value='{{actor.system.intensity}}' /></div>    
+        <div class="enc-display rollable" data-tooltip="{{localize 'PEN.battleScoreHint'}}" data-action="gmRoll" data-property="battle">{{localize 'PEN.battleScore'}}</div>    
+        {{#if isLocked}}
+          <div class="enc-display centre">{{system.battleScore}}</div>
+        {{else}}
+          <div class="enc-input"><input class="centre" name='system.battleScore' type='number' value='{{actor.system.battleScore}}' /></div>
+        {{/if}}
+        <div class="enc-display">{{localize 'PEN.currMorale'}}</div>              
+        <div class="enc-input"><input class="centre" name='system.currMorale' type='number' value='{{actor.system.currMorale}}' /></div>    
+        <div class="enc-display">{{localize 'PEN.maxMorale'}}</div>      
+        {{#if isLocked}}
+        <div class="enc-display centre">{{system.maxMorale}}</div>    
+        {{else}}        
+          <div class="enc-input"><input class="centre" name='system.maxMorale' type='number' value='{{actor.system.maxMorale}}' /></div>     
+        {{/if}}
+      {{else}}
+        <div class="enc-display">{{localize 'PEN.intensity'}}</div>
+        <div class="enc-display centre">{{system.intensity}}</div>
+        <div class="enc-display" title="{{localize 'PEN.battleScoreHint'}}">{{localize 'PEN.battleScore'}}</div>
+        <div class="enc-display centre">{{system.battleScore}}</div>
+        <div class="enc-display">{{localize 'PEN.currMorale'}}</div>      
+        <div class="enc-display centre">{{system.currMorale}}</div>
+        <div class="enc-display">{{localize 'PEN.maxMorale'}}</div>      
+        <div class="enc-display centre">{{system.maxMorale}}</div>    
+      {{/if}}    
+      <div class="enc-select">{{localize 'PEN.position'}}</div>              
+      <div class="enc-select" style="grid-column: 2 / span 3">
+        <select class="centre" data-handle-change name="system.fieldPos">
+          {{selectOptions fieldPosType selected=system.fieldPos}}
+        </select>          
+      </div>  
+    </div>
+
+    <ol class="enc-list">
+      <div class="battle-enc">
+        <div class="enc-display black bold" style="margin-top: 8px;">{{localize 'PEN.encounters'}}</div>
+          {{#each encounters as |enc id|}}
+            <li class="partic-grid partic-item" data-property={{enc.uuid}} data-pid={{enc.pid}} data-coll="encounters" data-index="{{@index}}">
+              {{#if enc.actr.system.opportunity}}
+                <div class="partic-cell truncate {{#if enc.actr.system.used}}strikethrough{{/if}} {{#unless enc.morale}}lowMorale{{/unless}}" data-action="viewEnc" data-tooltip="{{enc.actr.system.shortDesc}}">{{enc.name}} [{{localize 'PEN.oppAbbr'}}]</div>
+              {{else}}
+                <div class="partic-cell truncate {{#if enc.actr.system.used}}strikethrough{{/if}} {{#unless enc.morale}}lowMorale{{/unless}}" data-action="viewEnc" data-tooltip="{{enc.actr.system.shortDesc}}">{{enc.name}}</div>
+              {{/if}}
+            {{#if ../isGM}}
+              {{#if ../isLocked}}
+                <div></div>
+              {{else}}  
+                <div class="partic-cellcentre" data-tooltip="{{localize 'PEN.deleteEnc'}}"><a data-action="deleteActr"><i class="fas fa-broom"></i></a></div>
+              {{/if}}
+            {{else}}
+              <div></div>
+            {{/if}}  
+            </li>
+          {{/each}}
+      </div>
+    </ol>
+
+  
+  <div class="knights-grid">
+    {{#each knights as |knight id|}}
+      <div class="knight-item partic-item"  data-property={{knight.uuid}} data-pid={{knight.pid}} data-coll="knights">
+        <img class="" data-action="viewKnight" data-tooltip="{{knight.name}}" src= {{knight.actr.img}} width="60"/>
+        <div class="knight-stat">
+          {{#if ../isGM}}
+            {{#unless ../isLocked}}
+              <div class="centre" data-tooltip="{{localize 'PEN.deleteKnight'}}"><a data-action="deleteActr"><i class="fas fa-broom"></i></a></div>
+            {{else}}  
+              <div></div>
+            {{/unless}}
+          {{else}}
+            <div></div>  
+          {{/if}}  
+          <div class="centre" data-tooltip="{{localize 'PEN.battlePosture'}}: {{knight.pos}}">{{knight.actr.system.battlePos}}</div>
+        </div>
+      </div>
+    {{/each}}  
+  </div>
+  </div>
+
+    <div class="battle-turn">
+      <img class="" src= "systems/Pendragon/assets/curled_dragon.webp" width="125"/>
+      <div class="darkred bold">
+        <div class="centre" style="padding-top: 19px;" >{{localize 'PEN.battleTurn'}}</div>
+        <div class="battle-turn-grid">
+          {{#if isGM}}
+            <div class="left"><a data-tooltip="{{ localize 'PEN.previousTurn' }}" data-action="battleTurn" data-property=-1><i class="fas fa-solid fa-left-long"></i></a></div>
+          {{else}}
+            <div></div>
+          {{/if}}  
+          {{#if isGM}}
+            <div class="enc-display darkred centre">{{system.currTurn}}</div>
+            <div class="enc-display centre">/</div>
+            <div class="enc-input"><input class="centre" name='system.maxTurns' type='number' value='{{actor.system.maxTurns}}' /></div> 
+          {{else}}
+            <div class="enc-display darkred centre" style="grid-column:2 / span 3">{{system.currTurn}}</div>
+          {{/if}}
+          {{#if isGM}}
+            <div class="right"><a data-tooltip="{{ localize 'PEN.nextTurn' }}" data-action="battleTurn" data-property=1><i class="fas fa-solid fa-right-long"></i></a></div>
+          {{else}}
+            <div></div>
+          {{/if}}            
+        </div>
+      </div>
+      <img class="morale-img img-flip" style="transform: scaleX(-1);" src= "systems/Pendragon/assets/curled_dragon.webp" width="125"/>
+    </div>
+  </section>
+</header>

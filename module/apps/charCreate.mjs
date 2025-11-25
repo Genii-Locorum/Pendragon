@@ -650,7 +650,6 @@ export class PENCharCreate {
 
   //Get Family Characteristic - step 11-------------------------------------------------------------
   static async step11(actor) {
-    const V13 = game.release.generation >= 13;
     let results=[]
     let table= (await game.system.api.pid.fromPIDBest({pid:'rt..family-characteristic'}))[0]
     let selected = ""
@@ -720,11 +719,11 @@ export class PENCharCreate {
       let res = table.results.toObject(false).filter (itm=>(itm._id === selected))[0]
       switch (res.type) {
         case CONST.TABLE_RESULT_TYPES.DOCUMENT:
-          rUUID = V13 ? res.documentUuid : `${res.documentCollection}.${res.documentId}`; 
+          rUUID = res.documentUuid; 
           fUUID.push(rUUID)
           break
         case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
-          rUUID = V13 ? res.documentUuid : `Compendium.${res.documentCollection}.Item.${res.documentId}`;
+          rUUID = res.documentUuid;
           fUUID.push(rUUID)
           break
         default:
@@ -923,7 +922,6 @@ export class PENCharCreate {
 
   //Luck Benefit - step 14-------------------------------------------------------------
   static async step14(actor) {
-    const V13 = game.release.generation >= 13;
     let data = {msg: game.i18n.localize('PEN.luckBenItem'),
                 title: game.i18n.localize("PEN.luckBen"),
                 button1: {label:game.i18n.localize("PEN.yes"),
@@ -941,10 +939,10 @@ export class PENCharCreate {
     let rUUID=""
     switch (res.type) {
     case CONST.TABLE_RESULT_TYPES.DOCUMENT:
-      rUUID = V13 ? res.documentUuid : `${res.documentCollection}.${res.documentId}`; ;
+      rUUID = res.documentUuid;
       break
     case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
-      rUUID = V13 ? res.documentUuid : `Compendium.${res.documentCollection}.Item.${res.documentId}`;;
+      rUUID = res.documentUuid;
       break
     default:
       ui.notifications.error(actor.name + ": " + game.i18n.format('PEN.notTableDoc',{name: game.i18n.localize('PEN.luckBen')}))
@@ -1045,7 +1043,7 @@ export class PENCharCreate {
     let data = {
       newList,
     }
-    const html = await renderTemplate(destination,data);
+    const html = await foundry.applications.handlebars.renderTemplate(destination,data);
     let usage = await new Promise(resolve => {
       let formData = null
       const dlg = new Dialog({
@@ -1096,7 +1094,7 @@ export class PENCharCreate {
     let data = {
       newList,
     }
-    const html = await renderTemplate(destination,data);
+    const html = await foundry.applications.handlebars.renderTemplate(destination,data);
     let usage = await new Promise(resolve => {
       let formData = null
       const dlg = new Dialog({
@@ -1139,7 +1137,7 @@ export class PENCharCreate {
     let data = {
       newList,
     }
-    const html = await renderTemplate(destination,data);
+    const html = await foundry.applications.handlebars.renderTemplate(destination,data);
     let usage = await new Promise(resolve => {
       let formData = null
       const dlg = new Dialog({
@@ -1238,15 +1236,14 @@ export class PENCharCreate {
   }
 
   static async documentReferencesExist(name, results) {
-    const V13 = game.release.generation >= 13;
     for (const res of results) {
       let rUUID="";
       switch (res.type) {
       case CONST.TABLE_RESULT_TYPES.DOCUMENT:
-        rUUID = V13 ? res.documentUuid : `${res.documentCollection}.${res.documentId}`;
+        rUUID = res.documentUuid;
         break;
       case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
-        rUUID = V13 ? res.documentUuid : `Compendium.${res.documentCollection}.Item.${res.documentId}`;
+        rUUID = res.documentUuid;
         break;
       case CONST.TABLE_RESULT_TYPES.TEXT:
         rUUID = "bypass"
@@ -1300,7 +1297,7 @@ export class PENCharCreate {
         headTitle: title,
         newList,
       }
-      const html = await renderTemplate(destination,data);
+      const html = await foundry.applications.handlebars.renderTemplate(destination,data);
       let usage = await new Promise(resolve => {
         let formData = null
         const dlg = new Dialog({
@@ -1335,7 +1332,7 @@ export class PENCharCreate {
   //
   static async familyDialog (options) {
     const data = {}
-    const html = await renderTemplate(options.dialogTemplate,data);
+    const html = await foundry.applications.handlebars.renderTemplate(options.dialogTemplate,data);
     return new Promise(resolve => {
       let formData = null
       const dlg = new Dialog({
@@ -1396,20 +1393,15 @@ export class PENCharCreate {
 
   //Family table roll
   static async makeTableRoll(table) {
-    const V13 = game.release.generation >= 13;
     let uuid = "";
     const tableResults = await PENUtilities.tableDiceRoll(table)
-    //const tableResults = await table.roll()
-    //if (game.modules.get('dice-so-nice')?.active) {
-    //  game.dice3d.showForRoll(tableResults.roll)
-    //}
     const res = tableResults.results[0]
     switch (res.type) {
     case CONST.TABLE_RESULT_TYPES.DOCUMENT:
-      uuid = V13 ? res.documentUuid : `${res.documentCollection}.${res.documentId}`;  
+      uuid =res.documentUuid;  
       return ({res:uuid, tableResults: tableResults}) ;
     case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
-      uuid = V13 ? res.documentUuid : `Compendium.${res.documentCollection}.Item.${res.documentId}`;
+      uuid = res.documentUuid;
       return ({res:uuid, tableResults: tableResults}) ;
     default:
       return ({res: res.text, tableResults: tableResults})
@@ -1780,7 +1772,7 @@ export class PENCharCreate {
       type: type
     }
       const messageTemplate = 'systems/Pendragon/templates/chat/charGenRoll.html'
-      let html = await renderTemplate (messageTemplate, messageData);
+      let html = await foundry.applications.handlebars.renderTemplate (messageTemplate, messageData);
 
      return html;
 
@@ -1963,13 +1955,12 @@ export class PENCharCreate {
   //Return a Document from a Roll Table result
   static async documentFromResult(res){
     let uuid = "";
-    const V13 = game.release.generation >= 13;
       switch (res.type) {
         case CONST.TABLE_RESULT_TYPES.DOCUMENT:
-          uuid = V13 ? res.documentUuid : `${res.documentCollection}.${res.documentId}`;  
+          uuid = res.documentUuid;  
           break
         case CONST.TABLE_RESULT_TYPES.COMPENDIUM:
-          uuid = V13 ? res.documentUuid : `Compendium.${res.documentCollection}.Item.${res.documentId}`;
+          uuid = res.documentUuid;
           break
         default:
           ui.notifications.error(actor.name + ": " + game.i18n.localize('PEN.notReligDoc'))

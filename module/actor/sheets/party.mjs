@@ -6,7 +6,7 @@ import { PENactorItemDrop } from '../actor-itemDrop.mjs';
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class PendragonPartySheet extends ActorSheet {
+export class PendragonPartySheet extends foundry.appv1.sheets.ActorSheet {
 
   //Add PID buttons to sheet
   _getHeaderButtons () {
@@ -53,7 +53,7 @@ export class PendragonPartySheet extends ActorSheet {
       let highScoreLabel = "";
       if (!member) {
         members.push ({
-          'name': "Invalid",
+          'name': game.i18n.localize('PEN.invalid'),
           'uuid': memberUuid.uuid,
           'image': "icons/svg/mystery-man.svg",
           'hpLabel': "0/0",

@@ -7,8 +7,6 @@
  */
 export default function (application, element, context, options) {
   const hideBackground = application.document.getFlag('Pendragon', 'hide-background') ?? false
-  // TODO Remove with v12 support
-  const html = (typeof element.querySelector === 'undefined' ? element[0] : element)
   const formGroup = html.querySelector('[name=texture\\.tint]').closest('div.form-group')
   const newGroup = document.createElement('div')
   newGroup.classList.add('form-group')

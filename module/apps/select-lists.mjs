@@ -167,4 +167,27 @@ export class PENSelectLists {
     };
     return options;
   } 
+
+  //Battle Posture
+  static getBattlePos () {
+    let options = {
+      "0" : game.i18n.localize('PEN.battlePos.0'),
+      "1" : game.i18n.localize('PEN.battlePos.1'),
+      "2": game.i18n.localize('PEN.battlePos.2'),
+      "3": game.i18n.localize('PEN.battlePos.3'),
+      "R": game.i18n.localize('PEN.battlePos.R')            
+    };
+    return options;
+  }   
+
+  //Field Position
+  static getFieldPos () {
+    let options = {
+      "0" : game.i18n.localize('PEN.fieldPos.0'),
+      "1" : game.i18n.localize('PEN.fieldPos.1'),
+      "2": game.i18n.localize('PEN.fieldPos.2'),
+      "3": game.i18n.localize('PEN.fieldPos.3'),      
+    };
+    return options;    
+  }
 }

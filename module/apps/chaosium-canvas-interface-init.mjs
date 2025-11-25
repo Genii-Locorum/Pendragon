@@ -34,8 +34,7 @@ export default class ChaosiumCanvasInterfaceInit extends ChaosiumCanvasInterface
 
     Object.assign(CONFIG.RegionBehavior.typeIcons, typeIcons)
 
-    // TODO Remove with v12 support
-    ;(foundry.applications.apps?.DocumentSheetConfig ?? DocumentSheetConfig).registerSheet(
+    foundry.applications.apps.DocumentSheetConfig.registerSheet(
       RegionBehavior,
       'Pendragon',
       foundry.applications.sheets.RegionBehaviorConfig,

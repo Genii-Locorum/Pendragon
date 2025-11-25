@@ -1,0 +1,100 @@
+<section class="enc-npc-section {{#if (eq showNPC 99) }}hide-enc-notes{{/if}}">
+  {{!Notes Section}}
+  {{#each npcs as |npc id|}}
+    {{#if (eq @index ../showNPC)}}
+      <div class="main-section">
+        <div class="npc-title">{{npc.name}}</div>
+
+        <div class="npc-stats">
+          <div class="bold brdrbottom brdrright">{{localize 'PENDRAGON.StatSizAbbr'}}</div>
+          <div class="bold brdrbottom brdrright">{{localize 'PENDRAGON.StatDexAbbr'}}</div>
+          <div class="bold brdrbottom brdrright">{{localize 'PENDRAGON.StatStrAbbr'}}</div>
+          <div class="bold brdrbottom">{{localize 'PENDRAGON.StatConAbbr'}}</div>
+          <div class="brdrright">{{npc.actr.system.stats.siz.total}}</div>
+          <div class="brdrright">{{npc.actr.system.stats.dex.total}}</div>
+          <div class="brdrright">{{npc.actr.system.stats.str.total}}</div>
+          <div>{{npc.actr.system.stats.con.total}}</div>
+        </div>                                          
+        <div class="attacks" style="padding-top: 8px;">{{localize 'PEN.attack'}}</div> 
+
+        <ol class="npc-wpn-list">  
+          <li class="npc-wpn">
+            <div class="new-row pad-left">{{localize 'PEN.weapon'}}</div>          
+            <div class="centre">{{localize 'PEN.value'}}</div>
+            <div class="centre">{{localize 'PEN.damage'}}</div>            
+          </li>
+          {{#each npc.actr.items as |item id|}}
+            {{#if (eq item.type 'weapon')}}
+              <li class="npc-wpn">
+                <div class="new-row pad-left truncate">{{item.name}}</div>          
+                <div class="centre">{{item.system.value}}</div>
+                <div class="centre">{{item.system.dmgForm}}</div>            
+              </li>
+            {{/if}}
+          {{/each}}  
+        </ol>
+        <div class="npc-stat-block" style="padding-top: 8px;">
+          <div class="attacks">{{localize 'PEN.health'}}</div>
+          <div class="attacks">{{localize 'PEN.other'}}</div>        
+        </div>
+        <div class="npc-stat-block">
+          <ol class="npc-wpn-list">  
+            <li class="npc-stat-smallblock">
+              <div class="new-row pad-left">{{localize 'PEN.statistic'}}</div>          
+              <div class="centre">{{localize 'PEN.value'}}</div>     
+            </li>
+            <li class="npc-stat-smallblock">
+              <div class="new-row pad-left">{{localize 'PEN.hp'}}</div>          
+              <div class="centre">{{npc.actr.system.hp.max}}</div>     
+            </li>
+            <li class="npc-stat-smallblock">
+              <div class="new-row pad-left">{{localize 'PEN.knockdown'}}</div>          
+              <div class="centre">{{npc.actr.system.manKnockdown}}</div>     
+            </li>
+            <li class="npc-stat-smallblock">
+              <div class="new-row pad-left">{{localize 'PEN.mjrWnd'}}</div>          
+              <div class="centre">{{npc.actr.system.manMjrWnd}}</div>     
+            </li>
+            <li class="npc-stat-smallblock">
+              <div class="new-row pad-left">{{localize 'PEN.unconscious'}}</div>          
+              <div class="centre">{{npc.actr.system.hp.unconscious}}</div>     
+            </li>                                
+          </ol>  
+
+          <ol class="npc-wpn-list">  
+            <li class="npc-stat-smallblock">
+              <div class="new-row pad-left">{{localize 'PEN.statistic'}}</div>          
+              <div class="centre">{{localize 'PEN.value'}}</div>     
+            </li>
+            <li class="npc-stat-smallblock">
+              <div class="new-row pad-left">{{localize 'PEN.move'}}</div>          
+              <div class="centre">{{npc.actr.system.manMove}}</div>     
+            </li>
+            <li class="npc-stat-smallblock">
+              <div class="new-row pad-left">{{localize 'PEN.armourPoints'}}</div>          
+              <div class="centre">{{npc.actr.system.manArm}} / {{npc.actr.system.manShd}}</div>     
+            </li>
+            <li class="npc-stat-smallblock">
+              <div class="new-row pad-left">{{localize 'PEN.gloryAward'}}</div>          
+              <div class="centre">{{npc.actr.system.gloryAward}}</div>     
+            </li>
+            <li class="npc-stat-smallblock">
+              <div class="new-row pad-left">{{localize 'PEN.knightVal'}}</div>          
+              <div class="centre">{{npc.actr.system.kv}}</div>     
+            </li>                                
+          </ol>
+        </div>    
+        <div class="enc-npc-skills"><span class="bold">Skills, Traits & Passions: </span><span>{{npc.skills}}</span></div>     
+        <div class="enc-npc-skills"><span class="bold">{{localize 'PEN.armour'}}: </span><span>{{npc.armour}}</span></div>     
+        <div class="enc-npc-skills bold">{{localize 'PEN.notes'}}:</div>
+        <div class="enc-npc-note">{{{npc.actr.system.description}}}</div>     
+      </div>
+
+      <div class="ransom">
+        <div class="npc-title">{{ localize 'PEN.ransom'}}</div>
+        <div class="bold centre">{{npc.actr.system.ransom}}</div>
+      </div>
+
+    {{/if}}  
+  {{/each}}
+</section>

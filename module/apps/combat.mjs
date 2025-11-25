@@ -109,7 +109,7 @@ export class PENCombat {
   //
   static async healingAmount (name) {
     let title = game.i18n.localize('PEN.treat');
-    const html = await renderTemplate(
+    const html = await foundry.applications.handlebars.renderTemplate(
       'systems/Pendragon/templates/dialog/treatWound.html',
       {
       }
@@ -228,7 +228,7 @@ export class PENCombat {
       attType : await PENSelectLists.getDiseaseImpact()
     }
     let title = game.i18n.localize('PEN.addWound');
-    const html = await renderTemplate('systems/Pendragon/templates/dialog/addWound.html',data)
+    const html = await foundry.applications.handlebars.renderTemplate('systems/Pendragon/templates/dialog/addWound.html',data)
     let usage = await new Promise(resolve => {
       let formData = null
       const dlg = new Dialog({
