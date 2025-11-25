@@ -55,7 +55,7 @@
     {
       "label": "Scenes",
       "type": "Scene",
-      "name": "Secenes",
+      "name": "scenes",
       "path": "packs/scenes",
       "system": "Pendragon",
       "private": false,
