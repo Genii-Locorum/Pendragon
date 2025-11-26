@@ -1,4 +1,6 @@
 import { PENCombat } from "../../apps/combat.mjs";
+import { PENUtilities } from "../../apps/utilities.mjs";
+import { PendragonStatusEffects } from "../../apps/status-effects.mjs";
 
 const { api } = foundry.applications;
 
@@ -67,15 +69,72 @@ export class WoundTrackerDialog extends api.HandlebarsApplicationMixin(
     }
   }
   // apply the results of first aid to a wound
-  static #applyFirstAid(event, target) {
-    // dialog: first aid result: Crit/Success/Fail/Fumble
-    // 2*hr/hr/0/-1d3, also debilitated
+  static async #applyFirstAid(event, target) {
+    const { itemid } = target.closest("[data-itemid]")?.dataset ?? {};
+    const wound = this.actor.items.get(itemid);
+    const result = await api.DialogV2.wait({
+      window: { title: "Treat Wound" },
+      content: "<p>What is the result of the First Aid check?</p>",
+      buttons: [
+        {
+          label: "Critical",
+          action: "critical",
+        },
+        {
+          label: "Success",
+          action: "success",
+        },
+        {
+          label: "Failure",
+          action: "fail",
+          default: true
+        },
+        {
+          label: "Fumble",
+          action: "fumble",
+        },
+      ]
+    });
+    console.log(result);
+    let healing = 0;
+    const healingRate = this.actor.system.healRate;
+    switch (result) {
+      case "critical":
+        healing = 2 * healingRate;
+        break;
+      case "success":
+        healing = healingRate;
+        break;
+      case "fail":
+        break;
+      case "fumble":
+        const dmg = await PENUtilities.simpleDiceRoll("1d3");
+        healing = -1 * Number(dmg);
+        // on a fumble, the patient is debilitated
+        await this.actor.addStatus(PendragonStatusEffects.DEBILITATED);
+        break;
+      default:
+        // unrecognized or null - do nothing
+        return;
+    }
+    // if enough to heal the entire wound, just delete it and finish
+    if (healing >= wound.system.value) {
+      wound.delete();
+      return;
+    }
+    // apply healing and mark treated
+    wound.update({
+      'system.value': wound.system.value - healing,
+      'system.treated': true
+    });
   }
   // apply one week natural healing
-  static #naturalHealing(event, target) {
+  static async #naturalHealing(event, target) {
+    const debilitated = this.actor.statuses.has(PendragonStatusEffects.DEBILITATED);
     //if debilitated, then dialog: chirurgery result: crit/success/failure/Fumble
     // hr/0/-1d6/-2d6
     // +hr
+    await PENCombat.applyNaturalHealing(this.actor);
     // if at least one success since becoming debilitated AND > 1/2 hp, recover
   }
   // apply multiple weeks of natural healing
@@ -98,6 +157,16 @@ export class WoundTrackerDialog extends api.HandlebarsApplicationMixin(
         { type: "submit", label: "PEN.spendPoints" },
       ]
     }
+    context.conditions = CONFIG.statusEffects.map(c => {
+      // check to see if the status effect has been applied to the actor
+      const hasCondition = this.actor.statuses.has(c.id);
+      return {
+        id: c.id,
+        name: game.i18n.localize(`PEN.${c.name}`),
+        img: c.img,
+        active: hasCondition
+      }
+    }).reduce((acc, o, index) => { acc[o.id] = o; return acc; }, {});
     return context;
   }
 }

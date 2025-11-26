@@ -2072,6 +2072,13 @@ body.theme-dark .application.Pendragon.sheet,
       color: var(--color-text-secondary);
     }
   }
+  & label.condition {
+    display: flex;
+    padding: 0.25em 0;
+    gap: 0.5em;
+    grid-template-columns: 2em 2em 1fr;
+    align-items: center;
+  }
   & .conditions {
     list-style: none;
     padding: 0;

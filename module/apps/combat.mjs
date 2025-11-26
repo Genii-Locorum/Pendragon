@@ -45,55 +45,47 @@ export class PENCombat {
   static async naturalHealing(event) {
     let confirm = await PENUtilities.confirmation(game.i18n.localize('PEN.naturalHeal'))
     if (!confirm) { return }
-    let healing = this.actor.system.healRate
+    this.applyNaturalHealing(this.actor);
+  }
+  static async applyNaturalHealing(actor) {
+    let healing = actor.system.healRate
     let deterHeal = 0
     let aggravHeal = 0
     //If there is CON damage from poisoning then recover that.  This doesnt cost healing
-    let conDamage = this.actor.system.stats.con.poison
+    let conDamage = actor.system.stats.con.poison
     if (conDamage < 0) {
       conDamage = Math.min(conDamage + healing, 0)
     }
 
     //If there is deterioration damage then heal that first
-    if (this.actor.system.deterDam > 0) {
-      deterHeal = Math.min(healing, this.actor.system.deterDam)
+    if (actor.system.deterDam > 0) {
+      deterHeal = Math.min(healing, actor.system.deterDam)
       healing = healing - deterHeal
     }
-    if (this.actor.system.aggravDam > 0) {
-      aggravHeal = Math.min(healing, this.actor.system.aggravDam)
+    if (actor.system.aggravDam > 0) {
+      aggravHeal = Math.min(healing, actor.system.aggravDam)
       healing = healing - aggravHeal
     }
 
-    await this.actor.update({
-      'system.deterDam': this.actor.system.deterDam - deterHeal,
-      'system.aggravDam': this.actor.system.aggravDam - aggravHeal,
+    await actor.update({
+      'system.deterDam': actor.system.deterDam - deterHeal,
+      'system.aggravDam': actor.system.aggravDam - aggravHeal,
       'system.stats.con.poison': conDamage
     })
 
     //Put wounds in array and sort lowest to highest damage
-    let wounds = [];
-    for (let i of this.actor.items) {
-      if (i.type === 'wound') {
-        wounds.push(i);
-      }
-    }
-    wounds.sort(function (a, b) {
-      let x = a.system.value;
-      let y = b.system.value;
-      if (x < y) { return -1 };
-      if (x > y) { return 1 };
-      return 0;
-    });
+    const wounds = actor.items.filter(itm => itm.type === 'wound');
+    wounds.sort((a, b) => a.system.value - b.system.value);
 
-    for (let i of wounds) {
-      let woundHeal = Math.min(healing, i.system.value);
+    for (const i of wounds) {
+      const woundHeal = Math.min(healing, i.system.value);
       if (woundHeal > 0) {
-        const item = this.actor.items.get(i._id);
+        const item = actor.items.get(i._id);
         await item.update({ 'system.value': i.system.value - woundHeal });
         healing = healing - woundHeal;
       }
     }
-    await PENCombat.cleanseWounds(this.actor)
+    await PENCombat.cleanseWounds(actor);
   }
 
 
