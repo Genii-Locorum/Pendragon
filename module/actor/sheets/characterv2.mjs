@@ -343,6 +343,17 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     // Sort Ideals
     ideals.sort((a, b) => a.name.localeCompare(b.name));
 
+    // Used wherever we need to show a particular status
+    // The effects tab renders the full list of conditions slightly differently
+    context.statuses = CONFIG.statusEffects.map(c => {
+      const hasCondition = this.actor.statuses.has(c.id);
+      return {
+        id: c.id,
+        name: game.i18n.localize(`PEN.${c.name}`),
+        img: c.img,
+        active: hasCondition
+      }
+    }).reduce((acc, o, index) => { acc[o.id] = o; return acc; }, {});
     // Assign and return
     context.gears = gears;
     context.traits = traits;
@@ -455,7 +466,7 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       const hasCondition = this.actor.statuses.has(c.id);
       return {
         id: c.id,
-        name: c.name,
+        name: game.i18n.localize(`PEN.${c.name}`),
         img: c.img,
         active: hasCondition
       }

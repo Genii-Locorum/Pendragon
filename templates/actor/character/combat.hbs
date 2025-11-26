@@ -39,9 +39,21 @@
       <div style="border-radius: 0.25rem;padding: 0.5rem;background-color: var(--pd-light-row);">
         <p>Armour Points: {{system.armour}} + {{system.shield}} <i class="fa-solid fa-shield"></i></p>
         <p>Move: {{system.move}}</p>
-        <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Debilitated</p>
-        <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Unconscious</p>
-        <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Near Death</p>
+        <label class="condition">
+        <input type="checkbox" {{#if statuses.debilitated.active}}checked{{/if}} disabled/>
+        <img src="{{statuses.debilitated.img}}" class="icon-img" />
+        <span>{{ statuses.debilitated.name }}</span>
+        </label>
+        <label class="condition">
+        <input type="checkbox" {{#if statuses.unconscious.active}}checked{{/if}} disabled/>
+        <img src="{{statuses.unconscious.img}}" class="icon-img" />
+        <span>{{ statuses.unconscious.name }}</span>
+        </label>
+        <label class="condition">
+        <input type="checkbox" {{#if statuses.dying.active}}checked{{/if}} disabled/>
+        <img src="{{statuses.dying.img}}" class="icon-img" />
+        <span>{{ statuses.dying.name }}</span>
+        </label>
         <button data-action="showWounds">Wounds and Healing</button>
       </div>
     </div>
