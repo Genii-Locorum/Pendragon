@@ -95,7 +95,6 @@ export class WoundTrackerDialog extends api.HandlebarsApplicationMixin(
         },
       ]
     });
-    console.log(result);
     let healing = 0;
     const healingRate = this.actor.system.healRate;
     switch (result) {
@@ -131,10 +130,56 @@ export class WoundTrackerDialog extends api.HandlebarsApplicationMixin(
   // apply one week natural healing
   static async #naturalHealing(event, target) {
     const debilitated = this.actor.statuses.has(PendragonStatusEffects.DEBILITATED);
-    //if debilitated, then dialog: chirurgery result: crit/success/failure/Fumble
-    // hr/0/-1d6/-2d6
-    // +hr
-    await PENCombat.applyNaturalHealing(this.actor);
+    let deterioration = 0;
+    let markSuccessfulChirurgery = false;
+    if (debilitated) {
+      let healing = 0;
+      const healingRate = this.actor.system.healRate;
+      const result = await api.DialogV2.wait({
+        window: { title: "Chirurgery" },
+        content: "<p>What is the result of this week's Chirurgery check?</p>",
+        buttons: [
+          {
+            label: "Critical",
+            action: "critical",
+          },
+          {
+            label: "Success",
+            action: "success",
+          },
+          {
+            label: "Failure",
+            action: "fail",
+            default: true
+          },
+          {
+            label: "Fumble",
+            action: "fumble",
+          },
+        ]
+      });
+      switch (result) {
+        case "critical":
+          await PENCombat.applyNaturalHealing(this.actor);
+          markSuccessfulChirurgery = true;
+          break;
+        case "success":
+          markSuccessfulChirurgery = true;
+          break;
+        case "fail":
+          const dmg = await PENUtilities.simpleDiceRoll("1d6");
+          deterioration = Number(dmg);
+          break;
+        case "fumble":
+          const fumble_dmg = await PENUtilities.simpleDiceRoll("2d6");
+          deterioration = Number(fumble_dmg);
+          break;
+        default:
+          // unrecognized or null - do nothing
+          return;
+      }
+    }
+    await PENCombat.applyNaturalHealing(this.actor, deterioration, markSuccessfulChirurgery);
     // if at least one success since becoming debilitated AND > 1/2 hp, recover
   }
   // apply multiple weeks of natural healing

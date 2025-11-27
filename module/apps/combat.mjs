@@ -27,7 +27,6 @@ export class PENCombat {
     }
 
     //Otherwise reduce the wound score by amount healed (or increase if a negative) and set treated status to true
-    let newWound = item.system.value
     let checkProp = {
       'system.value': item.system.value - healing,
       'system.treated': true
@@ -47,19 +46,25 @@ export class PENCombat {
     if (!confirm) { return }
     this.applyNaturalHealing(this.actor);
   }
-  static async applyNaturalHealing(actor) {
-    let healing = actor.system.healRate
-    let deterHeal = 0
-    let aggravHeal = 0
-    //If there is CON damage from poisoning then recover that.  This doesnt cost healing
-    let conDamage = actor.system.stats.con.poison
+  static async applyNaturalHealing(actor, deterioration = 0, markSuccessfulChirurgery = false) {
+    const currentHealth = actor.system.hp.value;
+    console.log(`deter: ${deterioration}`)
+    if (deterioration > currentHealth) {
+      console.log("DEAD from deterioration");
+      return;
+    }
+    let healing = actor.system.healRate;
+    let deterHeal = 0;
+    let aggravHeal = 0;
+    //If there is CON damage from poisoning then recover that.  This doesn't cost healing
+    let conDamage = actor.system.stats.con.poison;
     if (conDamage < 0) {
-      conDamage = Math.min(conDamage + healing, 0)
+      conDamage = Math.min(conDamage + healing, 0);
     }
 
     //If there is deterioration damage then heal that first
-    if (actor.system.deterDam > 0) {
-      deterHeal = Math.min(healing, actor.system.deterDam)
+    if (actor.system.deterDam + deterioration > 0) {
+      deterHeal = Math.min(healing, actor.system.deterDam + deterioration)
       healing = healing - deterHeal
     }
     if (actor.system.aggravDam > 0) {
@@ -67,10 +72,16 @@ export class PENCombat {
       healing = healing - aggravHeal
     }
 
+    let successfulChirurgery = actor.system.status.chirurgery;
+    if (markSuccessfulChirurgery && actor.system.status.chirurgery == false) {
+      successfulChirurgery = true;
+    }
+
     await actor.update({
-      'system.deterDam': actor.system.deterDam - deterHeal,
+      'system.deterDam': actor.system.deterDam + deterioration - deterHeal,
       'system.aggravDam': actor.system.aggravDam - aggravHeal,
-      'system.stats.con.poison': conDamage
+      'system.stats.con.poison': conDamage,
+      'system.status.chirurgery': successfulChirurgery
     })
 
     //Put wounds in array and sort lowest to highest damage
@@ -81,8 +92,15 @@ export class PENCombat {
       const woundHeal = Math.min(healing, i.system.value);
       if (woundHeal > 0) {
         const item = actor.items.get(i._id);
-        await item.update({ 'system.value': i.system.value - woundHeal });
+        await item.update({
+          'system.value': i.system.value - woundHeal,
+          'system.treated': true
+        });
         healing = healing - woundHeal;
+      } else {
+        // existing wounds can no longer be treated by first aid
+        await item.update({ 'system.treated': true });
+
       }
     }
     await PENCombat.cleanseWounds(actor);
@@ -137,7 +155,6 @@ export class PENCombat {
 
   ///add a standard combat wound
   static async addStandardWound(actor, amount) {
-    console.log(actor);
     PENCombat.applyDamage(actor, "wound", amount, "hp");
   }
 
@@ -265,22 +282,29 @@ export class PENCombat {
   //Update Wound Description
   static async woundDesc(item, actor) {
     if (item.system.created) { return }
+    // assume a minor wound
     let status = game.i18n.localize('PEN.minor')
     let unconscious = false;
     let dying = false;
 
+    // mortal wound
     if (item.system.value >= actor.system.hp.max) {
       status = game.i18n.localize('PEN.mortal')
       unconscious = true;
+      dying = true;
+      // major wound
     } else if (item.system.value >= actor.system.hp.majorWnd) {
       status = game.i18n.localize('PEN.major')
       unconscious = true;
     }
 
-    //Check to see if damage >= current HP
+    // if brought to zero or negative hit points they are dying (near death)
+    if (actor.system.hp.value <= 0) {
+      dying = true;
+    }
+    // if below the unconscious threshold mark unconscious
     if (actor.system.hp.value < actor.system.hp.unconscious) {
       unconscious = true;
-      dying = true;
     }
     let checkProp = {
       'system.created': true,
