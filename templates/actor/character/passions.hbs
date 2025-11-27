@@ -2,9 +2,21 @@
   <div class="passions-layout">
     <div class="afflictions">
       <h2>Afflictions</h2>
-      <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> {{localize 'PEN.madness'}}</p>
-      <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> {{localize 'PEN.melancholy'}}</p>
-      <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> {{localize 'PEN.misery'}}</p>
+      <label class="condition">
+      <input type="checkbox" {{#if statuses.maddened.active}}checked{{/if}} disabled/>
+      <img src="{{statuses.maddened.img}}" class="icon-img" />
+      <span>{{localize 'PEN.madness'}}</p</span>
+      </label>
+      <label class="condition">
+      <input type="checkbox" {{#if statuses.melancholic.active}}checked{{/if}} disabled/>
+      <img src="{{statuses.melancholic.img}}" class="icon-img" />
+      <span>{{localize 'PEN.melancholy'}}</span>
+      </label>
+      <label class="condition">
+      <input type="checkbox" {{#if statuses.miserable.active}}checked{{/if}} disabled/>
+      <img src="{{statuses.miserable.img}}" class="icon-img" />
+      <span>{{localize 'PEN.misery'}}</span>
+      </label>
     </div>
     <div data-court="honor">
       <h2>{{courts.honor.name}}</h2>
