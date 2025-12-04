@@ -36,6 +36,7 @@ export class PendragonBattleSheet extends api.HandlebarsApplicationMixin(sheets.
             gmRoll: this._gmRoll,
             clearBattle: this._clearBattle,
             addTokensCombat: this._addTokensCombat,
+            resultsView: this._resultsView,
         }
     }
 
@@ -47,13 +48,17 @@ export class PendragonBattleSheet extends api.HandlebarsApplicationMixin(sheets.
         notes: {
             template: 'systems/Pendragon/templates/actor/battle.notes.hbs',
             scrollable: [''],
-        },      
+        },   
+        results: {
+            template: 'systems/Pendragon/templates/actor/battle.results.hbs',
+            scrollable: [''],
+        },              
     }
 
     _configureRenderOptions(options) {
         super._configureRenderOptions(options);
         //Common parts to the character - this is the order they are show on the sheet
-        options.parts = ['header'];
+        options.parts = ['header','results'];
         
         //GM only tabs
         if (game.user.isGM) {
@@ -77,6 +82,7 @@ export class PendragonBattleSheet extends api.HandlebarsApplicationMixin(sheets.
     };
         //context.tabs = this._getTabs(options.parts);
         context.displayNotes = this.actor.system.noteView;
+        context.displayResults = this.actor.system.resultsView;        
         context.showHPVal = await game.settings.get('Pendragon', "showParty");
         context.showNPC = this.actor.system.npcView        
         if (game.user.isGM) { context.showHPVal = true };   
@@ -204,6 +210,13 @@ export class PendragonBattleSheet extends api.HandlebarsApplicationMixin(sheets.
     await this.render["notes"]    
   }
 
+  static async _resultsView(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    await this.actor.update({'system.resultsView' : !this.actor.system.resultsView})
+    await this.render["results"]    
+  }  
+
   static async _onToggleActor(event, target) {
     if (event.detail === 2) {  //Only perform on double click
       event.stopPropagation(); // Don't trigger other events    
@@ -240,9 +253,13 @@ export class PendragonBattleSheet extends api.HandlebarsApplicationMixin(sheets.
     event.preventDefault();
     event.stopImmediatePropagation();
     const change = Number(target.dataset.property)    
-    if (change + this.actor.system.currTurn < 1) {return}
-    if (change + this.actor.system.currTurn > this.actor.system.maxTurns) {return}
-    await this.actor.update ({'system.currTurn':change + this.actor.system.currTurn})
+    if (change + this.actor.system.currTurn < 1) {
+      await this.actor.update ({'system.currTurn':1});
+    } else if (change + this.actor.system.currTurn > this.actor.system.maxTurns) {
+      await this.actor.update ({'system.currTurn':this.actor.system.maxTurns});
+    }  else {
+      await this.actor.update ({'system.currTurn':change + this.actor.system.currTurn})
+    }
   }
 
   //View Encounter

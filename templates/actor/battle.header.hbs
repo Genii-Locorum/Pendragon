@@ -8,6 +8,7 @@
         {{else}}
           <div class="enc-title"><input name='name' type='text' value='{{actor.name}}' />
         {{/if}}  
+          <a class="enc-result-icon" title="{{ localize 'PEN.toggleResults' }}" data-action="resultsView"><i class="fas fa-feather-pointed"></i></a>          
         {{#if isGM}}
           <a class="enc-notes-icon" title="{{ localize 'PEN.toggleNotes' }}" data-action="noteView"><i class="fas fa-scroll-old"></i></a>  
           <a class="enc-res-icon" title="{{ localize 'PEN.resetPosture' }}" data-action="resetPosture"><i class="fas fa-horse-saddle"></i></a>         

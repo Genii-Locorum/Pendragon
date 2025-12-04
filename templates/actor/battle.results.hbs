@@ -1,0 +1,14 @@
+<section class="battle-results-section {{#unless displayResults }}hide-enc-notes{{/unless}}">
+  {{!Notes Section}}
+  <div class="bold" style="margin: 10px 0px 0px 10px;">{{localize 'PEN.outcomes'}}</div>
+  <div class="battle-notes" style="margin: 10px 0px 0px 10px;">
+    {{#if editable}}
+      <prose-mirror name="system.description" data-document-u-u-i-d="{{actor.uuid}}" value="{{system.description}}"
+        collaborate="true" toggled="true">
+        {{{enrichedDescription}}}
+      </prose-mirror>
+    {{else}}
+      {{{enrichedDescription}}}
+    {{/if}}
+  </div>
+</section>

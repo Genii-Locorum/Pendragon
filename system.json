@@ -2,7 +2,7 @@
   "id": "Pendragon",
   "title": "Pendragon",
   "description": "Pendragon system for FoundryVTT!",
-  "version": "13.1.45",
+  "version": "13.1.46",
   "compatibility": {
     "minimum": 13,
     "verified": "13.351",
@@ -17,7 +17,8 @@
                 "module/setup/load.mjs"],
   "styles": ["css/pendragon.css",
              "css/encounter.css",
-             "css/battle.css"
+             "css/battle.css",
+             "css/journals.css"
             ],
   "scripts": [],
   "packFolders": [
@@ -74,7 +75,7 @@
       "path": "lang/fr.json"
     }
   ],
-  "background": "systems/Pendragon/assets/KnightPendragon.jpg",
+  "background": "systems/Pendragon/assets/knight_pendragon.webp",
   "media": [
     {
       "type": "setup",
@@ -103,7 +104,7 @@
 
   "url": "https://github.com/Genii-Locorum/Pendragon",
   "manifest": "https://github.com/Genii-Locorum/Pendragon/releases/latest/download/system.json",
-  "download": "https://github.com/Genii-Locorum/Pendragon/releases/download/v13.1.45/system.zip",
+  "download": "https://github.com/Genii-Locorum/Pendragon/releases/download/v13.1.46/system.zip",
   "socket": true,
   "license": "LICENSE.txt",
   "changelog": "CHANGELOG.md"

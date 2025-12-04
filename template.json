@@ -209,6 +209,7 @@
       "currTurn": 1,
       "lock": false,
       "noteView": false,
+      "descripView": false,
       "encView": false,            
       "description": "",
       "notes": "",
@@ -216,7 +217,8 @@
       "intensity": 0,
       "fieldPos": "",
       "maxMorale": 0,
-      "currMorale": 0
+      "currMorale": 0,
+      "shortDesc": ""
     }
   },
   "Item": {

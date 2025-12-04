@@ -1,0 +1,377 @@
+:root {
+    --colourAdventureSheetKeeperNotes: rgba(79, 39, 1, 0.1);
+    --colourAdventureSheetKeeperNotesDark: rgba(79, 39, 1, 0.2);
+    --colourAdventureSheetKeeperFoundryvtt: rgba(254, 134, 32, 0.1);
+    --colourAdventureSheetKeeperFoundryvttDark: rgba(254, 134, 32, 0.2);
+    --colourAdventureSheetKeeperReadaloud: rgba(127, 127, 127, 0.1);
+    --colourAdventureSheetKeeperReadaloudDark: rgba(127, 127, 127, 0.2);
+    --colourAdventureSheetExample: rgb(102, 77, 42);
+}
+
+.theme-light {
+
+    form.pen-adventure-entry.sheet,
+    div.pen-adventure-entry.sheet {
+
+        section.journal-entry-content,
+        div.editor.prosemirror {
+            background: url(../assets/kap_background.webp);
+            background-size: cover;
+        }
+    }
+}
+
+form.pen-adventure-entry.sheet,
+div.pen-adventure-entry.sheet {
+
+    &.fixed-adventure-heading header.journal-header,
+    &.fixed-adventure-heading form.journal-header {
+        display: none;
+    }
+
+    nav.pages-list {
+        font-family: AGaramondPro;
+
+        .page-heading {
+            font-size: 1.2rem;
+        }
+
+        .heading-link {
+            font-size: 1.2rem;
+        }
+    }
+
+    section.journal-entry-content {
+        form.journal-header {
+            font-family: AGaramondPro;
+
+            input[type="text"] {
+                color: var(--pendragon-darkred);
+            }
+        }
+    }
+
+    div.journal-entry-pages,
+    div.journal-page-content,
+    prose-mirror.journal-page-content {
+        font-family: "IMFell";
+        font-size: 18px;
+        padding-right: 5px;
+        text-align: justify;
+
+        img {
+            border: none;
+        }
+
+        .cm-scroller {
+            font-size: 14px;
+        }
+
+        /* font-family: Arial; */
+
+        h1 {
+            font-family: Herb;
+            border-bottom: none;
+            color: var(--pendragon-darkred);
+            text-transform: uppercase;
+        }
+
+        h2,
+        h3,
+        h4,
+        h5,
+        p {
+            margin: 0px;
+
+            &.title1 {
+                text-transform: uppercase;
+                border-bottom: none;
+                font-family: "IMFell";
+                font-size: 20px;
+                font-weight: bold;
+                color: var(--pendragon-darkblue);
+            }
+
+            &.title2 {
+                border-bottom: none;
+                font-family: "Herb";
+                font-size: 24px;
+                color: darkred;
+                font-weight: bold;
+            }
+
+            &.title3 {
+                border-bottom: none;
+                font-family: "IMFell";
+                font-size: 20px;
+                color: var(--pendragon-darkblue);
+            }
+
+            &.title4 {
+                border-bottom: none;
+                font-family: "IMFell";
+                font-size: 18px;
+                color: black;
+                font-weight: bold;
+            }
+
+            &.title5 {
+                border-bottom: 1px solid black;
+                font-family: "IMFell";
+                font-size: 18px;
+                font-style: italic;
+                font-weight: bold;
+                color: black;
+            }
+        }
+
+        .indent {
+            margin: 0px;
+            text-indent: 20px;
+            padding-left: 0px;
+        }
+
+        .advice {
+            text-align: center;
+            color: var(--pendragon-darkred);
+            font-style: italic;
+        }
+
+        .object a.content-link {
+            background: var(--content-link-background);
+            padding: 1px 4px 0;
+            border: 1px solid var(--content-link-border-color);
+            ;
+            border-radius: 2px;
+            margin: -1px 0;
+            white-space: nowrap;
+            word-break: break-all;
+            color: purple;
+
+            i {
+                display: inline;
+                color: purple;
+            }
+
+            &.broken {
+                text-decoration: line-through;
+            }
+        }
+
+        a.content-link {
+            background: none;
+            border: none;
+            white-space: pre-wrap;
+            word-break: normal;
+            color: purple;
+            padding: 0px;
+
+            i {
+                display: none;
+            }
+
+            &.broken {
+                text-decoration: line-through;
+            }
+        }
+
+        .redbox a.content-link {
+            background: none;
+            border: none;
+            white-space: pre-wrap;
+            word-break: normal;
+            color: #6594cb;
+            font-weight: bold;
+            padding: 0px;
+
+            &.broken {
+                text-decoration: line-through;
+            }
+        }
+
+        .speech {
+            text-align: left;
+            padding-left: 7px;
+            padding-right: 7px;
+            font-style: italic;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .centre {
+            text-align: center;
+        }
+
+        .blue {
+            color: var(--pendragon-darkblue);
+        }
+
+        .darkred {
+            color: darkred;
+        }
+
+        .img-centre {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .rotate {
+            transform: rotate(180deg);
+        }
+
+        ul.p6e {
+            margin: 0.5em 0 0 0;
+        }
+
+        ul.p6e li::marker {
+            content: "✠ ";
+            font-size: 15px;
+            color: var(--pendragon-darkred);
+        }
+
+        .redbox ul.p6e li::marker {
+            content: "✠ ";
+            font-size: 15px;
+            color: cornsilk;
+        }
+
+        ul.norm li::marker {
+            content: "• ";
+            font-size: 15px;
+            color: var(--pendragon-darkred);
+        }
+
+        .redbox {
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            padding: 10px 7px 10px 7px;
+            background-color: darkred;
+            color: cornsilk;
+            max-width: 636px;
+
+            h1.title,
+            h2.title,
+            .title {
+                font-family: "Basteleur";
+                font-size: 24px;
+                text-align: center;
+                color: cornsilk;
+                border: none;
+            }
+        }
+
+        .yellowbox {
+            margin-left: 0px;
+            margin-right: 0px;
+            border-radius: 0px;
+        }
+
+        .bluebox {
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            padding: 10px 7px 10px 7px;
+            background-color: rgb(64, 101, 221);
+            color: cornsilk;
+        }
+
+        .tablecol {
+            display: grid;
+            margin: 0px;
+            row-gap: 0px;
+            column-gap: 0px;
+            font-family: "AGaramondPro";
+            font-size: 18px;
+            border-bottom: 3px solid rgb(50, 25, 0);
+        }
+
+        .tableHeader {
+            background: rgb(50, 25, 0);
+            color: cornsilk;
+            font-family: AGaramondPro;
+            font-size: 18px;
+            padding: 0px 2px 0px 2px;
+        }
+
+        .chrontitle {
+            font-family: "Herb";
+            font-size: 30px;
+            color: darkred;
+            font-weight: bold;
+        }
+
+        .bottom-line {
+            border-bottom: 1px solid black;
+        }
+
+        .tableOffRow {
+          background: rgba(0, 0, 0, 0.15);
+        }
+
+    table {
+        margin-left:10px;
+        width: calc(100% - 20px);
+        background-color: rgba(0,0,0,0);
+    }
+
+    table td {
+        padding: 0px 0px 0px 5px;
+        border-left: 1px solid white;
+        border-right: 1px solid white;
+        &.merged {
+        vertical-align: middle;
+        border-bottom: 1px solid black;
+        }
+    }
+
+    table tbody tr:first-child {
+        background-color: rgb(50, 25, 0) !important;
+        color: cornsilk;
+        text-transform: uppercase;
+    }
+
+    table tbody tr:nth-child(even) {
+        background-color: var(--pss-table-row-colour-even);
+    }
+
+    table tbody tr:nth-child(odd) {
+        background-color: var(--pss-table-row-colour-odd);
+    }
+
+    hr.dotted{
+        clear: both;
+        border: 0;
+        height: 2px;
+        margin: 1rem 0;
+        color: var(--color-light-3);
+        background-image: linear-gradient(90deg, transparent 0%, #3549b9 50%, transparent 100%);
+    }
+
+    .decision {
+        color: #034694;
+        font-style: italic;
+        p {
+        padding-bottom: 5px;
+        }
+    }  
+
+    .main-title {
+        font-family: "Herb";
+        font-size: 32px;    
+        border: none;
+    }  
+
+    .solotitle {
+        font-family: "AGaramondPro";
+        color: darkred;
+        font-size: 48px;
+        text-align: center;
+        font-weight: bold;
+    } 
+
+  }
+}

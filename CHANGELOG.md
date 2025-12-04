@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 13.1.45
+## 13.1.46
 - This version of the Pendragon System has moved to version 13 only.
 - Bug fixes for V12 will be continued but the new functionality will not be added to V12 versions
 - Ransom and Knight Values added to NPC
@@ -8,6 +8,9 @@
 - Battle Cards added (you drop Encounter cards on to battles along with characters).  Game system instructions have been updated for these
 - If you want (in line with the rules) to only add Glory during the Winterpahse you can now record Glory in the "Earned in Year" section
   of passive glory on the "Events" tab.  It will be added as part of the passive Glory score during WinterPhase.
+
+## 13.1.45 
+- test version only
 
 ## 13.1.44
 - Fixed Lance where Additional Damage is blank

@@ -45,7 +45,7 @@
   }
 
   .enc-shortDesc {
-    padding: 0 0.5rem;
+    padding: 0 1.0rem;
   }
 
   img.encline {
@@ -83,6 +83,14 @@
     font-size: 1rem;
   }  
 
+  .enc-result-icon {
+    display: block;
+    position: absolute;
+    right: 12px;
+    top: 118px;
+    font-size: 1rem;
+  }    
+
   .enc-clear-icon {
     display: block;
     position: absolute;
@@ -116,7 +124,7 @@
 
   .battle-turn-grid {
     display: grid;
-    grid-template-columns: 25px 30px 22px 30px 25px;
+    grid-template-columns: 20px 35px 17px 40px 20px;
   }
 
   .battle-notes-section {
@@ -130,6 +138,19 @@
     background-color: var(--notes-background);  
     color: black;       
   }  
+
+  .battle-results-section {
+    position: absolute;
+    min-width: 355px;
+    min-height: 674px;
+    border: 1px solid var(--pendragon-black);
+    color: var(--pendragon-black);
+    top: 35px;
+    right: -355px;
+    background-color: var(--notes-background);  
+    color: black;       
+  }  
+
 
   .battle-turns {
     display: grid;

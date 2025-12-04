@@ -23,6 +23,10 @@ import ChaosiumCanvasInterfaceInit from './apps/chaosium-canvas-interface-init.m
 import RenderRegionBehaviorConfig from './hooks/render-region-behavior-config.mjs'
 import RenderRegionConfig from './hooks/render-region-config.mjs'
 import { PendragonCalendarWidget } from "./apps/pendragon-calendar.mjs";
+import RenderJournalEntryPageTextSheet from './hooks/render-journal-entry-page-text-sheet.mjs'
+import RenderJournalEntrySheet from './hooks/render-journal-entry-sheet.mjs'
+import RenderJournalSheet from './hooks/render-journal-sheet.mjs'
+import RenderJournalTextPageSheet from './hooks/render-journal-text-page-sheet.mjs'
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -111,6 +115,10 @@ Hooks.on("renderSettingsConfig", (app, html, options) => {
 });
 
 Hooks.on('renderRegionConfig', RenderRegionConfig);
+Hooks.on('renderJournalEntryPageTextSheet', RenderJournalEntryPageTextSheet)
+Hooks.on('renderJournalEntrySheet', RenderJournalEntrySheet)
+Hooks.on('renderJournalSheet', RenderJournalSheet)
+Hooks.on('renderJournalTextPageSheet', RenderJournalTextPageSheet)
 
 PendragonHooks.listen();
 

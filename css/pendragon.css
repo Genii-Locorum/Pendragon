@@ -46,7 +46,8 @@
   --pendragon-gold: #ffd000;
   --pendragon-black: black;
   --pendragon-grey: #918987;
-  --pendragon-darkred: darkred;  
+  --pendragon-darkred: darkred;
+  --pendragon-darkblue: #034694;  
   --header-row: #240202;
   --background-color: #fffde7;
   --sec-background-color: rgb(56, 78, 30);
@@ -56,6 +57,8 @@
   --pd-dark-row: #4507072b;
   --pd-first-row: #180202e7;   
   --pill-size: var(--font-size-11);
+  --pss-table-row-colour-even: rgba(0,0,0,0.1);
+  --pss-table-row-colour-odd: transparent;  
   --notes-background: rgb(177, 168, 168);
 }
 
@@ -67,6 +70,7 @@ body.theme-light.application .Pendragon{
   --pendragon-black: black;
   --pendragon-grey: #918987;
   --pendragon-darkred: darkred;
+  --pendragon-darkblue: #034694;    
   --header-row: #240202;
   --background-color: #fffde7;
   --sec-background-color: rgb(56, 78, 30);
@@ -77,6 +81,8 @@ body.theme-light.application .Pendragon{
   --pd-first-row: #180202e7; 
   --pill-size: var(--font-size-11);
   --notes-background: rgb(177, 168, 168);  
+  --pss-table-row-colour-even: rgba(0,0,0,0.1);
+  --pss-table-row-colour-odd: transparent;  
 }
 
 body.theme-dark .application.Pendragon,
@@ -87,6 +93,7 @@ body.theme-dark.application .Pendragon{
   --pendragon-black: #fffde7;  
   --pendragon-grey: #3d3b3a;
   --pendragon-darkred: #d50909;
+  --pendragon-darkblue: #034694;    
   --header-row: #240202;
   --background-color: #1e1e1c;
   --sec-background-color: rgb(56, 78, 30);
@@ -97,6 +104,8 @@ body.theme-dark.application .Pendragon{
   --pd-first-row: #1e5a69e7;
   --pill-size: var(--font-size-11);
   --notes-background: rgb(177, 168, 168);  
+  --pss-table-row-colour-even: rgba(0,0,0,0.1);
+  --pss-table-row-colour-odd: transparent;  
 }
 
 body.theme-dark .application.Pendragon.sheet,
@@ -146,12 +155,12 @@ body.theme-dark .application.Pendragon.sheet,
 }
 
 .journal-entry-content {
-  background-image: url("../assets/KAP Background.jpg");
+  background-image: url("../assets/kap_background.webp");
   background-size: cover;
 }
 
 .journal-entry-page .window-content {
-  background-image: url("../assets/KAP Background.jpg");
+  background-image: url("../assets/kap_background.webp");
   background-size: cover;
 }
 
@@ -1027,9 +1036,7 @@ body.theme-dark .application.Pendragon.sheet,
   text-align: center;
 }
 
-.Pendragon .bottom-line {
-  border-bottom: 1px solid black;
-}
+
 
 .Pendragon .rollHidden {
   margin-left: 40px;
@@ -1267,117 +1274,6 @@ body.theme-dark .application.Pendragon.sheet,
   color: cornsilk;
 }
 
-.Pendragon .tablecol {
-  display: grid;
-  margin: 0px;
-  row-gap: 0px;
-  column-gap: 0px;
-  font-family: "AGaramondPro";
-  font-size: 18px;
-  border-bottom: 3px solid rgb(50, 25, 0);
-}
-
-.Pendragon .tableHeader {
-  background: rgb(50, 25, 0);
-  color: cornsilk;
-  font-family: AGaramondPro;
-  font-size: 18px;
-  padding: 0px 2px 0px 2px;
-}
-
-.Pendragon .tableOffRow {
-  background: rgba(0, 0, 0, 0.15);
-}
-
-.Pendragon ul.p6e {
-  margin: 0.5em 0 0 0;
-}
-
-.Pendragon ul.p6e li::marker {
-  content: "✠ ";
-  font-size: 15px;
-  color: darkred;
-}
-
-.Pendragon .redbox ul.p6e li::marker {
-  content: "✠ ";
-  font-size: 15px;
-  color: cornsilk;
-}
-
-.Pendragon ul.norm li::marker {
-  content: "• ";
-  font-size: 15px;
-  color: darkred;
-}
-
-.Pendragon .jnl-text {
-  font-family: "AGaramondPro";
-  font-size: 18px;
-  color: black;
-  margin: 0px;
-}
-
-.Pendragon .jnl-text p {
-  margin: 0px;
-}
-
-.Pendragon .jnl-text li p {
-  margin: 0px;
-  text-indent: 0px;
-}
-
-.Pendragon .jnl-text .indent {
-  margin: 0px;
-  text-indent: 20px;
-  padding-left: 0px;
-}
-
-.Pendragon .jnl-text .redbox {
-  color: cornsilk;
-  background-color: darkred;
-}
-
-.Pendragon .jnl-hdr {
-  font-family: "AGaramondPro";
-  font-size: 20px;
-  color: #034694;
-  text-indent: 0px !important;
-}
-
-.Pendragon .noIndent {
-  text-indent: 0px !important;
-}
-
-.Pendragon .jnl-text h2 {
-  font-family: "AGaramondPro";
-  font-size: 20px;
-  text-transform: uppercase;
-  color: #034694;
-  text-indent: 0px !important;
-  border: none;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text h2.charname {
-  font-family: "Herb";
-  font-size: 30px;
-  color: darkred;
-  text-indent: 0px !important;
-  text-transform: none;
-  border: none;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text h3 {
-  font-family: "AGaramondPro";
-  font-size: 20px;
-  color: #034694;
-  text-indent: 0px !important;
-  border: none;
-  margin: 0px !important;
-}
-
 .Pendragon .white-title {
   font-family: "AGaramondPro";
   font-weight: bold;
@@ -1399,73 +1295,6 @@ body.theme-dark .application.Pendragon.sheet,
   color: darkred;
 }
 
-.Pendragon .jnl-text h4 {
-  font-family: "AGaramondPro";
-  font-size: 18px;
-  font-style: italic;
-  font-weight: bold;
-  text-indent: 0px !important;
-  margin: 0px !important;
-  border-bottom: 1px black solid;
-}
-
-.Pendragon .jnl-text h5,
-.Pendragon .jnl-text h1 {
-  font-family: "Herb";
-  font-size: 30px;
-  text-indent: 0px !important;
-  font-weight: normal;
-  color: darkred;
-  border: none;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text h6 {
-  font-family: "AGaramondPro";
-  font-size: 18px;
-  text-indent: 0px !important;
-  border-bottom: none;
-  margin: 0px;
-  font-weight: normal;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text a.content-link {
-  background: none;
-  border: none;
-  white-space: pre-wrap;
-  word-break: normal;
-  color: rgb(156, 7, 156);
-  font-weight: bold;
-}
-
-.Pendragon .jnl-text .redbox a.content-link {
-  background: none;
-  border: none;
-  white-space: pre-wrap;
-  word-break: normal;
-  color: #6594cb;
-  font-weight: bold;
-}
-
-.Pendragon .jnl-text a.content-link i {
-  display: none;
-}
-
-.Pendragon .jnl-text img {
-  border: none;
-}
-
-.Pendragon .jnl-text img.centre {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.Pendragon .jnl-text .secindent {
-  padding-left: 20px;
-  text-indent: -20px;
-}
 
 .Pendragon .blue {
   color: #034694;
@@ -1475,43 +1304,8 @@ body.theme-dark .application.Pendragon.sheet,
   color: black;
 }
 
-.Pendragon .red {
-  color: darkred;
-}
-
 .Pendragon .purple {
   color: rgb(156, 7, 156);
-}
-
-.Pendragon .speech {
-  text-align: left;
-  padding-left: 7px;
-  padding-right: 7px;
-}
-
-.Pendragon .redbox {
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  padding: 10px 7px 10px 7px;
-  background-color: darkred;
-  color: cornsilk;
-  max-width: 636px;
-}
-
-.Pendragon .yellowbox {
-  margin-left: 0px;
-  margin-right: 0px;
-  border-radius: 0px;
-}
-
-.Pendragon .bluebox {
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  padding: 10px 7px 10px 7px;
-  background-color: rgb(64, 101, 221);
-  color: cornsilk;
 }
 
 .Pendragon .follower-grid {
@@ -1810,4 +1604,154 @@ body.theme-dark .application.Pendragon.sheet,
 }
 
 
+/* TODO: Remove*/
 
+/*.Pendragon ul.p6e {
+  margin: 0.5em 0 0 0;
+}
+
+.Pendragon ul.p6e li::marker {
+  content: "✠ ";
+  font-size: 15px;
+  color: darkred;
+}
+
+.Pendragon .redbox ul.p6e li::marker {
+  content: "✠ ";
+  font-size: 15px;
+  color: cornsilk;
+}
+
+.Pendragon ul.norm li::marker {
+  content: "• ";
+  font-size: 15px;
+  color: darkred;
+}
+
+.Pendragon .jnl-text {
+  font-family: "AGaramondPro";
+  font-size: 18px;
+  color: black;
+  margin: 0px;
+}
+
+.Pendragon .jnl-text p {
+  margin: 0px;
+}
+
+.Pendragon .jnl-text li p {
+  margin: 0px;
+  text-indent: 0px;
+}
+
+.Pendragon .jnl-text .indent {
+  margin: 0px;
+  text-indent: 20px;
+  padding-left: 0px;
+}
+
+
+
+.Pendragon .jnl-hdr {
+  font-family: "AGaramondPro";
+  font-size: 20px;
+  color: #034694;
+  text-indent: 0px !important;
+}
+
+.Pendragon .jnl-text h2 {
+  font-family: "AGaramondPro";
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #034694;
+  text-indent: 0px !important;
+  border: none;
+  margin: 0px !important;
+}
+
+.Pendragon .jnl-text h2.charname {
+  font-family: "Herb";
+  font-size: 30px;
+  color: darkred;
+  text-indent: 0px !important;
+  text-transform: none;
+  border: none;
+  margin: 0px !important;
+}
+
+.Pendragon .jnl-text h3 {
+  font-family: "AGaramondPro";
+  font-size: 20px;
+  color: #034694;
+  text-indent: 0px !important;
+  border: none;
+  margin: 0px !important;
+}
+
+.Pendragon .jnl-text h4 {
+  font-family: "AGaramondPro";
+  font-size: 18px;
+  font-style: italic;
+  font-weight: bold;
+  text-indent: 0px !important;
+  margin: 0px !important;
+  border-bottom: 1px black solid;
+}
+
+.Pendragon .jnl-text h5,
+.Pendragon .jnl-text h1 {
+  font-family: "Herb";
+  font-size: 30px;
+  text-indent: 0px !important;
+  font-weight: normal;
+  color: darkred;
+  border: none;
+  margin: 0px !important;
+}
+
+.Pendragon .jnl-text h6 {
+  font-family: "AGaramondPro";
+  font-size: 18px;
+  text-indent: 0px !important;
+  border-bottom: none;
+  margin: 0px;
+  font-weight: normal;
+  margin: 0px !important;
+}
+
+.Pendragon .jnl-text a.content-link {
+  background: none;
+  border: none;
+  white-space: pre-wrap;
+  word-break: normal;
+  color: rgb(156, 7, 156);
+  font-weight: bold;
+}
+
+.Pendragon .jnl-text .redbox a.content-link {
+  background: none;
+  border: none;
+  white-space: pre-wrap;
+  word-break: normal;
+  color: #6594cb;
+  font-weight: bold;
+}
+
+.Pendragon .jnl-text a.content-link i {
+  display: none;
+}
+
+.Pendragon .jnl-text img {
+  border: none;
+}
+
+.Pendragon .jnl-text img.centre {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Pendragon .jnl-text .secindent {
+  padding-left: 20px;
+  text-indent: -20px;
+}*/
