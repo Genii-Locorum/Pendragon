@@ -41,13 +41,13 @@
 }
 
 :root {
-  --pendragon-blue: #1274bd;
+  --pendragon-blue: oklch(0.545 0.14 248.1);
   --pendragon-red: #ab0f14;
-  --pendragon-gold: #ffd000;
+  --pendragon-gold: oklch(0.873 0.179 92.2);
   --pendragon-black: black;
   --pendragon-grey: #918987;
   --pendragon-darkred: darkred;
-  --pendragon-darkblue: #034694;  
+  --pendragon-darkblue: #034694;
   --header-row: #240202;
   --background-color: #fffde7;
   --sec-background-color: rgb(56, 78, 30);
@@ -55,66 +55,44 @@
   --font-h2: Messiri, Signika, sans-serif;
   --pd-light-row: #e5dbd488;
   --pd-dark-row: #4507072b;
-  --pd-first-row: #180202e7;   
+  --pd-first-row: #180202e7;
   --pill-size: var(--font-size-11);
-  --pss-table-row-colour-even: rgba(0,0,0,0.1);
-  --pss-table-row-colour-odd: transparent;  
+  --pss-table-row-colour-even: rgba(0, 0, 0, 0.1);
+  --pss-table-row-colour-odd: transparent;
   --notes-background: rgb(177, 168, 168);
+  --frame-border-color: #240202;
 }
 
-body.theme-light .application.Pendragon,
-body.theme-light.application .Pendragon{
-  --pendragon-blue: #1274bd;
-  --pendragon-red: #ab0f14;
-  --pendragon-gold: #ffd000;
-  --pendragon-black: black;
-  --pendragon-grey: #918987;
-  --pendragon-darkred: darkred;
-  --pendragon-darkblue: #034694;    
-  --header-row: #240202;
-  --background-color: #fffde7;
-  --sec-background-color: rgb(56, 78, 30);
-  --exalted-color: rebeccapurple;
-  --font-h2: Messiri, Signika, sans-serif;
-  --pd-light-row: #e5dbd488;
-  --pd-dark-row: #4507072b;
-  --pd-first-row: #180202e7; 
-  --pill-size: var(--font-size-11);
-  --notes-background: rgb(177, 168, 168);  
-  --pss-table-row-colour-even: rgba(0,0,0,0.1);
-  --pss-table-row-colour-odd: transparent;  
+.system-Pendragon.theme-light {
+  --icon-img-filter: invert(1);
+  --char-background-image: url("../assets/backgrounds/arches.png");
+  --pill-bg: #f8f4f1;
+  --rollable-highlight: var(--pendragon-gold);
+  --frame-border-color: #240202;
+  & .prose-frame {
+    --input-background-color: rgba(0, 0, 0, 0.1);
+    --input-placeholder-color: var(--color-dark-4);
+    --input-border-color: var(--color-dark-6);
+    --input-box-shadow: inset 0 0 6px var(--input-background-color);
+    --input-text-color: var(--color-dark-2);
+    --input-focus-outline-color: var(--color-warm-2);
+  }
 }
-
-body.theme-dark .application.Pendragon,
-body.theme-dark.application .Pendragon{
-  --pendragon-blue: #1274bd;
-  --pendragon-red: #ab0f14;
-  --pendragon-gold: #ffd000;
-  --pendragon-black: #fffde7;  
-  --pendragon-grey: #3d3b3a;
-  --pendragon-darkred: #d50909;
-  --pendragon-darkblue: #034694;    
-  --header-row: #240202;
+.system-Pendragon.theme-dark {
+  --icon-img-filter: none;
+  --char-background-image: url("../assets/backgrounds/black-paper.png");
+  --pill-bg: #240202;
+  --exalted-color: oklch(0.637 0.185 295);
+  --rollable-highlight: oklch(0.473 0.179 92.2);
   --background-color: #1e1e1c;
-  --sec-background-color: rgb(56, 78, 30);
-  --exalted-color: rebeccapurple;
-  --font-h2: Messiri, Signika, sans-serif;
   --pd-light-row: #ada5a088;
   --pd-dark-row: #396da775;
   --pd-first-row: #1e5a69e7;
-  --pill-size: var(--font-size-11);
-  --notes-background: rgb(177, 168, 168);  
-  --pss-table-row-colour-even: rgba(0,0,0,0.1);
-  --pss-table-row-colour-odd: transparent;  
-}
-
-body.theme-dark .application.Pendragon.sheet,
-.themed.theme-dark.application.Pendragon.sheet {
-  section.window-content {
+  --frame-border-color: antiquewhite;
+  .sheet section.window-content {
     backdrop-filter: none;
   }
 }
-
 
 .app .header-button.edit-pid-warning,
 .application .window-header .header-control.edit-pid-warning {
@@ -195,7 +173,7 @@ body.theme-dark .application.Pendragon.sheet,
 .Pendragon .centre {
   text-align: center;
 
-  &>input {
+  & > input {
     text-align: inherit;
   }
 }
@@ -235,8 +213,8 @@ body.theme-dark .application.Pendragon.sheet,
 }
 
 .Pendragon .fraction {
-    font-variant-numeric:diagonal-fractions;
-  }
+  font-variant-numeric: diagonal-fractions;
+}
 
 .Pendragon .curtail {
   overflow: auto;
@@ -1036,8 +1014,6 @@ body.theme-dark .application.Pendragon.sheet,
   text-align: center;
 }
 
-
-
 .Pendragon .rollHidden {
   margin-left: 40px;
   font-size: 12px;
@@ -1294,7 +1270,6 @@ body.theme-dark .application.Pendragon.sheet,
   font-size: 20px;
   color: darkred;
 }
-
 
 .Pendragon .blue {
   color: #034694;
@@ -1589,7 +1564,6 @@ body.theme-dark .application.Pendragon.sheet,
   text-overflow: ellipsis;
 }
 
-
 .Pendragon .hide-enc-notes {
   display: none;
 }
@@ -1600,190 +1574,6 @@ body.theme-dark .application.Pendragon.sheet,
   margin-right: auto;
 }
 
-
-/* TODO: Remove*/
-
-/*.Pendragon ul.p6e {
-  margin: 0.5em 0 0 0;
-}
-
-.Pendragon ul.p6e li::marker {
-  content: "✠ ";
-  font-size: 15px;
-  color: darkred;
-}
-
-.Pendragon .redbox ul.p6e li::marker {
-  content: "✠ ";
-  font-size: 15px;
-  color: cornsilk;
-}
-
-.Pendragon ul.norm li::marker {
-  content: "• ";
-  font-size: 15px;
-  color: darkred;
-}
-
-.Pendragon .jnl-text {
-  font-family: "AGaramondPro";
-  font-size: 18px;
-  color: black;
-  margin: 0px;
-}
-
-.Pendragon .jnl-text p {
-  margin: 0px;
-}
-
-.Pendragon .jnl-text li p {
-  margin: 0px;
-  text-indent: 0px;
-}
-
-.Pendragon .jnl-text .indent {
-  margin: 0px;
-  text-indent: 20px;
-  padding-left: 0px;
-}
-
-
-
-.Pendragon .jnl-hdr {
-  font-family: "AGaramondPro";
-  font-size: 20px;
-  color: #034694;
-  text-indent: 0px !important;
-}
-
-.Pendragon .jnl-text h2 {
-  font-family: "AGaramondPro";
-  font-size: 20px;
-  text-transform: uppercase;
-  color: #034694;
-  text-indent: 0px !important;
-  border: none;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text h2.charname {
-  font-family: "Herb";
-  font-size: 30px;
-  color: darkred;
-  text-indent: 0px !important;
-  text-transform: none;
-  border: none;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text h3 {
-  font-family: "AGaramondPro";
-  font-size: 20px;
-  color: #034694;
-  text-indent: 0px !important;
-  border: none;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text h4 {
-  font-family: "AGaramondPro";
-  font-size: 18px;
-  font-style: italic;
-  font-weight: bold;
-  text-indent: 0px !important;
-  margin: 0px !important;
-  border-bottom: 1px black solid;
-}
-
-.Pendragon .jnl-text h5,
-.Pendragon .jnl-text h1 {
-  font-family: "Herb";
-  font-size: 30px;
-  text-indent: 0px !important;
-  font-weight: normal;
-  color: darkred;
-  border: none;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text h6 {
-  font-family: "AGaramondPro";
-  font-size: 18px;
-  text-indent: 0px !important;
-  border-bottom: none;
-  margin: 0px;
-  font-weight: normal;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text a.content-link {
-  background: none;
-  border: none;
-  white-space: pre-wrap;
-  word-break: normal;
-  color: rgb(156, 7, 156);
-  font-weight: bold;
-}
-
-.Pendragon .jnl-text .redbox a.content-link {
-  background: none;
-  border: none;
-  white-space: pre-wrap;
-  word-break: normal;
-  color: #6594cb;
-  font-weight: bold;
-}
-
-.Pendragon .jnl-text a.content-link i {
-  display: none;
-}
-
-.Pendragon .jnl-text img {
-  border: none;
-}
-
-.Pendragon .jnl-text img.centre {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.Pendragon .jnl-text .secindent {
-  padding-left: 20px;
-  text-indent: -20px;
-}*/
-
-.system-Pendragon {
-  --pendragon-blue: oklch(0.545 0.14 248.1);
-  --pendragon-red: #ab0f14;
-  --pendragon-gold: oklch(0.873 0.179 92.2);
-}
-.system-Pendragon.theme-light {
-  --icon-img-filter: invert(1);
-  --char-background-image: url("../assets/backgrounds/arches.png");
-  --background-color: #fffde7;
-  --exalted-color: rebeccapurple;
-  --pill-bg: #f8f4f1;
-  --pd-light-row: #e5dbd488;
-  --rollable-highlight: var(--pendragon-gold);
-  & .prose-frame {
-    --input-background-color: rgba(0, 0, 0, 0.1);
-    --input-placeholder-color: var(--color-dark-4);
-    --input-border-color: var(--color-dark-6);
-    --input-box-shadow: inset 0 0 6px var(--input-background-color);
-    --input-text-color: var(--color-dark-2);
-    --input-focus-outline-color: var(--color-warm-2);
-  }
-}
-.system-Pendragon.theme-dark {
-  --icon-img-filter: none;
-  --char-background-image: url("../assets/backgrounds/black-paper.png");
-  --background-color: black;
-  --pill-bg: #240202;
-  --pd-light-row: #30283166;
-  --exalted-color: oklch(0.637 0.185 295);
-  --rollable-highlight: oklch(0.473 0.179 92.2);
-}
 /* new character sheet experiments */
 .Pendragon.character2 {
   --header-row: oklch(0.169 0.061 26.9);
@@ -1797,6 +1587,7 @@ body.theme-dark .application.Pendragon.sheet,
     --pill-bg: #f8f4f1;
     --pd-light-row: #e5dbd488;
     --rollable-highlight: var(--pendragon-gold);
+    --frame-border-color: #240202;
     --char-background-image: url("../assets/backgrounds/arches.png");
   }
   &.theme-dark {
@@ -1805,6 +1596,7 @@ body.theme-dark .application.Pendragon.sheet,
     --pd-light-row: #30283166;
     --exalted-color: oklch(0.637 0.185 295);
     --rollable-highlight: oklch(0.473 0.179 92.2);
+    --frame-border-color: antiquewhite;
   }
   & .large-icon {
     color: var(--color-text-primary);
@@ -1844,6 +1636,12 @@ body.theme-dark .application.Pendragon.sheet,
     text-shadow: none;
     border-block-end: none;
     margin: 1rem 0 0.5rem;
+    display: flex;
+    gap: 1em;
+    button.inline-control {
+      align-self: center;
+      justify-self: end;
+    }
   }
 
   & h3 {
@@ -1996,11 +1794,20 @@ body.theme-dark .application.Pendragon.sheet,
     & li {
       font-size: 1rem;
       break-inside: avoid;
+      display: grid;
+      grid-template-columns: 2em 1fr min-content;
+      gap: 0em 0.5em;
+      align-items: center;
+      padding: 0.25em 0.5em 0.25em 0;
     }
     & li:nth-child(even) {
       background-color: var(--pd-light-row);
       gap: 0.5rem;
       height: 100%;
+    }
+    & .right {
+      text-align: right;
+      justify-self: end;
     }
   }
   & .passions-layout {
@@ -2011,6 +1818,9 @@ body.theme-dark .application.Pendragon.sheet,
       grid-column-start: court-start;
       grid-column-end: court-end;
       text-align: center;
+      & h2 {
+        display: block;
+      }
       & ol {
         max-width: 50%;
         margin: auto;
@@ -2074,7 +1884,7 @@ body.theme-dark .application.Pendragon.sheet,
   }
   & .horse {
     width: 60%;
-    border: 1px solid navy;
+    border: 1px solid var(--frame-border-color);
     border-radius: 1em;
     margin-block: 1em;
     padding: 0;
@@ -2094,7 +1904,7 @@ body.theme-dark .application.Pendragon.sheet,
     }
   }
   & details {
-    border: 1px solid navy;
+    border: 1px solid var(--frame-border-color);
     border-radius: 1em;
     margin-block: 1em;
     max-width: 100%;
