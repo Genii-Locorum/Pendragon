@@ -11,10 +11,10 @@
       </li>
     {{/each}}
     </ul>
-    <h2>Active Effects</h2>
+    <h2>Active Effects <button class="inline-control icon fa-regular fa-square-plus" data-action="addEffect"></button></h2>
     <ul>
     {{#each effects}}
-        <li>{{ name }}</li>
+        <li>{{ name }} {{source}}</li>
     {{/each}}
     </ul>
 </section>

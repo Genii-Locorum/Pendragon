@@ -36,6 +36,9 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       showWounds: this._onShowWounds,
       toggleXP: this._onToggleXP,
       toggleOpposingXP: this._onToggleOpposingXP,
+      addEffect: this.#onCreateActiveEffect,
+      addItem: this.#onCreateItem,
+      toggleEquip: this._onToggleEquip,
     },
     window: {
       resizable: true,
@@ -105,13 +108,14 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     //context = super._preparePartContext(partId, context, options);
     switch (partId) {
       case "combat":
-      case "skills":
       case "equipment":
       case "stable":
       case "events":
       case "house":
         context.tab = context.tabs[partId];
         break;
+      case "skills":
+        return this._prepareSkillsTab(context);
       case "biography":
         return this._prepareBioTab(context);
       case "passions":
@@ -165,10 +169,8 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     // Initialize containers.
     const gears = [];
     const traits = [];
-    const skills = [];
     const wounds = [];
     const history = [];
-    const passions = [];
     const horses = [];
     const squires = [];
     const armours = [];
@@ -186,8 +188,6 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
         gears.push(i);
       } else if (i.type === "trait") {
         traits.push(i);
-      } else if (i.type === "skill") {
-        skills.push(i);
       } else if (i.type === "wound" && i.system.value > 0) {
         wounds.push(i);
       } else if (i.type === "history") {
@@ -203,14 +203,6 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
         i.system.label = i.system.label.replace(/(<([^>]+)>)/gi, "");
         i.system.glory = Number(i.system.glory) || 0
         history.push(i);
-      } else if (i.type === "passion") {
-        if (i.flags.Pendragon?.pidFlag.id === "i.passion.honour") {
-          i.system.isHonour = true;
-        } else {
-          i.system.isHonour = false;
-        }
-        i.system.level = 1;
-        passions.push(i);
       } else if (i.type === "horse") {
         i.system.careName = game.i18n.localize(
           "PEN.horseHealth." + i.system.horseCare,
@@ -252,79 +244,14 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       }
     }
 
-    passions.push(
-      {
-        name: game.i18n.localize("PEN.adoratio"),
-        system: {
-          total: this.actor.system.adoratio,
-          court: "adoratio",
-          level: 0,
-        },
-      },
-      {
-        name: game.i18n.localize("PEN.civilitas"),
-        system: {
-          total: this.actor.system.civilitas,
-          court: "civilitas",
-          level: 0,
-        },
-      },
-      {
-        name: game.i18n.localize("PEN.fervor"),
-        system: { total: this.actor.system.fervor, court: "fervor", level: 0 },
-      },
-      {
-        name: game.i18n.localize("PEN.fidelitas"),
-        system: {
-          total: this.actor.system.fidelitas,
-          court: "fidelitas",
-          level: 0,
-        },
-      },
-      {
-        name: game.i18n.localize("PEN.honor"),
-        system: { total: this.actor.system.honor, court: "honor", level: 0 },
-      },
-    );
-
     // Sort Gears
     gears.sort((a, b) => a.name.localeCompare(b.name));
 
     // Sort Traits
     traits.sort((a, b) => a.name.localeCompare(b.name));
 
-    // Sort Skills
-    skills.sort(
-      (a, b) =>
-        a.system.combat - b.system.combat || a.name.localeCompare(b.name),
-    );
-
-    // Sort History
-    history.sort(function (a, b) {
-      let x = a.system.year;
-      let y = b.system.year;
-      let p = a._stats.createdTime;
-      let q = b._stats.createdTime;
-      if (x < y) {
-        return 1;
-      }
-      if (x > y) {
-        return -1;
-      }
-      if (p < q) {
-        return 1;
-      }
-      if (p > q) {
-        return -1;
-      }
-      return 0;
-    });
-
-    // Sort Passions by Court, level and name
-    passions.sort(
-      (a, b) =>
-        a.system.court.localeCompare(b.system.court) || a.system.level - b.system.level || a.name.localeCompare(b.name),
-    );
+    // Sort History in reverse chronological order
+    history.sort((a, b) => b.system.year - a.system.year || b._stats.createdTime - a._stats.createdTime);
 
     // Sort Horses with Warhorse at top
     horses.sort((a, b) => a.system.chargeDmg - b.system.chargeDmg);
@@ -357,10 +284,8 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     // Assign and return
     context.gears = gears;
     context.traits = traits;
-    context.skills = skills;
     context.wounds = wounds;
     context.history = history;
-    context.passions = passions;
     context.horses = horses;
     context.armours = armours;
     context.weapons = weapons;
@@ -487,6 +412,17 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     return context;
   }
 
+  async _prepareSkillsTab(context) {
+    context.tab = context.tabs.skills;
+    const skills = context.items.filter(i => i.type == "skill").map(s => ({ _id: s._id, name: s.name, critical: s.system.total - 20, system: s.system, flags: s.flags }));
+    skills.sort(
+      (a, b) =>
+        a.system.combat - b.system.combat || a.name.localeCompare(b.name),
+    );
+    context.skills = skills;
+    return context;
+  }
+
   async _preparePassionsTab(context) {
     context.tab = context.tabs.passions;
     const passions = context.items.filter(i => i.type == "passion").map(p => ({ _id: p._id, name: p.name, critical: p.system.total - 20, system: p.system, flags: p.flags }));
@@ -517,6 +453,12 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       ? this.actor.system.died - this.actor.system.born
       : game.settings.get("Pendragon", "gameYear") - this.actor.system.born;
     return context;
+  }
+
+  static async _onToggleEquip(event, target) {
+    const { itemid } = target.closest("[data-itemid]")?.dataset ?? {};
+    const item = this.actor.items.get(itemid);
+    await item.update({ 'system.equipped': !item.system.equipped });
   }
 
   static async _onToggleXP(event, target) {
@@ -596,9 +538,26 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       token: this.token,
     });
   }
-  static async _onRollSkill(event, target) { }
+  static async _onRollSkill(event, target) {
+    const { itemid } = target.closest("[data-itemid]")?.dataset ?? {};
+    PendragonCharacterSheetv2.#triggerRoll(RollType.SKILL, event, {
+      skillId: itemid,
+      actor: this.actor,
+      token: this.token,
+    });
+  }
+
   static async _onShowWounds(event, target) {
     const dlg = new WoundTrackerDialog(this.actor);
     dlg.render(true);
+  }
+
+  static #onCreateActiveEffect(event, target) {
+    const cls = foundry.utils.getDocumentClass("ActiveEffect");
+    cls.createDialog({}, { parent: this.document });
+  }
+  static #onCreateItem(event, target) {
+    const { itemType } = target.closest("[data-item-type]")?.dataset ?? {};
+    Item.implementation.createDialog({ type: itemType }, { parent: this.document });
   }
 }
