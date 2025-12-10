@@ -10,12 +10,12 @@
               <th>{{localize 'PEN.eqpd'}}</th>
           </tr>
           {{#each armours as |armour key|}}
-          <tr>
+          <tr data-itemid ="{{armour._id}}">
             <td>{{armour.name}}</td>
             <td>All Periods</td>
             <td>{{armour.system.ap}}</td>
             <td>{{armour.system.material}} {{armour.system.padding}}</td>
-            <td><a class="item-control item-toggle large-icon" data-itemid ="{{armour._id}}" data-property="equipped" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if armour.system.equipped}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></td>
+            <td><a class="item-control large-icon" data-action="toggleEquip"><i class="{{#if armour.system.equipped}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></td>
           </tr>
           {{/each}}
         </tbody>
