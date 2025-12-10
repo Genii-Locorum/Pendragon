@@ -2,23 +2,21 @@
 <section class="tab skills {{tab.cssClass}}" data-group="primary" data-tab="skills">
   <div class="skill-layout">
   <div>
-  <h2>Non-Combat Skills</h2>
+  <h2>Non-Combat Skills <button class="inline-control icon fa-regular fa-square-plus" data-item-type="skill" data-action="addItem"></button></h2>
   <ol class="skill-list">
     {{#each skills as |skill key|}}
       {{#unless skill.system.combat}}
-      <li class="item skill-listitem" data-item-id="{{skill._id}}">
-        <div class="skill-grid">
-          <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{skill._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if skill.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
-          <div class="rollable skill-name truncate" title="{{localize 'PEN.rollHint'}}" data-itemid="{{skill._id}}">{{skill.name}}</div>
-            <div class="stat-name centre">{{skill.system.total}}</div>
-            <div class="centre item" data-itemid ="{{skill._id}}">
-              <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
-              {{#unless ../system.lock}}
-                <a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
-              {{/unless}}
-            </div>
+      <li class="{{#if (gt skill.system.total 15)}}famous{{/if}} {{#if (gt skill.system.total 20)}}exalted{{/if}} skill-listitem" data-itemid="{{skill._id}}">
+        <a class="item-control large-icon" data-action="toggleXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if skill.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
+        <div data-itemid="{{skill._id}}" data-action="rollSkill">
+          <span>{{skill.name}}</span>
+          <div class="pills">
+            {{#each skill.system.categories as |category|}}
+              <span class="pill">{{category}}</span>
+            {{/each}}
+          </div>
         </div>
-        <div class="pills"><span class="pill">Knightly</span> <span class="pill">Clerical</span></div>
+        <span class="right">{{#if (gt skill.system.total 20)}}20(+{{skill.critical}}){{else}}{{skill.system.total}}{{/if}}</span>
       </li>
       {{/unless}}
     {{/each}}
@@ -29,19 +27,17 @@
   <ol class="skill-list">
     {{#each skills as |skill key|}}
       {{#if skill.system.combat}}
-      <li class="item skill-listitem" data-item-id="{{skill._id}}">
-        <div class="skill-grid">
-          <div class="centre"><a class="item-control item-toggle large-icon" data-itemid ="{{skill._id}}" data-property="XP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if skill.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>
-          <div class="rollable skill-name truncate" title="{{localize 'PEN.rollHint'}}" data-itemid="{{skill._id}}">{{skill.name}}</div>
-            <div class="stat-name centre">{{skill.system.total}}</div>
-            <div class="centre item" data-itemid ="{{skill._id}}">
-              <a class="item-control item-edit large-icon fade"><i title="{{localize 'PEN.view'}}" class="fa-solid fa-eye"></i></a>
-              {{#unless ../system.lock}}
-                <a class="item-control item-delete large-icon fade"><i title="{{localize 'PEN.delete'}}" class="fa-solid fa-broom-wide"></i></a>
-              {{/unless}}
-            </div>
+      <li class="{{#if (gt skill.system.total 15)}}famous{{/if}} {{#if (gt skill.system.total 20)}}exalted{{/if}} skill-listitem" data-itemid="{{skill._id}}">
+        <a class="item-control large-icon" data-action="toggleXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if skill.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
+        <div data-itemid="{{skill._id}}" data-action="rollSkill">
+          <span>{{skill.name}}</span>
+          <div class="pills">
+            {{#each skill.system.categories as |category|}}
+              <span class="pill">{{category}}</span>
+            {{/each}}
+          </div>
         </div>
-        <div class="pills"><span class="pill">Knightly</span> <span class="pill">Combat</span></div>
+        <span class="right">{{#if (gt skill.system.total 20)}}20(+{{skill.critical}}){{else}}{{skill.system.total}}{{/if}}</span>
       </li>
       {{/if}}
     {{/each}}
