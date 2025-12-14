@@ -19,11 +19,13 @@
     <div style="display: grid;gap: 0.5rem;grid-template-columns: 1fr 120px 1fr;align-items:stretch;">
       <div>
       <div style="border-radius: 0.25rem;padding: 0.5rem;background-color: var(--pd-light-row);">
-        <p><i class= "fa-solid fa-horse-head"></i>Alexander</p>
-        <p>Charger - War-Trained</p>
-        <p>Hit Points: 100 / 100</p>
-        <p>Move: 16 / Knockdown: 26</p>
-        <button>Change Horse</button>
+        {{#if currentHorse}}
+        <p><i class= "fa-solid fa-horse-head"></i>{{currentHorse.name}}</p>
+        <p>{{currentHorse.classification}}{{#if currentHorse.system.combat}} - War-Trained{{/if}}</p>
+        <p>Hit Points: {{currentHorse.system.hp}} / {{currentHorse.system.maxHP}}</p>
+        <p>Move: {{currentHorse.system.move}} / Knockdown: {{currentHorse.system.siz}}</p>
+        {{/if}}
+        <button data-action="switchHorse">Change Horse</button>
       <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Mounted</p>
       </div>
       </div>
@@ -32,9 +34,9 @@
         <p>Major Wound: {{system.hp.majorWnd}}</p>
         <p>Unconscious: {{system.hp.unconscious}}</p>
         <p style="font-weight: bold;font-size:larger"><i class= "fa-solid fa-swords"></i> Weapon</p>
-        <p>Arming Sword 15</p>
-        <p>Damage: 4d6</p>
-        <button>Change Weapon</button>
+        <p>{{currentWeapon.name}} {{currentWeapon.total}}</p>
+        <p>Damage: {{currentWeapon.damage}}</p>
+        <button data-action="switchWeapon">Change Weapon</button>
       </div>
       <div style="border-radius: 0.25rem;padding: 0.5rem;background-color: var(--pd-light-row);">
         <p>Armour Points: {{system.armour}} + {{system.shield}} <i class="fa-solid fa-shield"></i></p>
