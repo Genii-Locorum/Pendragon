@@ -19,7 +19,7 @@
                 <strong>Age:</strong> {{parent.age}}
                 {{/if}}
             </td>
-            <td>{{formatNumber parent.glory}}</td>
+            <td class="right">{{formatNumber parent.glory}}</td>
           </tr>
           {{/each}}
         </tbody>
@@ -42,7 +42,7 @@
                 <strong>Age:</strong> {{spouse.age}}
                 {{/if}}
                 </td>
-            <td>{{formatNumber spouse.glory}}</td>
+            <td class="right">{{formatNumber spouse.glory}}</td>
           </tr>
           {{/each}}
         </tbody>
@@ -66,7 +66,7 @@
                 <strong>Age:</strong> {{child.age}}
                 {{/if}}
                 </td>
-            <td>{{formatNumber child.glory}}</td>
+            <td class="right">{{formatNumber child.glory}}</td>
           </tr>
           {{/each}}
         </tbody>
@@ -77,16 +77,11 @@
 <h2>Station</h2>
 <label><strong>{{localize 'PEN.lord'}}:</strong><input name="system.lord" type="text" value="{{system.lord}}"/></label>
 <label><strong>{{localize 'PEN.class'}}:</strong><input type="text" value="{{system.className}}" readonly/></label>
-<p><strong>{{localize 'PEN.sol'}}:</strong> Ordinary?</p>
-<table>
-    <tbody>
-      <tr>
-          <th>Vassal</th>
-          <th>{{localize 'PEN.status'}}</th>
-          <th>{{localize 'PEN.glory'}}</th>
-      </tr>
-    </tbody>
-</table>
+<label><strong>{{localize 'PEN.sol'}}:</strong> <input style="flex:1;" type="text" value="{{system.sol}}" readonly/></label>
+<p>
+<strong style="padding-inline-end:1em;">{{localize 'PEN.money'}}:</strong><input name="system.money.libra" type="text" value="{{system.money.libra}}" style="width:3em;display:inline-block;"/>
+<strong style="padding:0 1em;">/</strong><input name="system.money.denarii" type="text" value="{{system.money.denarii}}" style="width:3em;display:inline-block;" />
+</p>
 <table>
     <tbody>
       <tr>
@@ -104,12 +99,12 @@
             <strong>Age:</strong> {{parent.age}}
             {{/if}}
         </td>
-        <td>{{formatNumber parent.glory}}</td>
+        <td class="right">{{formatNumber parent.glory}}</td>
       </tr>
       {{/each}}
     </tbody>
-</table>
-<table>
+  </table>
+  <table>
     <tbody>
       <tr>
           <th>Retainer</th>
@@ -117,7 +112,16 @@
           <th>{{localize 'PEN.glory'}}</th>
       </tr>
     </tbody>
-</table>
-        </section>
-</div>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+          <th>Vassal</th>
+          <th>{{localize 'PEN.status'}}</th>
+          <th>{{localize 'PEN.glory'}}</th>
+      </tr>
+    </tbody>
+  </table>
+    </section>
+  </div>
 </section>

@@ -18,7 +18,6 @@
     </div>
     <div>
       <h2>Ideals</h2>
-      <p>allow dropping an ideal even if not qualified, just mark inactive until then</p>
       {{#each ideals as |ideal key|}}
           <details class="ideal" open>
               <summary>{{ideal.name}}</summary>
@@ -30,8 +29,8 @@
               <div>{{{ideal.description}}}</div>
               <h3>Requirements</h3>
               <ul>
-              {{#each ideal.system.require as |require|}}
-                  <li>{{require.pid}} {{require.score}}</li>
+              {{#each ideal.requirements as |require|}}
+                  <li>{{require.name}} {{require.score}} {{require.active}}</li>
               {{/each}}
               </ul>
           </details>

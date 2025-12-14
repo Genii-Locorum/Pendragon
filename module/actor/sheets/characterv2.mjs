@@ -8,6 +8,8 @@ import { PendragonActorSheet } from "./actor-sheet.mjs";
 import { WoundTrackerDialog } from "./actor-wound-tracker.mjs";
 import { CardType, PENCheck, RollType } from "../../apps/checks.mjs";
 
+const { api } = foundry.applications;
+
 export class PendragonCharacterSheetv2 extends PendragonActorSheet {
   constructor(options = {}) {
     super(options);
@@ -39,6 +41,8 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       addEffect: this.#onCreateActiveEffect,
       addItem: this.#onCreateItem,
       toggleEquip: this._onToggleEquip,
+      switchHorse: this._onSwitchHorse,
+      switchWeapon: this._onSwitchWeapon,
     },
     window: {
       resizable: true,
@@ -107,13 +111,14 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
   async _preparePartContext(partId, context) {
     //context = super._preparePartContext(partId, context, options);
     switch (partId) {
-      case "combat":
       case "equipment":
       case "stable":
       case "events":
       case "house":
         context.tab = context.tabs[partId];
         break;
+      case "combat":
+        return this._prepareCombatTab(context);
       case "skills":
         return this._prepareSkillsTab(context);
       case "biography":
@@ -408,8 +413,18 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
         secrets: false,
         relativeTo: i,
       });
+      i.requirements = i.system.require.map(r => this.checkRequirement(r));
     }
     return context;
+  }
+
+  checkRequirement(rItm) {
+    let actItm = this.actor.items.filter(itm => itm.flags.Pendragon?.pidFlag?.id === rItm.pid)[0];
+    if (rItm.score < 0) {
+      return { name: actItm.system.oppName, score: -rItm.score, active: actItm.system.total <= 20 + rItm.score }
+    } else {
+      return { name: actItm.name, score: rItm.score, active: actItm.system.total >= rItm.score }
+    }
   }
 
   async _prepareSkillsTab(context) {
@@ -453,6 +468,37 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       ? this.actor.system.died - this.actor.system.born
       : game.settings.get("Pendragon", "gameYear") - this.actor.system.born;
     return context;
+  }
+
+  async _prepareCombatTab(context) {
+    context.tab = context.tabs.combat;
+    const currentHorse = this.actor.getFlag("Pendragon", "currentHorse");
+    if (currentHorse) {
+      const horse = this.actor.items.find(i => i.id === currentHorse);
+      if (horse) {
+        const name = horse.system.label == horse.name ? `Unnamed ${horse.name}` : horse.system.label;
+        const classification = horse.name;
+        context.currentHorse = { name, system: horse.system, classification };
+      }
+    }
+    const currentWeapon = this.actor.getFlag("Pendragon", "currentWeapon");
+    if (currentWeapon) {
+      const weapon = this.actor.items.find(i => i.id === currentWeapon);
+      if (weapon) {
+        context.currentWeapon = { name: weapon.name, total: weapon.system.total, damage: weapon.system.damage };
+      }
+      else {
+        context.currentWeapon = this.#unarmed();
+      }
+    }
+    else {
+      context.currentWeapon = this.#unarmed();
+    }
+    return context;
+  }
+
+  #unarmed() {
+    return { name: "Unarmed", total: this.actor.getSkillTotal("i.skill.brawling"), damage: this.actor.system.damage };
   }
 
   static async _onToggleEquip(event, target) {
@@ -559,5 +605,33 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
   static #onCreateItem(event, target) {
     const { itemType } = target.closest("[data-item-type]")?.dataset ?? {};
     Item.implementation.createDialog({ type: itemType }, { parent: this.document });
+  }
+  static async _onSwitchHorse(event, target) {
+    const horses = this.actor.items.filter(itm => itm.type === 'horse');
+    horses.sort((a, b) => a.system.chargeDmg - b.system.chargeDmg);
+    const content = horses.map(h => `<label><input type='radio' name='horse' value='${h.id}'>${h.name}</label>`).join("");
+    const result = await api.DialogV2.wait({
+      window: { title: "Select Horse" },
+      content: content,
+      buttons: [{ label: "Switch", action: "switch", callback: (_, button) => button.form.elements.horse.value }],
+    });
+    // no result or missing horse id
+    if (!result || result === "switch") return;
+    this.actor.setFlag("Pendragon", "currentHorse", result);
+  }
+  static async _onSwitchWeapon(event, target) {
+    const weapons = this.actor.items.filter(itm => itm.type === 'weapon');
+    weapons.sort(
+      (a, b) => a.system.melee - b.system.melee || a.name.localeCompare(b.name),
+    );
+    const content = weapons.map(w => `<label><input type='radio' name='weapon' value='${w.id}'>${w.name}</label>`).join("");
+    const result = await api.DialogV2.wait({
+      window: { title: "Select Weapon" },
+      content: content,
+      buttons: [{ label: "Switch", action: "switch", callback: (_, button) => button.form.elements.weapon.value }],
+    });
+    // no result or missing horse id
+    if (!result || result === "switch") return;
+    this.actor.setFlag("Pendragon", "currentWeapon", result);
   }
 }
