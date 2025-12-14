@@ -629,6 +629,12 @@ export class PendragonActor extends Actor {
     }
   }
 
+  getSkillTotal(pid) {
+    const skill = this.items.find(citm => citm.flags?.Pendragon?.pidFlag?.id === pid);
+    if (skill && skill.type == "skill") {
+      return skill.system.total;
+    }
+  }
   //Used for Rolling NPCs when token dropped
   get hasRollableCharacteristics() {
     for (const [, value] of Object.entries(this.system.stats)) {
