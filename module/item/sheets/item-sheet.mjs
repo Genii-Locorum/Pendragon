@@ -72,7 +72,7 @@ export class PendragonItemSheet extends api.HandlebarsApplicationMixin(
   static _onEditPid(event) {
     event.stopPropagation(); // Don't trigger other events
     if ( event.detail > 1 ) return; // Ignore repeated clicks
-    new PIDEditor(this.item, {}).render(true, { focus: true })
+        new PIDEditor({document: this.document }, {}).render(true, { focus: true })
   }
 
   _initTabs(group, tabNames) {

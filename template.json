@@ -20,7 +20,8 @@
             "age":0,
             "major": 0,
             "winter": 0,
-            "growth": 0
+            "growth": 0,
+            "formula": ""
           },
           "dex": {
             "value": 10,
@@ -31,7 +32,8 @@
             "sol":0,
             "age":0,
             "major": 0,
-            "winter": 0
+            "winter": 0,
+            "formula": ""
           },
           "str": {
             "value": 10,
@@ -42,7 +44,8 @@
             "sol":0,
             "age":0,
             "major": 0,
-            "winter": 0
+            "winter": 0,
+            "formula": ""
           },
           "con": {
             "value": 10,
@@ -53,7 +56,8 @@
             "sol":0,
             "age":0,
             "major": 0,
-            "winter": 0
+            "winter": 0,
+            "formula": ""
           },
           "app": {
             "value": 10,
@@ -64,7 +68,8 @@
             "sol":0,
             "age":0,
             "major": 0,
-            "winter": 0
+            "winter": 0,
+            "formula": ""
           }
         }
       }
@@ -96,6 +101,7 @@
       "motto": "",
       "lock": true,
       "battlePos": "0",
+      "fieldPos": "0",
       "money": {
         "libra": 0,
         "denarii": 0
@@ -139,6 +145,7 @@
     "npc": {
       "templates": ["base"],
       "gloryAward": 0,
+      "gloryTotal": 0,
       "woundTotal": 0,
       "lock": false,
       "notes": "",
@@ -156,7 +163,17 @@
       "manUnconscious": 0,
       "coatOfArms" : "systems/Pendragon/assets/Icons/checked-shield.svg",
       "ransom": "",
-      "kv": ""
+      "kv": "",
+      "weaponExp": true,
+      "armorExp": true,
+      "skillExp": true,
+      "traitExp": true,
+      "passionExp": true,
+      "horseExp": true,
+      "talentExp": true,
+      "noteView": false,
+      "random": [],
+      "baseStats":false
     },
     "follower": {
       "templates": ["base"],
@@ -245,6 +262,7 @@
       "combat": false,
       "nonknightly": false,
       "starter": false,
+      "magical": false,
       "categories": [],
       "weaponType": "",
       "value": 0,

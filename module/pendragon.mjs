@@ -27,6 +27,7 @@ import RenderJournalEntryPageTextSheet from './hooks/render-journal-entry-page-t
 import RenderJournalEntrySheet from './hooks/render-journal-entry-sheet.mjs'
 import RenderJournalSheet from './hooks/render-journal-sheet.mjs'
 import RenderJournalTextPageSheet from './hooks/render-journal-text-page-sheet.mjs'
+import createToken from "./hooks/create-token.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -119,6 +120,7 @@ Hooks.on('renderJournalEntryPageTextSheet', RenderJournalEntryPageTextSheet)
 Hooks.on('renderJournalEntrySheet', RenderJournalEntrySheet)
 Hooks.on('renderJournalSheet', RenderJournalSheet)
 Hooks.on('renderJournalTextPageSheet', RenderJournalTextPageSheet)
+Hooks.on('createToken', createToken);
 
 PendragonHooks.listen();
 

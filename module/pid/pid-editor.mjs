@@ -1,32 +1,85 @@
 import { PENDRAGON } from '../setup/config.mjs'
 import { PENUtilities } from '../apps/utilities.mjs'
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 
-export class PIDEditor extends FormApplication {
-  static get defaultOptions () {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['Pendragon', 'dialog', 'pid-editor'],
-      template: 'systems/Pendragon/templates/pid/pid-editor.html',
-      width: 900,
-      height: 'auto',
-      title: 'PEN.PIDFlag.title',
+export class PIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
+
+  static DEFAULT_OPTIONS = {
+    tag: 'form',
+    name: "pidEditor",
+    classes: ['Pendragon', 'dialog', 'pid-editor'],
+    form: {
+      handler: PIDEditor._updateObject,
       closeOnSubmit: false,
       submitOnClose: true,
-      submitOnChange: true
-    })
+      submitOnChange: true,
+    },
+    position: {
+      width: 900,
+      height: "auto",
+    },
+    actions: {
+      copyToClip: PIDEditor.copyToClip,
+      guess: PIDEditor.guessID,
+    },
+
+
+
+    window: {
+      title: 'PEN.PIDFlag.title',
+      contentClasses: ["standard-form"],
+    }
   }
 
-  async getData () {
-    const sheetData = super.getData()
+  get title() {
+    return `${game.i18n.localize(this.options.window.title)}`;
+  }
 
+  static PARTS = {
+    form: { template: 'systems/Pendragon/templates/pid/pid-editor.hbs' },
+  }
+
+  static addPIDSheetHeaderButton (application, element) {
+    if (typeof application.options.actions.pid !== 'undefined') return
+    application.options.actions.pid = {
+      handler: (event, element) => {
+        event.preventDefault()
+        event.stopPropagation()
+        if (event.detail > 1) return // Ignore repeated clicks
+        if (event.button === 2 && (application.document.flags.Pendragon?.pidFlag?.id ?? false)) {
+          game.clipboard.copyPlainText(application.document.flags.Pendragon.pidFlag.id)
+          //ui.notifications.info('PEN.WhatCopiedClipboard', { format: { what: game.i18n.localize('PEN.PIDFlag.key') }, console: false })
+        } else {
+        new PIDEditor({document: this.document }, {}).render(true, { focus: true })          
+        }
+      },
+      buttons: [0, 2]
+    }
+    const copyUuid = element.querySelector('button.header-control.fa-solid.fa-passport')
+    if (copyUuid) {
+      const button = document.createElement('button')
+      button.type = 'button'
+      button.classList = 'header-control fa-solid fa-fingerprint icon'
+      if (!(application.document.flags.Pendragon?.pidFlag?.id ?? false)) {
+        button.classList.add('invalid-pid')
+      }
+      button.dataset.action = 'pid'
+      button.dataset.tooltip = 'PEN.PIDFlag.id'
+      copyUuid.after(button)
+    }
+  }
+
+  async _prepareContext(options) {
+    this.document = this.options.document
+    const sheetData = await super._prepareContext()
+    sheetData.objtype = this.document.type
+    sheetData.objid = this.document.id
+    sheetData.objuuid = this.document.uuid
     sheetData.supportedLanguages = CONFIG.supportedLanguages
-
-    this.options.editable = this.object.sheet.isEditable
-
-    sheetData.guessCode = game.system.api.pid.guessId(this.object)
-    sheetData.idPrefix = game.system.api.pid.getPrefix(this.object)
-
-    sheetData.pidFlag = this.object.flags?.Pendragon?.pidFlag
-
+    sheetData.isEditable = this.document.sheet.isEditable
+    sheetData.guessCode = game.system.api.pid.guessId(this.document)
+    sheetData.idPrefix = game.system.api.pid.getPrefix(this.document)
+    sheetData.pidFlag = this.document.flags?.Pendragon?.pidFlag
     sheetData.id = sheetData.pidFlag?.id || ''
     sheetData.lang = sheetData.pidFlag?.lang || game.i18n.lang
     sheetData.priority = sheetData.pidFlag?.priority || 0
@@ -39,7 +92,6 @@ export class PIDEditor extends FormApplication {
       }
       return obj
     }, []).sort(PENUtilities.sortByNameKey)
-
     sheetData.isSystemID = (typeof PIDKeys[sheetData.id] !== 'undefined')
     const match = sheetData.id.match(/^([^\\.]+)\.([^\\.]*)\.(.+)/)
     sheetData._existing = (match && typeof match[3] !== 'undefined' ? match[3] : '')
@@ -56,7 +108,7 @@ export class PIDEditor extends FormApplication {
         return {
           priority: d.flags.Pendragon.pidFlag.priority,
           lang: d.flags.Pendragon.pidFlag.lang ?? 'en',
-          link: await TextEditor.enrichHTML(d.link, { async: true }),
+          link: await foundry.applications.ux.TextEditor.implementation.enrichHTML(d.link, { async: true }),
           folder: d?.folder?.name
         }
       }))
@@ -76,7 +128,7 @@ export class PIDEditor extends FormApplication {
         return {
           priority: d.flags.Pendragon.pidFlag.priority,
           lang: d.flags.Pendragon.pidFlag.lang ?? 'en',
-          link: await TextEditor.enrichHTML(d.link, { async: true }),
+          link: await foundry.applications.ux.TextEditor.implementation.enrichHTML(d.link, { async: true }),
           folder: d?.folder?.name ?? ''
         }
       }))
@@ -97,46 +149,66 @@ export class PIDEditor extends FormApplication {
     return sheetData
   }
 
-  activateListeners (html) {
-    super.activateListeners(html)
+  _onRender(context, options) {
+    if (this.element.querySelector('input[name=_existing')) {
+      this.element.querySelector('input[name=_existing').addEventListener("change", function (e) {
+        const obj = $(this)
+        const prefix = obj.data('prefix')
+        let value = obj.val()
+        if (value !== '') {
+          value = prefix + PENUtilities.toKebabCase(value)
+        }
+        let target = document.querySelector('input[name=id]');
+        target.value = value
+      })
+    }
 
-    html.find('a.copy-to-clipboard').click(function (e) {
-      PENUtilities.copyToClipboard($(this).siblings('input').val())
-    })
 
-    if (!this.object.sheet.isEditable) return
+    if (this.element.querySelector('select[name=known]')) {
+      this.element.querySelector('select[name=known]').addEventListener("change", function (e) {
+        const obj = $(this)
+        let value = obj.val()
+        let target = document.querySelector('input[name=id]');
+        target.value = value
+      })
+    }
 
-    html.find('input[name=_existing').change(function (e) {
-      const obj = $(this)
-      const prefix = obj.data('prefix')
-      let value = obj.val()
-      if (value !== '') {
-        value = prefix + PENUtilities.toKebabCase(value)
-      }
-      html.find('input[name=id]').val(value).trigger('change')
-    })
-
-    html.find('select[name=known]').change(function (e) {
-      const obj = $(this)
-      html.find('input[name=id]').val(obj.val())
-    })
-
-    html.find('a[data-guess]').click(async function (e) {
-      e.preventDefault()
-      const obj = $(this)
-      const guess = obj.data('guess')
-      html.find('input[name=id]').val(guess).trigger('change')
-    })
   }
 
-  async _updateObject (event, formData) {
-    const id = formData.id || ''
-    await this.object.update({
-      'flags.Pendragon.pidFlag.id': id,
-      'flags.Pendragon.pidFlag.lang': formData.lang || game.i18n.lang,
-      'flags.Pendragon.pidFlag.priority': formData.priority || 0
+  static async copyToClip(event, target) {
+    await PENUtilities.copyToClipboard($(target).siblings('input').val())
+  }
+
+  static async guessID(event, target) {
+    const guess = target.dataset.guess
+    const priority = this.document.flags.Pendragon?.pidFlag?.priority ?? 0
+    const lang = this.document.flags.Pendragon?.pidFlag?.lang ?? game.i18n.lang
+
+    await this.document.update({
+      'flags.Pendragon.pidFlag.id': guess,
+      'flags.Pendragon.pidFlag.lang': lang,
+      'flags.Pendragon.pidFlag.priority': priority,
     })
-    const html = $(this.object.sheet.element).find('header.window-header .edit-pid-warning,header.window-header .edit-pid-exisiting')
+    const html = $(this.document.sheet.element).find('header.window-header .edit-pid-warning,header.window-header .edit-pid-exisiting')
+    if (html.length) {
+      html.css({
+        color: (guess ? 'var(--color-text-light-highlight)' : 'red')
+      })
+    }
+    this.render()
+  }
+
+  static async _updateObject(event, form, formData) {
+    const usage = foundry.utils.expandObject(formData.object)
+    const id = usage.id || ''
+    const priority = usage.priority || 0
+    const lang = usage.lang || game.i18n.lang
+    await this.document.update({
+      'flags.Pendragon.pidFlag.id': id,
+      'flags.Pendragon.pidFlag.lang': lang,
+      'flags.Pendragon.pidFlag.priority': priority,
+    })
+    const html = $(this.document.sheet.element).find('header.window-header .edit-pid-warning,header.window-header .edit-pid-exisiting')
     if (html.length) {
       html.css({
         color: (id ? 'var(--color-text-light-highlight)' : 'red')
@@ -145,33 +217,4 @@ export class PIDEditor extends FormApplication {
     this.render()
   }
 
-  static addPIDSheetHeaderButton (application, element) {
-    if (typeof application.options.actions.editPid !== 'undefined') return
-    application.options.actions.editPid = {
-      handler: (event, element) => {
-        event.preventDefault()
-        event.stopPropagation()
-        if (event.detail > 1) return // Ignore repeated clicks
-        if (event.button === 2 && (application.document.flags.Pendragon?.pidFlag?.id ?? false)) {
-          game.clipboard.copyPlainText(application.document.flags.Pendragon.pidFlag.id)
-          //ui.notifications.info('AOV.WhatCopiedClipboard', { format: { what: game.i18n.localize('AOV.CIDFlag.key') }, console: false })
-        } else {
-          new PIDEditor(application.document, {}).render(true, { focus: true })
-        }
-      },
-      buttons: [0, 2]
-    }
-    const copyUuid = element.querySelector('button.header-control.fa-solid.fa-passport')
-    if (copyUuid) {
-      const button = document.createElement('button')
-      button.type = 'button'
-      button.classList = 'header-control fa-solid fa-fingerprint icon'
-      if (!(application.document.flags.Pendragon?.pidFlag?.id ?? false)) {
-        button.classList.add('edit-pid-warning')
-      }
-      button.dataset.action = 'editPid'
-      button.dataset.tooltip = 'PEN.PIDFlag.id'
-      copyUuid.after(button)
-    }
-  }
-}  
+}

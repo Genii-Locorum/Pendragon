@@ -226,7 +226,7 @@
 
   .knight-stat {
     display: grid;
-    grid-template-columns: 30px 30px;
+    grid-template-columns: 20px 20px 20px;
     color: var(--pendragon-black);
     margin-top: 1px;
   }

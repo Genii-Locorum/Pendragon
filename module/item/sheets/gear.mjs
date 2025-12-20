@@ -54,7 +54,7 @@ export class PendragonGearSheet extends PendragonItemSheet {
     }
 
     // these two values could be set during _preparePartContext
-    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
+    sheetData.enrichedDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.item.system.description,
       {
         async: true,
@@ -62,7 +62,7 @@ export class PendragonGearSheet extends PendragonItemSheet {
         relativeTo: this.item
       }
     )
-    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
+    sheetData.enrichedGMDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.item.system.GMdescription,
       {
         async: true,

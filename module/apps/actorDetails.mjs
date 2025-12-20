@@ -67,9 +67,10 @@ export class PENactorDetails {
 
   //Get Actor Image for Id  
   static async getParticImg (particId,particType) {
-    if (!particId || !particType) return null
-    const actor = await PENactorDetails._getParticipant(particId, particType)
-    return actor.img
+    if (!particId || !particType) return null;
+    const actor = await PENactorDetails._getParticipant(particId, particType);
+    if (!actor) return null;
+    return actor.img;
   }
 
 }

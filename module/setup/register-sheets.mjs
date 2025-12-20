@@ -1,5 +1,5 @@
 import { PendragonCharacterSheet } from '../actor/sheets/character.mjs';
-import { PendragonNPCSheet } from '../actor/sheets/npc.mjs';
+import { PendragonNPCSheetv2 } from '../actor/sheets/npcV2.mjs';
 import { PendragonFollowerSheet } from '../actor/sheets/follower.mjs';
 import { PendragonPartySheet } from '../actor/sheets/party.mjs';
 import { PendragonEncounterSheet } from '../actor/sheets/encounter.mjs';
@@ -32,10 +32,10 @@ export function registerSheets () {
       makeDefault: true
     })
 
-    foundry.documents.collections.Actors.registerSheet('Pendragon', PendragonNPCSheet, {
+    foundry.documents.collections.Actors.registerSheet('Pendragon', PendragonNPCSheetv2, {
       types: ['npc'],
       makeDefault: true
-    })
+    })    
 
     foundry.documents.collections.Actors.registerSheet('Pendragon', PendragonFollowerSheet, {
       types: ['follower'],

@@ -1,8 +1,3 @@
-2025/12/04-11:36:23.414 56d0 Recovering log #75
-2025/12/04-11:36:23.419 56d0 Delete type=0 #75
-2025/12/04-11:36:23.419 56d0 Delete type=3 #74
-2025/12/04-11:36:31.485 515c Level-0 table #79: started
-2025/12/04-11:36:31.485 515c Level-0 table #79: 0 bytes OK
-2025/12/04-11:36:31.485 515c Delete type=0 #77
-2025/12/04-11:36:31.485 515c Manual compaction at level-0 from '!scenes!qHEA9cs0gpSeUiTn' @ 72057594037927935 : 1 .. '!scenes.tokens.delta!qHEA9cs0gpSeUiTn.YRREl0jveeK8rVIN.YRREl0jveeK8rVIN' @ 0 : 0; will stop at (end)
-2025/12/04-11:36:31.485 515c Manual compaction at level-1 from '!scenes!qHEA9cs0gpSeUiTn' @ 72057594037927935 : 1 .. '!scenes.tokens.delta!qHEA9cs0gpSeUiTn.YRREl0jveeK8rVIN.YRREl0jveeK8rVIN' @ 0 : 0; will stop at (end)
+2025/12/20-05:45:25.255 6f04 Recovering log #265
+2025/12/20-05:45:25.260 6f04 Delete type=0 #265
+2025/12/20-05:45:25.260 6f04 Delete type=3 #264

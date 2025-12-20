@@ -104,8 +104,9 @@
               <div></div>
             {{/unless}}
           {{else}}
-            <div></div>  
+              <div></div>
           {{/if}}  
+          <div class="centre" data-tooltip="{{localize 'PEN.fieldPosition'}}: {{knight.fieldPos}}">{{knight.fieldPosAbbr}}</div>
           <div class="centre" data-tooltip="{{localize 'PEN.battlePosture'}}: {{knight.pos}}">{{knight.actr.system.battlePos}}</div>
         </div>
       </div>

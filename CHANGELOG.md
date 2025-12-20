@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 13.1.47
+- NPCs have moved to V2 Application.
+- NPCs, when locked, have up/down chevron icons so you can show/hide the skill, weapon, armour etc lists.
+- NPCs notes have been moved to a separate panel which can be toggled on/off (scroll icon)
+- NPCs now have base stats and skills/passions/traits which can have a rollable starting value (toggle the user icon to show this screen)
+- NPCs now have a Glory Total score - which can be used to make Glory Rolls.  This is separate to Glory Award (the value of Glory earned for defeating the NPC)
+- There's a game setting so you can determine whether these NPC rollable starting values are used
+- Skill now have a "Magical Talent" checkbox - they act like skills in all other respects
+- Magical Talent skills now appear in their own section on NPC sheets.  They will appear on the skills section for Characters (not expecting characters to have them)
+- When editing Passion or Skill names on the NPC sheet the Main Name will be shown when unlocked, unless it is a speciailised skill/passion in which case the specialism is shown.  A tool tip shows
+  the full name, and when the sheet is locked the full name is shown.
+- Character Sheet now has a "Field Position" on the combat tab just after Battle Posture - this is reflected on the Battle Sheet
+- Morale Loss can be rolled from the Encounter Card - it does not automatically update the Battle
+  
 ## 13.1.46
 - This version of the Pendragon System has moved to version 13 only.
 - Bug fixes for V12 will be continued but the new functionality will not be added to V12 versions

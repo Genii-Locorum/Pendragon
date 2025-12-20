@@ -67,6 +67,7 @@ export class PendragonCharacterSheet extends foundry.appv1.sheets.ActorSheet {
     context.useRelation = game.settings.get('Pendragon' , 'useRelation')
     context.statTotal = actorData.system.statTotal    
     context.battlePosType = await PENSelectLists.getBattlePos();
+    context.fieldPosType = await PENSelectLists.getFieldPos();    
     context.solLabel = game.i18n.localize('PEN.'+actorData.system.sol)
     context.sizLabel = game.i18n.localize('PEN.sizInc.'+actorData.system.stats.siz.growth)
     context.enrichedBackgroundValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(

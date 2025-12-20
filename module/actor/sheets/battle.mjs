@@ -139,6 +139,8 @@ export class PendragonBattleSheet extends api.HandlebarsApplicationMixin(sheets.
                 uuid: encPid.uuid,
                 pid: encPid.pid,
                 pos: game.i18n.localize('PEN.battlePos.'+enc.system.battlePos),
+                fieldPos: game.i18n.localize('PEN.fieldPos.'+enc.system.fieldPos),
+                fieldPosAbbr: game.i18n.localize('PEN.fieldPosAbbr.'+enc.system.fieldPos),                
                 actr: enc              
             });
           } else {
@@ -147,6 +149,8 @@ export class PendragonBattleSheet extends api.HandlebarsApplicationMixin(sheets.
                 uuid: encPid.uuid,
                 npcPid: encPid.pid,
                 pos: "",
+                fieldPos: "",
+                fieldPosAbbr: "",
                 actr: false
             });
           }
@@ -200,7 +204,7 @@ export class PendragonBattleSheet extends api.HandlebarsApplicationMixin(sheets.
   static _onEditPid(event) {
     event.stopPropagation(); // Don't trigger other events
     if ( event.detail > 1 ) return; // Ignore repeated clicks
-    new PIDEditor(this.actor, {}).render(true, { focus: true })
+        new PIDEditor({document: this.document }, {}).render(true, { focus: true })
   }
 
   static async _noteView(event) {

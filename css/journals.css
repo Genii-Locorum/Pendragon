@@ -158,6 +158,10 @@ div.pen-adventure-entry.sheet {
             }
         }
 
+        .space.object {
+          padding-top:5px;  
+        }
+
         a.content-link {
             background: none;
             border: none;
@@ -373,5 +377,17 @@ div.pen-adventure-entry.sheet {
         font-weight: bold;
     } 
 
+    .booktitle {
+        padding-left: 20px;
+        text-indent: -20px;
+        .hyperlink {
+            color: black;
+        }
+    }
+
+    .bookdesc {
+        padding-left: 20px;
+        color: darkred;
+    }
   }
 }

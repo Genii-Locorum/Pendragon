@@ -1,0 +1,49 @@
+  <section class="">
+    <section class="npc-title-section">
+      {{!-- Characteristics Header --}}
+        <div class=>
+          <img class="profile-img" data-action='onEditImage' src="{{actor.system.coatOfArms}}" data-edit="system.coatOfArms" height="70" width="70"/>
+        </div> 
+      <section class="sheet-header">
+          <div class="npcname-input"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></div>
+        
+        <div class="npc-grid">
+          {{#each system.stats as |stat key|}}
+            <div class="npc-name centre bold rollable stat" data-stat="{{key}}">{{stat.labelShort}}</div>
+          {{/each}}             
+            
+          {{#each system.stats as |stat key|}}
+            {{#if ../system.lock}}
+              <div class="npc-name centre">{{stat.value}}</div>
+            {{else}}
+              <div class="npc-name-input centre"><input name="system.stats.{{key}}.value" type="text" value="{{stat.value}}" placeholder=10 data-dtype="Number"/></div>
+            {{/if}}
+          {{/each}}
+        </div>
+      </section>
+
+      {{!-- Image Section --}}
+      <section class="sheet-header">
+        <img class="profile-img"  data-action='onEditImage' src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="70" width="70"/>
+      </section>  
+
+      {{!-- Icone Section --}}      
+      <section class="bottom sheet-header">
+        <div class="centre middle-icon"><a data-action="noteView" title="{{ localize 'PEN.toggleNotes' }}" ><i class="fas fa-scroll-old"></i></a></div>
+        {{#if system.lock}}
+          <div><a class=""><i class="fas"></i></a></div>
+          <div><a class=""><i class="fas"></i></a></div>
+        {{else}}  
+          <div><a class=""><i class="fas"></i></a></div>     
+          <div class="centre middle-icon"><a data-action="autoCalc" title="{{ localize 'PEN.calcNPC' }}"> <i class="fas fa-dice"></i></a></div>
+        {{/if}}
+      </section>
+      <section class="bottom sheet-header">
+        <div class="centre middle-icon"><a data-action="actorToggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i class="{{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i></a></div>
+        <div><a class=""><i class="fas"></i></a></div>
+        <div class="centre middle-icon" data-action="baseStats"><a data-action="baseStats" title="{{ localize 'PEN.baseStats' }}"> <i class="fas fa-user"></i></a></div>
+
+      </section>
+
+    </section>
+  </section>

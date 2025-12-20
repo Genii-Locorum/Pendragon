@@ -73,7 +73,7 @@ export class PendragonHomelandSheet extends PendragonItemSheet {
 
     sheetData.passions = passions
     // these two values could be set during _preparePartContext
-    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
+    sheetData.enrichedDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.item.system.description,
       {
         async: true,
@@ -81,7 +81,7 @@ export class PendragonHomelandSheet extends PendragonItemSheet {
         relativeTo: this.item
       }
     )
-    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
+    sheetData.enrichedGMDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.item.system.GMdescription,
       {
         async: true,
@@ -119,7 +119,7 @@ export class PendragonHomelandSheet extends PendragonItemSheet {
         //dragover: this._onDragOver.bind(this),
         drop: this._onDrop.bind(this),
       };
-      return new DragDrop(d);
+      return new foundry.applications.ux.DragDrop.implementation(d);
     });
   }
 

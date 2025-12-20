@@ -1,5 +1,12 @@
 export function registerSettings () {
 
+  let tokenDropModeOptions = {
+    "ask": game.i18n.localize('PEN.Settings.tokenDropModeAsk'),
+    "roll": game.i18n.localize('PEN.Settings.tokenDropModeRoll'),
+    "ignore": game.i18n.localize('PEN.Settings.tokenDropModeIgnore')
+  }
+
+
  //Game Settings
 
  game.settings.register('Pendragon', "gameYear", {
@@ -97,6 +104,17 @@ export function registerSettings () {
     default: true
   });
   
+  game.settings.register('Pendragon','tokenDropMode', {
+    name: "PEN.Settings.tokenDropMode",
+    hint: "PEN.Settings.tokenDropModeHint",
+    scope: "world",
+    requiresReload: true,
+    config: true,
+    default: "ask",
+    choices: tokenDropModeOptions,
+    type: String
+  });
+
   //Invisible Game Settings 
 
   game.settings.register('Pendragon', "winter", {

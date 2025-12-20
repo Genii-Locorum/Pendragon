@@ -34,14 +34,16 @@ export class PendragonIdealSheet extends PendragonItemSheet {
 
   static PARTS = {
     header: {
-      template: "systems/Pendragon/templates/item/header.hbs"
+      template: "systems/Pendragon/templates/item/header.hbs",
+            scrollable: ['']
     },
     tabs: {
       template: 'templates/generic/tab-navigation.hbs',
     },
     // each tab gets its own template
     attributes: {
-      template: 'systems/Pendragon/templates/item/ideal.attributes.hbs'
+      template: 'systems/Pendragon/templates/item/ideal.attributes.hbs',
+      scrollable: ['']
     },
     description: {
       template: 'systems/Pendragon/templates/item/base.description.hbs'
@@ -96,7 +98,7 @@ export class PendragonIdealSheet extends PendragonItemSheet {
     sheetData.traitGroup = traitGroup;
 
     // these two values could be set during _preparePartContext
-    sheetData.enrichedDescriptionValue = await TextEditor.enrichHTML(
+    sheetData.enrichedDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.item.system.description,
       {
         async: true,
@@ -104,7 +106,7 @@ export class PendragonIdealSheet extends PendragonItemSheet {
         relativeTo: this.item
       }
     )
-    sheetData.enrichedGMDescriptionValue = await TextEditor.enrichHTML(
+    sheetData.enrichedGMDescriptionValue = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.item.system.GMdescription,
       {
         async: true,
@@ -142,7 +144,7 @@ export class PendragonIdealSheet extends PendragonItemSheet {
         //dragover: this._onDragOver.bind(this),
         drop: this._onDrop.bind(this),
       };
-      return new DragDrop(d);
+      return new foundry.applications.ux.DragDrop.implementation(d);
     });
   }
 

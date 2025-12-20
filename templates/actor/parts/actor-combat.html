@@ -9,10 +9,16 @@
       <div class="stat-name centre">{{system.hp.unconscious}}</div>
       <div class="stat-name left bold">{{localize 'PEN.battlePosture'}}</div>
         <div class="stat-name">
-        <select class="centre" style="background-color: lightgrey;" data-handle-change name="system.battlePos">
+        <select class="centre" style="background-color: lightgrey; width: 150px;" data-handle-change name="system.battlePos">
           {{selectOptions battlePosType selected=system.battlePos}}
         </select>
-        </div>        
+      </div>
+      <div class="stat-name left bold">{{localize 'PEN.fieldPosition'}}</div>
+        <div class="stat-name">
+        <select class="centre" style="background-color: lightgrey; width: 150px;" data-handle-change name="system.fieldPos">
+          {{selectOptions fieldPosType selected=system.fieldPos}}
+        </select>
+      </div>              
     </div>
     <br>
 

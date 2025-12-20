@@ -28,7 +28,7 @@
       <div class="morale-loss">
         <div class="enc-display">{{localize 'PEN.moraleLoss'}}</div>
         {{#if isLocked}}
-          <div class="enc-display" style="padding-left: 8px;">{{system.moraleLoss}}</div>
+          <div class="enc-display rollable" data-action="moraleloss" style="padding-left: 8px;">{{system.moraleLoss}}</div>
         {{else}}
           <div class="enc-input"><input name='system.moraleLoss' type='text' value='{{actor.system.moraleLoss}}' /></div>
         {{/if}}  

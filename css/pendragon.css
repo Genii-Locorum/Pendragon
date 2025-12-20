@@ -833,8 +833,8 @@ body.theme-dark .application.Pendragon.sheet,
 
 .Pendragon .npc-title-section {
   display: grid;
-  width: 320px;
-  grid-template-columns: 70px 190px 70px 20px;
+  width: 345px;
+  grid-template-columns: 70px 190px 70px 20px 20px;
   column-gap: 5px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -844,9 +844,19 @@ body.theme-dark .application.Pendragon.sheet,
 
 .Pendragon .npc-name {
   font-family: "AGaramondPro";
-  font-size: 16px !important;
+  font-size: 16px;
   color: black;
-  padding-left: 0px !important;
+  padding-left: 0px;
+}
+
+.Pendragon .npc-name-display {
+  font-family: "AGaramondPro";
+  font-size: 16px;
+  font-weight: bold;
+  padding: 1px 0px 0px 0px;
+  color: black;
+  height: 21px;
+
 }
 
 .Pendragon .follower-type {
@@ -880,6 +890,7 @@ body.theme-dark .application.Pendragon.sheet,
   height: 16px;
   border: 0px;
   border-radius: 0px;
+  box-shadow: none;
   background: none;
 }
 
@@ -893,13 +904,31 @@ body.theme-dark .application.Pendragon.sheet,
 
 .Pendragon .npc-stats-grid {
   display: grid;
-  width: 360px;
-  grid-template-columns: 100px 75px 10px 100px 75px;
+  width: 402px;
+  grid-template-columns: 121px 75px 10px 121px 75px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
   border-bottom: 1px gray solid;
   border-top: 1px gray solid;
+}
+
+.Pendragon .npcv2-stats-grid {
+  display: grid;
+  width: 402px;
+  grid-template-columns: 118px 75px 118px 75px;
+  column-gap: 5px;
+  row-gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-bottom: 1px gray solid;
+  border-top: 1px gray solid;
+}
+
+.Pendragon .npc-base-stats-grid {
+  display: grid;
+  width: 402px;
+  grid-template-columns: 40px 60px 29px 40px 60px 29px 40px 60px 29px;
 }
 
 .Pendragon .npc-armour {
@@ -909,9 +938,9 @@ body.theme-dark .application.Pendragon.sheet,
 
 .Pendragon .npc-weapons-grid {
   display: grid;
-  width: 360px;
+  width: 402px;
   border-bottom: 1px gray solid;
-  grid-template-columns: 190px 50px 80px 40px;
+  grid-template-columns: 232px 50px 80px 40px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -919,9 +948,9 @@ body.theme-dark .application.Pendragon.sheet,
 
 .Pendragon .npc-trait-grid {
   display: grid;
-  width: 360px;
+  width: 402px;
   border-bottom: 1px gray solid;
-  grid-template-columns: 110px 30px 40px 110px 30px 40px;
+  grid-template-columns: 131px 30px 40px 131px 30px 40px;
   gap: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -938,15 +967,44 @@ body.theme-dark .application.Pendragon.sheet,
 
 .Pendragon .npc-notes-doc {
   background-image: none;
-  font-size: 14px;
   padding-left: 10px;
   padding-right: 10px;
-  height: 200px !important;
+  height: 200px;
   width: 360px;
   border: 1px gray solid;
   font-family: AGaramondPro;
   font-size: 16px !important;
 }
+
+.Pendragon .npcv2-notes-doc {
+  background-image: none;
+  font-size: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 672px;
+  width: 360px;
+  border: 1px gray solid;
+  font-family: AGaramondPro;
+  margin:10px;
+}
+
+  .npcv2-notes-doc .prosemirror,
+  .npcv2-notes-doc prose-mirror {
+    min-height: 623px;
+    height: 100%;
+    width: 335px;
+    color: black;
+  }
+
+  .npcv2-notes-doc .prosemirror.active .editor-content,
+  .npcv2-notes-doc prose-mirror.active .editor-content {
+    max-height: 580px;
+  }
+
+  .npcv2-notes-doc .prosemirror.inactive .editor-content,
+  .npcv2-notes-doc prose-mirror.inactive .editor-content {
+    max-height: 670px;
+  }  
 
 .Pendragon .result-success {
   color: green;
@@ -1350,13 +1408,6 @@ body.theme-dark .application.Pendragon.sheet,
   }
 }
 
-.Pendragon .passion-name {
-  font-family: "AGaramondPro";
-  font-size: 20px;
-  color: black;
-  padding-left: 1rem;
-}
-
 .Pendragon .court-name {
   font-family: "AGaramondPro";
   font-size: 20px;
@@ -1603,155 +1654,25 @@ body.theme-dark .application.Pendragon.sheet,
   margin-right: auto;
 }
 
-
-/* TODO: Remove*/
-
-/*.Pendragon ul.p6e {
-  margin: 0.5em 0 0 0;
-}
-
-.Pendragon ul.p6e li::marker {
-  content: "✠ ";
-  font-size: 15px;
-  color: darkred;
-}
-
-.Pendragon .redbox ul.p6e li::marker {
-  content: "✠ ";
-  font-size: 15px;
-  color: cornsilk;
-}
-
-.Pendragon ul.norm li::marker {
-  content: "• ";
-  font-size: 15px;
-  color: darkred;
-}
-
-.Pendragon .jnl-text {
-  font-family: "AGaramondPro";
-  font-size: 18px;
-  color: black;
-  margin: 0px;
-}
-
-.Pendragon .jnl-text p {
-  margin: 0px;
-}
-
-.Pendragon .jnl-text li p {
-  margin: 0px;
-  text-indent: 0px;
-}
-
-.Pendragon .jnl-text .indent {
-  margin: 0px;
-  text-indent: 20px;
-  padding-left: 0px;
+.Pendragon.npcv2,
+.Pendragon.item.sheet {
+   overflow: visible;
+   .window-content{
+    overflow-y: auto;
+    scrollbar-width: thin;  
+   }
 }
 
 
+.Pendragon .npc-notes-section {
+    position: absolute;
+    min-width: 355px;
+    min-height: 714px;
+    border: 1px solid var(--pendragon-black);
+    color: var(--pendragon-black);
+    top: 35px;
+    left: 418px;
+    background-color: var(--notes-background);  
+    color: black;       
+  } 
 
-.Pendragon .jnl-hdr {
-  font-family: "AGaramondPro";
-  font-size: 20px;
-  color: #034694;
-  text-indent: 0px !important;
-}
-
-.Pendragon .jnl-text h2 {
-  font-family: "AGaramondPro";
-  font-size: 20px;
-  text-transform: uppercase;
-  color: #034694;
-  text-indent: 0px !important;
-  border: none;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text h2.charname {
-  font-family: "Herb";
-  font-size: 30px;
-  color: darkred;
-  text-indent: 0px !important;
-  text-transform: none;
-  border: none;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text h3 {
-  font-family: "AGaramondPro";
-  font-size: 20px;
-  color: #034694;
-  text-indent: 0px !important;
-  border: none;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text h4 {
-  font-family: "AGaramondPro";
-  font-size: 18px;
-  font-style: italic;
-  font-weight: bold;
-  text-indent: 0px !important;
-  margin: 0px !important;
-  border-bottom: 1px black solid;
-}
-
-.Pendragon .jnl-text h5,
-.Pendragon .jnl-text h1 {
-  font-family: "Herb";
-  font-size: 30px;
-  text-indent: 0px !important;
-  font-weight: normal;
-  color: darkred;
-  border: none;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text h6 {
-  font-family: "AGaramondPro";
-  font-size: 18px;
-  text-indent: 0px !important;
-  border-bottom: none;
-  margin: 0px;
-  font-weight: normal;
-  margin: 0px !important;
-}
-
-.Pendragon .jnl-text a.content-link {
-  background: none;
-  border: none;
-  white-space: pre-wrap;
-  word-break: normal;
-  color: rgb(156, 7, 156);
-  font-weight: bold;
-}
-
-.Pendragon .jnl-text .redbox a.content-link {
-  background: none;
-  border: none;
-  white-space: pre-wrap;
-  word-break: normal;
-  color: #6594cb;
-  font-weight: bold;
-}
-
-.Pendragon .jnl-text a.content-link i {
-  display: none;
-}
-
-.Pendragon .jnl-text img {
-  border: none;
-}
-
-.Pendragon .jnl-text img.centre {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.Pendragon .jnl-text .secindent {
-  padding-left: 20px;
-  text-indent: -20px;
-}*/

@@ -13,7 +13,6 @@ export class PENactorItemDrop {
 
       //Don't allow items to be added to a party Actor
       if (actor.type === 'party') {
-        console.log("PONG")
         continue
       };
 
@@ -64,7 +63,7 @@ export class PENactorItemDrop {
         if (dropItm.type === 'skill') {
           let score = dropItm.system.base.mod
           if (dropItm.system.base.stat != 'none' && dropItm.system.base.stat != "" ) {
-            score = Number(score) + Number(Math.round((actor.system[dropItm.system.base.stat].value + actor.system[dropItm.system.base.stat].culture)  * dropItm.system.base.multi))
+            score = Number(score) + Number(Math.round((actor.system.stats[dropItm.system.base.stat].value + actor.system.stats[dropItm.system.base.stat].culture)  * dropItm.system.base.multi))
           }
           score = Math.max(score,0)
           dropItm.system.value = score

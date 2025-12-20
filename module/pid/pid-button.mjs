@@ -10,7 +10,7 @@ export function addPIDSheetHeaderButton (headerButtons, sheet) {
       label: 'PEN.PIDFlag.id',
       icon: 'fas fa-fingerprint',
       onclick: () => { if(game.user.isGM) {
-        new PIDEditor(sheet.object, {}).render(true, { focus: true })
+        new PIDEditor({document: sheet.document }, {}).render(true, { focus: true })
       }
     }}
     const numberOfButtons = headerButtons.length

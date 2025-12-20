@@ -97,11 +97,17 @@ export class PENCheck {
         partic.particId,
         partic.particType,
       );
+      if (!particActor) {
+        ui.notifications.error(game.i18n.localize("PEN.invalidActorRoll"));
+        return false;
+      }
       particName = partic.particName;
       particId = partic.particId;
       particType = partic.particType;
       actorType = particActor.type;
     }
+
+
     let tempItem = "";
     let config = {
       rollType: options.rollType,
@@ -176,7 +182,7 @@ export class PENCheck {
           config.rawScore = Math.round(particActor.system.glory / 1000) ?? 0;
         } else {
           config.rawScore =
-            Math.round(particActor.system.gloryAward / 1000) ?? 0;
+            Math.round(particActor.system.gloryTotal / 1000) ?? 0;
         }
         break;
       case RollType.SQUIRE:

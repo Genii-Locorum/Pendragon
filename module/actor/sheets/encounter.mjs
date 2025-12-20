@@ -30,6 +30,7 @@ export class PendragonEncounterSheet extends api.HandlebarsApplicationMixin(shee
             deleteNPC: this._deleteNPC,
             viewNPC: this._viewFromUuid,
             addToken: this._addToken,
+            moraleloss: this._moraleLoss,            
         }
     }
 
@@ -169,7 +170,7 @@ export class PendragonEncounterSheet extends api.HandlebarsApplicationMixin(shee
   static _onEditPid(event) {
     event.stopPropagation(); // Don't trigger other events
     if ( event.detail > 1 ) return; // Ignore repeated clicks
-    new PIDEditor(this.actor, {}).render(true, { focus: true })
+        new PIDEditor({document: this.document }, {}).render(true, { focus: true })
   }
 
   static async _noteView(event) {
@@ -290,6 +291,19 @@ export class PendragonEncounterSheet extends api.HandlebarsApplicationMixin(shee
     // Create the token in the current scene
     await canvas.scene.createEmbeddedDocuments("Token", newTokens);
   }
+
+  //Roll Morale Loss
+  static async _moraleLoss(event,target) {
+    if (!Roll.validate(this.actor.system.moraleLoss)) {
+      ui.notifications.error(game.i18n.format('PEN.formulaError', { formula: this.actor.system.moraleLoss }))
+      return    
+    }    
+    let roll = new Roll(this.actor.system.moraleLoss)
+    await roll.evaluate();
+    await roll.toMessage({
+        flavor: "<strong style='color:black; font-size:14px; font-family:`Signika`;'>" + game.i18n.localize('PEN.moraleLoss') + ": " + this.actor.name + "</strong>"
+    })
+  }  
 
     //-------------Drag and Drop--------------
 
