@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.48
+- File rename to fix a bug on Linux systems.
+
 ## 13.1.47
 - NPCs have moved to V2 Application.
 - NPCs, when locked, have up/down chevron icons so you can show/hide the skill, weapon, armour etc lists.
