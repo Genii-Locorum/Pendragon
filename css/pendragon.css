@@ -122,11 +122,18 @@ body.theme-dark .application.Pendragon.sheet,
 }
 
 .Pendragon.pid-editor {
+  color: black;
   a.copy-to-clipboard {
     flex: 0 0 20px;
     align-self: center;
     text-align: right;
   }
+
+    input[type="text"], input[type="number"], select {
+      background-color: transparent;
+      color: black;
+      border: 1px solid black;
+    }
 
   fieldset.item-sheet-properties {
     label {
@@ -142,6 +149,8 @@ body.theme-dark .application.Pendragon.sheet,
     td.shorttext {
       text-align: center;
     }
+
+
   }
 }
 
@@ -1437,10 +1446,12 @@ body.theme-dark .application.Pendragon.sheet,
 
 /* Dark theme */
 .system-Pendragon.theme-dark {
-  .Pendragon {
-    --color-text-primary: #000;
-    --color-text-emphatic: #000;
-    --color-text-secondary: #333;
+  :not(.controls-dropdown) {
+    .Pendragon {
+      --color-text-primary: #000;
+      --color-text-emphatic: #000;
+      --color-text-secondary: #333;
+    }
   }
 }
 

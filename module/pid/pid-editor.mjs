@@ -7,7 +7,7 @@ export class PIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
     tag: 'form',
     name: "pidEditor",
-    classes: ['Pendragon', 'dialog', 'pid-editor'],
+    classes: ['Pendragon', 'dialog', 'pid-editor',"theme-light"],
     form: {
       handler: PIDEditor._updateObject,
       closeOnSubmit: false,

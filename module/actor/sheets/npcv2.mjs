@@ -13,7 +13,7 @@ export class PendragonNPCSheetv2 extends api.HandlebarsApplicationMixin(
     }
 
     static DEFAULT_OPTIONS = {
-        classes: ["Pendragon", "sheet", "actor", "npcv2"],
+        classes: ["Pendragon", "sheet", "actor", "npcv2","theme-light"],
         position: {
             width: 420,
             height: 750,

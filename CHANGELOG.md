@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.49
+- Item and NPC sheets window header text now legible in Dark Mode.
+
 ## 13.1.48
 - File rename to fix a bug on Linux systems.
 

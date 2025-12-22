@@ -879,6 +879,7 @@
       "id": "PID",
       "info": "Info",
       "key": "System ID (PID)",
+      "language": "Language",
       "noPID": "{type} document requires a PID",
       "noPIDFlag": "Can't add {itemName} as it does not have a PID",      
       "others": "Other documents with this PID and language (excluding documents in other actors and items)",

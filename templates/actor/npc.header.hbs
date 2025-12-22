@@ -29,19 +29,19 @@
 
       {{!-- Icone Section --}}      
       <section class="bottom sheet-header">
-        <div class="centre middle-icon"><a data-action="noteView" title="{{ localize 'PEN.toggleNotes' }}" ><i class="fas fa-scroll-old"></i></a></div>
+        <div class="centre middle-icon"><a data-action="noteView" title="{{ localize 'PEN.toggleNotes' }}" ><i class="black fas fa-scroll-old"></i></a></div>
         {{#if system.lock}}
           <div><a class=""><i class="fas"></i></a></div>
           <div><a class=""><i class="fas"></i></a></div>
         {{else}}  
           <div><a class=""><i class="fas"></i></a></div>     
-          <div class="centre middle-icon"><a data-action="autoCalc" title="{{ localize 'PEN.calcNPC' }}"> <i class="fas fa-dice"></i></a></div>
+          <div class="centre middle-icon"><a data-action="autoCalc" title="{{ localize 'PEN.calcNPC' }}"> <i class="black fas fa-dice"></i></a></div>
         {{/if}}
       </section>
       <section class="bottom sheet-header">
-        <div class="centre middle-icon"><a data-action="actorToggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i class="{{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i></a></div>
+        <div class="centre middle-icon"><a data-action="actorToggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i class="black {{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i></a></div>
         <div><a class=""><i class="fas"></i></a></div>
-        <div class="centre middle-icon" data-action="baseStats"><a data-action="baseStats" title="{{ localize 'PEN.baseStats' }}"> <i class="fas fa-user"></i></a></div>
+        <div class="centre middle-icon" data-action="baseStats"><a data-action="baseStats" title="{{ localize 'PEN.baseStats' }}"> <i class="black fas fa-user"></i></a></div>
 
       </section>
 
