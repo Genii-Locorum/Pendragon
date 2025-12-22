@@ -165,7 +165,6 @@ Hooks.once("ready", async function () {
       return false;
     }
   });
-  console.log(game.Pendragon.ui);
   game.Pendragon.ui?.calendar.render({ force: true });
 
   if (!game.user.isGM) return;

@@ -178,7 +178,7 @@ export class PendragonActor extends Actor {
       if (i.type === 'ideal') {
         i.system.active = true
         for (let rItm of i.system.require) {
-          let actItm = actorData.items.filter(itm => itm.flags.Pendragon.pidFlag.id === rItm.pid)[0]
+          let actItm = actorData.items.filter(itm => itm.flags.Pendragon?.pidFlag.id === rItm.pid)[0]
           if (rItm.score < 0) {
             if (actItm.system.total > 20 + rItm.score) { i.system.active = false }
           } else {
@@ -687,7 +687,7 @@ export class PendragonActor extends Actor {
 
     //Check random traits, skills, passions
     for (let random of this.system.random) {
-      for (let item of this.items){
+      for (let item of this.items) {
         if (item.flags.Pendragon?.pidFlag?.id === random.pid) {
           if (random.value && !random.value.startsWith('@')) {
             const r = await new Roll(random.value)
