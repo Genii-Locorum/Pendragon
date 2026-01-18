@@ -132,7 +132,21 @@ export class PendragonIdealSheet extends PendragonItemSheet {
   }
   _onRender (context, _options) {
     this.#dragDrop.forEach((d) => d.bind(this.element));
+    this.element.querySelectorAll('.item-toggle').forEach(n => n.addEventListener("dblclick", this.#onItemToggle.bind(this)));
   }
+
+  //Handle toggle states
+  async #onItemToggle(event){
+    event.preventDefault();
+    const prop=event.currentTarget.closest('.item-toggle').dataset.property;
+    let checkProp={};
+    if(['protect'].includes(prop)){
+      checkProp = {[`system.${prop}`]: !this.item.system[prop]}
+    } else {return}
+    await this.item.update(checkProp)
+    return;
+  }
+
   #createDragDropHandlers() {
     return this.options.dragDrop.map((d) => {
       d.permissions = {

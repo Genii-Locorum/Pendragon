@@ -1,13 +1,3 @@
-:root {
-    --colourAdventureSheetKeeperNotes: rgba(79, 39, 1, 0.1);
-    --colourAdventureSheetKeeperNotesDark: rgba(79, 39, 1, 0.2);
-    --colourAdventureSheetKeeperFoundryvtt: rgba(254, 134, 32, 0.1);
-    --colourAdventureSheetKeeperFoundryvttDark: rgba(254, 134, 32, 0.2);
-    --colourAdventureSheetKeeperReadaloud: rgba(127, 127, 127, 0.1);
-    --colourAdventureSheetKeeperReadaloudDark: rgba(127, 127, 127, 0.2);
-    --colourAdventureSheetExample: rgb(102, 77, 42);
-}
-
 .theme-light {
 
     form.pen-adventure-entry.sheet,
@@ -76,6 +66,7 @@ div.pen-adventure-entry.sheet {
             text-transform: uppercase;
         }
 
+        span,
         h2,
         h3,
         h4,
@@ -389,5 +380,6 @@ div.pen-adventure-entry.sheet {
         padding-left: 20px;
         color: darkred;
     }
+
   }
 }

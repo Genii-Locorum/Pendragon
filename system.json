@@ -2,7 +2,7 @@
   "id": "Pendragon",
   "title": "Pendragon",
   "description": "Pendragon system for FoundryVTT!",
-  "version": "13.1.49",
+  "version": "13.1.50",
   "compatibility": {
     "minimum": 13,
     "verified": "13.351",

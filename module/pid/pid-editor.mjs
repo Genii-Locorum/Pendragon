@@ -50,7 +50,7 @@ export class PIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
           game.clipboard.copyPlainText(application.document.flags.Pendragon.pidFlag.id)
           //ui.notifications.info('PEN.WhatCopiedClipboard', { format: { what: game.i18n.localize('PEN.PIDFlag.key') }, console: false })
         } else {
-        new PIDEditor({document: this.document }, {}).render(true, { focus: true })          
+        new PIDEditor({document: application.document }, {}).render(true, { focus: true })          
         }
       },
       buttons: [0, 2]
@@ -72,6 +72,7 @@ export class PIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
   async _prepareContext(options) {
     this.document = this.options.document
     const sheetData = await super._prepareContext()
+    console.log(this.options)
     sheetData.objtype = this.document.type
     sheetData.objid = this.document.id
     sheetData.objuuid = this.document.uuid

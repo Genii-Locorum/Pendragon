@@ -62,7 +62,7 @@
     {{#if isGM}}
       <div class="stat-name left bold">{{localize 'PEN.passive'}}</div>
       <div class="stat-name-input "><input name="system.glory" type="text" value="{{item.system.glory}}" data-dtype="Number"/></div>
-      <div class="stat-name left bold">{{localize 'PEN.armourPoints'}}</div>
+      <div class="stat-name left bold" data-tooltip="{{localize 'PEN.armourVirtue'}}">{{localize 'PEN.armourPoints'}}</div>
       <div class="stat-name-input "><input name="system.armour" type="text" value="{{item.system.armour}}" data-dtype="Number"/></div>
       <div class="stat-name left bold">{{localize 'PEN.hp'}}</div>
       <div class="stat-name-input "><input name="system.hp" type="text" value="{{item.system.hp}}" data-dtype="Number"/></div>
@@ -72,10 +72,12 @@
       <div class="stat-name-input "><input name="system.dam" type="text" value="{{item.system.dam}}"/></div>
       <div class="stat-name left bold">{{localize 'PEN.move'}}</div>
       <div class="stat-name-input "><input name="system.move" type="text" value="{{item.system.move}}" data-dtype="Number"/></div>
+      <div class="stat-name left bold" data-tooltip="{{localize 'PEN.magicProt'}}">{{localize 'PEN.magicProtShort'}}</div>
+      <div class="stat-name"><a class="item-control item-toggle large-icon" data-property = "protect" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if item.system.protect}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>  
     {{else}}
       <div class="stat-name left bold">{{localize 'PEN.passive'}}</div>
       <div class="stat-name">{{item.system.glory}}</div>
-      <div class="stat-name left bold">{{localize 'PEN.armourPoints'}}</div>
+      <div class="stat-name left bold" data-tooltip="{{localize 'PEN.armourVirtue'}}">{{localize 'PEN.armourPoints'}}</div>
       <div class="stat-name">{{item.system.armour}}</div>
       <div class="stat-name left bold">{{localize 'PEN.hp'}}</div>
       <div class="stat-name">{{item.system.hp}}</div>
@@ -85,6 +87,9 @@
       <div class="stat-name">{{item.system.dam}}</div>
       <div class="stat-name left bold">{{localize 'PEN.move'}}</div>
       <div class="stat-name">{{item.system.move}}</div>
+      <div class="stat-name left bold" data-tooltip="{{localize 'PEN.magicProt'}}">{{localize 'PEN.magicProtShort'}}</div>
+      <div class="stat-name"><a class="large-icon"><i class="{{#if item.system.protect}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></div>  
+
     {{/if}}
   </div>
 </section>

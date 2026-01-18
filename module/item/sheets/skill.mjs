@@ -116,6 +116,7 @@ export class PendragonSkillSheet extends PendragonItemSheet {
     this.element.querySelectorAll('.skillcat-toggle').forEach(n => n.addEventListener("dblclick", this.#onSkillCatToggle.bind(this)));    
     this.element.querySelectorAll('.changeName').forEach(n => n.addEventListener("change", PendragonItemSheet.skillChangeName(this.item)))
   }
+  
   //Handle toggle states
   async #onItemToggle(event){
     event.preventDefault();

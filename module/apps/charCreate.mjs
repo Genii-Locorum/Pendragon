@@ -661,7 +661,6 @@ export class PENCharCreate {
       //Make first roll
       let tableOut = await PENCharCreate.makeTableRoll(table)
       let fRoll = tableOut.res
-      console.log(fRoll)
       let dRoll = tableOut.tableResults
       let resName = dRoll.results[0].name
       if (fRoll.substring(0,6).toLowerCase() === 'gifted') {

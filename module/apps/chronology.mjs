@@ -16,8 +16,10 @@ export function yearToPeriod(year) {
             return "PEN.period.uther";
         case (year >= 496 && year <= 509):
             return "PEN.period.anarchy";
-        case (year >= 510 && year <= 518):
+        case (year >= 510 && year <= 514):
             return "PEN.period.boyKing";
+       case (year >= 515 && year <= 518):
+            return "PEN.period.lateboyKing";            
         case (year >= 519 && year <= 528):
             return "PEN.period.conquest";
         case (year >= 529 && year <= 539):

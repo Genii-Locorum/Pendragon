@@ -21,7 +21,6 @@ import { PendragonClassSheet } from '../item/sheets/class.mjs';
 import { PendragonHomelandSheet } from '../item/sheets/homeland.mjs';
 import { PendragonIdealSheet } from '../item/sheets/ideal.mjs';
 import { PendragonRelationshipSheet } from '../item/sheets/relationship.mjs';
-import { PENRollTableConfig } from '../sheets/pen-roll-table-config.mjs'
 import { PENJournalSheet } from '../sheets/pen-journal-sheet.mjs'
 //const {Actors, Items, Journal} = foundry.documents.collections;
 
@@ -142,11 +141,6 @@ export function registerSheets () {
       types: ['relationship'],
       makeDefault: true
     }) 
-
-    foundry.documents.collections.RollTables.unregisterSheet('core', foundry.applications.sheets.RollTableSheet)
-    foundry.documents.collections.RollTables.registerSheet('Pendragon', PENRollTableConfig, {
-      makeDefault: true
-    })
 
     foundry.documents.collections.Journal.unregisterSheet('core', foundry.appv1.sheets.JournalSheet)
     foundry.documents.collections.Journal.registerSheet('Pendragon', PENJournalSheet, {

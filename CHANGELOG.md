@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 13.1.50
+- Can now access PIDs on Roll Tables
+- Late Boy King Period added (515-518) so Boy King Period now runs (510-514)
+- Ideals now have a toggle for Magical Protection
+
 ## 13.1.49
 - Item and NPC sheets window header text now legible in Dark Mode.
 

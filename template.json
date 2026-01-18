@@ -453,7 +453,8 @@
       "hp": 0,
       "hr": 0,
       "dam": 0,
-      "move": 0
+      "move": 0,
+      "protect": false
     },
     "relationship" :{
       "templates": ["base"],
