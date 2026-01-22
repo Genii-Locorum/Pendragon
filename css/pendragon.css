@@ -1674,6 +1674,23 @@ body.theme-dark .application.Pendragon.sheet,
    }
 }
 
+.Pendragon.npcv2, .Pendragon.item {
+  .controls-dropdown { 
+    background-color: black;
+    background-image:none;
+    a.button, button {
+      color: cornsilk;
+    }  
+  }    
+}
+
+.Pendragon.item {
+  nav.tabs {
+      --color-text-primary: #000;
+      --color-text-emphatic: #000;
+      --color-text-secondary: #333;
+  }
+}
 
 .Pendragon .npc-notes-section {
     position: absolute;

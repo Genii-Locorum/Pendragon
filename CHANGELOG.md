@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.51
+- Fixed some CSS on NPCs and Items so header menus and tab names are visible in Light/Dark mode
+
 ## 13.1.50
 - Can now access PIDs on Roll Tables
 - Late Boy King Period added (515-518) so Boy King Period now runs (510-514)
