@@ -119,6 +119,8 @@
     "calcNPC": "Calculate NPC scores",
     "cantDropActor": "You can't drop that actor to this actor sheet",
     "care": "Care",
+    "changeClass": "Changing the Character's Class",
+    "changeClassHint": "This will only change the name and add Class Items, it will not reset passions.  Do you wish to proceed?",    
     "character": "Character",
     "characteristic": "Characteristic",
     "characteristics": "Characteristics",    

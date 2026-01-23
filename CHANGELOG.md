@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 13.1.53
+- GMs only, will get the option when adding a class to a character with an existing class to allow this to happen
+- The old class is deleted but equipment, passions etc do not change
+- The new class is added along with associated equipment, but no passions are added/adjusted
+- The aim is to allow squire characters to be "promoted" to Knight with minimal manual work
+
 ## 13.1.52
 - Another CSS change so item notes in a locked compendium in dark mode are readable.
 

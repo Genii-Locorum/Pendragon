@@ -115,6 +115,8 @@
     "calcNPC": "Calculer les scores des PNJ",
     "cantDropActor": "Vous ne pouvez pas déplacer cet acteur vers cette fiche d'acteur",    
     "care": "Soigner",
+    "changeClass": "Changer la classe du personnage",
+    "changeClassHint": "Cela ne changera que le nom et ajoutera des éléments de classe, cela ne réinitialisera pas les passions. Voulez-vous continuer ?",        
     "character": "Personnage",
     "characteristic": "Caractéristique",
     "characteristics": "Caractéristiques",    

@@ -1,3 +1,8 @@
-2025/12/20-05:45:25.255 6f04 Recovering log #265
-2025/12/20-05:45:25.260 6f04 Delete type=0 #265
-2025/12/20-05:45:25.260 6f04 Delete type=3 #264
+2026/01/23-16:28:09.170 5ac4 Recovering log #419
+2026/01/23-16:28:09.170 5ac4 Delete type=0 #419
+2026/01/23-16:28:09.170 5ac4 Delete type=3 #418
+2026/01/23-16:33:25.336 4d1c Level-0 table #423: started
+2026/01/23-16:33:25.336 4d1c Level-0 table #423: 0 bytes OK
+2026/01/23-16:33:25.336 4d1c Delete type=0 #421
+2026/01/23-16:33:25.339 4d1c Manual compaction at level-0 from '!scenes!qHEA9cs0gpSeUiTn' @ 72057594037927935 : 1 .. '!scenes.tokens.delta!qHEA9cs0gpSeUiTn.YRREl0jveeK8rVIN.YRREl0jveeK8rVIN' @ 0 : 0; will stop at (end)
+2026/01/23-16:33:25.344 4d1c Manual compaction at level-1 from '!scenes!qHEA9cs0gpSeUiTn' @ 72057594037927935 : 1 .. '!scenes.tokens.delta!qHEA9cs0gpSeUiTn.YRREl0jveeK8rVIN.YRREl0jveeK8rVIN' @ 0 : 0; will stop at (end)

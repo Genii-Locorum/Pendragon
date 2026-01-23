@@ -239,6 +239,10 @@ div.pen-adventure-entry.sheet {
             color: var(--pendragon-darkred);
         }
 
+        ol.p6e {
+            padding: 0 0 0 25px;
+        }
+
         .redbox {
             border-top: 1px solid black;
             border-left: 1px solid black;

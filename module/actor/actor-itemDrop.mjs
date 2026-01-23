@@ -19,14 +19,23 @@ export class PENactorItemDrop {
       let dropItmPID = dropItm.flags.Pendragon?.pidFlag?.id
       let reqResult = 1;
       let errMsg = "";
+
     //Automatically allow items in this list to be added
     if (!["gear","armour","weapon"].includes(dropItm.type)) {   
       
       //Test for a duplicate item for certain types
       if (["culture","homeland","class","religion"].includes(dropItm.type)){
         if (actor.items.filter(aItm=>aItm.type===dropItm.type).length>0) {
-          reqResult = 0
-          errMsg = game.i18n.format('PEN.dupItemType', {name: game.i18n.localize('PEN.Entities.'+ `${dropItm.type.capitalize()}`)})
+          if (game.user.isGM && dropItm.type === 'class') {
+            let knighted = await PENactorItemDrop._getKnighted(actor,dropItm)
+            reqResult = 0
+            if (!knighted) {
+              errMsg = game.i18n.format('PEN.dupItemType', {name: game.i18n.localize('PEN.Entities.'+ `${dropItm.type.capitalize()}`)})              
+            } 
+          } else { 
+            reqResult = 0
+            errMsg = game.i18n.format('PEN.dupItemType', {name: game.i18n.localize('PEN.Entities.'+ `${dropItm.type.capitalize()}`)})
+          }
         }
       }
 
@@ -57,7 +66,9 @@ export class PENactorItemDrop {
     }  
     //Check to see if we can drop the Item
       if (reqResult !=1) {
-        ui.notifications.warn(errMsg);
+        if (errMsg != "") {
+          ui.notifications.warn(errMsg);
+        }
       } else {
         //If a skill calculate the base score
         if (dropItm.type === 'skill') {
@@ -156,6 +167,35 @@ export class PENactorItemDrop {
     newSkill.name = newSkill.system.mainName + ' (' + specName + ')'
     newSkill.flags.Pendragon.pidFlag.id = "i.skill." + await PENUtilities.toKebabCase(newSkill.name)
     return newSkill
+  }
+
+  static async _getKnighted(actor, newClass) {
+    let choice = await foundry.applications.api.DialogV2.confirm({
+      window: { title: game.i18n.localize('PEN.changeClass') },
+      content: game.i18n.localize('PEN.changeClassHint'),
+    })
+    if (choice) {
+      let classes = await (actor.items.filter(itm =>['class'].includes(itm.type))).map(itm => {return (itm.id)})
+      await Item.deleteDocuments(classes, {parent: actor});
+      let newItems = []
+      //Add Class Item to newItems array
+      newItems.push(newClass)
+      //Add Class Gear to newItems array
+      for (let newItm of newClass.system.gear) {
+        let nItm = await game.system.api.pid.fromPIDBest({pid:newItm.pid})
+        if (nItm.length > 0) {
+          newItems.push(nItm[0])
+        }
+      }
+      //Create Item classes & Update Source
+      let classItems = await Item.createDocuments(newItems, {parent: actor})
+      //let classItems = await actor.createEmbeddedDocuments("Item", newItems)
+      let updateItems = classItems.map(itm => {return { _id: itm.id, 'system.source': "class"}})
+      await Item.updateDocuments(updateItems, {parent: actor})
+    }
+
+    return choice
+
   }
 
 }
