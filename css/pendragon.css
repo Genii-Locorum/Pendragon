@@ -828,6 +828,7 @@ body.theme-dark .application.Pendragon.sheet,
 .Pendragon .background-doc p {
   font-family: AGaramondPro;
   font-size: 20px !important;
+  color: black;
 }
 
 .Pendragon .bottom-panel {

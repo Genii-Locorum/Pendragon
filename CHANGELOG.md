@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.52
+- Another CSS change so item notes in a locked compendium in dark mode are readable.
+
 ## 13.1.51
 - Fixed some CSS on NPCs and Items so header menus and tab names are visible in Light/Dark mode
 
