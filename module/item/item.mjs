@@ -1,8 +1,8 @@
 import { PENCheck } from '../apps/checks.mjs';
-import {isCtrlKey} from '../apps/helper.mjs'
+import { isCtrlKey } from '../apps/helper.mjs'
 
 export class PendragonItem extends Item {
-  constructor (data, context) {
+  constructor(data, context) {
     if (typeof data.img === 'undefined') {
       if (data.type === 'skill') {
         data.img = 'icons/svg/book.svg'
@@ -39,13 +39,13 @@ export class PendragonItem extends Item {
     super(data, context)
   }
 
-  static async createDialog(data={}, createOptions={}, { types, ...options }={}) {
-//Enter the document types you want to remove from the side bar create option - 'base' is removed in the super
-const invalid = ["wound", "family", "squire", "relationship"]; //
-if (!types) types = this.TYPES.filter(type => !invalid.includes(type));
-else types = types.filter(type => !invalid.includes(type));
-return super.createDialog(data, createOptions, { types, ...options });
-}
+  static async createDialog(data = {}, createOptions = {}, { types, ...options } = {}) {
+    //Enter the document types you want to remove from the side bar create option - 'base' is removed in the super
+    const invalid = ["wound", "family", "squire", "relationship"]; //
+    if (!types) types = this.TYPES.filter(type => !invalid.includes(type));
+    else types = types.filter(type => !invalid.includes(type));
+    return super.createDialog(data, createOptions, { types, ...options });
+  }
 
   prepareData() {
     // As with the actor class, items are documents that can have their data
@@ -54,15 +54,20 @@ return super.createDialog(data, createOptions, { types, ...options });
   }
 
 
-
-
-
   //Prepare a data object which is passed to any Roll formulas which are created related to this Item
   getRollData() {
-    if ( !this.actor ) return null;
+    if (!this.actor) return null;
     const rollData = this.actor.getRollData();
     rollData.item = foundry.utils.deepClone(this.system);
     return rollData;
+  }
+
+  // Specifically for horses (though should really subclass)
+  getName() {
+    if (this.type == "horse") {
+      return this.system.label == this.name ? `Unnamed ${this.name}` : this.system.label;
+    }
+    return this.name;
   }
 
   //Handle clickable rolls.
@@ -72,7 +77,7 @@ return super.createDialog(data, createOptions, { types, ...options });
     let ctrlKey = isCtrlKey(event ?? false);
     let altKey = event.altKey;
     let shiftKey = event.shiftKey;
-    if (game.settings.get('Pendragon','switchShift')) {
+    if (game.settings.get('Pendragon', 'switchShift')) {
       shiftKey = shiftKey
     }
     let cardType = "NO";
@@ -85,42 +90,42 @@ return super.createDialog(data, createOptions, { types, ...options });
         rollType = 'TR'
         subType = 'trait'
         skillId = item._id;
-        if (altKey){
-          cardType='OP'
-        } else if(ctrlKey){ 
-          cardType='RE'
+        if (altKey) {
+          cardType = 'OP'
+        } else if (ctrlKey) {
+          cardType = 'RE'
         }
         break
       case 'passion':
-      case 'skill':     
+      case 'skill':
         rollType = 'SK';
         skillId = item._id;
-        if (altKey){
-          cardType='OP'
-        } else if(ctrlKey){ 
-          cardType='RE'
+        if (altKey) {
+          cardType = 'OP'
+        } else if (ctrlKey) {
+          cardType = 'RE'
         }
         break
-      case 'weapon':     
+      case 'weapon':
         rollType = 'CM';
         cardType = 'CO';
         itemId = item._id
-        break    
+        break
       default:
         item.sheet.render(true);
         return
-    }            
+    }
 
-      PENCheck._trigger({
-          rollType,
-          cardType,
-          shiftKey,
-          subType,
-          skillId,
-          itemId,
-          event,
-          actor
-      })
+    PENCheck._trigger({
+      rollType,
+      cardType,
+      shiftKey,
+      subType,
+      skillId,
+      itemId,
+      event,
+      actor
+    })
     return
   }
 }
