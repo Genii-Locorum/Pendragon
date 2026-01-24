@@ -550,6 +550,28 @@ export class PendragonActor extends Actor {
     return actor
   }
 
+  //get the current horse, if any
+  currentHorse() {
+    const currentHorse = this.getFlag("Pendragon", "currentHorse");
+    if (currentHorse) {
+      return this.items.find(i => i.id === currentHorse);
+    }
+    return null;
+  }
+
+  //get the current weapon, if any
+  currentWeapon() {
+    const currentWeapon = this.getFlag("Pendragon", "currentWeapon");
+    if (currentWeapon) {
+      return this.items.find(i => i.id === currentWeapon);
+    }
+    return null;
+  }
+
+  isMounted() {
+    return this.statuses.has(PendragonStatusEffects.MOUNTED);
+  }
+
   async addStatus(statusId) {
     // if we already have the status, nothing to do
     if (this.statuses.has(statusId)) return;
@@ -693,7 +715,7 @@ export class PendragonActor extends Actor {
 
     //Check random traits, skills, passions
     for (let random of this.system.random) {
-      for (let item of this.items){
+      for (let item of this.items) {
         if (item.flags.Pendragon?.pidFlag?.id === random.pid) {
           if (random.value && !random.value.startsWith('@')) {
             const r = await new Roll(random.value)

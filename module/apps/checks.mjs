@@ -201,8 +201,8 @@ export class PENCheck {
           config.label = game.i18n.localize("PEN.age");
           config.rawScore =
             game.settings.get("Pendragon", "gameYear") -
-              particActor.system.born -
-              9 ?? 0;
+            particActor.system.born -
+            9 ?? 0;
         } else {
           tempItem = particActor.items.get(config.itemId);
           if (config.subType === "squire") {
@@ -228,8 +228,8 @@ export class PENCheck {
               "]";
             config.rawScore =
               game.settings.get("Pendragon", "gameYear") -
-                tempItem.system.born -
-                9 ?? 0;
+              tempItem.system.born -
+              9 ?? 0;
           }
         }
         break;
@@ -347,11 +347,6 @@ export class PENCheck {
         } else {
           let targetMsg = await game.messages.get(config.checkMsgId);
           config.reflexMod = -targetMsg.flags.Pendragon.chatCard[0].reflexMod ?? 0;
-        }
-        if (!foundry.utils.isNewerVersion(game.version, "11")) {
-          config.chatType = CONST.CHAT_MESSAGE_STYLES.OTHER;
-        } else {
-          config.chatType = CONST.CHAT_MESSAGE_OTHER;
         }
 
         config.chatType = CONST.CHAT_MESSAGE_STYLES.OTHER;
@@ -518,7 +513,7 @@ export class PENCheck {
     }
 
     //Format the data so it's in the same format as will be held in the Chat Message when saved
-    let chatMsgData = {
+    const chatMsgData = {
       rollType: config.rollType,
       cardType: config.cardType,
       chatType: config.chatType,
@@ -564,7 +559,7 @@ export class PENCheck {
           damRoll: config.damRoll,
           damCrit: config.damCrit,
           damShield: config.damShield,
-          damMod: config.damMod,          
+          damMod: config.damMod,
           subType: config.subType,
           fixedOpp: config.fixedOpp,
           action: config.action,
@@ -633,7 +628,7 @@ export class PENCheck {
             },
           },
           default: "roll",
-          close: () => {},
+          close: () => { },
         },
         { classes: ["Pendragon", "sheet"] },
       );
@@ -643,7 +638,7 @@ export class PENCheck {
 
   //Call Dice Roll, calculate Result and store original results in rollVal
   static async makeRoll(config) {
-    if (config.rollFormula === "") {config.rollFormula = "0"}
+    if (config.rollFormula === "") { config.rollFormula = "0" }
     let roll = new Roll(config.rollFormula);
     await roll.evaluate();
     config.roll = roll;

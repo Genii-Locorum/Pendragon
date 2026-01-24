@@ -17,7 +17,6 @@
 
   <div>
     <div style="display: grid;gap: 0.5rem;grid-template-columns: 1fr 120px 1fr;align-items:stretch;">
-      <div>
       <div style="border-radius: 0.25rem;padding: 0.5rem;background-color: var(--pd-light-row);">
         {{#if currentHorse}}
         <p><i class= "fa-solid fa-horse-head"></i>{{currentHorse.name}}</p>
@@ -26,8 +25,11 @@
         <p>Move: {{currentHorse.system.move}} / Knockdown: {{currentHorse.system.siz}}</p>
         {{/if}}
         <button data-action="switchHorse">Change Horse</button>
-      <p><a class="item-control item-toggle large-icon"><i class="fa-regular fa-square"></i></a> Mounted</p>
-      </div>
+        <label class="condition">
+        <input type="checkbox" {{#if statuses.mounted.active}}checked{{/if}} disabled/>
+        <img src="{{statuses.mounted.img}}" class="icon-img" />
+        <span>{{ statuses.mounted.name }}</span>
+        </label>
       </div>
       <div>
         <p>Knockdown: {{system.hp.knockdown}}</p>
@@ -74,22 +76,38 @@
     <button>Withhold Damage</button>
     <button>Zigzag</button>
     </div>
-    <h3>Mounted</h3>
-    <div class="actions">
-    <button>Mounted Charge</button>
-    <button>Control Mount</button>
-    <button>Trample</button>
-    <button>Dismount</button>
-    <button>Emergency Dismount</button>
-    </div>
-    <h3>On Foot</h3>
-    <div class="actions">
-    <button>Dodge</button>
-    <button>Don Armour</button>
-    <button>Hook</button>
-    <button>Set Spear</button>
-    <button>Leap into Saddle</button>
-    <button>Mount Up</button>
+    <div class="action-tabs" {{#if statuses.mounted.active}}open{{/if}}>
+      <details name="cond-actions">
+        <summary>Mounted</summary>
+        <div class="actions">
+        <button>Mounted Charge</button>
+        <button>Control Mount</button>
+        <button>Trample</button>
+        <button>Dismount</button>
+        <button>Emergency Dismount</button>
+        </div>
+      </details>
+      <details name="cond-actions" {{#unless statuses.mounted.active}}open{{/unless}}>
+        <summary>On Foot</summary>
+        <div class="actions">
+        <button>Dodge</button>
+        <button>Don Armour</button>
+        <button>Hook</button>
+        <button>Set Spear</button>
+        <button>Leap into Saddle</button>
+        <button>Mount Up</button>
+        </div>
+      </details>
+      <details name="cond-actions">
+        <summary>Brawling</summary>
+        <div class="actions">
+        <button>Punch</button>
+        <button>Slap</button>
+        <button>Escape</button>
+        <button>Grapple</button>
+        <button>Slam</button>
+        </div>
+      </details>
     </div>
   </div>
 </div>
