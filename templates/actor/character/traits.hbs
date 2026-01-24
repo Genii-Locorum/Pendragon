@@ -30,7 +30,7 @@
               <h3>Requirements</h3>
               <ul>
               {{#each ideal.requirements as |require|}}
-                  <li>{{require.name}} {{require.score}} {{require.active}}</li>
+                <li data-requirement-active="{{require.active}}">{{require.name}} {{require.score}}</li>
               {{/each}}
               </ul>
           </details>

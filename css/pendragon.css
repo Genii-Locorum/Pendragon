@@ -107,11 +107,13 @@
     text-align: right;
   }
 
-    input[type="text"], input[type="number"], select {
-      background-color: transparent;
-      color: black;
-      border: 1px solid black;
-    }
+  input[type="text"],
+  input[type="number"],
+  select {
+    background-color: transparent;
+    color: black;
+    border: 1px solid black;
+  }
 
   fieldset.item-sheet-properties {
     label {
@@ -127,8 +129,6 @@
     td.shorttext {
       text-align: center;
     }
-
-
   }
 }
 
@@ -844,7 +844,6 @@
   padding: 1px 0px 0px 0px;
   color: black;
   height: 21px;
-
 }
 
 .Pendragon .follower-type {
@@ -973,26 +972,26 @@
   width: 360px;
   border: 1px gray solid;
   font-family: AGaramondPro;
-  margin:10px;
+  margin: 10px;
 }
 
-  .npcv2-notes-doc .prosemirror,
-  .npcv2-notes-doc prose-mirror {
-    min-height: 623px;
-    height: 100%;
-    width: 335px;
-    color: black;
-  }
+.npcv2-notes-doc .prosemirror,
+.npcv2-notes-doc prose-mirror {
+  min-height: 623px;
+  height: 100%;
+  width: 335px;
+  color: black;
+}
 
-  .npcv2-notes-doc .prosemirror.active .editor-content,
-  .npcv2-notes-doc prose-mirror.active .editor-content {
-    max-height: 580px;
-  }
+.npcv2-notes-doc .prosemirror.active .editor-content,
+.npcv2-notes-doc prose-mirror.active .editor-content {
+  max-height: 580px;
+}
 
-  .npcv2-notes-doc .prosemirror.inactive .editor-content,
-  .npcv2-notes-doc prose-mirror.inactive .editor-content {
-    max-height: 670px;
-  }  
+.npcv2-notes-doc .prosemirror.inactive .editor-content,
+.npcv2-notes-doc prose-mirror.inactive .editor-content {
+  max-height: 670px;
+}
 
 .Pendragon .result-success {
   color: green;
@@ -1423,7 +1422,7 @@
 /* Dark theme */
 .system-Pendragon.theme-dark {
   :not(.controls-dropdown) {
-  .Pendragon:not(.character2) {
+    .Pendragon:not(.character2) {
       --color-text-primary: #000;
       --color-text-emphatic: #000;
       --color-text-secondary: #333;
@@ -1639,11 +1638,11 @@
 
 .Pendragon.npcv2,
 .Pendragon.item.sheet {
-   overflow: visible;
-   .window-content{
+  overflow: visible;
+  .window-content {
     overflow-y: auto;
-    scrollbar-width: thin;  
-   }
+    scrollbar-width: thin;
+  }
 }
 
 .Pendragon.npcv2, .Pendragon.item {
@@ -1663,18 +1662,17 @@
       --color-text-secondary: #333;
   }
 }
-
 .Pendragon .npc-notes-section {
-    position: absolute;
-    min-width: 355px;
-    min-height: 714px;
-    border: 1px solid var(--pendragon-black);
-    color: var(--pendragon-black);
-    top: 35px;
-    left: 418px;
-    background-color: var(--notes-background);  
-    color: black;       
-  } 
+  position: absolute;
+  min-width: 355px;
+  min-height: 714px;
+  border: 1px solid var(--pendragon-black);
+  color: var(--pendragon-black);
+  top: 35px;
+  left: 418px;
+  background-color: var(--notes-background);
+  color: black;
+}
 /* new character sheet experiments */
 .Pendragon.character2 {
   --header-row: oklch(0.169 0.061 26.9);
@@ -1807,6 +1805,62 @@
       display: grid;
       gap: 0.25em;
       grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    .action-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(150px, 1fr));
+      grid-template-rows: auto 1fr;
+      & details {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
+        grid-column: 1 / -1;
+        grid-row: 1 / span 3;
+        border: none;
+        border-radius: 0;
+      }
+      & details::details-content {
+        grid-row: 2; /* position in the second row */
+        grid-column: 1 / -1; /* cover all three columns */
+        padding: 1rem 0.5rem;
+      }
+      & details[open]::details-content {
+        border-left: 2px solid var(--frame-border-color);
+        border-right: 2px solid var(--frame-border-color);
+        border-bottom: 2px solid var(--frame-border-color);
+      }
+      & summary {
+        grid-row: 1; /* First subgrid row */
+        display: grid;
+        padding: 0.5rem; /* Some breathing room */
+        font-weight: bold;
+        cursor: pointer; /* Update the cursor when hovered */
+        z-index: 1;
+        font-size: 1.2em;
+        color: var(--input-text-color);
+        background-color: var(--input-background-color);
+        border-radius: 10px 10px 0 0;
+        border: 2px solid transparent;
+        border-bottom-color: var(--frame-border-color);
+      }
+      & details[open] summary {
+        color: var(--pendragon-red);
+        background-color: transparent;
+        border-color: var(--frame-border-color);
+        border-bottom: none;
+      }
+      /* First item in first column */
+      details:nth-of-type(1) summary {
+        grid-column: 1 / span 1;
+      }
+      /* Second item in second column */
+      details:nth-of-type(2) summary {
+        grid-column: 2 / span 1;
+      }
+      /* Third item in third column */
+      details:nth-of-type(3) summary {
+        grid-column: 3 / span 1;
+      }
     }
   }
 
@@ -2092,5 +2146,16 @@
         background-color: var(--pd-light-row);
       }
     }
+  }
+  & .ideal ul {
+    padding-left: 2em;
+  }
+  & .ideal li[data-requirement-active="true"]::marker {
+    content: "✓ ";
+  }
+  & .ideal li[data-requirement-active="false"]{
+    color: var(--pendragon-red);
+    &::marker {
+    content: none;
   }
 }

@@ -7,6 +7,7 @@ import { isCtrlKey } from "../../apps/helper.mjs";
 import { PendragonActorSheet } from "./actor-sheet.mjs";
 import { WoundTrackerDialog } from "./actor-wound-tracker.mjs";
 import { CardType, PENCheck, RollType } from "../../apps/checks.mjs";
+import { CombatAction } from "../../apps/combat-actions.mjs";
 
 const { api } = foundry.applications;
 
@@ -43,6 +44,9 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       toggleEquip: this._onToggleEquip,
       switchHorse: this._onSwitchHorse,
       switchWeapon: this._onSwitchWeapon,
+      // automated combat actions
+      combatAction: this._declareCombatAction
+
     },
     window: {
       resizable: true,
@@ -106,10 +110,8 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       initial: "combat",
     },
   };
-  // this does the minimum currently, just sets the tab
-  // could also prepare tab-specific fields
+
   async _preparePartContext(partId, context) {
-    //context = super._preparePartContext(partId, context, options);
     switch (partId) {
       case "equipment":
       case "stable":
@@ -472,24 +474,15 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
 
   async _prepareCombatTab(context) {
     context.tab = context.tabs.combat;
-    const currentHorse = this.actor.getFlag("Pendragon", "currentHorse");
-    if (currentHorse) {
-      const horse = this.actor.items.find(i => i.id === currentHorse);
-      if (horse) {
-        const name = horse.system.label == horse.name ? `Unnamed ${horse.name}` : horse.system.label;
-        const classification = horse.name;
-        context.currentHorse = { name, system: horse.system, classification };
-      }
+    const horse = this.actor.currentHorse();
+    if (horse) {
+      const name = horse.getName();
+      const classification = horse.name;
+      context.currentHorse = { name, system: horse.system, classification };
     }
-    const currentWeapon = this.actor.getFlag("Pendragon", "currentWeapon");
-    if (currentWeapon) {
-      const weapon = this.actor.items.find(i => i.id === currentWeapon);
-      if (weapon) {
-        context.currentWeapon = { name: weapon.name, total: weapon.system.total, damage: weapon.system.damage };
-      }
-      else {
-        context.currentWeapon = this.#unarmed();
-      }
+    const weapon = this.actor.currentWeapon();
+    if (weapon) {
+      context.currentWeapon = { name: weapon.name, total: weapon.system.total, damage: weapon.system.damage };
     }
     else {
       context.currentWeapon = this.#unarmed();
@@ -609,7 +602,8 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
   static async _onSwitchHorse(event, target) {
     const horses = this.actor.items.filter(itm => itm.type === 'horse');
     horses.sort((a, b) => a.system.chargeDmg - b.system.chargeDmg);
-    const content = horses.map(h => `<label><input type='radio' name='horse' value='${h.id}'>${h.name}</label>`).join("");
+    const currentHorse = this.actor.currentHorse();
+    const content = horses.map(h => `<label><input type='radio' name='horse' value='${h.id}' ${h.id == currentHorse?.id ? "checked" : ""}>${h.getName()}</label>`).join("");
     const result = await api.DialogV2.wait({
       window: { title: "Select Horse" },
       content: content,
@@ -624,14 +618,25 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     weapons.sort(
       (a, b) => a.system.melee - b.system.melee || a.name.localeCompare(b.name),
     );
-    const content = weapons.map(w => `<label><input type='radio' name='weapon' value='${w.id}'>${w.name}</label>`).join("");
+    const currentWeapon = this.actor.currentWeapon();
+    const content = weapons.map(w => `<label><input type='radio' name='weapon' value='${w.id}' ${w.id == currentWeapon?.id ? "checked" : ""}>${w.name}</label>`).join("");
     const result = await api.DialogV2.wait({
       window: { title: "Select Weapon" },
       content: content,
       buttons: [{ label: "Switch", action: "switch", callback: (_, button) => button.form.elements.weapon.value }],
     });
-    // no result or missing horse id
+    // no result or missing weapon id
     if (!result || result === "switch") return;
     this.actor.setFlag("Pendragon", "currentWeapon", result);
+  }
+  static async _declareCombatAction(event, target) {
+    const { combatAction } = target.closest("[data-combat-action]")?.dataset ?? {};
+    switch (combatAction) {
+      case CombatAction.ATTACK:
+        CombatAction.attack(this.actor);
+        break;
+      default:
+        console.warn(`Unknown combat action ${combatAction}`);
+    }
   }
 }
