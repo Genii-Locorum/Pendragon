@@ -1,8 +1,10 @@
+import { OPCard } from "../cards/opposed-card.mjs";
 import { ChatCardState, ChatCardTemplate } from "./chat.mjs";
-import { CardType, RollType } from "./checks.mjs";
+import { CardType, RollType, PENCheck, RollResult } from "./checks.mjs";
 
 export class CombatAction {
   static ATTACK = "attack";
+  static UNOPPOSED_ATTACK = "unoppAtt";
   static RECKLESS = "recklessAttack";
   static SQUIRE = "callSquire";
   static DEFEND = "defend";
@@ -35,7 +37,7 @@ export class CombatAction {
   }
 
   static getRollModifiers() {
-    // then +10 if taking defend action
+    // +10 if taking defend action
     //  magic bonus
     // THEN multiple target modifier
     //  number of targets (n -1) * -5
@@ -48,33 +50,43 @@ export class CombatAction {
     return 0;
   }
 
-  static attack(actor, unopposed = false) {
+  static async attack(actor, unopposed = false) {
     // default to unarmed
     let currentWeapon = { id: null, name: "Unarmed", total: actor.getSkillTotal("i.skill.brawling"), damage: actor.system.damage };
     // determine skill based on current weapon
     const weapon = actor.currentWeapon();
     if (weapon) {
+      console.log(weapon.system);
       currentWeapon = { id: weapon.id, name: weapon.name, total: weapon.system.total, damage: weapon.system.damage };
     }
-    const targetScore = this.applyHorsemanshipCap(actor, weapon);
+    const targetScore = this.applyHorsemanshipCap(actor, currentWeapon);
     // will use as flatMod but later calculate
-    const modifier = getRollModifiers();
+    const modifier = this.getRollModifiers();
     const grossTarget = targetScore + modifier;
     // opposed roll by default
     const options = {
       actor,
+      particName: actor.name,
+      particId: actor.id,
+      particImg: actor.img,
+      particType: "actor",
+      actorType: actor.type,
+      action: CombatAction.ATTACK,
       rollType: RollType.COMBAT,
       cardType: CardType.COMBAT,
       itemId: currentWeapon?.id,
       flatMod: modifier,
+      reflexMod: 0,
       state: ChatCardState.OPEN,
       chatTemplate: ChatCardTemplate.COMBAT,
       chatType: CONST.CHAT_MESSAGE_STYLES.OTHER,
       grossTarget,
       targetScore: grossTarget,
+      critBonus: 0,
       label: currentWeapon.name,
+      rollFormula: "1D20",
       rawScore: currentWeapon.total,
-      skillId: weapon?.system.skillId ?? "i.skill.brawling"
+      skillId: weapon?.system.sourceId ?? "i.skill.brawling",
     }
     // calculate crit bonus if needed
     if (grossTarget > 20) {
@@ -85,9 +97,100 @@ export class CombatAction {
       options.targetScore = 0;
     }
     if (unopposed) {
+      options.action = CombatAction.UNOPPOSED_ATTACK;
       options.cardType = CardType.UNOPPOSED;
       options.state = ChatCardState.CLOSED;
       options.chatTemplate = ChatCardTemplate.UNOPPOSED;
     }
+
+    await PENCheck.makeRoll(options);
+    console.log(options);
+
+    // set the outcome if unopposed
+    if (unopposed) {
+      if (options.resultLevel === RollResult.CRITICAL) {
+        options.damCrit = true;
+      }
+      if (options.resultLevel > RollResult.FAIL) {
+        options.damRoll = true;
+        options.outcome = "W";
+        options.outcomeLabel = game.i18n.localize("PEN.comRollW");
+      } else {
+        options.outcome = "L";
+        options.outcomeLabel = game.i18n.localize("PEN.comRollL");
+      }
+    }
+
+    await this.createChatCard(options);
+  }
+
+  static async createChatCard(config) {
+    const chatMsgData = {
+      rollType: config.rollType,
+      cardType: config.cardType,
+      chatType: config.chatType,
+      chatTemplate: config.chatTemplate,
+      state: config.state,
+      rolls: config.roll,
+      resultLevel: config.resultLevel,
+      rollResult: config.rollResult,
+      inquiry: config.inquiry,
+      chatCard: [
+        {
+          rollType: config.rollType,
+          particId: config.particId,
+          particType: config.particType,
+          particName: config.particName,
+          particImg: config.particImg,
+          actorType: config.actorType,
+          characteristic: config.characteristic ?? false,
+          label: config.label,
+          oppLabel: config.oppLabel,
+          oppRawScore: config.oppRawScore,
+          decision: config.decision,
+          reverseRoll: config.reverseRoll,
+          reflex: config.reflex,
+          skillId: config.skillId,
+          itemId: config.itemId,
+          targetScore: config.targetScore,
+          grossTarget: config.grossTarget,
+          rawScore: config.rawScore,
+          rollFormula: config.rollFormula,
+          flatMod: config.flatMod,
+          reflexMod: config.reflexMod,
+          critBonus: config.critBonus,
+          rollResult: config.rollResult,
+          rollVal: config.rollVal,
+          roll: config.roll,
+          resultLevel: config.resultLevel,
+          resultLabel: game.i18n.localize(
+            "PEN.resultLevel." + config.resultLevel,
+          ),
+          outcome: config.outcome,
+          outcomeLabel: config.outcomeLabel,
+          damRoll: config.damRoll,
+          damCrit: config.damCrit,
+          damShield: config.damShield,
+          damMod: config.damMod,
+          subType: config.subType,
+          fixedOpp: config.fixedOpp,
+          action: config.action,
+          actionLabel: game.i18n.localize("PEN." + config.action),
+          userID: config.userID,
+          neutralRoll: config.neutralRoll,
+        },
+      ],
+    };
+
+    // updated existing card, if any
+    const existingOpenCard = await OPCard.checkNewMsg(config);
+    if (existingOpenCard) {
+      await OPCard.OPAdd(chatMsgData, existingOpenCard);
+      return;
+    }
+    // create a new card
+    const html = await PENCheck.startChat(chatMsgData);
+    const msgID = await PENCheck.showChat(html, chatMsgData);
+    return msgID;
   }
 }

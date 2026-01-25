@@ -633,7 +633,7 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     const { combatAction } = target.closest("[data-combat-action]")?.dataset ?? {};
     switch (combatAction) {
       case CombatAction.ATTACK:
-        CombatAction.attack(this.actor);
+        await CombatAction.attack(this.actor, event.shiftKey);
         break;
       default:
         console.warn(`Unknown combat action ${combatAction}`);
