@@ -635,6 +635,12 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       case CombatAction.ATTACK:
         await CombatAction.attack(this.actor, event.shiftKey);
         break;
+      case CombatAction.RECKLESS:
+        await CombatAction.recklessAttack(this.actor, event.shiftKey);
+        break;
+      case CombatAction.DEFEND:
+        await CombatAction.defend(this.actor, event.shiftKey);
+        break;
       default:
         console.warn(`Unknown combat action ${combatAction}`);
     }

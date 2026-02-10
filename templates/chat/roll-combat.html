@@ -1,9 +1,8 @@
 <form class="Pendragon co-card">
-  <div class="">
     <ol class="op-list">
       {{#each chatCard as |c key|}}
-      <div class="dice-roll" data-action="expandRoll">
-        <li class='actor-roll'>
+        <li>
+          <div class="actor-roll">
           <img class="open-actor" src="{{c.particImg}}" height="50" width="50" title="{{c.particName}}"/>
           <div class="roll-details">
             <div class="header">
@@ -20,74 +19,72 @@
                 <span class="tag">{{c.label}} ({{c.targetScore}})</span>
               </div>
             </div>
-
             {{#if (eq ../state 'closed')}}
+            <details>
               {{#if (eq c.resultLevel 3)}}
-                <span class="pending {{c.outcome}}">{{c.outcomeLabel}}: {{c.resultLabel}} ({{c.rollVal}}) <i class="result-success fas fa-swords"></i><i class="result-success fas fa-swords"></i>
+                <summary class="pending {{c.outcome}}">{{c.outcomeLabel}}: {{c.resultLabel}} ({{c.rollVal}}) <i class="result-success fas fa-swords"></i><i class="result-success fas fa-swords"></i>
               {{/if}}
-         
+
               {{#if (eq c.resultLevel 2)}}
-                <span class="pending {{c.outcome}}">{{c.outcomeLabel}}: {{c.resultLabel}} ({{c.rollVal}}) <i class="result-success fas fa-swords"></i>
+                <summary class="pending {{c.outcome}}">{{c.outcomeLabel}}: {{c.resultLabel}} ({{c.rollVal}}) <i class="result-success fas fa-swords"></i>
               {{/if}}
 
               {{#if (eq c.resultLevel 1)}}
-                <span class="pending">{{c.outcomeLabel}}: {{c.resultLabel}} ({{c.rollVal}}) <i class="result-fail fas fa-skull"></i>
+                <summary class="pending">{{c.outcomeLabel}}: {{c.resultLabel}} ({{c.rollVal}}) <i class="result-fail fas fa-skull"></i>
               {{/if}}
-          
+
               {{#if (eq c.resultLevel 0)}}
-                <span class="pending">{{c.outcomeLabel}}: {{c.resultLabel}} ({{c.rollVal}}) <i class=" result-fail fas fa-skull"></i><i class="result-fail fas fa-skull"></i></i> &nbsp <i class=" result-fail fas fa-sword"title="{{localize 'PEN.dropWpn'}}"></i>
+                <summary class="pending">{{c.outcomeLabel}}: {{c.resultLabel}} ({{c.rollVal}}) <i class="result-fail fas fa-skull"></i><i class="result-fail fas fa-skull"></i></i> &nbsp <i class="result-fail fas fa-sword" title="{{localize 'PEN.dropWpn'}}"></i>
               {{/if}}
 
-              {{#if c.damShield}}      
+              {{#if c.damShield}}
                 &nbsp <i class="fas fa-shield" title="{{localize 'PEN.damShield'}}"></i>
-              {{/if}} 
-              </span> 
-
+              {{/if}}
+              </summary>
+                <div class="actor-roll dice-tooltip">
+                  <div class="owner-only" data-partic-id="{{c.particId}}" data-partic-type="{{c.particType}}">
+                    <div class="rollHidden">{{localize 'PEN.rawScore'}}: {{c.rawScore}}</div>
+                    <div class="rollHidden"> {{localize 'PEN.reflexMod'}}:
+                      {{#if (lt c.reflexMod 1)}}
+                        {{c.reflexMod}}
+                      {{else}}
+                        +{{c.reflexMod}}
+                      {{/if}}
+                    </div>
+                    <div class="rollHidden"> {{localize 'PEN.bonus'}}:
+                      {{#if (lt c.flatMod 1)}}
+                        {{c.flatMod}}
+                      {{else}}
+                        +{{c.flatMod}}
+                      {{/if}}
+                    </div>
+                    <div class="rollHidden "> {{localize 'PEN.critBonus'}}:
+                      {{#if (lt c.critBonus 1)}}
+                        {{c.critBonus}}
+                      {{else}}
+                        +{{c.critBonus}}
+                      {{/if}}
+                    </div>
+                    <div class="rollHidden bottom-line">{{localize 'PEN.diceRoll'}}: {{c.rollResult}}</div>
+                  </div>
+                </div>
+            </details>
             {{else}}
               <span class='pending' title="{{localize 'PEN.grTag'}}">{{localize 'PEN.pending'}}</span>
             {{/if}}
           </div>
-        </li>
-        {{#if (eq ../state 'closed')}}
-          <div class="actor-roll dice-tooltip">
-            <div class="owner-only" data-partic-id="{{c.particId}}" data-partic-type="{{c.particType}}">
-              <div class="rollHidden">{{localize 'PEN.rawScore'}}: {{c.rawScore}}</div>
-              <div class="rollHidden"> {{localize 'PEN.reflexMod'}}:
-                {{#if (lt c.reflexMod 1)}}
-                  {{c.reflexMod}}
-                {{else}}
-                  +{{c.reflexMod}}
-                {{/if}}
-              </div>
-              <div class="rollHidden"> {{localize 'PEN.bonus'}}:
-                {{#if (lt c.flatMod 1)}}
-                  {{c.flatMod}}
-                {{else}}
-                  +{{c.flatMod}}
-                {{/if}}
-              </div>
-              <div class="rollHidden "> {{localize 'PEN.critBonus'}}:
-                {{#if (lt c.critBonus 1)}}
-                  {{c.critBonus}}
-                {{else}}
-                  +{{c.critBonus}}
-                {{/if}}
-              </div>
-              <div class="rollHidden bottom-line">{{localize 'PEN.diceRoll'}}: {{c.rollResult}}</div>
-            </div>
-          </div>  
-        {{/if}}
-      </div>
-      {{#if (eq ../state 'closed')}}      
+        </div>
+      {{#if (eq ../state 'closed')}}
         {{#if c.damRoll}}
-          <button class='cardbutton owner-only'data-partic-id="{{c.particId}}" data-partic-type="{{c.particType}}" data-rank='{{key}}' data-preset='dam-co-card' type="button">{{localize 'PEN.rollDamage'}}</button>        
+          <button class='cardbutton owner-only'data-partic-id="{{c.particId}}" data-partic-type="{{c.particType}}" data-rank='{{key}}' data-preset='dam-co-card' type="button">{{localize 'PEN.rollDamage'}}</button>
         {{/if}}
-      {{/if}}  
+        <p>Special note about result goes here.</p>
+      {{/if}}
+        </li>
       {{/each}}
     </ol>
-  </div>
   {{#unless (eq state 'closed')}}
     <button class='cardbutton gm-visible-only' data-preset='resolve-co-card' type="button">{{localize 'PEN.resolveCard'}}</button>
     <button class='cardbutton gm-visible-only' data-preset='close-card' type="button">{{localize 'PEN.closeCard'}}</button>
   {{/unless}}
-</form>  
+</form>

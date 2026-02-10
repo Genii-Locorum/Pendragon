@@ -2,10 +2,19 @@ import { OPCard } from "../cards/opposed-card.mjs";
 import { ChatCardState, ChatCardTemplate } from "./chat.mjs";
 import { CardType, RollType, PENCheck, RollResult } from "./checks.mjs";
 
+export class CombatOutcome {
+  static CRITICAL = "C";
+  static WIN = "W";
+  static TIE = "T";
+  static PARTIAL = "P";
+  static LOSE = "L";
+  static FUMBLE = "F";
+}
+
 export class CombatAction {
   static ATTACK = "attack";
   static UNOPPOSED_ATTACK = "unoppAtt";
-  static RECKLESS = "recklessAttack";
+  static RECKLESS = "reckless";
   static SQUIRE = "callSquire";
   static DEFEND = "defend";
   static DISARM = "disarm";
@@ -25,7 +34,9 @@ export class CombatAction {
   static ARMOUR = "donArmour";
   static HOOK = "hook";
   static SET_SPEAR = "setSpear";
+  static MOUNT = "mount";
 
+  // apply Horsemanship cap to combat rolls if mounted
   static applyHorsemanshipCap(actor, weapon) {
     const targetScore = weapon.total;
     // apply horsemanship cap if mounted
@@ -36,8 +47,12 @@ export class CombatAction {
     return targetScore;
   }
 
-  static getRollModifiers() {
+  static getRollModifiers(action) {
+    let total = 0;
     // +10 if taking defend action
+    if (action == CombatAction.DEFEND) {
+      total += 10;
+    }
     //  magic bonus
     // THEN multiple target modifier
     //  number of targets (n -1) * -5
@@ -47,21 +62,20 @@ export class CombatAction {
     //  immobile advantage/penalty
     // THEN passion modifier
     // THEN other
-    return 0;
+    return total;
   }
 
-  static async attack(actor, unopposed = false) {
+  static opposedWeaponRollOptions(actor, action) {
     // default to unarmed
     let currentWeapon = { id: null, name: "Unarmed", total: actor.getSkillTotal("i.skill.brawling"), damage: actor.system.damage };
     // determine skill based on current weapon
     const weapon = actor.currentWeapon();
     if (weapon) {
-      console.log(weapon.system);
       currentWeapon = { id: weapon.id, name: weapon.name, total: weapon.system.total, damage: weapon.system.damage };
     }
     const targetScore = this.applyHorsemanshipCap(actor, currentWeapon);
     // will use as flatMod but later calculate
-    const modifier = this.getRollModifiers();
+    const modifier = this.getRollModifiers(action);
     const grossTarget = targetScore + modifier;
     // opposed roll by default
     const options = {
@@ -71,7 +85,7 @@ export class CombatAction {
       particImg: actor.img,
       particType: "actor",
       actorType: actor.type,
-      action: CombatAction.ATTACK,
+      action: action,
       rollType: RollType.COMBAT,
       cardType: CardType.COMBAT,
       itemId: currentWeapon?.id,
@@ -96,6 +110,30 @@ export class CombatAction {
       options.critBonus = -grossTarget;
       options.targetScore = 0;
     }
+    return options;
+  }
+
+  static applyUnopposedOutcome(options) {
+    if (options.resultLevel === RollResult.CRITICAL) {
+      options.damCrit = true;
+    }
+
+    if (options.resultLevel > RollResult.FAIL) {
+      options.damRoll = true;
+      options.outcome = CombatOutcome.WIN;
+      options.outcomeLabel = game.i18n.localize("PEN.comRollW");
+    } else {
+      options.outcome = CombatAction.LOSE;
+      options.outcomeLabel = game.i18n.localize("PEN.comRollL");
+    }
+  }
+
+
+  static async attack(actor, unopposed = false) {
+    // standard opposed weapon roll
+    const options = this.opposedWeaponRollOptions(actor, CombatAction.ATTACK);
+
+    // allow for unopposed roll
     if (unopposed) {
       options.action = CombatAction.UNOPPOSED_ATTACK;
       options.cardType = CardType.UNOPPOSED;
@@ -103,22 +141,60 @@ export class CombatAction {
       options.chatTemplate = ChatCardTemplate.UNOPPOSED;
     }
 
+    // make the roll
     await PENCheck.makeRoll(options);
-    console.log(options);
 
     // set the outcome if unopposed
     if (unopposed) {
-      if (options.resultLevel === RollResult.CRITICAL) {
-        options.damCrit = true;
-      }
-      if (options.resultLevel > RollResult.FAIL) {
-        options.damRoll = true;
-        options.outcome = "W";
-        options.outcomeLabel = game.i18n.localize("PEN.comRollW");
-      } else {
-        options.outcome = "L";
-        options.outcomeLabel = game.i18n.localize("PEN.comRollL");
-      }
+      this.applyUnopposedOutcome(options);
+    }
+
+    await this.createChatCard(options);
+  }
+
+  static async recklessAttack(actor, unopposed = false) {
+    // standard opposed weapon roll
+    const options = this.opposedWeaponRollOptions(actor, CombatAction.RECKLESS);
+    // if either roll is reckless, shield/parry is ignored by damaged party
+    // reckless vs defend is a special case that converts to opposed attack rolls
+    // setting it here because changes damage dealt
+    //options.reckless = true;
+
+    // allow for unopposed roll
+    if (unopposed) {
+      options.cardType = CardType.UNOPPOSED;
+      options.state = ChatCardState.CLOSED;
+      options.chatTemplate = ChatCardTemplate.UNOPPOSED;
+    }
+
+    // make the roll
+    await PENCheck.makeRoll(options);
+
+    // set the outcome if unopposed
+    if (unopposed) {
+      this.applyUnopposedOutcome(options);
+    }
+
+    await this.createChatCard(options);
+  }
+
+  static async defend(actor, unopposed = false) {
+    // standard opposed weapon roll
+    const options = this.opposedWeaponRollOptions(actor, CombatAction.DEFEND);
+
+    // allow for unopposed roll
+    if (unopposed) {
+      options.cardType = CardType.UNOPPOSED;
+      options.state = ChatCardState.CLOSED;
+      options.chatTemplate = ChatCardTemplate.UNOPPOSED;
+    }
+
+    // make the roll
+    await PENCheck.makeRoll(options);
+
+    // set the outcome if unopposed
+    if (unopposed) {
+      this.applyUnopposedOutcome(options);
     }
 
     await this.createChatCard(options);
@@ -163,9 +239,7 @@ export class CombatAction {
           rollVal: config.rollVal,
           roll: config.roll,
           resultLevel: config.resultLevel,
-          resultLabel: game.i18n.localize(
-            "PEN.resultLevel." + config.resultLevel,
-          ),
+          resultLabel: game.i18n.localize(`PEN.resultLevel.${config.resultLevel}`),
           outcome: config.outcome,
           outcomeLabel: config.outcomeLabel,
           damRoll: config.damRoll,
@@ -175,7 +249,7 @@ export class CombatAction {
           subType: config.subType,
           fixedOpp: config.fixedOpp,
           action: config.action,
-          actionLabel: game.i18n.localize("PEN." + config.action),
+          actionLabel: game.i18n.localize(`PEN.actions.${config.action}`),
           userID: config.userID,
           neutralRoll: config.neutralRoll,
         },

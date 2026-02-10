@@ -1,6 +1,7 @@
 import { PENactorDetails } from "./actorDetails.mjs";
 import { OPCard } from "../cards/opposed-card.mjs";
 import { COCard } from "../cards/combat-card.mjs";
+import { CombatAction, CombatOutcome } from "./combat-actions.mjs";
 
 export class RollType {
   static CHARACTERISTIC = "CH";
@@ -147,7 +148,7 @@ export class PENCheck {
       damMod: options.damMod ?? "0",
       fixedOpp: options.fixedOpp ?? 0,
       inquiry: options.inquiry ?? "no",
-      action: "attack",
+      action: options.action ?? "attack",
       userID: game.user._id,
       gmRollScore: options.gmRollScore ?? 0,
       neutralRoll: options.neutralRoll ?? false,
@@ -283,9 +284,16 @@ export class PENCheck {
         if (config.damCrit) {
           if (tempItem.system.damageChar === 'b') {
             config.rollFormula = config.rollFormula + "+2D6";
+          } else if (config.action == CombatAction.RECKLESS) {
+            // reckless attack adds +6d6 on critical
+            config.rollFormula = config.rollFormula + "+6D6";
           } else {
             config.rollFormula = config.rollFormula + "+4D6";
           }
+        }
+        else if (config.action == CombatAction.RECKLESS) {
+          // reckless attack adds +2d6 to normal attack
+          config.rollFormula = config.rollFormula + "+2D6";
         }
         break;
       case RollType.COMBAT:
@@ -862,7 +870,7 @@ export class PENCheck {
         await OPCard.OPResolve(data);
         break;
       case "resolve-co-card":
-        await COCard.COResolve(data);
+        await COCard.resolveCombatRolls(data);
         break;
       case "reverseRoll":
         await PENCheck.reverseTrait(targetMsg);
