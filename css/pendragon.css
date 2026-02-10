@@ -1068,7 +1068,7 @@
   line-height: 16px;
 }
 
-.Pendragon .actor-roll span.pending {
+.Pendragon .actor-roll .pending {
   width: 100%;
   background: rgba(0, 0, 0, 0.25);
   border: 1px solid #b5b3a4;
@@ -1088,6 +1088,7 @@
 
 .Pendragon .open-actor {
   aspect-ratio: 1/1;
+  align-self: top;
 }
 
 .Pendragon .W {
@@ -1646,13 +1647,13 @@
 }
 
 .Pendragon.npcv2, .Pendragon.item {
-  .controls-dropdown { 
+  .controls-dropdown {
     background-color: black;
     background-image:none;
     a.button, button {
       color: cornsilk;
-    }  
-  }    
+    }
+  }
 }
 
 .Pendragon.item {
