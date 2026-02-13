@@ -2,6 +2,8 @@ import { OPCard } from "../cards/opposed-card.mjs";
 import { ChatCardState, ChatCardTemplate } from "./chat.mjs";
 import { CardType, RollType, PENCheck, RollResult } from "./checks.mjs";
 
+const { api, fields } = foundry.applications;
+
 export class CombatOutcome {
   static CRITICAL = "C";
   static WIN = "W";
@@ -65,7 +67,27 @@ export class CombatAction {
     return total;
   }
 
-  static opposedWeaponRollOptions(actor, action) {
+  static async requestRollModifiers(action, currentWeapon) {
+    const bonuses = this.getRollModifiers(action);
+    const textInput = fields.createNumberInput({
+      name: 'checkBonus',
+      value: bonuses
+    });
+    const textGroup = fields.createFormGroup({
+      input: textInput,
+      label: game.i18n.localize("PEN.checkBonus"),
+      hint: game.i18n.localize("PEN.checkBonusHint")
+    });
+    const content = `${textGroup.outerHTML}`;
+    const data = await api.DialogV2.input({
+      window: { title: `PEN.actions.${action}` },
+      content: content,
+      ok: { label: "Roll" },
+    });
+    return data.checkBonus;
+  }
+
+  static async opposedWeaponRollOptions(actor, action) {
     // default to unarmed
     let currentWeapon = { id: null, name: "Unarmed", total: actor.getSkillTotal("i.skill.brawling"), damage: actor.system.damage };
     // determine skill based on current weapon
@@ -74,8 +96,8 @@ export class CombatAction {
       currentWeapon = { id: weapon.id, name: weapon.name, total: weapon.system.total, damage: weapon.system.damage };
     }
     const targetScore = this.applyHorsemanshipCap(actor, currentWeapon);
-    // will use as flatMod but later calculate
-    const modifier = this.getRollModifiers(action);
+    // will use as flatMod but later make more granular
+    const modifier = await this.requestRollModifiers(action);
     const grossTarget = targetScore + modifier;
     // opposed roll by default
     const options = {
@@ -131,7 +153,7 @@ export class CombatAction {
 
   static async attack(actor, unopposed = false) {
     // standard opposed weapon roll
-    const options = this.opposedWeaponRollOptions(actor, CombatAction.ATTACK);
+    const options = await this.opposedWeaponRollOptions(actor, CombatAction.ATTACK);
 
     // allow for unopposed roll
     if (unopposed) {
@@ -154,11 +176,7 @@ export class CombatAction {
 
   static async recklessAttack(actor, unopposed = false) {
     // standard opposed weapon roll
-    const options = this.opposedWeaponRollOptions(actor, CombatAction.RECKLESS);
-    // if either roll is reckless, shield/parry is ignored by damaged party
-    // reckless vs defend is a special case that converts to opposed attack rolls
-    // setting it here because changes damage dealt
-    //options.reckless = true;
+    const options = await this.opposedWeaponRollOptions(actor, CombatAction.RECKLESS);
 
     // allow for unopposed roll
     if (unopposed) {
@@ -180,7 +198,7 @@ export class CombatAction {
 
   static async defend(actor, unopposed = false) {
     // standard opposed weapon roll
-    const options = this.opposedWeaponRollOptions(actor, CombatAction.DEFEND);
+    const options = await this.opposedWeaponRollOptions(actor, CombatAction.DEFEND);
 
     // allow for unopposed roll
     if (unopposed) {

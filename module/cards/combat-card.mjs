@@ -131,6 +131,7 @@ export class COCard {
       if (otherAction == CombatAction.DEFEND && [CombatOutcome.TIE, CombatOutcome.WIN, CombatOutcome.CRITICAL].includes(otherResult)) {
         updatedCard.damRoll = false;
         updatedCard.damCrit = false;
+        updatedCard.outcomeNote = "Opponent does not take damage.";
       }
 
       // mount ignores damage on win
@@ -150,11 +151,13 @@ export class COCard {
       // denied if either party used a reckless attack
       if (updatedCard.action == CombatAction.RECKLESS || otherAction == CombatAction.RECKLESS) {
         updatedCard.damShield = false;
+        updatedCard.outcomeNote = "Reckless attacks prevent the use of shields.";
       }
 
       // denied if mounting up
       if (updatedCard.action == CombatAction.MOUNT) {
         updatedCard.damShield = false;
+        updatedCard.outcomeNote = "You may not use a shield when mounting.";
       }
     }
 

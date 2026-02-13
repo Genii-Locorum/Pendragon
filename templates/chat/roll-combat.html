@@ -78,7 +78,9 @@
         {{#if c.damRoll}}
           <button class='cardbutton owner-only'data-partic-id="{{c.particId}}" data-partic-type="{{c.particType}}" data-rank='{{key}}' data-preset='dam-co-card' type="button">{{localize 'PEN.rollDamage'}}</button>
         {{/if}}
-        <p>Special note about result goes here.</p>
+        {{#if c.outcomeNote}}
+        <p>{{c.outcomeNote}}</p>
+        {{/if}}
       {{/if}}
         </li>
       {{/each}}
