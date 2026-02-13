@@ -355,6 +355,7 @@ export class PendragonActor extends Actor {
       } else if (i.type === "horse" && i.system.equipped) {    //Get horse damage from an equipped horse,
         systemData.horseDam = i.system.damage;
         systemData.horseChgDam = i.system.chargeDmg;
+        this.addStatus(PendragonStatusEffects.MOUNTED);
       }
     }
     //Calculate current HP then check for Near Death
@@ -570,6 +571,24 @@ export class PendragonActor extends Actor {
 
   isMounted() {
     return this.statuses.has(PendragonStatusEffects.MOUNTED);
+  }
+
+  async mountCurrentHorse() {
+    if (this.isMounted())
+      return;
+    const horse = this.currentHorse();
+    if (horse) {
+      await horse.update({ 'system.equipped': true });
+    }
+  }
+
+  async dismountCurrentHorse() {
+    if (!this.isMounted())
+      return;
+    const horse = this.currentHorse();
+    if (horse) {
+      await horse.update({ 'system.equipped': false });
+    }
   }
 
   async addStatus(statusId) {
