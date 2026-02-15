@@ -72,6 +72,16 @@ export class COCard {
 
     const [card1, card2] = chatCards;
 
+    // adjust modifiers if needed
+    //  reckless vs defend (treat as attack vs attack; cancel defend bonus)
+    //  mounted vs foot (height advantage)
+    //  foot using reach weapon vs mounted (cancels height advantage)
+    //  opponent using reckless +5
+    // re-eval results
+    //  recalc targetScore, critBonus
+    //  rollVal = rollResult + critBonus
+    //  resultLevel = PENCheck.successLevel(card)
+
     // compare the results to determine the outcome
     const [r1, r2] = this.compareCombatResults(card1, card2);
 

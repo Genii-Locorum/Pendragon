@@ -135,6 +135,23 @@ export class CombatAction {
     return options;
   }
 
+  // adjust modifiers based on opponent
+  // these should alway be applied after opposed roll is made
+  // but before outcome is calculated
+  static adjustOpposingModifiers(config, opponent) {
+    const originalTarget = config.grossTarget - config.flatMod;
+    //  reckless vs defend (treat as attack vs attack; cancel defend bonus)
+    if (config.action == CombatAction.DEFEND && opponent.action == this.RECKLESS) {
+      config.flatMod -= 10;
+    }
+    //  mounted vs foot (height advantage)
+    //  foot using reach weapon vs mounted (cancels height advantage)
+    //  opponent using reckless +5
+    if (config.action != CombatAction.DEFEND && opponent.action == this.RECKLESS) {
+      config.flatMod += 5;
+    }
+  }
+
   static applyUnopposedOutcome(options) {
     if (options.resultLevel === RollResult.CRITICAL) {
       options.damCrit = true;
@@ -160,7 +177,6 @@ export class CombatAction {
       options.action = CombatAction.UNOPPOSED_ATTACK;
       options.cardType = CardType.UNOPPOSED;
       options.state = ChatCardState.CLOSED;
-      options.chatTemplate = ChatCardTemplate.UNOPPOSED;
     }
 
     // make the roll
@@ -182,7 +198,6 @@ export class CombatAction {
     if (unopposed) {
       options.cardType = CardType.UNOPPOSED;
       options.state = ChatCardState.CLOSED;
-      options.chatTemplate = ChatCardTemplate.UNOPPOSED;
     }
 
     // make the roll
@@ -204,7 +219,6 @@ export class CombatAction {
     if (unopposed) {
       options.cardType = CardType.UNOPPOSED;
       options.state = ChatCardState.CLOSED;
-      options.chatTemplate = ChatCardTemplate.UNOPPOSED;
     }
 
     // make the roll
