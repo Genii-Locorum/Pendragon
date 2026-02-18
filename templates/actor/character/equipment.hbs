@@ -1,0 +1,93 @@
+<section class="tab equipment {{tab.cssClass}}" data-group="primary" data-tab="equipment">
+    <h2>Armour</h2>
+    <table>
+        <tbody>
+          <tr>
+              <th>{{localize 'PEN.armour'}}</th>
+              <th>{{localize 'PEN.available'}}</th>
+              <th>{{localize 'PEN.ap'}}</th>
+              <th>Padding</th>
+              <th>{{localize 'PEN.eqpd'}}</th>
+          </tr>
+          {{#each armours as |armour key|}}
+          <tr data-itemid ="{{armour._id}}">
+            <td>{{armour.name}}</td>
+            <td>All Periods</td>
+            <td>{{armour.system.ap}}</td>
+            <td>{{armour.system.material}} {{armour.system.padding}}</td>
+            <td><a class="item-control large-icon" data-action="toggleEquip"><i class="{{#if armour.system.equipped}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+    </table>
+
+    <h2>Weapons</h2>
+    <table>
+        <tbody>
+          <tr>
+              <th>{{localize 'PEN.weapon'}}</th>
+              <th>{{localize 'PEN.available'}}</th>
+              <th>Foot or Mounted</th>
+              <th>{{localize 'PEN.skill'}}</th>
+              <th>{{localize 'PEN.value'}}</th>
+              <th>{{localize 'PEN.parry'}}</th>
+              <th>{{localize 'PEN.damage'}}</th>
+          </tr>
+          {{#each weapons as |weapon key|}}
+          {{#if weapon.system.melee}}
+          <tr>
+            <td>{{weapon.name}}</td>
+            <td>All Periods</td>
+            <td>{{weapon.system.mounted}}</td>
+            <td>{{weapon.system.skillName}}</td>
+            <td>{{weapon.system.total}}</td>
+            <td>{{weapon.system.parry}}</td>
+            <td>{{weapon.system.damage}}</td>
+          </tr>
+          {{/if}}
+          {{/each}}
+        </tbody>
+    </table>
+    <table>
+        <tbody>
+          <tr>
+              <th>{{localize 'PEN.weapon'}}</th>
+              <th>{{localize 'PEN.available'}}</th>
+              <th>Foot or Mounted</th>
+              <th>{{localize 'PEN.skill'}}</th>
+              <th>{{localize 'PEN.value'}}</th>
+              <th>{{localize 'PEN.range'}}</th>
+              <th>{{localize 'PEN.damage'}}</th>
+          </tr>
+          {{#each weapons as |weapon key|}}
+          {{#unless weapon.system.melee}}
+          <tr>
+            <td>{{weapon.name}}</td>
+            <td>All Periods</td>
+            <td>{{weapon.system.mounted}}</td>
+            <td>{{weapon.system.skillName}}</td>
+            <td>{{weapon.system.total}}</td>
+            <td>{{weapon.system.range}}</td>
+            <td>{{weapon.system.damage}}</td>
+          </tr>
+          {{/unless}}
+          {{/each}}
+        </tbody>
+    </table>
+    <h2>Gear</h2>
+    <table>
+        <tbody>
+          <tr>
+              <th>{{localize 'PEN.name'}}</th>
+              <th>{{localize 'PEN.description'}}</th>
+          </tr>
+          {{#each gears as |gear key|}}
+          <tr>
+            <td>{{gear.name}}</td>
+            <td>{{gear.system.cleanDesc}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+    </table>
+
+</section>

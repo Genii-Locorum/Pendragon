@@ -1,0 +1,24 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="events">
+  <div class="pills">
+    <span class="pill">Born {{system.born}}</span>
+    {{#if system.died}}
+      <span class="pill">Died {{system.died}}</span>
+    {{/if}}
+  </div>
+  <table>
+    <tbody>
+      <tr>
+        <th>{{localize 'PEN.year'}}</th>
+        <th>{{localize 'PEN.event'}}</th>
+        <th>{{localize 'PEN.glory'}}</th>
+      </tr>
+      {{#each history as |historical key|}}
+      <tr>
+        <td>{{historical.system.year}}</td>
+        <td>{{historical.name}}{{#if historical.label}}: {{historical.label}}{{/if}}</td>
+        <td class="right">{{#if historical.system.glory}}{{formatNumber historical.system.glory}}{{/if}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>

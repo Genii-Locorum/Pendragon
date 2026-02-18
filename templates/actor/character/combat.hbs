@@ -1,0 +1,114 @@
+<section class="tab combat {{tab.cssClass}}" data-group="primary" data-tab="combat">
+<div class="combat-grid">
+  <div>
+    <ol class="trait-grid2">
+    {{#each traits as |trait key|}}
+      <li data-itemid="{{trait._id}}">
+        <span class="right {{#if (gt trait.system.total 15)}}famous{{/if}} {{#if (gt trait.system.total 20)}}exalted{{/if}}">{{trait.system.total}}</span>
+        <span class="trait right {{#if (gt trait.system.religious 0)}}religious {{/if}}{{#if (gt trait.system.total 15)}}famous{{/if}} {{#if (gt trait.system.total 20)}}exalted{{/if}}" data-type ="trait" data-itemid="{{trait._id}}" data-action="rollTrait">{{trait.name}}</span>
+        <span data-action="rollDecision"><i class="fa-regular fa-scale-balanced"></i></span>
+        <span class="trait {{#if (lt trait.system.religious 0)}}religious {{/if}}{{#if (gt trait.system.oppvalue 15)}}famous{{/if}} {{#if (gt trait.system.oppvalue 20)}}exalted{{/if}}" data-type ="opptrait" data-itemid="{{trait._id}}" data-action="rollTrait">{{trait.system.oppName}}</span>
+        <span class="right {{#if (gt trait.system.oppvalue 15)}}famous{{/if}} {{#if (gt trait.system.oppvalue 20)}}exalted{{/if}}">{{trait.system.oppvalue}}</span>
+      </li>
+    {{/each}}
+    </ol>
+  </div>
+
+
+  <div>
+    <div style="display: grid;gap: 0.5rem;grid-template-columns: 1fr 120px 1fr;align-items:stretch;">
+      <div style="border-radius: 0.25rem;padding: 0.5rem;background-color: var(--pd-light-row);">
+        {{#if currentHorse}}
+        <p><i class= "fa-solid fa-horse-head"></i>{{currentHorse.name}}</p>
+        <p>{{currentHorse.classification}}{{#if currentHorse.system.combat}} - War-Trained{{/if}}</p>
+        <p>Hit Points: {{currentHorse.system.hp}} / {{currentHorse.system.maxHP}}</p>
+        <p>Move: {{currentHorse.system.move}} / Knockdown: {{currentHorse.system.siz}}</p>
+        {{/if}}
+        <button data-action="switchHorse">Change Horse</button>
+        <label class="condition">
+        <input type="checkbox" {{#if statuses.mounted.active}}checked{{/if}} disabled/>
+        <img src="{{statuses.mounted.img}}" class="icon-img" />
+        <span>{{ statuses.mounted.name }}</span>
+        </label>
+      </div>
+      <div>
+        <p>Knockdown: {{system.hp.knockdown}}</p>
+        <p>Major Wound: {{system.hp.majorWnd}}</p>
+        <p>Unconscious: {{system.hp.unconscious}}</p>
+        <p style="font-weight: bold;font-size:larger"><i class= "fa-solid fa-swords"></i> Weapon</p>
+        <p>{{currentWeapon.name}} {{currentWeapon.total}}</p>
+        <p>Damage: {{currentWeapon.damage}}</p>
+        <button data-action="switchWeapon">Change Weapon</button>
+      </div>
+      <div style="border-radius: 0.25rem;padding: 0.5rem;background-color: var(--pd-light-row);">
+        <p>Armour Points: {{system.armour}} + {{system.shield}} <i class="fa-solid fa-shield"></i></p>
+        <p>Move: {{system.move}}</p>
+        <label class="condition">
+        <input type="checkbox" {{#if statuses.debilitated.active}}checked{{/if}} disabled/>
+        <img src="{{statuses.debilitated.img}}" class="icon-img" />
+        <span>{{ statuses.debilitated.name }}</span>
+        </label>
+        <label class="condition">
+        <input type="checkbox" {{#if statuses.unconscious.active}}checked{{/if}} disabled/>
+        <img src="{{statuses.unconscious.img}}" class="icon-img" />
+        <span>{{ statuses.unconscious.name }}</span>
+        </label>
+        <label class="condition">
+        <input type="checkbox" {{#if statuses.dying.active}}checked{{/if}} disabled/>
+        <img src="{{statuses.dying.img}}" class="icon-img" />
+        <span>{{ statuses.dying.name }}</span>
+        </label>
+        <button data-action="showWounds">Wounds and Healing</button>
+      </div>
+    </div>
+    <h2>Combat Actions</h2>
+    <div class="actions">
+    <button data-action="combatAction" data-combat-action="attack">Attack</button>
+    <button data-action="combatAction" data-combat-action="reckless">Reckless Attack</button>
+    <button data-action="combatAction" data-combat-action="callSquire">Call Squire</button>
+    <button data-action="combatAction" data-combat-action="claimPrisoner">Claim a Prisoner</button>
+    <button data-action="combatAction" data-combat-action="defend">Defend</button>
+    <button data-action="combatAction" data-combat-action="disarm">Disarm</button>
+    <button data-action="combatAction" data-combat-action="evade">Evade</button>
+    <button data-action="combatAction" data-combat-action="pickUp">Pick Up</button>
+    <button>Self-sacrifice</button>
+    <button>Study</button>
+    <button>Withhold Damage</button>
+    <button>Zigzag</button>
+    </div>
+    <div class="action-tabs" {{#if statuses.mounted.active}}open{{/if}}>
+      <details name="cond-actions">
+        <summary>Mounted</summary>
+        <div class="actions">
+        <button>Mounted Charge</button>
+        <button>Control Mount</button>
+        <button>Trample</button>
+        <button>Dismount</button>
+        <button>Emergency Dismount</button>
+        </div>
+      </details>
+      <details name="cond-actions" {{#unless statuses.mounted.active}}open{{/unless}}>
+        <summary>On Foot</summary>
+        <div class="actions">
+        <button>Dodge</button>
+        <button>Don Armour</button>
+        <button>Hook</button>
+        <button>Set Spear</button>
+        <button>Leap into Saddle</button>
+        <button>Mount Up</button>
+        </div>
+      </details>
+      <details name="cond-actions">
+        <summary>Brawling</summary>
+        <div class="actions">
+        <button>Punch</button>
+        <button>Slap</button>
+        <button>Escape</button>
+        <button>Grapple</button>
+        <button>Slam</button>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+</section>

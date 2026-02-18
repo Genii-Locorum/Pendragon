@@ -1,0 +1,46 @@
+
+<section class="tab skills {{tab.cssClass}}" data-group="primary" data-tab="skills">
+  <div class="skill-layout">
+  <div>
+  <h2>Non-Combat Skills <button class="inline-control icon fa-regular fa-square-plus" data-item-type="skill" data-action="addItem"></button></h2>
+  <ol class="skill-list">
+    {{#each skills as |skill key|}}
+      {{#unless skill.system.combat}}
+      <li class="{{#if (gt skill.system.total 15)}}famous{{/if}} {{#if (gt skill.system.total 20)}}exalted{{/if}} skill-listitem" data-itemid="{{skill._id}}">
+        <a class="item-control large-icon" data-action="toggleXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if skill.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
+        <div data-itemid="{{skill._id}}" data-action="rollSkill">
+          <span>{{skill.name}}</span>
+          <div class="pills">
+            {{#each skill.system.categories as |category|}}
+              <span class="pill">{{category}}</span>
+            {{/each}}
+          </div>
+        </div>
+        <span class="right">{{#if (gt skill.system.total 20)}}20(+{{skill.critical}}){{else}}{{skill.system.total}}{{/if}}</span>
+      </li>
+      {{/unless}}
+    {{/each}}
+  </ol>
+  </div>
+  <div>
+  <h2>Combat Skills</h2>
+  <ol class="skill-list">
+    {{#each skills as |skill key|}}
+      {{#if skill.system.combat}}
+      <li class="{{#if (gt skill.system.total 15)}}famous{{/if}} {{#if (gt skill.system.total 20)}}exalted{{/if}} skill-listitem" data-itemid="{{skill._id}}">
+        <a class="item-control large-icon" data-action="toggleXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if skill.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
+        <div data-itemid="{{skill._id}}" data-action="rollSkill">
+          <span>{{skill.name}}</span>
+          <div class="pills">
+            {{#each skill.system.categories as |category|}}
+              <span class="pill">{{category}}</span>
+            {{/each}}
+          </div>
+        </div>
+        <span class="right">{{#if (gt skill.system.total 20)}}20(+{{skill.critical}}){{else}}{{skill.system.total}}{{/if}}</span>
+      </li>
+      {{/if}}
+    {{/each}}
+  </div>
+  </div>
+</section>

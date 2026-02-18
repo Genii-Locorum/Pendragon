@@ -178,7 +178,7 @@ export class PendragonActor extends Actor {
       if (i.type === 'ideal') {
         i.system.active = true
         for (let rItm of i.system.require) {
-          let actItm = actorData.items.filter(itm => itm.flags.Pendragon.pidFlag.id === rItm.pid)[0]
+          let actItm = actorData.items.filter(itm => itm.flags.Pendragon?.pidFlag?.id === rItm.pid)[0]
           if (rItm.score < 0) {
             if (actItm.system.total > 20 + rItm.score) { i.system.active = false }
           } else {
@@ -370,6 +370,7 @@ export class PendragonActor extends Actor {
       } else if (i.type === "horse" && i.system.equipped) {    //Get horse damage from an equipped horse,
         systemData.horseDam = i.system.damage;
         systemData.horseChgDam = i.system.chargeDmg;
+        this.addStatus(PendragonStatusEffects.MOUNTED);
       }
     }
     //Calculate current HP then check for Near Death
@@ -565,6 +566,46 @@ export class PendragonActor extends Actor {
     return actor
   }
 
+  //get the current horse, if any
+  currentHorse() {
+    const currentHorse = this.getFlag("Pendragon", "currentHorse");
+    if (currentHorse) {
+      return this.items.find(i => i.id === currentHorse);
+    }
+    return null;
+  }
+
+  //get the current weapon, if any
+  currentWeapon() {
+    const currentWeapon = this.getFlag("Pendragon", "currentWeapon");
+    if (currentWeapon) {
+      return this.items.find(i => i.id === currentWeapon);
+    }
+    return null;
+  }
+
+  isMounted() {
+    return this.statuses.has(PendragonStatusEffects.MOUNTED);
+  }
+
+  async mountCurrentHorse() {
+    if (this.isMounted())
+      return;
+    const horse = this.currentHorse();
+    if (horse) {
+      await horse.update({ 'system.equipped': true });
+    }
+  }
+
+  async dismountCurrentHorse() {
+    if (!this.isMounted())
+      return;
+    const horse = this.currentHorse();
+    if (horse) {
+      await horse.update({ 'system.equipped': false });
+    }
+  }
+
   async addStatus(statusId) {
     // if we already have the status, nothing to do
     if (this.statuses.has(statusId)) return;
@@ -644,6 +685,12 @@ export class PendragonActor extends Actor {
     }
   }
 
+  getSkillTotal(pid) {
+    const skill = this.items.find(citm => citm.flags?.Pendragon?.pidFlag?.id === pid);
+    if (skill && skill.type == "skill") {
+      return skill.system.total;
+    }
+  }
   //Used for Rolling NPCs when token dropped
   get hasRollableCharacteristics() {
     for (const [, value] of Object.entries(this.system.stats)) {
@@ -702,7 +749,7 @@ export class PendragonActor extends Actor {
 
     //Check random traits, skills, passions
     for (let random of this.system.random) {
-      for (let item of this.items){
+      for (let item of this.items) {
         if (item.flags.Pendragon?.pidFlag?.id === random.pid) {
           if (random.value && !random.value.startsWith('@')) {
             const r = await new Roll(random.value)

@@ -1,0 +1,61 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="passions">
+  <div class="passions-layout">
+    <div class="afflictions">
+      <h2>Afflictions</h2>
+      <label class="condition">
+      <input type="checkbox" {{#if statuses.maddened.active}}checked{{/if}} disabled/>
+      <img src="{{statuses.maddened.img}}" class="icon-img" />
+      <span>{{localize 'PEN.madness'}}</p</span>
+      </label>
+      <label class="condition">
+      <input type="checkbox" {{#if statuses.melancholic.active}}checked{{/if}} disabled/>
+      <img src="{{statuses.melancholic.img}}" class="icon-img" />
+      <span>{{localize 'PEN.melancholy'}}</span>
+      </label>
+      <label class="condition">
+      <input type="checkbox" {{#if statuses.miserable.active}}checked{{/if}} disabled/>
+      <img src="{{statuses.miserable.img}}" class="icon-img" />
+      <span>{{localize 'PEN.misery'}}</span>
+      </label>
+    </div>
+    <div data-court="honor">
+      <h2>{{courts.honor.name}}</h2>
+      <ol>
+      {{#each courts.honor.items as |passion key|}}
+        {{#if (ne passion.system.total 0)}}
+          <li class="{{#if (gt passion.system.total 15)}}famous{{/if}} {{#if (gt passion.system.total 20)}}exalted{{/if}}" data-itemid="{{passion._id}}">
+            <a class="item-control large-icon" data-action="toggleXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if passion.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
+            <span data-itemid="{{passion._id}}" data-action="rollPassion" data-dishonour="{{passion.system.dishonour}}">{{passion.name}}</span>
+            <span class="right">{{#if (gt passion.system.total 20)}}20(+{{passion.critical}}){{else}}{{passion.system.total}}{{/if}}</span>
+          </li>
+          {{#if (ne passion.system.dishonour 0)}}
+            <li data-tooltip="{{localize 'PEN.dishonourTitle'}}">
+              <a class="large-icon"><i class="fa-regular fa-award"></i></a>
+              <span>{{localize 'PEN.dishonour'}}</span>
+              <span class="right">{{passion.system.dishonour}}</span>
+            </li>
+          {{/if}}
+        {{/if}}
+      {{/each}}
+      </ol>
+    </div>
+  {{#each courts as |court ckey|}}
+  {{#unless (eq ckey 'honor')}}
+    <div data-court="{{ckey}}">
+    <h3>{{court.name}}</h3>
+    <ol>
+    {{#each court.items as |passion key|}}
+      {{#if (ne passion.system.total 0)}}
+        <li data-itemid="{{passion._id}}" class="{{#if (gt passion.system.total 15)}}famous{{/if}} {{#if (gt passion.system.total 20)}}exalted{{/if}}">
+          <a class="item-control large-icon" data-action="toggleXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if passion.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
+          <span data-itemid="{{passion._id}}" data-action="rollPassion">{{passion.name}}</span>
+          <span class="right">{{#if (gt passion.system.total 20)}}20(+{{passion.critical}}){{else}}{{passion.system.total}}{{/if}}</span>
+        </li>
+      {{/if}}
+    {{/each}}
+    </ol>
+    </div>
+  {{/unless}}
+  {{/each}}
+  </div>
+</section>

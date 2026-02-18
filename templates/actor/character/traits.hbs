@@ -1,0 +1,40 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="traits">
+  <div class="col-equal">
+    <div>
+      <h2>Traits</h2>
+      <ol class="trait-grid2">
+        {{#each traits as |trait key|}}
+        <li data-itemid="{{trait._id}}">
+            <span class="right {{#if (gt trait.system.total 15)}}famous{{/if}} {{#if (gt trait.system.total 20)}}exalted{{/if}}">{{trait.system.total}}</span>
+            <span class="centre"><a class="item-control large-icon" data-action="toggleXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if trait.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></span>
+            <span class="trait right {{#if (gt trait.system.religious 0)}}religious {{/if}}{{#if (gt trait.system.total 15)}}famous{{/if}} {{#if (gt trait.system.total 20)}}exalted{{/if}}" data-type ="trait" data-itemid="{{trait._id}}" data-action="rollTrait">{{trait.name}}</span>
+            <span data-action="rollDecision"><i class="fa-regular fa-scale-balanced"></i></span>
+            <span class="trait {{#if (lt trait.system.religious 0)}}religious {{/if}}{{#if (gt trait.system.oppvalue 15)}}famous{{/if}} {{#if (gt trait.system.oppvalue 20)}}exalted{{/if}}" data-type ="opptrait" data-itemid="{{trait._id}}" data-action="rollTrait">{{trait.system.oppName}}</span>
+            <span class="centre"><a class="item-control large-icon" data-action="toggleOpposingXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if trait.system.oppXP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a></span>
+            <span class="right {{#if (gt trait.system.oppvalue 15)}}famous{{/if}} {{#if (gt trait.system.oppvalue 20)}}exalted{{/if}}">{{trait.system.oppvalue}}</span>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+    <div>
+      <h2>Ideals</h2>
+      {{#each ideals as |ideal key|}}
+          <details class="ideal" open>
+              <summary>{{ideal.name}}</summary>
+              {{#if ideal.system.active}}
+              <h3 class="active">Active</h3>
+              {{else}}
+              <h3 class="inactive">Inactive</h3>
+              {{/if}}
+              <div>{{{ideal.description}}}</div>
+              <h3>Requirements</h3>
+              <ul>
+              {{#each ideal.requirements as |require|}}
+                <li data-requirement-active="{{require.active}}">{{require.name}} {{require.score}}</li>
+              {{/each}}
+              </ul>
+          </details>
+      {{/each}}
+    </div>
+  </div>
+</section>

@@ -1,6 +1,7 @@
 import { PENactorDetails } from "./actorDetails.mjs";
 import { OPCard } from "../cards/opposed-card.mjs";
 import { COCard } from "../cards/combat-card.mjs";
+import { CombatAction, CombatOutcome } from "./combat-actions.mjs";
 
 export class RollType {
   static CHARACTERISTIC = "CH";
@@ -147,7 +148,7 @@ export class PENCheck {
       damMod: options.damMod ?? "0",
       fixedOpp: options.fixedOpp ?? 0,
       inquiry: options.inquiry ?? "no",
-      action: "attack",
+      action: options.action ?? "attack",
       userID: game.user._id,
       gmRollScore: options.gmRollScore ?? 0,
       neutralRoll: options.neutralRoll ?? false,
@@ -201,8 +202,8 @@ export class PENCheck {
           config.label = game.i18n.localize("PEN.age");
           config.rawScore =
             game.settings.get("Pendragon", "gameYear") -
-              particActor.system.born -
-              9 ?? 0;
+            particActor.system.born -
+            9 ?? 0;
         } else {
           tempItem = particActor.items.get(config.itemId);
           if (config.subType === "squire") {
@@ -228,8 +229,8 @@ export class PENCheck {
               "]";
             config.rawScore =
               game.settings.get("Pendragon", "gameYear") -
-                tempItem.system.born -
-                9 ?? 0;
+              tempItem.system.born -
+              9 ?? 0;
           }
         }
         break;
@@ -283,9 +284,16 @@ export class PENCheck {
         if (config.damCrit) {
           if (tempItem.system.damageChar === 'b') {
             config.rollFormula = config.rollFormula + "+2D6";
+          } else if (config.action == CombatAction.RECKLESS) {
+            // reckless attack adds +6d6 on critical
+            config.rollFormula = config.rollFormula + "+6D6";
           } else {
             config.rollFormula = config.rollFormula + "+4D6";
           }
+        }
+        else if (config.action == CombatAction.RECKLESS) {
+          // reckless attack adds +2d6 to normal attack
+          config.rollFormula = config.rollFormula + "+2D6";
         }
         break;
       case RollType.COMBAT:
@@ -347,11 +355,6 @@ export class PENCheck {
         } else {
           let targetMsg = await game.messages.get(config.checkMsgId);
           config.reflexMod = -targetMsg.flags.Pendragon.chatCard[0].reflexMod ?? 0;
-        }
-        if (!foundry.utils.isNewerVersion(game.version, "11")) {
-          config.chatType = CONST.CHAT_MESSAGE_STYLES.OTHER;
-        } else {
-          config.chatType = CONST.CHAT_MESSAGE_OTHER;
         }
 
         config.chatType = CONST.CHAT_MESSAGE_STYLES.OTHER;
@@ -518,7 +521,7 @@ export class PENCheck {
     }
 
     //Format the data so it's in the same format as will be held in the Chat Message when saved
-    let chatMsgData = {
+    const chatMsgData = {
       rollType: config.rollType,
       cardType: config.cardType,
       chatType: config.chatType,
@@ -564,7 +567,7 @@ export class PENCheck {
           damRoll: config.damRoll,
           damCrit: config.damCrit,
           damShield: config.damShield,
-          damMod: config.damMod,          
+          damMod: config.damMod,
           subType: config.subType,
           fixedOpp: config.fixedOpp,
           action: config.action,
@@ -633,7 +636,7 @@ export class PENCheck {
             },
           },
           default: "roll",
-          close: () => {},
+          close: () => { },
         },
         { classes: ["Pendragon", "sheet"] },
       );
@@ -643,7 +646,7 @@ export class PENCheck {
 
   //Call Dice Roll, calculate Result and store original results in rollVal
   static async makeRoll(config) {
-    if (config.rollFormula === "") {config.rollFormula = "0"}
+    if (config.rollFormula === "") { config.rollFormula = "0" }
     let roll = new Roll(config.rollFormula);
     await roll.evaluate();
     config.roll = roll;
@@ -863,7 +866,7 @@ export class PENCheck {
         await OPCard.OPResolve(data);
         break;
       case "resolve-co-card":
-        await COCard.COResolve(data);
+        await COCard.resolveCombatRolls(data);
         break;
       case "reverseRoll":
         await PENCheck.reverseTrait(targetMsg);

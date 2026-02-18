@@ -1,0 +1,127 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="house">
+    <div class="family-layout">
+    <section>
+    <h2>Family</h2>
+    <table>
+        <tbody>
+          <tr>
+              <th>{{localize 'PEN.parent'}}</th>
+              <th>{{localize 'PEN.status'}}</th>
+              <th>{{localize 'PEN.glory'}}</th>
+          </tr>
+          {{#each house.family.parents as |parent key|}}
+          <tr>
+            <td>{{#if parent.uuid}}<a>{{parent.name}}</a>{{else}}{{parent.name}}{{/if}}</td>
+            <td><strong>Born:</strong> {{parent.born}}
+                {{#if (gt parent.died 0)}}
+                Died: {{parent.died}},  Age: {{parent.age}}
+                {{else}}
+                <strong>Age:</strong> {{parent.age}}
+                {{/if}}
+            </td>
+            <td class="right">{{formatNumber parent.glory}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+    </table>
+    {{#if house.family.spouses}}
+    <table>
+        <tbody>
+          <tr>
+              <th>{{localize 'PEN.spouse'}}</th>
+              <th>{{localize 'PEN.status'}}</th>
+              <th>{{localize 'PEN.glory'}}</th>
+          </tr>
+          {{#each house.family.spouses as |spouse key|}}
+          <tr>
+            <td>{{spouse.name}}</td>
+            <td>Born: {{spouse.born}}
+                {{#if (gt spouse.died 0)}}
+                Died: {{spouse.died}}
+                {{else}}
+                <strong>Age:</strong> {{spouse.age}}
+                {{/if}}
+                </td>
+            <td class="right">{{formatNumber spouse.glory}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+    </table>
+    {{/if}}
+    {{#if house.family.children}}
+    <table>
+        <tbody>
+          <tr>
+              <th>{{localize 'PEN.child'}}</th>
+              <th>{{localize 'PEN.status'}}</th>
+              <th>{{localize 'PEN.glory'}}</th>
+          </tr>
+          {{#each house.family.children as |child key|}}
+          <tr>
+            <td>{{child.name}}</td>
+            <td>Born: {{child.born}}
+                {{#if (gt child.died 0)}}
+                Died: {{child.died}}
+                {{else}}
+                <strong>Age:</strong> {{child.age}}
+                {{/if}}
+                </td>
+            <td class="right">{{formatNumber child.glory}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+    </table>
+    {{/if}}
+    </section>
+    <section>
+<h2>Station</h2>
+<label><strong>{{localize 'PEN.lord'}}:</strong><input name="system.lord" type="text" value="{{system.lord}}"/></label>
+<label><strong>{{localize 'PEN.class'}}:</strong><input type="text" value="{{system.className}}" readonly/></label>
+<label><strong>{{localize 'PEN.sol'}}:</strong> <input style="flex:1;" type="text" value="{{system.sol}}" readonly/></label>
+<p>
+<strong style="padding-inline-end:1em;">{{localize 'PEN.money'}}:</strong><input name="system.money.libra" type="text" value="{{system.money.libra}}" style="width:3em;display:inline-block;"/>
+<strong style="padding:0 1em;">/</strong><input name="system.money.denarii" type="text" value="{{system.money.denarii}}" style="width:3em;display:inline-block;" />
+</p>
+<table>
+    <tbody>
+      <tr>
+          <th>{{localize 'PEN.squire'}}</th>
+          <th>{{localize 'PEN.status'}}</th>
+          <th>{{localize 'PEN.glory'}}</th>
+      </tr>
+      {{#each house.station.squires as |parent key|}}
+      <tr>
+        <td>{{#if parent.uuid}}<a>{{parent.name}}</a>{{else}}{{parent.name}}{{/if}}</td>
+        <td><strong>Born:</strong> {{parent.born}}
+            {{#if (gt parent.died 0)}}
+            Died: {{parent.died}},  Age: {{parent.age}}
+            {{else}}
+            <strong>Age:</strong> {{parent.age}}
+            {{/if}}
+        </td>
+        <td class="right">{{formatNumber parent.glory}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+          <th>Retainer</th>
+          <th>{{localize 'PEN.status'}}</th>
+          <th>{{localize 'PEN.glory'}}</th>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+          <th>Vassal</th>
+          <th>{{localize 'PEN.status'}}</th>
+          <th>{{localize 'PEN.glory'}}</th>
+      </tr>
+    </tbody>
+  </table>
+    </section>
+  </div>
+</section>
