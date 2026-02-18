@@ -371,7 +371,6 @@ export class PendragonNPCSheetv2 extends api.HandlebarsApplicationMixin(
             'system.manMove': this.actor.system.move,
             'system.manArm': this.actor.system.armour,
             'system.manShd': this.actor.system.shield,
-            'system.manKnockdown': this.actor.system.hp.knockdown,
             'system.manMjrWnd': this.actor.system.hp.majorWnd,
             'system.manDmg': this.actor.system.damage,
             'system.manHealRate': this.actor.system.healRate,

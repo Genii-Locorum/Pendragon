@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 13.1.54
+- Tweaks to Journal CSS
+- Changes to how NPC Knockdown is handled/displayed
+
 ## 13.1.53
 - GMs only, will get the option when adding a class to a character with an existing class to allow this to happen
 - The old class is deleted but equipment, passions etc do not change

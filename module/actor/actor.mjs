@@ -303,9 +303,19 @@ export class PendragonActor extends Actor {
       stat.total = Number(stat.value) + Number(stat.culture) + Number(stat.create) + Number(stat.poison) + Number(stat.disease) + Number(stat.sol) + Number(stat.age) + Number(stat.major) + Number(stat.winter)
     }
 
+    //If NPC is Spriggan
+    if (actorData.type === 'npc') {
+      let pid = actorData.flags?.Pendragon?.pidFlag?.id
+      if (pid) {
+        let position = pid.search("spriggan")
+        if (position > -1){
+          actorData.system.stats.siz.total = actorData.system.stats.siz.total - actorData.system.woundTotal  
+        }
+      }
+    }
+
     // Make modifications to data here. For example:
     const systemData = actorData.system;
-    systemData.hp.knockdown = systemData.stats.siz.total;
     systemData.hp.majorWnd = systemData.stats.con.total;
 
     //If NPC or follower, and manual HP have been entered then override max HP calc
@@ -314,6 +324,11 @@ export class PendragonActor extends Actor {
         systemData.hp.max = systemData.manMaxHP
       } else {
         systemData.hp.max = systemData.stats.siz.total + systemData.stats.con.total + systemData.hp.adj;
+      }
+      if (systemData.manKnockdown !=0) {
+        systemData.hp.knockdown = systemData.manKnockdown;
+      } else {
+        systemData.hp.knockdown = systemData.stats.siz.total;
       }
       if (systemData.manUnconscious != 0) {
         systemData.hp.unconscious = systemData.manUnconscious

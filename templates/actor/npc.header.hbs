@@ -14,7 +14,7 @@
             
           {{#each system.stats as |stat key|}}
             {{#if ../system.lock}}
-              <div class="npc-name centre">{{stat.value}}</div>
+              <div class="npc-name centre">{{stat.total}}</div>
             {{else}}
               <div class="npc-name-input centre"><input name="system.stats.{{key}}.value" type="text" value="{{stat.value}}" placeholder=10 data-dtype="Number"/></div>
             {{/if}}

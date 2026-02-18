@@ -46,7 +46,7 @@
           <div class="npc-name-input centre"><input name="system.woundTotal" type="number" min="0" oninput="validity.valid||(value='');" value="{{system.woundTotal}}" data-dtype="Number"/></div>
 
           <div class="npc-name left bold">{{localize 'PEN.knockdown'}}</div>
-          <div class="npc-name centre">{{system.manKnockdown}}</div>
+          <div class="npc-name centre">{{system.hp.knockdown}}</div>
           <div class="npc-name left bold">{{localize 'PEN.armour'}}</div>
           <div class="npc-name centre" title = "{{localize 'PEN.armourShield'}}">{{system.manArm}} / {{system.manShd}}</div>
         

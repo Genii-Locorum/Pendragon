@@ -42,11 +42,11 @@ div.pen-adventure-entry.sheet {
     }
 
     div.journal-entry-pages,
-    div.journal-page-content,
+    .journal-page-content,
     prose-mirror.journal-page-content {
         font-family: "IMFell";
         font-size: 18px;
-        padding-right: 5px;
+        padding-right: 15px;
         text-align: justify;
 
         img {
