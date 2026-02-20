@@ -5,7 +5,6 @@ export class PENTooltips {
     }
   
     displayToolTip (toolTip) {
-      console.log(toolTip)
       if (typeof this.ToolTipHover !== 'undefined') {
         const bounds = this.ToolTipHover.getBoundingClientRect()
         if (!isNaN(bounds.left || '') && !isNaN(bounds.top || '')) {

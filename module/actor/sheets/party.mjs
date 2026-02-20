@@ -172,7 +172,6 @@ export class PendragonPartySheet extends foundry.appv1.sheets.ActorSheet {
     event.preventDefault();
     event.stopImmediatePropagation();
     const itemId = event.currentTarget.closest(".party-member").dataset.itemId;
-    console.log("PING", itemId)
     let viewDoc = await fromUuid(itemId)
     if (viewDoc) viewDoc.sheet.render(true)
   }

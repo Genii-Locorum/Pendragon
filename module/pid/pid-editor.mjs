@@ -72,7 +72,6 @@ export class PIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
   async _prepareContext(options) {
     this.document = this.options.document
     const sheetData = await super._prepareContext()
-    console.log(this.options)
     sheetData.objtype = this.document.type
     sheetData.objid = this.document.id
     sheetData.objuuid = this.document.uuid

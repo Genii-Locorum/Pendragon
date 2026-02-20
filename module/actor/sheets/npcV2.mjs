@@ -288,6 +288,11 @@ export class PendragonNPCSheetv2 extends api.HandlebarsApplicationMixin(
             foundry.utils.setProperty(docData, 'name', game.i18n.localize('PEN.magicalTalent'));
         }
 
+        if (target.dataset.type === "skill" || target.dataset.type === "passion") {
+            foundry.utils.setProperty(docData, 'system.mainName', target.dataset.name);
+        }
+
+
         // Create the embedded document
         const newItem = await docCls.create(docData, { parent: this.actor });
 

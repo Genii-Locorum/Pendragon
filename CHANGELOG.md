@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 13.1.56
+- NPCs making Mounted or Charge skills without a Horsemanship or Charge skill will use their base weapon attack rather than zero
+- Combat Roll chat message combatant name/action don't wrap over on to the weapon name
+- Fixed an issue (hopefully) with NPCs skill and passion names not showing when sheet unlocked
+- Clicking on a scene link in a journal now opens the scene for the GM rather than the scene config page.  It doesn't activate the scene, just takes the GM there to view it.
+
 ## 13.1.55
 - Skills required in Family Characteristics step of character creation are now added to the character sheet if they are missing.
 

@@ -714,7 +714,6 @@ export class PendragonActor extends Actor {
         }
       }
     }
-    console.log(changes)
     await Item.updateDocuments(changes, { parent: this })
 
     await this.update({

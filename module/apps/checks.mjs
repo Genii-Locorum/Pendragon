@@ -424,7 +424,9 @@ export class PENCheck {
           )
         )[0];
         if (!horsemanship) {
+          if (particActor.type != "npc") {
           config.targetScore = 0;
+          }
         } else if (particActor.type === "character") {
           config.targetScore = Math.min(
             config.targetScore,
@@ -444,7 +446,9 @@ export class PENCheck {
           )
         )[0];
         if (!charge) {
-          config.targetScore = 0;
+          if (particActor.type != "npc") {
+            config.targetScore = 0;
+          }
         } else if (particActor.type === "character") {
           config.targetScore = Math.min(
             config.targetScore,

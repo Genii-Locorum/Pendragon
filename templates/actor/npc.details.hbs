@@ -249,9 +249,9 @@
               <div></div>      
               {{else}}
                 {{#if skill.system.specialisation}}
-                  <div class="npc-name-input item truncate" data-tooltip="{{skill.name}}" data-field ="specname" data-itemid="{{skill._id}}"><input class="inline-edit" name="item.skill.{{key}}.system.specName" type="text" value="{{skill.system.specName}}"/></div>
+                  <div class="npc-name-input item truncate" data-tooltip="{{skill.name}}" data-field ="specname" data-itemid="{{skill._id}}"><input class="inline-edit" name="skill.system.specName" type="text" value="{{skill.system.specName}}"/></div>
                 {{else}}
-                  <div class="npc-name-input item truncate" data-tooltip="{{skill.name}}" data-field ="mainname" data-itemid="{{skill._id}}"><input class="inline-edit" name="item.skill.{{key}}.system.mainName" type="text" value="{{skill.system.mainName}}"/></div>
+                  <div class="npc-name-input item truncate" data-tooltip="{{skill.name}}" data-field ="mainname" data-itemid="{{skill._id}}"><input class="inline-edit" name="skill.system.mainName" type="text" value="{{skill.system.mainName}}"/></div>
                 {{/if}}
                 <div class="npc-name-input centre item" data-field ="value" data-itemid="{{skill._id}}"><input class="inline-edit" name="item.system.skill.{{key}}.value" type="text" value="{{skill.system.value}}" data-dtype="Number"/></div>
                 <div class="npc-name centre item" data-itemid ="{{skill._id}}" data-document-class='Item'>

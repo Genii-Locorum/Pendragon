@@ -80,6 +80,17 @@ Hooks.on("ready", async () => {
   });
 });
 
+Hooks.on("ready", async function () {
+    Scene.prototype._onClickDocumentLink = function (event) {        
+      this.view();
+    }
+});
+
+
+
+
+
+
 if (foundry.utils.isNewerVersion(game.version, '13')) {
   Hooks.on('drawNote', drawNote)
   Hooks.on('renderNoteConfig', RenderNoteConfig)
