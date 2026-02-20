@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.55
+- Skills required in Family Characteristics step of character creation are now added to the character sheet if they are missing.
+
 ## 13.1.54
 - Tweaks to Journal CSS
 - Changes to how NPC Knockdown is handled/displayed

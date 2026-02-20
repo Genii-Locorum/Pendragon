@@ -705,14 +705,11 @@ export class PENCharCreate {
      //Call Chat Card
      const html = await PENCharCreate.charGenRollChatCard (results,game.i18n.localize('PEN.familyChar'), actor.name)
      let msg = await PENCharCreate.showCharGenRollChat(html,actor)
-
-
     } else {
       let results =  await Promise.all(table.results.toObject(false).filter (itm=>(itm.type != 'text')).map(async itm=> {
         const doclookup = await PENCharCreate.documentFromResult(itm);
-        console.log(doclookup)
-        const itemlookup = await actor.items.find(itm2 => (itm2.flags.Pendragon.pidFlag.id === doclookup.flags.Pendragon.pidFlag.id));
-        return { name: `${itemlookup.system.familyChar} (${itm.text})`, pid: itm._id}
+        let tempDoc = await fromUuid(doclookup.uuid)
+        return { name: `${tempDoc.system.familyChar} (${itm.text})`, pid: itm._id}
       }));
       selected = await PENCharCreate.selectFromRadio ('list',false,results)
       let res = table.results.toObject(false).filter (itm=>(itm._id === selected))[0]
@@ -737,6 +734,23 @@ export class PENCharCreate {
         return false
       }
       let item = await actor.items.find(itm => (itm.flags.Pendragon.pidFlag.id === doc.flags.Pendragon.pidFlag.id));
+      if (!item) {
+        //Special Case for Religion        
+        if (doc.flags.Pendragon.pidFlag.id === 'i.skill.religion') {
+          item = await actor.items.find(itm => (itm.flags.Pendragon.pidFlag.id.substring(0,16) === 'i.skill.religion'));
+        }
+        if (!item) {
+          let nItm = doc.toObject()
+          let score = nItm.system.base.mod
+          if (nItm.system.base.stat != 'none' && nItm.system.base.stat != "" ) {
+            score = Number(score) + Number(Math.round((actor.system.stats[nItm.system.base.stat].value + actor.system.stats[nItm.system.base.stat].culture)  * nItm.system.base.multi))
+          }
+          score = Math.max(score,0)
+          nItm.system.value = score
+          await actor.createEmbeddedDocuments("Item", [nItm])
+          item = await actor.items.find(itm => (itm.flags.Pendragon.pidFlag.id === doc.flags.Pendragon.pidFlag.id));
+        }
+      }
       await item.update({'system.family': Number(item.system.family) + 3})
       if (actor.system.family === "") {
         await actor.update({'system.family': item.system.familyChar})
@@ -1283,7 +1297,6 @@ export class PENCharCreate {
 
     //If there's only one item on the list then return it
     let itemPID = ""
-    console.log(newList)
     if (newList.length <1) {return false}
     if (newList.length === 1) {
       itemPID = newList[0].flags?.Pendragon?.pidFlag?.id ?? newList[0].pid
