@@ -24,7 +24,7 @@
         <p>Hit Points: {{currentHorse.system.hp}} / {{currentHorse.system.maxHP}}</p>
         <p>Move: {{currentHorse.system.move}} / Knockdown: {{currentHorse.system.siz}}</p>
         {{/if}}
-        <button data-action="switchHorse">Change Horse</button>
+        <button type="button" data-action="switchHorse">Change Horse</button>
         <label class="condition">
         <input type="checkbox" {{#if statuses.mounted.active}}checked{{/if}} disabled/>
         <img src="{{statuses.mounted.img}}" class="icon-img" />
@@ -38,7 +38,7 @@
         <p style="font-weight: bold;font-size:larger"><i class= "fa-solid fa-swords"></i> Weapon</p>
         <p>{{currentWeapon.name}} {{currentWeapon.total}}</p>
         <p>Damage: {{currentWeapon.damage}}</p>
-        <button data-action="switchWeapon">Change Weapon</button>
+        <button type="button" data-action="switchWeapon">Change Weapon</button>
       </div>
       <div style="border-radius: 0.25rem;padding: 0.5rem;background-color: var(--pd-light-row);">
         <p>Armour Points: {{system.armour}} + {{system.shield}} <i class="fa-solid fa-shield"></i></p>
@@ -58,19 +58,19 @@
         <img src="{{statuses.dying.img}}" class="icon-img" />
         <span>{{ statuses.dying.name }}</span>
         </label>
-        <button data-action="showWounds">Wounds and Healing</button>
+        <button type="button" data-action="showWounds">Wounds and Healing</button>
       </div>
     </div>
     <h2>Combat Actions</h2>
     <div class="actions">
-    <button data-action="combatAction" data-combat-action="attack">Attack</button>
-    <button data-action="combatAction" data-combat-action="reckless">Reckless Attack</button>
-    <button data-action="combatAction" data-combat-action="callSquire">Call Squire</button>
-    <button data-action="combatAction" data-combat-action="claimPrisoner">Claim a Prisoner</button>
-    <button data-action="combatAction" data-combat-action="defend">Defend</button>
-    <button data-action="combatAction" data-combat-action="disarm">Disarm</button>
-    <button data-action="combatAction" data-combat-action="evade">Evade</button>
-    <button data-action="combatAction" data-combat-action="pickUp">Pick Up</button>
+    <button type="button" data-action="combatAction" data-combat-action="attack">Attack</button>
+    <button type="button" data-action="combatAction" data-combat-action="reckless">Reckless Attack</button>
+    <button type="button" data-action="combatAction" data-combat-action="callSquire">Call Squire</button>
+    <button type="button" data-action="combatAction" data-combat-action="claimPrisoner">Claim a Prisoner</button>
+    <button type="button" data-action="combatAction" data-combat-action="defend">Defend</button>
+    <button type="button" data-action="combatAction" data-combat-action="disarm">Disarm</button>
+    <button type="button" data-action="combatAction" data-combat-action="evade">Evade</button>
+    <button type="button" data-action="combatAction" data-combat-action="pickUp">Pick Up</button>
     <button>Self-sacrifice</button>
     <button>Study</button>
     <button>Withhold Damage</button>
@@ -83,7 +83,7 @@
         <button>Mounted Charge</button>
         <button>Control Mount</button>
         <button>Trample</button>
-        <button>Dismount</button>
+        <button type="button" data-action="combatAction" data-combat-action="dismount">Dismount</button>
         <button>Emergency Dismount</button>
         </div>
       </details>
@@ -94,8 +94,8 @@
         <button>Don Armour</button>
         <button>Hook</button>
         <button>Set Spear</button>
-        <button>Leap into Saddle</button>
-        <button>Mount Up</button>
+        <button type="button" data-action="combatAction" data-combat-action="mount">Leap into Saddle</button>
+        <button type="button" data-action="combatAction" data-combat-action="mount">Mount Up</button>
         </div>
       </details>
       <details name="cond-actions">

@@ -9,6 +9,7 @@ export class ChatCardTemplate {
   static COMBAT = "systems/Pendragon/templates/chat/roll-combat.html";
   static OPPOSED = "systems/Pendragon/templates/chat/roll-opposed.html";
   static UNOPPOSED = "systems/Pendragon/templates/chat/roll-result.html";
+  static DECLARE = "systems/Pendragon/templates/chat/declare-action.hbs";
 }
 export class ChatCardState {
   static OPEN = "open";
