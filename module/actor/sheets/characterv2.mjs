@@ -631,6 +631,7 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
   }
   static async _declareCombatAction(event, target) {
     const { combatAction } = target.closest("[data-combat-action]")?.dataset ?? {};
+    console.log(combatAction);
     switch (combatAction) {
       case CombatAction.ATTACK:
         await CombatAction.attack(this.actor, event.shiftKey);
@@ -640,6 +641,15 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
         break;
       case CombatAction.DEFEND:
         await CombatAction.defend(this.actor, event.shiftKey);
+        break;
+      case CombatAction.MOUNT:
+        await CombatAction.mount(this.actor, event.shiftKey);
+        break;
+      case CombatAction.DISMOUNT:
+        await CombatAction.dismount(this.actor, event.shiftKey);
+        break;
+      case CombatAction.PRISONER:
+        await CombatAction.claimPrisoner(this.actor);
         break;
       default:
         console.warn(`Unknown combat action ${combatAction}`);

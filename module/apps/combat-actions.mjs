@@ -38,9 +38,22 @@ export class CombatAction {
   static SET_SPEAR = "setSpear";
   static MOUNT = "mount";
 
+  // check whether the action inflicts damage
+  static canInflictDamage(action) {
+    // opposed actions that don't roll damage on win:
+    // defend, disarm, dodge, evade, hook, mount, pickup
+    const nonDamagingActions = [
+      CombatAction.DEFEND, CombatAction.DISARM, CombatAction.DODGE, CombatAction.EVADE,
+      CombatAction.HOOK, CombatAction.MOUNT, CombatAction.PICKUP
+    ];
+    if (nonDamagingActions.includes(action))
+      return false;
+    return true;
+  }
+
   // apply Horsemanship cap to combat rolls if mounted
-  static applyHorsemanshipCap(actor, weapon) {
-    const targetScore = weapon.total;
+  static applyHorsemanshipCap(actor, skill) {
+    const targetScore = skill.total;
     // apply horsemanship cap if mounted
     if (actor.isMounted()) {
       const horsemanship = actor.getSkillTotal("i.skill.horsemanship");
@@ -67,7 +80,7 @@ export class CombatAction {
     return total;
   }
 
-  static async requestRollModifiers(action, currentWeapon) {
+  static async requestRollModifiers(action) {
     const bonuses = this.getRollModifiers(action);
     const textInput = fields.createNumberInput({
       name: 'checkBonus',
@@ -87,6 +100,25 @@ export class CombatAction {
     return data.checkBonus;
   }
 
+  static defaultOptions(actor, action) {
+    return {
+      actor,
+      particName: actor.name,
+      particId: actor.id,
+      particImg: actor.img,
+      particType: "actor",
+      actorType: actor.type,
+      rollType: RollType.COMBAT,
+      cardType: CardType.COMBAT,
+      rollFormula: "1D20",
+      state: ChatCardState.OPEN,
+      chatTemplate: ChatCardTemplate.COMBAT,
+      chatType: CONST.CHAT_MESSAGE_STYLES.OTHER,
+      action,
+      flatMod: 0,
+      reflexMod: 0,
+    }
+  }
   static async opposedWeaponRollOptions(actor, action) {
     // default to unarmed
     let currentWeapon = { id: null, name: "Unarmed", total: actor.getSkillTotal("i.skill.brawling"), damage: actor.system.damage };
@@ -98,33 +130,26 @@ export class CombatAction {
     const targetScore = this.applyHorsemanshipCap(actor, currentWeapon);
     // will use as flatMod but later make more granular
     const modifier = await this.requestRollModifiers(action);
-    const grossTarget = targetScore + modifier;
     // opposed roll by default
     const options = {
-      actor,
-      particName: actor.name,
-      particId: actor.id,
-      particImg: actor.img,
-      particType: "actor",
-      actorType: actor.type,
-      action: action,
-      rollType: RollType.COMBAT,
-      cardType: CardType.COMBAT,
+      ...this.defaultOptions(actor, action),
+      ...this.calcTargets(targetScore, modifier),
       itemId: currentWeapon?.id,
       flatMod: modifier,
-      reflexMod: 0,
-      state: ChatCardState.OPEN,
-      chatTemplate: ChatCardTemplate.COMBAT,
-      chatType: CONST.CHAT_MESSAGE_STYLES.OTHER,
+      label: currentWeapon.name,
+      rawScore: currentWeapon.total,
+      skillId: weapon?.system.sourceId ?? actor.getItemByPid("i.skill.brawling")?.id,
+    }
+    return options;
+  }
+
+  static calcTargets(targetScore, modifier) {
+    const grossTarget = targetScore + modifier;
+    const options = {
       grossTarget,
       targetScore: grossTarget,
       critBonus: 0,
-      label: currentWeapon.name,
-      rollFormula: "1D20",
-      rawScore: currentWeapon.total,
-      skillId: weapon?.system.sourceId ?? "i.skill.brawling",
     }
-    // calculate crit bonus if needed
     if (grossTarget > 20) {
       options.critBonus = grossTarget - 20;
       options.targetScore = 20;
@@ -144,12 +169,34 @@ export class CombatAction {
     if (config.action == CombatAction.DEFEND && opponent.action == this.RECKLESS) {
       config.flatMod -= 10;
     }
-    //  mounted vs foot (height advantage)
+    //  mounted vs foot or foot vs prone(height advantage)
     //  foot using reach weapon vs mounted (cancels height advantage)
     //  opponent using reckless +5
     if (config.action != CombatAction.DEFEND && opponent.action == this.RECKLESS) {
       config.flatMod += 5;
     }
+
+    // recalculate the gross target
+    const grossTarget = originalTarget + config.flatMod;
+    // if this hasn't changed, we don't need to do anything
+    if (grossTarget == config.grossTarget) {
+      return;
+    }
+    // re-calculate target and crit bonus
+    if (grossTarget > 20) {
+      config.critBonus = grossTarget - 20;
+      config.targetScore = 20;
+    } else if (grossTarget < 0) {
+      config.critBonus = -grossTarget;
+      config.targetScore = 0;
+    } else {
+      config.targetScore = grossTarget;
+      config.critBonus = 0;
+    }
+    config.grossTarget = grossTarget;
+
+    config.rollVal = config.rollResult + config.critBonus;
+    config.resultLevel = PENCheck.successLevel(config);
   }
 
   static applyUnopposedOutcome(options) {
@@ -167,7 +214,7 @@ export class CombatAction {
     }
   }
 
-
+  // Standard Attack
   static async attack(actor, unopposed = false) {
     // standard opposed weapon roll
     const options = await this.opposedWeaponRollOptions(actor, CombatAction.ATTACK);
@@ -190,6 +237,7 @@ export class CombatAction {
     await this.createChatCard(options);
   }
 
+  // Reckless Attack
   static async recklessAttack(actor, unopposed = false) {
     // standard opposed weapon roll
     const options = await this.opposedWeaponRollOptions(actor, CombatAction.RECKLESS);
@@ -211,6 +259,7 @@ export class CombatAction {
     await this.createChatCard(options);
   }
 
+  // DEFEND
   static async defend(actor, unopposed = false) {
     // standard opposed weapon roll
     const options = await this.opposedWeaponRollOptions(actor, CombatAction.DEFEND);
@@ -230,6 +279,102 @@ export class CombatAction {
     }
 
     await this.createChatCard(options);
+  }
+
+  static async mount(actor, unopposed = false) {
+    const targetScore = this.applyHorsemanshipCap(actor, { total: actor.system.move });
+    // will use as flatMod but later make more granular
+    const modifier = await this.requestRollModifiers(action);
+    // opposed roll by default
+    const options = {
+      ...this.defaultOptions(actor, CombatAction.MOUNT),
+      ...this.calcTargets(targetScore, modifier),
+      flatMod: modifier,
+      label: game.i18n.localize("PEN.move"),
+      rawScore: actor.system.move,
+    }
+    // allow for unopposed roll
+    if (unopposed) {
+      options.cardType = CardType.UNOPPOSED;
+      options.state = ChatCardState.CLOSED;
+      // leap into saddle requires a roll
+      // or mount carefully unopposed
+      actor.mountCurrentHorse();
+      await this.createDeclarationCard(options, `${options.particName} mounts their horse.`);
+      return;
+    }
+    // make the roll
+    await PENCheck.makeRoll(options);
+    await this.createChatCard(options);
+  }
+
+  static async dismount(actor, unopposed = false) {
+    const targetScore = this.applyHorsemanshipCap(actor, { total: actor.system.move });
+    // will use as flatMod but later make more granular
+    const modifier = await this.requestRollModifiers(action);
+    // opposed roll by default
+    const options = {
+      ...this.defaultOptions(actor, CombatAction.MOUNT),
+      ...this.calcTargets(targetScore, modifier),
+      flatMod: modifier,
+      label: game.i18n.localize("PEN.move"),
+      rawScore: actor.system.move,
+    }
+    // allow for unopposed roll
+    if (unopposed) {
+      options.cardType = CardType.UNOPPOSED;
+      options.state = ChatCardState.CLOSED;
+      // leap out of saddle requires a roll
+      // or mount carefully unopposed
+      actor.dismountCurrentHorse();
+      await this.createDeclarationCard(options, `${options.particName} dismounts their horse.`);
+      return;
+    }
+    // make the roll
+    await PENCheck.makeRoll(options);
+    await this.createChatCard(options);
+  }
+
+  static async claimPrisoner(actor) {
+    const options = {
+      ...this.defaultOptions(actor, CombatAction.PRISONER),
+      ...this.calcTargets(0, 0),
+      cardType: CardType.UNOPPOSED,
+      state: ChatCardState.CLOSED,
+    };
+    console.log(options);
+    // TODO: we only do this because we're using common code that expects a roll
+    // we may need to clean that up a bit
+    await PENCheck.makeRoll(options);
+    await this.createDeclarationCard(options, `${options.particName} claims a prisoner.`);
+  }
+
+  // used to declare an unopposed action with an automatic success
+  // examples: don armor, study, pick up, claim prisoner
+  static async createDeclarationCard(config, message) {
+    const chatMsgData = {
+      rollType: config.rollType,
+      cardType: config.cardType,
+      chatType: config.chatType,
+      chatTemplate: ChatCardTemplate.DECLARE,
+      state: config.state,
+      rolls: config.roll,
+      resultLevel: config.resultLevel,
+      rollResult: config.rollResult,
+      inquiry: config.inquiry,
+      card: {
+        particId: config.particId,
+        particType: config.particType,
+        particName: config.particName,
+        particImg: config.particImg,
+        action: config.action,
+        actionLabel: game.i18n.localize(`PEN.actions.${config.action}`),
+        content: message,
+      }
+    };
+    chatMsgData.chatCard = [chatMsgData.card];
+    const html = await PENCheck.startChat(chatMsgData);
+    const msgID = await PENCheck.showChat(html, chatMsgData);
   }
 
   static async createChatCard(config) {
