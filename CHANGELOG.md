@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.58
+- Migration script added for Classes/Ideals in world
+
 ## 13.1.57
 - Updated "Honor" passion pidflag to i.passion.honor, with migration script to replace i.paasion.honour with i.passion.honor
 

@@ -1,14 +1,7 @@
-2026/02/27-09:37:55.318 1064 Recovering log #708
-2026/02/27-09:37:55.318 1064 Delete type=0 #708
-2026/02/27-09:37:55.318 1064 Delete type=3 #706
-2026/02/27-09:59:12.289 4e40 Level-0 table #713: started
-2026/02/27-09:59:12.295 4e40 Level-0 table #713: 1361 bytes OK
-2026/02/27-09:59:12.295 4e40 Delete type=0 #711
-2026/02/27-09:59:12.296 4e40 Manual compaction at level-0 from '!scenes!lj6Clvg2O6aOcjzJ' @ 72057594037927935 : 1 .. '!scenes!lj6Clvg2O6aOcjzJ' @ 0 : 0; will stop at '!scenes!lj6Clvg2O6aOcjzJ' @ 25 : 1
-2026/02/27-09:59:12.296 4e40 Compacting 1@0 + 1@1 files
-2026/02/27-09:59:12.302 4e40 Generated table #714@0: 12 keys, 1619 bytes
-2026/02/27-09:59:12.302 4e40 Compacted 1@0 + 1@1 files => 1619 bytes
-2026/02/27-09:59:12.302 4e40 compacted to: files[ 0 1 1 0 0 0 0 ]
-2026/02/27-09:59:12.303 4e40 Delete type=2 #697
-2026/02/27-09:59:12.303 4e40 Delete type=2 #713
-2026/02/27-09:59:12.304 4e40 Manual compaction at level-0 from '!scenes!lj6Clvg2O6aOcjzJ' @ 25 : 1 .. '!scenes!lj6Clvg2O6aOcjzJ' @ 0 : 0; will stop at (end)
+2026/02/27-10:54:49.181 3dc4 Recovering log #717
+2026/02/27-10:54:49.184 3dc4 Delete type=0 #717
+2026/02/27-10:54:49.184 3dc4 Delete type=3 #715
+2026/02/27-10:57:50.255 6c0c Level-0 table #723: started
+2026/02/27-10:57:50.255 6c0c Level-0 table #723: 0 bytes OK
+2026/02/27-10:57:50.256 6c0c Delete type=0 #721
+2026/02/27-10:57:50.256 6c0c Manual compaction at level-0 from '!scenes!lj6Clvg2O6aOcjzJ' @ 72057594037927935 : 1 .. '!scenes!lj6Clvg2O6aOcjzJ' @ 0 : 0; will stop at (end)

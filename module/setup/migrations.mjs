@@ -31,7 +31,12 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
     //Migrate if current system is less that Version 13.1.57
     if (foundry.utils.isNewerVersion('13.1.57', currentVersion ?? '0')) {
         await honorUpdate();
-    }    
+    } 
+    
+    //Migrate if current system is less that Version 13.1.58
+    if (foundry.utils.isNewerVersion('13.1.58', currentVersion ?? '0')) {
+        await classIdealUpdate();
+    } 
 
    await game.settings.set("Pendragon", "systemMigrationVersion",targetVersion)
   return 
@@ -219,3 +224,76 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
     }
     console.log("Migration to 13.1.57 completed") 
   }
+
+  
+  export async function classIdealUpdate() {
+    console.log("Migration to 13.1.58 started") 
+    //Update World Items
+    for (let item of game.items) {
+      if(item.type === 'class') {
+        let newPassions = []
+        const coll = item.system.passions ?? [];
+        for (let passion of coll) {
+          if (passion.pid ==='i.passion.honour') {
+            passion.pid = 'i.passion.honor'
+          }
+          newPassions.push(passion)
+        }
+        await item.update({'system.passions': newPassions})
+      } else if (item.type === 'ideal') {
+        let newPassions = []
+        const coll = item.system.require ?? [];
+        for (let passion of coll) {
+          if (passion.pid ==='i.passion.honour') {
+            passion.pid = 'i.passion.honor'
+          }
+          newPassions.push(passion)
+        }
+        await item.update({'system.require': newPassions})
+      }
+    }   
+
+
+    //Migrate Compendium Packs 
+    for (const pack of game.packs) {
+      if (!_shouldMigrateCompendium(pack)) {continue}
+      // Unlock the pack for editing
+      const wasLocked = pack.locked;
+      await pack.configure({locked: false});
+      // Begin by requesting server-side data model migration and get the migrated content
+      const documents = await pack.getDocuments();    
+      for ( let doc of documents ) {
+        switch (pack.documentName) {
+          case "Actor":
+            break;  
+          case "Item":
+            if(doc.type === 'class') {
+              let newPassions = []
+              const coll = doc.system.passions ?? [];
+              for (let passion of coll) {
+                if (passion.pid ==='i.passion.honour') {
+                  passion.pid = 'i.passion.honor'
+                }
+                newPassions.push(passion)
+              }
+              await doc.update({'system.passions': newPassions})
+            } else if (doc.type === 'ideal') {
+              let newPassions = []
+              const coll = doc.system.require ?? [];
+              for (let passion of coll) {
+                if (passion.pid ==='i.passion.honour') {
+                  passion.pid = 'i.passion.honor'
+                }
+                newPassions.push(passion)
+              }
+              await doc.update({'system.require': newPassions})       
+            }     
+            break;
+          case "Scene":
+            break;      
+          }    
+        await pack.configure({locked: wasLocked}); 
+      }
+    }
+    console.log("Migration to 13.1.58 completed")     
+  } 
