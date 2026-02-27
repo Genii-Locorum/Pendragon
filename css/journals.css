@@ -312,9 +312,12 @@ div.pen-adventure-entry.sheet {
         }
 
     table {
+        display: block;
         margin-left:10px;
-        width: calc(100% - 20px);
+        overflow-x: auto;
         background-color: rgba(0,0,0,0);
+        border-bottom:none;
+        border-top:none;        
     }
 
     table td {
@@ -323,22 +326,26 @@ div.pen-adventure-entry.sheet {
         border-right: 1px solid white;
         &.merged {
         vertical-align: middle;
-        border-bottom: 1px solid black;
         }
     }
 
+    table tbody tr:nth-child(odd) {
+        background-color: var(--pss-table-row-colour-odd);
+    }
+
     table tbody tr:first-child {
-        background-color: rgb(50, 25, 0) !important;
+        background-color: rgb(50, 25, 0);
         color: cornsilk;
         text-transform: uppercase;
+        border-top: 1px solid black;
     }
 
     table tbody tr:nth-child(even) {
         background-color: var(--pss-table-row-colour-even);
     }
 
-    table tbody tr:nth-child(odd) {
-        background-color: var(--pss-table-row-colour-odd);
+    table tbody tr:last-child {
+        border-bottom: 1px solid black;
     }
 
     hr.dotted{

@@ -112,7 +112,7 @@ export class PENRollType {
     let skillId = event.currentTarget.dataset.itemid;
     let flatMod = 0;
     let passion = this.actor.items.get(skillId);
-    if (passion.flags.Pendragon.pidFlag.id === "i.passion.honour") {
+    if (passion.flags.Pendragon.pidFlag.id === "i.passion.honor") {
       flatMod = passion.system.dishonour;
     }
     if (event.altKey) {

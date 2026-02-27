@@ -652,7 +652,7 @@ export class PENWinter {
           }
         }
         //Reduce Honour by 2 point
-        let honour = this.actor.items.filter(itm => itm.type === 'passion').filter(itm => itm.flags.Pendragon.pidFlag.id === 'i.passion.honour').map(itm => { return { _id: itm.id, 'system.sol': itm.system.sol - 2 } })
+        let honour = this.actor.items.filter(itm => itm.type === 'passion').filter(itm => itm.flags.Pendragon.pidFlag.id === 'i.passion.honor').map(itm => { return { _id: itm.id, 'system.sol': itm.system.sol - 2 } })
         await Item.updateDocuments(honour, { parent: this.actor })
         //Reduce Clothing value
         clothing = await this.actor.items.filter(itm => itm.type === 'gear').filter(itm => itm.flags.Pendragon.pidFlag.id === 'i.gear.clothing')[0]

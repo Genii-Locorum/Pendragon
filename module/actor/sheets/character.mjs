@@ -162,7 +162,7 @@ export class PendragonCharacterSheet extends foundry.appv1.sheets.ActorSheet {
         i.system.label = (i.system.label).replace(/(<([^>]+)>)/gi, '')
         history.push(i);
       } else if (i.type === 'passion') {
-        if (i.flags.Pendragon?.pidFlag.id === 'i.passion.honour') {
+        if (i.flags.Pendragon?.pidFlag.id === 'i.passion.honor') {
           i.system.isHonour = true
         } else {
           i.system.isHonour = false

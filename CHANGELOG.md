@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 13.1.57
+- Updated "Honor" passion pidflag to i.passion.honor, with migration script to replace i.paasion.honour with i.passion.honor
+
 ## 13.1.56
 - NPCs making Mounted or Charge skills without a Horsemanship or Charge skill will use their base weapon attack rather than zero
 - Combat Roll chat message combatant name/action don't wrap over on to the weapon name

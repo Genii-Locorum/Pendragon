@@ -27,6 +27,12 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
         await migrateItems_13136();
     }
 
+
+    //Migrate if current system is less that Version 13.1.57
+    if (foundry.utils.isNewerVersion('13.1.57', currentVersion ?? '0')) {
+        await honorUpdate();
+    }    
+
    await game.settings.set("Pendragon", "systemMigrationVersion",targetVersion)
   return 
 }    
@@ -140,8 +146,76 @@ export async function migrateWorld({ bypassVersionCheck=false }={}) {
       // World compendiums should all be migrated, system ones should never by migrated
       if ( pack.metadata.packageType === "world" ) return true;
       if ( pack.metadata.packageType === "system" ) return false;
+      
 
       // Module compendiums should only be migrated if they don't have a download or manifest URL
       const module = game.modules.get(pack.metadata.packageName);
       return !module.download && !module.manifest;
     }
+
+  export async function honorUpdate() {
+   console.log("Migration to 13.1.57 started") 
+   //Update World Items
+    for (let item of game.items) {
+      if (item.type != 'passion') { continue }
+      if (item.flags.Pendragon?.pidFlag?.id === 'i.passion.honour') {
+        await item.update({ 'flags.Pendragon.pidFlag.id': 'i.passion.honor' })
+      } 
+    }
+
+    //Update Items in World Actors
+    for (let actor of game.actors) {
+      for (let item of actor.items) {
+        if (item.type != 'passion') { continue }
+        if (item.flags.Pendragon?.pidFlag?.id === 'i.passion.honour') {
+          await item.update({ 'flags.Pendragon.pidFlag.id': 'i.passion.honor' })
+        } 
+      }
+    }
+
+    // Update Items in  Scenes [Token] Actors
+    for (const scene of game.scenes) {
+      for (const token of scene.tokens) {
+        if (token.actorLink) { continue }
+        for (let item of token.delta.items) {
+          if (item.type != 'passion') { continue }
+          if (item.flags.Pendragon?.pidFlag?.id === 'i.passion.honour') {
+            await item.update({ 'flags.Pendragon.pidFlag.id': 'i.passion.honor' })
+          } 
+        }
+      }
+      return
+    }
+
+    //Migrate Compendium Packs 
+    for (const pack of game.packs) {
+      if (!_shouldMigrateCompendium(pack)) {continue}
+      // Unlock the pack for editing
+      const wasLocked = pack.locked;
+      await pack.configure({locked: false});
+      // Begin by requesting server-side data model migration and get the migrated content
+      const documents = await pack.getDocuments();    
+      for ( let doc of documents ) {
+        switch (pack.documentName) {
+          case "Actor":
+            for (let item of doc.items) {
+              if (item.type != 'passion') { continue }
+              if (item.flags.Pendragon?.pidFlag?.id === 'i.passion.honour') {
+                await item.update({ 'flags.Pendragon.pidFlag.id': 'i.passion.honor' })
+              } 
+            }
+          case "Item":
+            if (doc.type === 'passion') {
+              if (doc.flags.Pendragon?.pidFlag?.id === 'i.passion.honour') {
+                await doc.update({ 'flags.Pendragon.pidFlag.id': 'i.passion.honor' })
+              }            
+            }           
+            break;
+          case "Scene":
+            break;    
+        }  
+      }    
+      await pack.configure({locked: wasLocked}); 
+    }
+    console.log("Migration to 13.1.57 completed") 
+  }
