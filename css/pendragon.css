@@ -1811,14 +1811,14 @@
     }
     .action-tabs {
       display: grid;
-      grid-template-columns: repeat(3, minmax(150px, 1fr));
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
       grid-template-rows: auto 1fr;
       & details {
         display: grid;
         grid-template-columns: subgrid;
         grid-template-rows: subgrid;
         grid-column: 1 / -1;
-        grid-row: 1 / span 3;
+        grid-row: 1 / span 4;
         border: none;
         border-radius: 0;
       }
@@ -1863,6 +1863,10 @@
       /* Third item in third column */
       details:nth-of-type(3) summary {
         grid-column: 3 / span 1;
+      }
+      /* Third item in third column */
+      details:nth-of-type(4) summary {
+        grid-column: 4 / span 1;
       }
     }
   }
@@ -1953,10 +1957,18 @@
       font-size: 1rem;
       break-inside: avoid;
       display: grid;
-      grid-template-columns: 2em 1fr min-content;
+      grid-template-columns: 2em 1fr 1em min-content;
       gap: 0em 0.5em;
       align-items: center;
       padding: 0.25em 0.5em 0.25em 0;
+      button.inline-control {
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+      &:focus button.inline-control,
+      &:hover button.inline-control {
+        opacity: 1;
+      }
     }
     & li:nth-child(even) {
       background-color: var(--pd-light-row);
@@ -1994,7 +2006,7 @@
       display: grid;
       list-style: none;
       padding: 0;
-      grid-template-columns: 2em 1fr min-content;
+      grid-template-columns: 2em 1fr 1em min-content;
       gap: 0em 0.5em;
       margin: 0 0 1em;
       li {
@@ -2002,6 +2014,14 @@
         grid-column: 1/-1;
         grid-template-columns: subgrid;
         padding: 0.5em 0.5em 0.5em 0;
+        button.inline-control {
+          opacity: 0;
+          transition: opacity 0.5s;
+        }
+        &:focus button.inline-control,
+        &:hover button.inline-control {
+          opacity: 1;
+        }
       }
       li:nth-child(even) {
         background-color: var(--pd-light-row);
@@ -2121,6 +2141,10 @@
     & .right {
       text-align: right;
       justify-self: end;
+    }
+    &.effects li {
+      grid-template-columns: 1fr 1em 1em;
+      padding-inline-start: 0.5em;
     }
   }
   & section.wound-tracker {

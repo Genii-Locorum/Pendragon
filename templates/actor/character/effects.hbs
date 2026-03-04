@@ -12,9 +12,13 @@
     {{/each}}
     </ul>
     <h2>Active Effects <button class="inline-control icon fa-regular fa-square-plus" data-action="addEffect"></button></h2>
-    <ul>
+    <ul class="conditions effects">
     {{#each effects}}
-        <li>{{ name }} {{source}}</li>
+      <li data-effect-id="{{ id }}">
+        <span>{{ name }} {{ source }}</span>
+        <button class="inline-control icon fa-regular fa-pen-to-square" data-action="editEffect"></button>
+        <button class="inline-control icon fa-regular fa-trash" data-action="removeEffect"></button>
+      </li>
     {{/each}}
     </ul>
 </section>

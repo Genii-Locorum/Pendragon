@@ -16,6 +16,7 @@
             {{/each}}
           </div>
         </div>
+        <button class="inline-control icon fa-regular fa-pen-to-square" data-action="editItem"></button>
         <span class="right">{{#if (gt skill.system.total 20)}}20(+{{skill.critical}}){{else}}{{skill.system.total}}{{/if}}</span>
       </li>
       {{/unless}}
@@ -37,6 +38,7 @@
             {{/each}}
           </div>
         </div>
+        <button class="inline-control icon fa-regular fa-pen-to-square" data-action="editItem"></button>
         <span class="right">{{#if (gt skill.system.total 20)}}20(+{{skill.critical}}){{else}}{{skill.system.total}}{{/if}}</span>
       </li>
       {{/if}}

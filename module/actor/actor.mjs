@@ -308,8 +308,8 @@ export class PendragonActor extends Actor {
       let pid = actorData.flags?.Pendragon?.pidFlag?.id
       if (pid) {
         let position = pid.search("spriggan")
-        if (position > -1){
-          actorData.system.stats.siz.total = actorData.system.stats.siz.total - actorData.system.woundTotal  
+        if (position > -1) {
+          actorData.system.stats.siz.total = actorData.system.stats.siz.total - actorData.system.woundTotal
         }
       }
     }
@@ -325,7 +325,7 @@ export class PendragonActor extends Actor {
       } else {
         systemData.hp.max = systemData.stats.siz.total + systemData.stats.con.total + systemData.hp.adj;
       }
-      if (systemData.manKnockdown !=0) {
+      if (systemData.manKnockdown != 0) {
         systemData.hp.knockdown = systemData.manKnockdown;
       } else {
         systemData.hp.knockdown = systemData.stats.siz.total;
@@ -336,6 +336,7 @@ export class PendragonActor extends Actor {
         systemData.hp.unconscious = Math.round(systemData.hp.max / 4);
       }
     } else {
+      systemData.hp.knockdown = systemData.stats.siz.total;
       systemData.hp.max = systemData.stats.siz.total + systemData.stats.con.total + systemData.hp.adj;
       systemData.hp.unconscious = Math.round(systemData.hp.max / 4);
     }

@@ -26,12 +26,14 @@
           <li class="{{#if (gt passion.system.total 15)}}famous{{/if}} {{#if (gt passion.system.total 20)}}exalted{{/if}}" data-itemid="{{passion._id}}">
             <a class="item-control large-icon" data-action="toggleXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if passion.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
             <span data-itemid="{{passion._id}}" data-action="rollPassion" data-dishonour="{{passion.system.dishonour}}">{{passion.name}}</span>
+            <button class="inline-control icon fa-regular fa-pen-to-square" data-action="editItem"></button>
             <span class="right">{{#if (gt passion.system.total 20)}}20(+{{passion.critical}}){{else}}{{passion.system.total}}{{/if}}</span>
           </li>
           {{#if (ne passion.system.dishonour 0)}}
             <li data-tooltip="{{localize 'PEN.dishonourTitle'}}">
               <a class="large-icon"><i class="fa-regular fa-award"></i></a>
               <span>{{localize 'PEN.dishonour'}}</span>
+              <span>&nbsp;</span>
               <span class="right">{{passion.system.dishonour}}</span>
             </li>
           {{/if}}
@@ -49,6 +51,7 @@
         <li data-itemid="{{passion._id}}" class="{{#if (gt passion.system.total 15)}}famous{{/if}} {{#if (gt passion.system.total 20)}}exalted{{/if}}">
           <a class="item-control large-icon" data-action="toggleXP" title="{{localize 'PEN.dblClickToggle'}}"><i class="{{#if passion.system.XP}}fa-regular fa-square-check{{else}}fa-regular fa-square{{/if}}"></i></a>
           <span data-itemid="{{passion._id}}" data-action="rollPassion">{{passion.name}}</span>
+          <button class="inline-control icon fa-regular fa-pen-to-square" data-action="editItem"></button>
           <span class="right">{{#if (gt passion.system.total 20)}}20(+{{passion.critical}}){{else}}{{passion.system.total}}{{/if}}</span>
         </li>
       {{/if}}

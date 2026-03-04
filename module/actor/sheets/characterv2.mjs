@@ -40,7 +40,10 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
       toggleXP: this._onToggleXP,
       toggleOpposingXP: this._onToggleOpposingXP,
       addEffect: this.#onCreateActiveEffect,
+      editEffect: this.#onEditActiveEffect,
+      removeEffect: this.#onDeleteActiveEffect,
       addItem: this.#onCreateItem,
+      editItem: this.#onEditItem,
       toggleEquip: this._onToggleEquip,
       switchHorse: this._onSwitchHorse,
       switchWeapon: this._onSwitchWeapon,
@@ -390,9 +393,13 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
   async _prepareEffects(context) {
     context.tab = context.tabs.effects;
     const effectList = await this.actor.allApplicableEffects();
+    const conditionIds = CONFIG.statusEffects.map(c => c.id);
     const effects = [];
-    for (const e of effectList) effects.push(e);
-    context.effects = effects;
+    for (const e of effectList) {
+      if (!conditionIds.includes(e.id))
+        effects.push(e);
+    }
+    context.effects = effectList.filter(e => !conditionIds.includes(e.id));
     context.conditions = CONFIG.statusEffects.map(c => {
       // check to see if the status effect has been applied to the actor
       const hasCondition = this.actor.statuses.has(c.id);
@@ -595,9 +602,24 @@ export class PendragonCharacterSheetv2 extends PendragonActorSheet {
     const cls = foundry.utils.getDocumentClass("ActiveEffect");
     cls.createDialog({}, { parent: this.document });
   }
+  static async #onEditActiveEffect(event, target) {
+    const { effectId } = target.closest("[data-effect-id]")?.dataset ?? {};
+    const effect = this.actor.effects.get(effectId);
+    effect.sheet.render(true);
+  }
+  static #onDeleteActiveEffect(event, target) {
+    const { effectId } = target.closest("[data-effect-id]")?.dataset ?? {};
+    const effect = this.actor.effects.get(effectId);
+    effect.delete();
+  }
   static #onCreateItem(event, target) {
     const { itemType } = target.closest("[data-item-type]")?.dataset ?? {};
     Item.implementation.createDialog({ type: itemType }, { parent: this.document });
+  }
+  static async #onEditItem(event, target) {
+    const { itemid } = target.closest("[data-itemid]")?.dataset ?? {};
+    const item = this.actor.items.get(itemid);
+    item.sheet.render(true);
   }
   static async _onSwitchHorse(event, target) {
     const horses = this.actor.items.filter(itm => itm.type === 'horse');
