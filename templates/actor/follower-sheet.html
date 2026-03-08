@@ -1,19 +1,19 @@
 <form class="{{cssClass}} character" autocomplete="off">
 
-  <section class="main-sheet">
+  <section class="">
 
-    <section class="npc-title-section">
+    <section class="follower-title-section">
       {{!-- Characteristics Header --}}
       <section class="sheet-header">
         <div class="follower-grid">  
-          <div class="npcname-input"><input style="color: #005b00 !important;" name="name" type="text" value="{{actor.name}}" placeholder="Name"/></div>
+          <div class="followername-input"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></div>
           <div class="follower-type right">
             <select data-handle-change name="system.subtype">
               {{selectOptions followerType selected=actor.system.subtype}}
             </select>
           </div>
         </div>
-        <div class="npc-grid">
+        <div class="follower-stats-grid">
           {{#each system.stats as |stat key|}}
             <div class="npc-name centre bold rollable stat" data-stat="{{key}}">{{stat.labelShort}}</div>
           {{/each}}             
@@ -27,21 +27,21 @@
           {{/each}}
         </div>
       </section>
-
+  
       {{!-- Image Section --}}
       <section class="sheet-header">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="70" width="70"/>
       </section>  
 
-      {{!-- Icone Section --}}      
+      {{!-- Icons Section --}}      
       <section class="bottom sheet-header">      
-        <div class="centre middle-icon"><a class="close-sheet" title="{{ localize 'PEN.close' }}"> <i class="fas fa-circle-xmark"></i></a></div>
+        <div class="right middle-icon"><a class="close-sheet" title="{{ localize 'PEN.close' }}"> <i class="fas fa-circle-xmark"></i></a></div>
         {{#if system.lock}}
           <div><a class=""><i class="fas"></i></a></div>
         {{else}}  
-          <div class="centre middle-icon"><a class="npcAutoCalc" title="{{ localize 'PEN.calcNPC' }}"> <i class="fas fa-dice"></i></a></div>
+          <div class="right middle-icon"><a class="npcAutoCalc" title="{{ localize 'PEN.calcNPC' }}"> <i class="fas fa-dice"></i></a></div>
         {{/if}}
-        <div class="centre middle-icon"><a class="actor-toggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i class="{{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i></a></div>
+        <div class="right middle-icon"><a class="actor-toggle" title="{{ localize 'PEN.lock' }}" data-property="lock"> <i class="{{#if system.lock}}fas fa-lock{{else}}fas fa-lock-open{{/if}}"></i></a></div>
       </section>
 
     </section>
@@ -383,12 +383,13 @@
       {{/isAnd}}  
 
       {{!--Notes Block --}}
-      <section class="npc-notes-grid">
+      <section class="follower-notes-grid">
         <div class="npc-name bold grey">{{ localize "PEN.notes" }}</div>  
         <div>
-          {{editor enrichedDescriptionValue engine="prosemirror" class="npc-notes-doc" target="system.description" button=true owner=owner editable=editable}}
+          {{editor enrichedDescriptionValue engine="prosemirror" class="follower-notes-doc" target="system.description" button=true owner=owner editable=editable}}
         </div>
       </section>
     {{/if}}
   </section>
+  <br>
 </form>

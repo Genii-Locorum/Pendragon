@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 13.1.59
+- Knockdown stat is back on the character sheet
+- Follower sheets now have the portrait in the correct place allowing you access to stats again
+
 ## 13.1.58
 - Migration script added for Classes/Ideals in world
 

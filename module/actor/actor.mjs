@@ -338,6 +338,7 @@ export class PendragonActor extends Actor {
     } else {
       systemData.hp.max = systemData.stats.siz.total + systemData.stats.con.total + systemData.hp.adj;
       systemData.hp.unconscious = Math.round(systemData.hp.max / 4);
+      systemData.hp.knockdown = systemData.stats.siz.total;      
     }
 
 
@@ -555,7 +556,6 @@ export class PendragonActor extends Actor {
 
       //Get list of passions and add to actor
       let passionList = await game.system.api.pid.fromPIDRegexBest({ pidRegExp: /^i.passion\./, type: 'i' })
-      co
       for (let itm of passionList) {
         let existing = actor.items.filter(citm => citm.flags?.Pendragon?.pidFlag?.id === itm.flags?.Pendragon?.pidFlag?.id)
         if (existing.length < 1) { newItems.push(itm) }

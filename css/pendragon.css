@@ -866,7 +866,16 @@ body.theme-dark .application.Pendragon.sheet,
   padding: 1px 0px 0px 0px;
   color: black;
   height: 21px;
+}
 
+.Pendragon .follower-title-section {
+  display: grid;
+  grid-template-columns: 295px 70px 25px;
+  column-gap: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 75px;
+  max-height: 75px;
 }
 
 .Pendragon .follower-type {
@@ -891,6 +900,18 @@ body.theme-dark .application.Pendragon.sheet,
   background: none;
 }
 
+.Pendragon .followername-input input {
+  font-family: "Herb";
+  font-size: 16px;
+  height: fit-content;
+  color: #005b00;
+  border: 0px;
+  border-radius: 0px;
+  background: none;
+  padding-top:4px;
+}
+
+
 .Pendragon .npc-name-input input {
   font-family: "AGaramondPro";
   font-size: 16px;
@@ -908,6 +929,14 @@ body.theme-dark .application.Pendragon.sheet,
   display: grid;
   grid-template-columns: repeat(5, 38px);
   gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.Pendragon .follower-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 55px);
+  column-gap: 5px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
@@ -975,12 +1004,32 @@ body.theme-dark .application.Pendragon.sheet,
   margin-bottom: 0px;
 }
 
+.Pendragon .follower-notes-grid {
+  display: grid;
+  width: 402px;
+  grid-template-columns: 402px;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .Pendragon .npc-notes-doc {
   background-image: none;
   padding-left: 10px;
   padding-right: 10px;
   height: 200px;
   width: 360px;
+  border: 1px gray solid;
+  font-family: AGaramondPro;
+  font-size: 16px !important;
+}
+
+.Pendragon .follower-notes-doc {
+  background-image: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 200px;
+  width: 402px;
   border: 1px gray solid;
   font-family: AGaramondPro;
   font-size: 16px !important;
@@ -1382,7 +1431,8 @@ body.theme-dark .application.Pendragon.sheet,
   row-gap: 0px;
   column-gap: 0px;
   font-size: 14px;
-  grid-template-columns: 160px 90px;
+  grid-template-columns: 192px 90px;
+  grid-template-rows: 32px;
 }
 
 .Pendragon .follower-details-grid {

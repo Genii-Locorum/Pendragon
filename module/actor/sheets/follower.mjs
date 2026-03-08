@@ -20,7 +20,7 @@ export class PendragonFollowerSheet extends foundry.appv1.sheets.ActorSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["Pendragon", "sheet", "actor","follower"],
       template: "systems/Pendragon/templates/actor/follower-sheet.html",
-      width: 380,
+      width: 425,
       height: 730,
       scrollY: ['.bottom-panel'],
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "combat" }]
