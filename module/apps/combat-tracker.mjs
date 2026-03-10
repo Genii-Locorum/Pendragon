@@ -34,7 +34,7 @@ export class PendragonCombatTracker extends (foundry.applications?.sidebar?.tabs
       for (const row of combatantRows) {
         const combatantId = row.dataset.combatantId ?? "";
         const combatant = this.viewed.combatants.get(combatantId, { strict: true });
-        const init = row.querySelector(".token-initiative span");
+        const init = row.querySelector(".token-initiative");
         if (init) {
           init.innerText = combatant.actor.system.glory.toLocaleString();
           this.#addGenialityVal(row.querySelector(".token-initiative"), combatant);
