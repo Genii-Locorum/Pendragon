@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 13.1.60
+- New characters will by default be unlocked when created so you should see the Skills, Passions and Traits if you have either the Core Module, Base Module or have created your own skills etc.
+- Combat Tracker for Feasts now show Glory and Geniality once again
+
 ## 13.1.59
 - Knockdown stat is back on the character sheet
 - Follower sheets now have the portrait in the correct place allowing you access to stats again

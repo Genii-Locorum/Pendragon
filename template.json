@@ -99,7 +99,7 @@
       "coatOfArms" : "systems/Pendragon/assets/Icons/checked-shield.svg",
       "impoverished": 0,
       "motto": "",
-      "lock": true,
+      "lock": false,
       "battlePos": "0",
       "fieldPos": "0",
       "money": {
